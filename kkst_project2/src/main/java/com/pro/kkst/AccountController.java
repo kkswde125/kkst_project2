@@ -41,10 +41,24 @@ public class AccountController {
 	
 	ac_MailUtils utils=new ac_MailUtils();
 	Us_Utils u_utils = new Us_Utils();
+
 	
-	@RequestMapping(value = "/ac_loginhome.do")
+	//로그인 분기
+	@RequestMapping(value = "/ac_beforeLogin.do")
 	public String loginhome(Locale locale, Model model) {
+		return "ac_beforeLogin";
+	}
+	
+	//유저 로그인
+	@RequestMapping(value = "/us_loginhome.do")
+	public String us_loginhome(Locale locale, Model model) {
 		return "ac_login";
+	}
+	
+	//점주 로그인
+	@RequestMapping(value = "/ow_loginhome.do")
+	public String ow_loginhome(Locale locale, Model model) {
+		return "ac_ownerlogin";
 	}
 	
 	//로그인 
@@ -77,12 +91,28 @@ public class AccountController {
 		return "redirect:ac_login.do";
 	}
 	
-	//회원가입 페이지
+	
+	//회원가입 분기
+	
+	@RequestMapping(value = "/ac_beforeRegist.do")
+	public String beforeRegist() {
+		return "ac_beforeRegist";
+	}
+	
+	//회원가입 페이지 유저
 	@RequestMapping(value = "/ac_registPage.do")
 	public String registPage() {
 		logger.info("ac_registPage");
 		return "ac_regist";
 	}
+	
+	//회원가입 페이지
+	@RequestMapping(value = "/ac_ownerRegistPage.do")
+	public String ownerRegistPage() {
+		logger.info("ac_registPage");
+		return "ac_ownerRegist";
+	}
+	
 	
 	//회원가입 페이지
 	@RequestMapping(value = "/ac_regist_after.do")

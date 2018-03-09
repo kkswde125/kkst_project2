@@ -55,7 +55,7 @@ text-align: center;
 </head>
 <body>
 <div id="wrap">
-<h1>유저 회원가입</h1>
+<h1>점주 회원가입</h1>
 <form action="ac_regist_after.do" method="post">
 <table border="1" class="table table-striped">
 	<tr>

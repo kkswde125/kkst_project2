@@ -49,7 +49,7 @@
 <div>
 <form action="ac_login_after.do" method="post" onsubmit="return chk()">
 <fieldset>
-<h1>유저 로그인</h1>
+<h1>점주 로그인</h1>
 <legend>LOGIN</legend>
 <label>ID:<input class="form-control" type="text" name="id" required="required" id="idz" /></label>
 <label>PW:<input class="form-control" type="password" name="pw" required="required" id="pwz"/></label>

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<a href="ac_loginhome.do">로그인 test</a>
+	<a href="ac_beforeLogin.do">로그인 test</a>
 
 </body>
 </html>
