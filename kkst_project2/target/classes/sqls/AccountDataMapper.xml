@@ -37,7 +37,9 @@
 	</select>
 	
 	
-	
+	<select id="onwerLogin" parameterType="Map" resultType="AoDto">
+		SELECT SEQ,ID,PW,NAME,RES_SEQ,PHONE,RES_CALL,GRADE FROM ADMIN_OWNER WHERE ID=#{id} AND PW=#{pw}
+	</select>
 	
 	
 </mapper>

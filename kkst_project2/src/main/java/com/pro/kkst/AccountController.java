@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountService;
 import com.pro.kkst.utils.Us_Utils;
@@ -62,6 +63,32 @@ public class AccountController {
 	}
 	
 	//점주 로그인_after
+	@RequestMapping(value = "/ac_onwerLogin_after.do")
+	public String onwerlogin_after(HttpSession session, String id, String pw) {
+		logger.info("ac_onwerlogin_after");
+		Map<String, String>map = new HashMap<String,String>();
+		map.put("id", id);
+		map.put("pw", pw);
+		Admin_OnwerDto AoDto= accountServ.getOnwerLogin(map);
+		if(AoDto!=null){ //회원 정보가 존재한다면 -> 회원이 확인되면 
+			session.setAttribute("AoDto", AoDto);
+			session.setMaxInactiveInterval(60*600); 
+			
+			if(AoDto.getGrade().equals("A")) {
+				return "redirect:ad_admin.do";
+			}else {
+				return "redirect:ow_owner.do";
+			}
+		}else {
+			return "redirect:ow_loginhome.do";
+			
+		}
+	}
+	
+	@RequestMapping(value = "/ad_admin.do")
+	public String ownerlogin() {
+		return "ad_admin";
+	}
 	
 	
 	
@@ -115,13 +142,39 @@ public class AccountController {
 	//회원가입 페이지 점주
 	@RequestMapping(value = "/ac_ownerRegistPage.do")
 	public String ownerRegistPage() {
-		logger.info("ac_registPage");
 		return "ac_ownerRegist";
 	}
 	
 	
-	
 	//회원가입 점주
+	@RequestMapping(value = "/ac_onwerRegist_after.do")
+	public String onwerRegist_after(Model model, String id, String pw, String name, String nickName, String sex, String birth, String email) {
+		logger.info("ac_regist_after");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date=null;
+		try {
+			date = sdf.parse(birth);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		boolean isS=accountServ.regist(new LoginDto(id, pw, name, nickName, sex, date, email));
+		
+		
+		if (isS) {
+			isS=accountServ.regist_taste00(id);
+			if (isS) {
+				logger.info("ac_regist_after: 성공");
+				return "redirect:ac_login.do";
+			}else {
+				logger.info("ac_regist_after: 회원가입은 성공했지만 taste00 insert는 실패");
+				return "redirect:ac_login.do";
+			}
+		}else {
+			logger.info("regist자체 실패");
+			return "redirect:ac_registPage.do";
+		}
+	}
+	
 	
 	//회원가입 유저
 	@RequestMapping(value = "/ac_regist_after.do")

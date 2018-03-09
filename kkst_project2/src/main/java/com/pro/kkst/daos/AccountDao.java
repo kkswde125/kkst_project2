@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountDao;
 
@@ -53,6 +54,10 @@ public class AccountDao implements I_AccountDao {
 	@Override
 	public int insertRegist_taste(Map<String, String> map) {
 		return sqlSessoin.insert(namespace+"regist_taste", map);
+	}
+	@Override
+	public Admin_OnwerDto getOnwerLogin(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"onwerLogin",map);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.pro.kkst.imp;
 import java.util.List;
 import java.util.Map;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 
 public interface I_AccountDao {
@@ -15,4 +16,5 @@ public interface I_AccountDao {
 	public int selectSearchSeq(Map<String,String> map);
 	public int selectGetAttrCount();
 	public int insertRegist_taste(Map<String,String> map);
+	public Admin_OnwerDto getOnwerLogin(Map<String, String> map);
 }

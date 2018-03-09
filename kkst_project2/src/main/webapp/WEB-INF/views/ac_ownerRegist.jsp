@@ -56,7 +56,7 @@ text-align: center;
 <body>
 <div id="wrap">
 <h1>점주 회원가입</h1>
-<form action="ac_regist_after.do" method="post">
+<form action="ac_onwerRegist_after.do" method="post">
 <table border="1" class="table table-striped">
 	<tr>
 		<th>아이디</th>
@@ -82,26 +82,10 @@ text-align: center;
 		<td><input class="form-control" type="text" name="name" required="required"/></td>
 	</tr>
 	<tr>
-		<th>별명</th>
-		<td><input class="form-control" type="text" name="nickName" required="required"/></td>
+		<th>휴대폰 번호</th>
+		<td><input class="form-control" type="text" name="phone" required="required"/></td>
 	</tr>
-	<tr>
-		<th>성별</th>
-		<td>
-			<select name="sex" class="form-control">
-				<option value="F">여</option>
-				<option value="M">남</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<th>생년월일</th>
-		<td><input class="form-control" type="date" name="birth" required="required"/></td>
-	</tr>
-	<tr>
-		<th>이메일</th>
-		<td><input class="form-control" type="email" name="email" required="required"/></td>
-	</tr>
+
 	<tr>
 		<td colspan="2">
 			<input class="btn btn-default" type="submit" value="확인" />

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
@@ -65,6 +66,11 @@ public class AccountService implements I_AccountService {
 			count=accountDao.insertRegist_taste(map);
 		}
 		return count>0?true:false;
+	}
+
+	@Override
+	public Admin_OnwerDto getOnwerLogin(Map<String, String> map) {
+		return accountDao.getOnwerLogin(map);
 	}
 
 }

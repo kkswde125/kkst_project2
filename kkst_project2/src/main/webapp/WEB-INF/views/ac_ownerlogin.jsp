@@ -47,7 +47,7 @@
 </head>
 <body>
 <div>
-<form action="ac_login_after.do" method="post" onsubmit="return chk()">
+<form action="ac_onwerLogin_after.do" method="post" onsubmit="return chk()">
 <fieldset>
 <h1>점주 로그인</h1>
 <legend>LOGIN</legend>
