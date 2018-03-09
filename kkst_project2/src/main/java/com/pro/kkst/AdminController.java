@@ -1,6 +1,7 @@
 package com.pro.kkst;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -64,7 +65,22 @@ public class AdminController {
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
 	public String reviewReport(Locale locale, Model model) {
 		
-		
+		List<ReviewDto> lists = adminServ.reviewAll();
+		List<ReviewDto> reportList = new ArrayList<>();
+		for (int i = 0; i < lists.size(); i++) {
+			
+			System.out.println(lists.get(i).getSeq());
+			
+			ReviewDto dto = adminServ.reviewReport(lists.get(i).getSeq());
+			
+			System.out.println(dto);
+			
+			if (dto!=null) {
+				reportList.add(dto);
+			}
+		}
+		System.out.println(reportList.toString());
+		model.addAttribute("reportList", reportList);
 		return "ad_reviewReport";
 	}
 	

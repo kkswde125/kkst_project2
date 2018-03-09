@@ -50,7 +50,6 @@
 			</c:forEach>
 		</tr>
 	</thead>
-	
 </table>
 </div>
 </body>

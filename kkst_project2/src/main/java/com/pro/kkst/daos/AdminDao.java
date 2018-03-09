@@ -41,15 +41,17 @@ public class AdminDao implements I_AdminDao {
 		return count > 0 ? true : false;
 	}
 	@Override
-	public List<ReviewDto> reviewReport(int seq) {
-		
-		String report = sqlSession.selectOne(namespace+"reviewReport");
+	public ReviewDto reviewReport(int seq) {
+		ReviewDto dto = sqlSession.selectOne(namespace+"reviewReport", seq);
+		String report = dto.getReport();
 		String[] reportArray = report.split(",");
 		int count = reportArray.length;
-		
-		System.out.println(count);
-		
-		return sqlSession.selectList(namespace+"reviewReport");
+		if(count > 5) {
+			return dto;
+		}else {
+			return null;
+		}
+
 	}
 	
 

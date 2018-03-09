@@ -11,7 +11,7 @@ public interface I_AdminDao {
 	
 	public List<LoginDto> memberList();
 	public List<ReviewDto> reviewAll();
-	public List<ReviewDto> reviewReport(int seq);
+	public ReviewDto reviewReport(int seq);
 	public List<ResDto> restList();
 	public boolean memberDel(String[] seq);
 	

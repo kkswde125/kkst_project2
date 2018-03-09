@@ -38,9 +38,8 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ReviewDto> reviewReport(int seq) {
-		// TODO Auto-generated method stub
-		return null;
+	public ReviewDto reviewReport(int seq) {
+		return adminDao.reviewReport(seq);
 	}
 	
 	
