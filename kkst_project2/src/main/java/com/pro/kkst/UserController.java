@@ -161,9 +161,9 @@ public class UserController {
 		return "us_usermain";
 	}
 	
-	@RequestMapping(value = "us_regist_taste.do")
+	@RequestMapping(value = "us_regist_taste_watcha.do")
 	public String us_Regist_Taste(Model model, HttpServletRequest request) {
-		logger.info("us_regist_taste");
+		logger.info("us_regist_taste_watcha");
 		List<WatchaDto> list = userServ.watchaBox();
 		model.addAttribute("list", list);
 		return "us_regist_taste";

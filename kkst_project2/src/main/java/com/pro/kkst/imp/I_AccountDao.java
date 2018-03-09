@@ -10,4 +10,9 @@ public interface I_AccountDao {
 	public List<LoginDto> userList();
 	public List<LoginDto> id_return(Map<String, String> map);
 	public List<LoginDto> pw_return(Map<String, String> map);
+	public LoginDto selectLogin(Map<String, String> map);
+	public int insertRegist(LoginDto dto);
+	public int selectSearchSeq(Map<String,String> map);
+	public int selectGetAttrCount();
+	public int insertRegist_taste(Map<String,String> map);
 }

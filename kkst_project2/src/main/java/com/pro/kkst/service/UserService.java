@@ -131,24 +131,6 @@ public class UserService implements I_UserService {
 		return list;
 	}
 
-	@Transactional
-	@Override
-	public boolean regist_taste(String id) {
-		int count=0;
-		int attrCount=0;
-		int seq=0;
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		seq=userDao.selectSearchSeq(map);
-		map.put("user_seq", seq+"");
-		attrCount=userDao.selectGetAttrCount();
-		for (int i = 0; i < attrCount; i++) {
-			map.put("index", i+1+"");
-			count=userDao.insertRegist_taste(map);
-		}
-		return count>0?true:false;
-	}
-
 	@Override
 	public List<TasteDto> getMyTaste(int user_seq) {
 		List<TasteDto> list=new ArrayList<>();

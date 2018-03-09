@@ -31,5 +31,28 @@ public class AccountDao implements I_AccountDao {
 		List<LoginDto>lists=sqlSessoin.selectList(namespace+"pw_Retrun",map);
 		return lists;
 	}
+	@Override
+	public LoginDto selectLogin(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"login", map);
+	}
+	@Override
+	public int insertRegist(LoginDto dto) {
+		return sqlSessoin.insert(namespace+"regist", dto);
+	}
+	
+	@Override
+	public int selectSearchSeq(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"searchSeq", map);
+	}
+
+	@Override
+	public int selectGetAttrCount() {
+		return sqlSessoin.selectOne(namespace+"getAttrCount");
+	}
+
+	@Override
+	public int insertRegist_taste(Map<String, String> map) {
+		return sqlSessoin.insert(namespace+"regist_taste", map);
+	}
 
 }

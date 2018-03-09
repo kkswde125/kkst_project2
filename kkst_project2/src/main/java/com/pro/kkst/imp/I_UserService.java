@@ -19,7 +19,7 @@ public interface I_UserService {
 	public boolean setStars(int stars, int user_seq, String codes);
 	public boolean hasZero(int user_seq);
 	public List<WatchaDto> watchaMoreBox(int user_seq);
-	public boolean regist_taste(String id);
+	
 	public List<TasteDto> getMyTaste(int user_seq);
 	public List<MenuzDto> recommendMenuList(int user_seq);
 	public boolean hasTaste(int user_seq);

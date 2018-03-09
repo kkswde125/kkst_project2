@@ -76,21 +76,6 @@ public class UserDao implements I_UserDao {
 	}
 
 	@Override
-	public int selectSearchSeq(Map<String, String> map) {
-		return sqlSessoin.selectOne(namespace+"searchSeq", map);
-	}
-
-	@Override
-	public int selectGetAttrCount() {
-		return sqlSessoin.selectOne(namespace+"getAttrCount");
-	}
-
-	@Override
-	public int insertRegist_taste(Map<String, String> map) {
-		return sqlSessoin.insert(namespace+"regist_taste", map);
-	}
-
-	@Override
 	public List<TasteDto> selectGetMyTaste(Map<String, String> map) {
 		return sqlSessoin.selectList(namespace+"getMyTaste", map);
 	}

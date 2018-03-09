@@ -1,11 +1,15 @@
 package com.pro.kkst;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +41,59 @@ public class AccountController {
 	
 	//로그인 
 	@RequestMapping(value = "/ac_login.do")
-	public String login(Locale locale, Model model) {
+	public String login() {
+		logger.info("ac_login");
 		return "ac_login";
+	}
+	
+	//로그인_after 
+	@RequestMapping(value = "/ac_login_after.do")
+	public String login_after(HttpSession session, String id, String pw) {
+		logger.info("ac_login_after");
+		LoginDto ldto= accountServ.getLogin(id, pw);
+		if(ldto!=null){ //회원 정보가 존재한다면 -> 회원이 확인되면 
+			session.setAttribute("ldto", ldto);
+			session.setMaxInactiveInterval(60*600); 
+			return "redirect:us_usermain.do";
+		}else {
+			return "redirect:ac_login.do";
+		}
 	}
 	
 	//회원가입 페이지
 	@RequestMapping(value = "/ac_registPage.do")
-	public String registPage(Locale locale, Model model) {
+	public String registPage() {
+		logger.info("ac_registPage");
 		return "ac_regist";
+	}
+	
+	//회원가입 페이지
+	@RequestMapping(value = "/ac_regist_after.do")
+	public String regist_after(Model model, String id, String pw, String name, String nickName, String sex, String birth, String email) {
+		logger.info("ac_regist_after");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date=null;
+		try {
+			date = sdf.parse(birth);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		boolean isS=accountServ.regist(new LoginDto(id, pw, name, nickName, sex, date, email));
+		
+		
+		if (isS) {
+			isS=accountServ.regist_taste00(id);
+			if (isS) {
+				logger.info("ac_regist_after: 성공");
+				return "redirect:ac_login.do";
+			}else {
+				logger.info("ac_regist_after: 회원가입은 성공했지만 taste00 insert는 실패");
+				return "redirect:ac_login.do";
+			}
+		}else {
+			logger.info("regist자체 실패");
+			return "redirect:ac_registPage.do";
+		}
 	}
 	
 	//아이디 / 비밀번호 찾기 페이지

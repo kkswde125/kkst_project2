@@ -22,9 +22,6 @@ public interface I_UserDao {
 	public List<AttrsDto> selectGetZeros2(Map<String, String[]> map);
 	public int selectGetZeroMenuCount2(Map<String, String[]> map);
 	public WatchaDto selectGetZeroMenu(Map<String, String[]> map);
-	public int selectSearchSeq(Map<String,String> map);
-	public int selectGetAttrCount();
-	public int insertRegist_taste(Map<String,String> map);
 	public List<TasteDto> selectGetMyTaste(Map<String,String> map);
 	public List<MenuzDto> selectRecommendMenuList(Map<String,String> map);
 	public int selectHasTaste(Map<String,String> map);

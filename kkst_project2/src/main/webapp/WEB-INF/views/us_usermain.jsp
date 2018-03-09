@@ -33,7 +33,7 @@ if(ldto==null){
 		<%
 	}else{
 		%>
-		<a href="us_regist_taste.do">초기입맛등록</a>
+		<a href="us_regist_taste_watcha.do">초기입맛등록</a>
 		<%
 	}
 %>
