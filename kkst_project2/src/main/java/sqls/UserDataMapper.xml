@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.user">
+
+<select id="ResList" parameterType="String" resultType="ResDto">
+SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y 
+FROM RESLIST WHERE CATE=#{cate}
+</select>
+
+<select id="menulist" resultType="menuDto">
+SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST
+</select>
+
+<select id="foodchosse" parameterType="Map" resultType="menuDto">
+SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE SEQ IN 
+<foreach collection="Rseq" item="seq" open="(" separator="," close=")">
+#{seq}
+</foreach>
+</select>
+
+	<select id="getMenuCount" parameterType="Map" resultType="int">
+		SELECT COUNT(SEQ) FROM MENULIST WHERE SUBSTR(CODE,1,1)=#{codez}
+	</select>
+	
+	<select id="getCateCode" resultType="String">
+		SELECT CODE FROM ATTRS WHERE TYPE = '1카테고리' ORDER BY CODE
+	</select>
+	
+	<select id="watchaBox" parameterType="Map" resultType="WatchaDto">
+		SELECT SEQ, NAME, CODE, RES_SEQ, PRICE FROM (SELECT SEQ, NAME, CODE, RES_SEQ, PRICE, ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN FROM MENULIST WHERE SUBSTR(CODE,1,1)=#{codez}) WHERE RN=#{count}
+	</select>
+	
+	<update id="setStars" parameterType="Map">
+		UPDATE TASTE SET STAR = STAR+#{stars}, COUNTS=COUNTS+1
+		WHERE USER_SEQ=#{user_seq} AND
+		ATTR IN (
+					SELECT ATTR FROM ATTRS WHERE (TYPE = '1카테고리' AND CODE = #{code1}) OR
+												 (TYPE = '2주재료' AND CODE = #{code2}) OR
+												 (TYPE = '3조리방식' AND CODE = #{code3}) OR
+												 (TYPE = '4매움정도' AND CODE = #{code4}) OR
+												 (TYPE = '5온도' AND CODE = #{code5})
+				)
+	</update>
+	
+	<select id="hasZero" parameterType="Map" resultType="int">
+		SELECT COUNT(COUNTS) FROM TASTE WHERE COUNTS = 0 AND USER_SEQ = #{user_seq}
+	</select>
+	
+	<select id="getZeros" parameterType="Map" resultType="AttrsDto">
+		SELECT CODE, TYPE FROM ATTRS WHERE ATTR IN(SELECT ATTR FROM TASTE WHERE COUNTS = 0 AND USER_SEQ=#{user_seq})
+	</select>
+	<select id="getZeroMenuCount" parameterType="Map" resultType="int">
+		SELECT COUNT(SEQ) FROM MENULIST WHERE SUBSTR(CODE,#{types},1)=#{codez}
+	</select>
+	
+	<select id="getZeros2" parameterType="Map" resultType="AttrsDto">
+		SELECT CODE, TYPE FROM ATTRS WHERE ATTR IN(SELECT ATTR FROM TASTE WHERE COUNTS = 0 AND USER_SEQ=
+		<foreach index="0" item="user_seq" collection="user_seq">#{user_seq}</foreach>
+		)
+	</select>
+	
+	<select id="getZeroMenuCount2" parameterType="Map" resultType="int">
+		SELECT COUNT(SEQ) FROM MENULIST WHERE SUBSTR(CODE,
+		<foreach index="0" item="types" collection="types">#{types}</foreach>
+		,1)=
+		<foreach index="0" item="codez" collection="codez">#{codez}</foreach>
+	</select>
+	
+	<select id="getZeroMenu" parameterType="Map" resultType="WatchaDto">
+		SELECT SEQ, NAME, CODE, RES_SEQ, PRICE FROM (SELECT SEQ, NAME, CODE, RES_SEQ, PRICE, ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN FROM MENULIST WHERE SUBSTR(CODE,
+		<foreach index="0" item="types" collection="types">#{types}</foreach>
+		,1)=
+		<foreach index="0" item="codez" collection="codez">#{codez}</foreach>
+		) WHERE RN=
+		<foreach index="0" item="count" collection="count">#{count}</foreach>
+		 AND SEQ NOT IN
+		<foreach separator="," close=")" open="(" item="seq" collection="seqs">TO_NUMBER(#{seq})</foreach>
+	</select>
+	
+	<select id="hasTaste" parameterType="Map" resultType="int">
+		SELECT COUNT(COUNTS) FROM TASTE WHERE USER_SEQ = #{user_seq} AND COUNTS = 0	
+	</select>
+	
+	<select id="getMyTaste" parameterType="Map" resultType="TasteDto">
+		SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STAR FROM TASTE WHERE USER_SEQ = #{user_seq}
+	</select>
+	
+	<select id="recommendMenuList" parameterType="Map" resultType="MenuzDto">
+		SELECT X1.CODE, X1.NAME, X2.STARZ
+		FROM MENULIST X1,
+		(
+		SELECT Z1.CODE||Z2.CODE||Z3.CODE||Z4.CODE||Z5.CODE AS CODEZ, (Z1.STARS*1.2+Z2.STARS*1.6+Z3.STARS*1.4+Z4.STARS*1.0+Z5.STARS*0.3)/5.5 AS STARZ
+		FROM
+		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='1카테고리' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z1,
+		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='2주재료' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z2,
+		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='3조리방식' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z3,
+		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='4매움정도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z4,
+		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='5온도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z5
+		ORDER BY 2 DESC
+		) X2
+		WHERE X1.CODE=X2.CODEZ
+		ORDER BY 3 DESC
+	</select>
+	
+	<select id="getAllMenuCount" resultType="int">
+		SELECT COUNT(SEQ) FROM MENULIST
+	</select>
+	
+	<select id="watchaMoreMoreBox" parameterType="Map" resultType="WatchaDto">
+		SELECT SEQ, NAME, CODE, RES_SEQ, PRICE FROM (SELECT SEQ, NAME, CODE, RES_SEQ, PRICE, ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN FROM MENULIST) WHERE RN=#{count}
+	</select>
+</mapper>

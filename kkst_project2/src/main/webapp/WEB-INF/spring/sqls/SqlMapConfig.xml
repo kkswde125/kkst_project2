@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.pro.kkst.dtos.menuDto" alias="menuDto" />
+		<typeAlias type="com.pro.kkst.dtos.ResDto" alias="ResDto" />
+		<typeAlias type="com.pro.kkst.dtos.WatchaDto" alias="WatchaDto" />
+		<typeAlias type="com.pro.kkst.dtos.AttrsDto" alias="AttrsDto" />
+		<typeAlias type="com.pro.kkst.dtos.TasteDto" alias="TasteDto" />
+		<typeAlias type="com.pro.kkst.dtos.MenuzDto" alias="MenuzDto" />
+		<typeAlias type="com.pro.kkst.dtos.LoginDto" alias="LoginDto" />
+		<typeAlias type="com.pro.kkst.dtos.ReviewDto" alias="ReviewDto" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="/sqls/UserDataMapper.xml" />
+		<mapper resource="/sqls/AccountDataMapper.xml" />
+		<mapper resource="/sqls/OwnerDataMapper.xml" />
+		<mapper resource="/sqls/AdminDataMapper.xml" />
+	</mappers>
+
+</configuration>
+

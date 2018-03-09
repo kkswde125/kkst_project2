@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.account">
+
+	<select id="login" parameterType="Map" resultType="LoginDto">
+		SELECT SEQ, ID, PW, NAME, NICKNAME, REGDATE, DELFLAG, SEX, BIRTH, EMAIL FROM USERS
+		WHERE ID = #{id} AND PW = #{pw} AND DELFLAG = 'N'
+	</select>
+	
+	<select id="isChk" parameterType="Map" resultType="integer">
+		SELECT COUNT(ID) FROM USERS WHERE ID = #{id}
+	</select>
+	
+	<insert id="regist" parameterType="LoginDto">
+		INSERT INTO USERS
+		(SEQ, ID, PW, NAME, NICKNAME, REGDATE, DELFLAG, SEX, BIRTH, EMAIL)
+		VALUES(USERS_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{nickName}, SYSDATE, 'N', #{sex}, #{birth}, #{email})
+	</insert>
+	<select id="searchSeq" parameterType="Map" resultType="int">
+		SELECT SEQ FROM USERS WHERE ID = #{id}
+	</select>
+	<select id="getAttrCount" resultType="int">
+		SELECT COUNT(ATTR) FROM ATTRS
+	</select>
+	<insert id="regist_taste" parameterType="Map">
+		INSERT INTO KKST.TASTE VALUES(TASTE_SEQ.NEXTVAL, #{user_seq}, (SELECT ATTR FROM (SELECT ATTR, TYPE, ROW_NUMBER() OVER(ORDER BY ATTR) AS RN FROM ATTRS) WHERE RN = #{index}),
+		 (SELECT TYPE FROM (SELECT ATTR, TYPE, ROW_NUMBER() OVER(ORDER BY ATTR) AS RN FROM ATTRS) WHERE RN = #{index}), 0, 0)
+	</insert>
+	
+	
+	<select id="id_Retrun" parameterType="Map" resultType="LoginDto">
+		SELECT ID,PW,NAME,EMAIL FROM USERS WHERE NAME=#{name} AND EMAIL=#{email}
+	</select>
+	
+	<select id="pw_Retrun" parameterType="Map" resultType="LoginDto">
+		SELECT ID,PW,NAME,EMAIL FROM USERS WHERE ID=#{id} AND NAME=#{name} AND EMAIL=#{email}
+	</select>
+	
+	
+	
+	
+	
+</mapper>
