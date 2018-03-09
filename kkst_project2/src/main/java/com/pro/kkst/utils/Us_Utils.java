@@ -1,5 +1,8 @@
 package com.pro.kkst.utils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public class Us_Utils {
 
 	public int randomBox(int aryLength) {
@@ -28,4 +31,8 @@ public class Us_Utils {
 		}//뽑기
 		return rs;
 	}
+	
+	
+	
+	
 }

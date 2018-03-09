@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountService;
+import com.pro.kkst.utils.Us_Utils;
 import com.pro.kkst.utils.ac_MailUtils;
 
 /**
@@ -37,6 +40,7 @@ public class AccountController {
 	
 	
 	ac_MailUtils utils=new ac_MailUtils();
+	Us_Utils u_utils = new Us_Utils();
 	
 	@RequestMapping(value = "/ac_loginhome.do")
 	public String loginhome(Locale locale, Model model) {
@@ -116,13 +120,27 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/ac_idRetrun.do",method = RequestMethod.POST)
-	public String idRetrun(Locale locale, Model model,String name_id, String email_id) {
+	public String idRetrun(Locale locale, Model model,String name_id, String email_id,HttpServletRequest request,HttpServletResponse response) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("name", name_id);
 			map.put("email", email_id);
 			List<LoginDto>lists=accountServ.id_return(map);
 			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
-			return "redirect:ac_login";
+			
+			String str ="";
+			
+			if(lists.size()!=0) {
+			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
+			}
+			if(lists.size()==0) {
+			 str="실패. 로그인페이지로 이동합니다";
+			}
+			
+			model.addAttribute("msg",str);
+			
+			System.out.println(str);
+			
+			return "ac_login";
 	}
 	
 	@RequestMapping(value = "/ac_pwRetrun.do",method = RequestMethod.POST)
