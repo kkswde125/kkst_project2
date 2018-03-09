@@ -7,24 +7,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+	#scroll{
+		width : 1200px;
+		overflow: auto;
+	}
+</style>
 </head>
+
 <body>
 <h1>전체 리뷰 목록</h1>
+<div id="scroll">
 <table border ="1">
 	<thead>
 		<tr>
-			<c:forEach items="review" var="dto">
+		<td colspan="${reviewList.size()}">식당 이름 </td>
+		</tr><tr>
+			<c:forEach items="${reviewList}" var="reviewDto" >
 				<td>
 					<table border ="1">
 						<tr>
-							<td>식당이름</td>
+							<td>${reviewDto.regdate }</td>
 							<td>
-								<input type="checkbox" name="chk" value="${dto.seq }"/>
+								<input type="checkbox" name="chk" value="${reviewDto.seq}"/>
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<textarea rows="10" cols="60" readonly="readonly">${dto.content }</textarea>
+							<td colspan="2" >
+								<textarea rows="10" cols="60" readonly="readonly">${reviewDto.content }</textarea>
 							</td>
 						</tr>
 						<tr>
@@ -39,5 +52,6 @@
 	</thead>
 	
 </table>
+</div>
 </body>
 </html>
