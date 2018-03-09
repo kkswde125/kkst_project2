@@ -50,9 +50,10 @@ public class AdminController {
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
 	public String reviewAll(Locale locale, Model model) {
-		
-		List<ReviewDto> lists = adminServ.reviewAll();
-		model.addAttribute("lists", lists);
+		List<LoginDto> memberList = adminServ.memberList();
+		List<ReviewDto> reviewList = adminServ.reviewAll();
+		model.addAttribute("review", reviewList);
+		model.addAttribute("member", memberList);
 		
 		return "ad_reviewAll";
 	}
