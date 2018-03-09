@@ -25,7 +25,7 @@
 	
 %>
 <body>
-<form action="getstars.do" method="post">
+<form action="us_getstars.do" method="post">
 <%
 	for(int i = 0; i < list.size(); i++){
 		%>

@@ -60,6 +60,15 @@ public class AccountController {
 		}
 	}
 	
+	//로그아웃 
+	@RequestMapping(value = "/ac_logout.do")
+	public String logout(HttpSession session) {
+		logger.info("ac_logout");
+		session.removeAttribute("ldto");
+		session.invalidate();
+		return "redirect:ac_login.do";
+	}
+	
 	//회원가입 페이지
 	@RequestMapping(value = "/ac_registPage.do")
 	public String registPage() {

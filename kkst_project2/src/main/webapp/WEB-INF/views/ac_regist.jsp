@@ -56,8 +56,7 @@ text-align: center;
 <body>
 <div id="wrap">
 <h1>회원가입</h1>
-<form action="KkstCont.do" method="post">
-<input type="hidden" name="command" value="regist_after" />
+<form action="ac_regist_after.do" method="post">
 <table border="1" class="table table-striped">
 	<tr>
 		<th>아이디</th>
@@ -84,7 +83,7 @@ text-align: center;
 	</tr>
 	<tr>
 		<th>별명</th>
-		<td><input class="form-control" type="text" name="nickname" required="required"/></td>
+		<td><input class="form-control" type="text" name="nickName" required="required"/></td>
 	</tr>
 	<tr>
 		<th>성별</th>
@@ -106,7 +105,7 @@ text-align: center;
 	<tr>
 		<td colspan="2">
 			<input class="btn btn-default" type="submit" value="확인" />
-			<input class="btn btn-default" type="button" value="로그인화면으로" onclick="location.href='KkstCont.do?command=login'"/>
+			<input class="btn btn-default" type="button" value="로그인화면으로" onclick="location.href='ac_login.do'"/>
 		</td>
 	</tr>
 </table>

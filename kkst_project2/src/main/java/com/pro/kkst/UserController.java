@@ -153,41 +153,58 @@ public class UserController {
 	public String us_UserMain(Model model, HttpSession session) {
 		logger.info("us_usermain");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		if (userServ.hasTaste(ldto.getSeq())) {
-			model.addAttribute("hasTaste", "yes");
+		if (ldto==null) {
+			return "ac_login";
 		}else {
-			model.addAttribute("hasTaste", "no");
+			
+			if (userServ.hasTaste(ldto.getSeq())) {
+				model.addAttribute("hasTaste", "yes");
+			}else {
+				model.addAttribute("hasTaste", "no");
+			}
+			return "us_usermain";
 		}
-		return "us_usermain";
 	}
 	
 	@RequestMapping(value = "us_regist_taste_watcha.do")
-	public String us_Regist_Taste(Model model, HttpServletRequest request) {
+	public String us_Regist_Taste(Model model, HttpSession session) {
 		logger.info("us_regist_taste_watcha");
-		List<WatchaDto> list = userServ.watchaBox();
-		model.addAttribute("list", list);
-		return "us_regist_taste";
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+				
+			List<WatchaDto> list = userServ.watchaBox();
+			model.addAttribute("list", list);
+			return "us_regist_taste";
+		}
 	}
 	
 	@RequestMapping(value = "us_getstars.do")
 	public String us_GetStars(Model model, HttpSession session, String[] stars, String[] codes) {
 		logger.info("us_getstars");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		boolean isS=false;
-		for (int i = 0; i < stars.length; i++) {
-			isS=userServ.setStars(Integer.parseInt(stars[i]), ldto.getSeq(), codes[i]);
-			if (!isS) {
-				break;
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+		
+			boolean isS=false;
+			for (int i = 0; i < stars.length; i++) {
+				isS=userServ.setStars(Integer.parseInt(stars[i]), ldto.getSeq(), codes[i]);
+				if (!isS) {
+					break;
+				}
 			}
-		}
-		if (isS) {
-			if (userServ.hasZero(ldto.getSeq())) {
-				return "redirect:us_getmorestars.do";
+			if (isS) {
+				if (userServ.hasZero(ldto.getSeq())) {
+					return "redirect:us_getmorestars.do";
+				}else {
+					return "redirect:us_usermain.do";
+				}
 			}else {
 				return "redirect:us_usermain.do";
 			}
-		}else {
-			return "redirect:us_usermain.do";
+		
 		}
 	}
 	
@@ -195,35 +212,52 @@ public class UserController {
 	public String us_GetMoreStars(Model model, HttpSession session) {
 		logger.info("us_getmorestars");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		List<WatchaDto> list = userServ.watchaMoreBox(ldto.getSeq());
-		model.addAttribute("list", list);
-		return "us_regist_taste";
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			List<WatchaDto> list = userServ.watchaMoreBox(ldto.getSeq());
+			model.addAttribute("list", list);
+			return "us_regist_taste";
+		}
 	}
 	
 	@RequestMapping(value = "us_recommend_menu.do")
 	public String us_Recommend_Menu(Model model, HttpSession session) {
 		logger.info("us_recommend_menu");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		List<MenuzDto> list = userServ.recommendMenuList(ldto.getSeq());
-		model.addAttribute("list", list);
-		return "us_recommend_menu";
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			List<MenuzDto> list = userServ.recommendMenuList(ldto.getSeq());
+			model.addAttribute("list", list);
+			return "us_recommend_menu";
+		}
 	}
 	
-	@RequestMapping(value = "us_showtaste.do")
+	@RequestMapping(value = "us_show_taste.do")
 	public String us_ShowTaste(Model model, HttpSession session) {
-		logger.info("us_showtaste");
+		logger.info("us_show_taste");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		List<TasteDto> list= userServ.getMyTaste(ldto.getSeq());
-		model.addAttribute("list", list);
-		return "us_show_taste";
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			List<TasteDto> list= userServ.getMyTaste(ldto.getSeq());
+			model.addAttribute("list", list);
+			return "us_show_taste";
+		}
 	}
 	
 	@RequestMapping(value = "us_regist_moreTaste.do")
-	public String us_Regist_MoreTaste(Model model) {
+	public String us_Regist_MoreTaste(Model model, HttpSession session) {
 		logger.info("us_regist_moreTaste");
-		List<WatchaDto> list= userServ.watchaMoreMoreBox(); 
-		model.addAttribute("list", list);
-		return "us_regist_moretaste";
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			List<WatchaDto> list= userServ.watchaMoreMoreBox(); 
+			model.addAttribute("list", list);
+			return "us_regist_moretaste";
+		}
 	}
 	
 	

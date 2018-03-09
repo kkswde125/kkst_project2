@@ -35,7 +35,7 @@
 </head>
 <body>
 <div>
-<form action="ac_login.do" method="post" onsubmit="return chk()">
+<form action="ac_login_after.do" method="post" onsubmit="return chk()">
 <fieldset>
 <legend>LOGIN</legend>
 <label>ID:<input class="form-control" type="text" name="id" required="required" id="idz" /></label>
@@ -43,7 +43,7 @@
 <button class="btn btn-default">OK</button>
 </fieldset>
 </form>
-<input class="btn btn-default" type="button" value="Join-Us" onclick="location.href='registPage.do'"/>
+<input class="btn btn-default" type="button" value="Join-Us" onclick="location.href='ac_registPage.do'"/>
 
 <div>
 아이디나 패스워드를 잊어버리셨다면?
