@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>전체 리뷰 목록</h1>
 </body>
 </html>

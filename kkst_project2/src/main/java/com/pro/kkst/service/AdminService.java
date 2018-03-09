@@ -22,7 +22,7 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ReviewDto> reviewList() {
+	public List<ReviewDto> reviewAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -36,6 +36,12 @@ public class AdminService implements I_AdminService {
 	@Override
 	public boolean memberDel(String[] seq) {
 		return adminDao.memberDel(seq);
+	}
+
+	@Override
+	public List<ReviewDto> reviewReport(int seq) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

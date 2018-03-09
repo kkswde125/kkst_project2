@@ -26,8 +26,8 @@ public class AdminDao implements I_AdminDao {
 		return sqlSession.selectList(namespace+"memberList");
 	}
 	@Override	// 리뷰 관리
-	public List<ReviewDto> reviewList() {
-		return sqlSession.selectList(namespace+"reviewList");
+	public List<ReviewDto> reviewAll() {
+		return sqlSession.selectList(namespace+"reviewAll");
 	}
 	@Override	// 식당 관리
 	public List<ResDto> restList() {
@@ -39,6 +39,17 @@ public class AdminDao implements I_AdminDao {
 		map.put("seqs", seq);
 		int count = sqlSession.update(namespace+"memberDel", map);
 		return count > 0 ? true : false;
+	}
+	@Override
+	public List<ReviewDto> reviewReport(int seq) {
+		
+		String report = sqlSession.selectOne(namespace+"reviewReport");
+		String[] reportArray = report.split(",");
+		int count = reportArray.length;
+		
+		System.out.println(count);
+		
+		return sqlSession.selectList(namespace+"reviewReport");
 	}
 	
 

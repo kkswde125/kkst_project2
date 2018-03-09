@@ -12,5 +12,15 @@
 			#{seq}
 		</foreach>
 	</select>
+	
+	<select id="reviewAll">
+		SELECT SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
+		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG 
+		FROM REVIEW ORDER BY SEQ
+	</select>
+	
+	<select id="reviewReport" resultType="String">
+		SELECT REPORT FROM REVIEW
+	</select>
 
 </mapper>

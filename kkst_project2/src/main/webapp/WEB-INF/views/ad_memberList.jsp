@@ -84,7 +84,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="돌아가기" onclick="location.href='ad_admin.do'"/>
+				<input type="button" value="돌아가기" onclick="location.href='admin.do'"/>
 			</td>
 			<td colspan="5">
 				<!-- 페이징 -->

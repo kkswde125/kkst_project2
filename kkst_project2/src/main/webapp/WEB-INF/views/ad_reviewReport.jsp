@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<a href="ad_reviewAll.do">전체 리뷰 보기</a>
-<a href="ad_reviewReport.do">신고된 리뷰 보기</a>
-
+<h1>신고된 리뷰 목록</h1>
 </body>
 </html>
