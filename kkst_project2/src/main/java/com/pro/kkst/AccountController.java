@@ -61,14 +61,19 @@ public class AccountController {
 		return "ac_ownerlogin";
 	}
 	
-	//로그인 
+	//점주 로그인_after
+	
+	
+	
+	//유저로그인 
 	@RequestMapping(value = "/ac_login.do")
 	public String login() {
 		logger.info("ac_login");
 		return "ac_login";
 	}
 	
-	//로그인_after 
+	
+	//유저로그인_after 
 	@RequestMapping(value = "/ac_login_after.do")
 	public String login_after(HttpSession session, String id, String pw) {
 		logger.info("ac_login_after");
@@ -93,11 +98,12 @@ public class AccountController {
 	
 	
 	//회원가입 분기
-	
 	@RequestMapping(value = "/ac_beforeRegist.do")
 	public String beforeRegist() {
 		return "ac_beforeRegist";
 	}
+	
+	
 	
 	//회원가입 페이지 유저
 	@RequestMapping(value = "/ac_registPage.do")
@@ -106,7 +112,7 @@ public class AccountController {
 		return "ac_regist";
 	}
 	
-	//회원가입 페이지
+	//회원가입 페이지 점주
 	@RequestMapping(value = "/ac_ownerRegistPage.do")
 	public String ownerRegistPage() {
 		logger.info("ac_registPage");
@@ -114,7 +120,10 @@ public class AccountController {
 	}
 	
 	
-	//회원가입 페이지
+	
+	//회원가입 점주
+	
+	//회원가입 유저
 	@RequestMapping(value = "/ac_regist_after.do")
 	public String regist_after(Model model, String id, String pw, String name, String nickName, String sex, String birth, String email) {
 		logger.info("ac_regist_after");
@@ -149,6 +158,8 @@ public class AccountController {
 		return "ac_retrunAcc";
 	}
 	
+	
+	//아이디 찾기 유저
 	@RequestMapping(value = "/ac_idRetrun.do",method = RequestMethod.POST)
 	public String idRetrun(Locale locale, Model model,String name_id, String email_id,HttpServletRequest request,HttpServletResponse response) {
 			Map<String, String> map = new HashMap<String, String>();
@@ -173,6 +184,8 @@ public class AccountController {
 			return "ac_login";
 	}
 	
+	
+	//비밀번호 찾기 유저
 	@RequestMapping(value = "/ac_pwRetrun.do",method = RequestMethod.POST)
 	public String pwRetrun(Locale locale, Model model,String id_pw,String name_pw,String email_pw) {
 		
