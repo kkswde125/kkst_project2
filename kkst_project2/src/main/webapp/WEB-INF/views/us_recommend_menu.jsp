@@ -28,7 +28,10 @@
 <%
 	for(int i = 0; i < list.size(); i++){
 		%>
-		<p><%=list.get(i).getName()%>(<%=Math.round(list.get(i).getStarz())%>)</p>
+		<p>
+			<span><a href="us_reslist.do?cate=<%=(list.get(i).getCode()).substring(0, 1)%>"><%=list.get(i).getName()%>(<%=Math.round(list.get(i).getStarz())%>)</a></span>
+			<input type="button" value="안선택">
+		</p>
 		<%
 	}
 %>
