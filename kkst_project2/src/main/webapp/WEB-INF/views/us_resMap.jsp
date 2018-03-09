@@ -36,6 +36,14 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 			cSize=1000;
 		}
 	    
+	    function go10000() {
+			cSize=10000;
+		}
+	    
+	    function go100000() {
+			cSize=100000;
+		}
+	    
 	    
 	      var map = new naver.maps.Map('map');
 	
@@ -203,6 +211,8 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 	  <button onclick="go100()">100m</button>
       <button onclick="go500()">500m</button>
       <button onclick="go1000()">1000m</button>
+      <button onclick="go10000()">10km</button>
+      <button onclick="go100000()">100km</button>
 
 </body>
 </html>

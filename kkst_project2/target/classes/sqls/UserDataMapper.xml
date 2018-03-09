@@ -3,8 +3,7 @@
 <mapper namespace="com.pro.user">
 
 <select id="ResList" parameterType="String" resultType="ResDto">
-SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y 
-FROM RESLIST WHERE CATE=#{cate}
+SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE CATE = (SELECT ATTR FROM ATTRS WHERE TYPE='1카테고리' AND CODE =#{cate})
 </select>
 
 <select id="menulist" resultType="menuDto">
