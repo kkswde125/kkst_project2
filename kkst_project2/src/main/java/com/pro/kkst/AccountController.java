@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountService;
+import com.pro.kkst.utils.ac_MailUtils;
 
 /**
  * Handles requests for the application home page.
@@ -33,6 +34,9 @@ public class AccountController {
 	
 	@Autowired
 	private I_AccountService accountServ;
+	
+	
+	ac_MailUtils utils=new ac_MailUtils();
 	
 	@RequestMapping(value = "/ac_loginhome.do")
 	public String loginhome(Locale locale, Model model) {
@@ -117,11 +121,8 @@ public class AccountController {
 			map.put("name", name_id);
 			map.put("email", email_id);
 			List<LoginDto>lists=accountServ.id_return(map);
-			
-			System.out.println(lists);
-			model.addAttribute("lists",lists);
-			
-			return "ac_Mail";
+			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
+			return "redirect:ac_login";
 	}
 	
 	@RequestMapping(value = "/ac_pwRetrun.do",method = RequestMethod.POST)
@@ -133,6 +134,7 @@ public class AccountController {
 		map.put("email", email_pw);
 		List<LoginDto>lists=accountServ.pw_return(map);
 		model.addAttribute("lists",lists);
+		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 		return "ac_Mail";
 	}
 	
