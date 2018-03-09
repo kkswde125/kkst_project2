@@ -13,7 +13,7 @@
 		</foreach>
 	</select>
 	
-	<select id="reviewAll">
+	<select id="reviewAll" resultType="ReviewDto">
 		SELECT SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
 		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG 
 		FROM REVIEW ORDER BY SEQ

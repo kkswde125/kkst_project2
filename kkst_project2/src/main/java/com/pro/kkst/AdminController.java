@@ -52,8 +52,11 @@ public class AdminController {
 	public String reviewAll(Locale locale, Model model) {
 		List<LoginDto> memberList = adminServ.memberList();
 		List<ReviewDto> reviewList = adminServ.reviewAll();
-		model.addAttribute("review", reviewList);
-		model.addAttribute("member", memberList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("memberList", memberList);
+		
+		System.out.println(memberList.toString());
+		System.out.println(reviewList.toString());
 		
 		return "ad_reviewAll";
 	}
