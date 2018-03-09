@@ -121,12 +121,8 @@ public class AccountController {
 			map.put("name", name_id);
 			map.put("email", email_id);
 			List<LoginDto>lists=accountServ.id_return(map);
-			System.out.println(lists);
-			model.addAttribute("lists",lists);
-			
 			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
-			
-			return "ac_Mail";
+			return "redirect:ac_login";
 	}
 	
 	@RequestMapping(value = "/ac_pwRetrun.do",method = RequestMethod.POST)
