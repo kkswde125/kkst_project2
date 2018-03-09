@@ -24,7 +24,7 @@ if(ldto==null){
 %>
 <body>
 <a href="ac_logout.do">Logout</a>
-
+<a href="us_olympic.do">푸드올림픽</a>
 <%
 	if(isS.equals("yes")){
 		%>
