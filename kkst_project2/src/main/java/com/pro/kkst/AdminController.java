@@ -69,11 +69,7 @@ public class AdminController {
 		List<ReviewDto> reportList = new ArrayList<>();
 		for (int i = 0; i < lists.size(); i++) {
 			
-			System.out.println(lists.get(i).getSeq());
-			
 			ReviewDto dto = adminServ.reviewReport(lists.get(i).getSeq());
-			
-			System.out.println(dto);
 			
 			if (dto!=null) {
 				reportList.add(dto);

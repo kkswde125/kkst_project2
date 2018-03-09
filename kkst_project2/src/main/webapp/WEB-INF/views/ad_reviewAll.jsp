@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td>
-								추천 수  : ${dto.likey } 신고 수 : ${dto.report }
+								추천 수  : ${reviewDto.likey } 신고 수 : ${reviewDto.report }
 							</td>
 						</tr>
 					</table>
