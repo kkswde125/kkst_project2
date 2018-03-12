@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
 
 public interface I_AccountDao {
@@ -24,4 +25,8 @@ public interface I_AccountDao {
 	public boolean onwerregist(Map<String,String> map);
 	public List<Admin_OnwerDto> id_return_ow(Map<String, String> map);
 	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map);
+	public List<AttrsDto> ATTRS2();
+	public List<AttrsDto> ATTRS3();
+	public List<AttrsDto> ATTRS4();
+	public List<AttrsDto> ATTRS5();
 }
