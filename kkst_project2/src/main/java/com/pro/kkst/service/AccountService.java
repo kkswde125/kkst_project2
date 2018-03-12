@@ -110,5 +110,10 @@ public class AccountService implements I_AccountService {
 		return accountDao.ATTRS5();
 	}
 
+	@Override
+	public boolean addRes(Map<String, String> map) {
+		return false;
+	}
+
 
 }

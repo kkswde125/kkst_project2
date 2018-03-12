@@ -169,7 +169,16 @@ public class AccountController {
 		boolean isS = accountServ.onwerregist(map);
 			if (isS) {
 				logger.info("ac_onwerRegist_after: 성공");
+				
+				Map<String, String>map2=new HashMap<String,String>();
+				map2.put("id", id);
+				map2.put("pw", pw);
+
+				Admin_OnwerDto AoDto=accountServ.getOnwerLogin(map2);
+				model.addAttribute("AoDto",AoDto);
+				
 				return "redirect:ac_ResListAddPage.do";
+	
 			}else {
 				logger.info("ac_onwerRegist_after: insert 실패");
 				return "redirect:ac_ownerRegistPage.do";
@@ -331,7 +340,7 @@ public class AccountController {
 	
 	
 	
-	//식당 등록
+	//식당 등록 페이지 이동
 	@RequestMapping(value = "/ac_ResListAddPage.do")
 	public String ResListAddPage(Locale locale, Model model) {
 		
@@ -347,6 +356,15 @@ public class AccountController {
 		
 		return "ac_ResListAddPage";
 	}
+	
+	
+	//식당 등록
+	@RequestMapping(value = "/ac_ResListAdd.do")
+	public String ResListAdd(Locale locale, Model model) {
+		
+		return "ac_ownerlogin";
+	}
+	
 	
 	
 }

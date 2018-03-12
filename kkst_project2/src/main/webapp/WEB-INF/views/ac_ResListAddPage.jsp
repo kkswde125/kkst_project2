@@ -1,7 +1,9 @@
+<%@page import="com.pro.kkst.dtos.Admin_OnwerDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8");%>
+<%Admin_OnwerDto AoDto=(Admin_OnwerDto)request.getAttribute("AoDto"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -15,13 +17,84 @@
 		
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd1").css("display", "block");
 		
-		$("#newMenu").append(copy);
+		$("#line").append(copy);
 		
 	}
 	
 </script>
 </head>
 <body>
+<table id="menuAdd"  style="display: none;">
+<tr>
+<td>
+<div style="border: 1px solid; width: 300px; height: 200px;">
+<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" id="upload" style="display: none" />
+</div>
+</td>
+<td>
+
+<!-- 복제할 메뉴 폼 -->
+<table border="1">
+	<tr>
+		<th>메뉴이름</th>
+		<td colspan="2"><input type="text" name="menu_name"/></td>
+	</tr>
+	<tr>
+		<td rowspan="4">메뉴특성</td>
+		<td>주재료</td> 
+		<td>
+		<select name="cateCode">
+		<c:forEach items="${lists2}" var="dto">
+			<option label="${dto.attr}" value="${dto.code}"/>
+		</c:forEach>
+		</select>
+		
+		</td>
+	</tr>
+	<tr>
+		<td>조리방식</td>
+		<td>
+		<select name="cookCode">
+		<c:forEach items="${lists3}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>매움정도</td>
+		<td>
+		<select name="spicyCode">
+		<c:forEach items="${lists4}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>온도</td>
+		<td>
+		<select name="tempCode">
+		<c:forEach items="${lists5}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+	<td>메뉴설명</td><td colspan="2"><textarea rows="10" cols="60" name="comment"></textarea></td>
+	</tr>
+</table>
+</td>
+</tr>
+</table>
+
+
+
+
+
+<form action="ac_ResListAdd.do" method="post" id="newMenu">
+<input type="hidden" name="res_seq" value="<%=AoDto.getRes_seq()%>" />
 <table>
 <!-- 사진 올라갈곳 -->
 <tr>
@@ -118,7 +191,7 @@
 	<tr>
 		<th>전화번호</th>
 	<td>
-	<input type="text" value="- 를 포함하여 입력해주세요" required="required" />
+	<input type="text" value="- 를 포함하여 입력해주세요" name="call" required="required" />
 	</td>
 	</tr>
 
@@ -135,70 +208,8 @@
 </td>
 </table>
 <hr id="line">
-<table id="menuAdd"  style="display: none;">
-<tr>
-<td>
-<div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" id="upload" style="display: none" />
-</div>
-</td>
-<td>
-<table border="1">
-	<tr>
-		<th>메뉴이름</th>
-		<td colspan="2"><input type="text" name="name"/></td>
-	</tr>
-	<tr>
-		<td rowspan="4">메뉴특성</td>
-		<td>주재료</td> 
-		<td>
-		<select name="cateCode">
-		<c:forEach items="${lists2}" var="dto">
-			<option label="${dto.attr}" value="${dto.code}"/>
-		</c:forEach>
-		</select>
-		
-		</td>
-	</tr>
-	<tr>
-		<td>조리방식</td>
-		<td>
-		<select name="cookCode">
-		<c:forEach items="${lists3}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td>매움정도</td>
-		<td>
-		<select name="spicyCode">
-		<c:forEach items="${lists4}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td>온도</td>
-		<td>
-		<select name="tempCode">
-		<c:forEach items="${lists5}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-	<td>메뉴설명</td><td colspan="2"><textarea rows="10" cols="60"></textarea></td>
-	</tr>
-</table>
-</td>
-</tr>
-</table>
 
-<form action="ac_ResListAdd.do" method="post" id="newMenu">
+
 
 </form>
 

@@ -104,5 +104,9 @@ public class AccountDao implements I_AccountDao {
 	public List<AttrsDto> ATTRS5() {
 		return sqlSessoin.selectList(namespace+"attrs5");
 	}
+	@Override
+	public boolean addRes(Map<String, String> map) {
+		return false;
+	}
 
 }

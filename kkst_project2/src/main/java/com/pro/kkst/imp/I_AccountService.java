@@ -25,4 +25,5 @@ public interface I_AccountService {
 	public List<AttrsDto> ATTRS3();
 	public List<AttrsDto> ATTRS4();
 	public List<AttrsDto> ATTRS5();
+	public boolean addRes(Map<String, String>map);
 }
