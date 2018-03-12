@@ -295,7 +295,7 @@ public class AccountController {
 			model.addAttribute("msg",str);
 			
 			
-			return "ow_loginhome.do";
+			return "ac_ownerlogin";
 	}
 	
 	
@@ -322,7 +322,7 @@ public class AccountController {
 		model.addAttribute("msg",str);
 		
 		
-		return "ow_loginhome.do";
+		return "ac_ownerlogin";
 	}
 	
 	
