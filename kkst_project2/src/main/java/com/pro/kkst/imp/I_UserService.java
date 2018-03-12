@@ -21,10 +21,10 @@ public interface I_UserService {
 	public List<WatchaDto> watchaMoreBox(int user_seq);
 	
 	public List<TasteDto> getMyTaste(int user_seq);
-	public List<MenuzDto> recommendMenuList(int user_seq);
+	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end);
 	public boolean hasTaste(int user_seq);
 	public List<WatchaDto> watchaMoreMoreBox();
-	
+	public List<MenuzDto> getKeepList(String[] seqs);
 	
 	
 }

@@ -28,7 +28,7 @@ if(ldto==null){
 <%
 	if(isS.equals("yes")){
 		%>
-			<a href="us_recommend_menu.do">메뉴추천</a>
+			<a href="us_recommend_menu.do?start=1&end=20&seqs=0">메뉴추천</a>
 			<a href="us_show_taste.do">내입맛보기</a>
 			<a href="us_regist_moreTaste.do">추가입맛설정</a>
 		<%

@@ -27,4 +27,5 @@ public interface I_UserDao {
 	public int selectHasTaste(Map<String,String> map);
 	public int selectGetAllMenuCount(Map<String,String> map);
 	public WatchaDto selectWatchaMoreMoreBox(Map<String,String> map);
+	public List<MenuzDto> selectKeepList(Map<String, String[]> map);
 }

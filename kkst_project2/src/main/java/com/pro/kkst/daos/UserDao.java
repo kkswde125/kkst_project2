@@ -100,4 +100,9 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.selectOne(namespace+"watchaMoreMoreBox", map);
 	}
 
+	@Override
+	public List<MenuzDto> selectKeepList(Map<String, String[]> map) {
+		return sqlSessoin.selectList(namespace+"getKeepList", map);
+	}
+
 }
