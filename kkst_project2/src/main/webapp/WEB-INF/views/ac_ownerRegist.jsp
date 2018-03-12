@@ -85,10 +85,17 @@ text-align: center;
 		<th>휴대폰 번호</th>
 		<td><input class="form-control" type="text" name="phone" required="required"/></td>
 	</tr>
+	
+	<tr>
+		<th>이메일</th>
+		<td><input class="form-control" type="text" name="email" required="required"/></td>
+	</tr>
+	
 
 	<tr>
 		<td colspan="2">
 			<input class="btn btn-default" type="submit" value="확인" />
+			<input class="btn btn-default" type="button" value="식당 등록하러 가기" onclick="location.href='ac_ResRegist.do'" />
 			<input class="btn btn-default" type="button" value="로그인화면으로" onclick="location.href='ac_login.do'"/>
 		</td>
 	</tr>

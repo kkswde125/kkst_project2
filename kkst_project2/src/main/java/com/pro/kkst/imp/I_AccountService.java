@@ -15,5 +15,6 @@ public interface I_AccountService {
 	public boolean regist(LoginDto dto);
 	public boolean regist_taste00(String id);
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map);
+	public boolean onwerregist(Admin_OnwerDto aoDto);
 	
 }

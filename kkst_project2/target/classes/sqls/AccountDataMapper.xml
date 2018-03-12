@@ -38,8 +38,13 @@
 	
 	
 	<select id="onwerLogin" parameterType="Map" resultType="AoDto">
-		SELECT SEQ,ID,PW,NAME,RES_SEQ,PHONE,RES_CALL,GRADE FROM ADMIN_OWNER WHERE ID=#{id} AND PW=#{pw}
+		SELECT SEQ,ID,PW,NAME,RES_SEQ,PHONE,RES_CALL,GRADE,EMAIL FROM ADMIN_OWNER WHERE ID=#{id} AND PW=#{pw}
 	</select>
+	
+	<insert id="onewrRegist" parameterType="AoDto">
+		INSERT INTO ADMIN_OWNER(SEQ,ID,PW,NAME,PHONE,RES_CALL,GRADE,EMAIL) 
+		VALUES(ADMIN_OWNER_SEQ.NEXTVAL,#{id},#{pw},'#{name}',#{phone},'000-0000-0000','O',#{email});
+	</insert>
 	
 	
 </mapper>

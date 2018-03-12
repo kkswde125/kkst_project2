@@ -17,4 +17,5 @@ public interface I_AccountDao {
 	public int selectGetAttrCount();
 	public int insertRegist_taste(Map<String,String> map);
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map);
+	public boolean onwerregist(Admin_OnwerDto aoDto);
 }

@@ -59,5 +59,13 @@ public class AccountDao implements I_AccountDao {
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map) {
 		return sqlSessoin.selectOne(namespace+"onwerLogin",map);
 	}
+	@Override
+	public boolean onwerregist(Admin_OnwerDto aoDto) {
+		
+		int count=sqlSessoin.insert(namespace+"onewrRegist",aoDto);
+		
+		return count>0?true:false;
+		 
+	}
 
 }

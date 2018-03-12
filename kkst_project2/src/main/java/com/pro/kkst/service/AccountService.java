@@ -73,4 +73,9 @@ public class AccountService implements I_AccountService {
 		return accountDao.getOnwerLogin(map);
 	}
 
+	@Override
+	public boolean onwerregist(Admin_OnwerDto aoDto) {
+		return accountDao.onwerregist(aoDto);
+	}
+
 }

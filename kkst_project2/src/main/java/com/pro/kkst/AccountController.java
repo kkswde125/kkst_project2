@@ -148,30 +148,24 @@ public class AccountController {
 	
 	//회원가입 점주
 	@RequestMapping(value = "/ac_onwerRegist_after.do")
-	public String onwerRegist_after(Model model, String id, String pw, String name, String nickName, String sex, String birth, String email) {
+	public String onwerRegist_after(Model model, String id, String pw, String name,String phone, String email) {
 		logger.info("ac_regist_after");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date=null;
-		try {
-			date = sdf.parse(birth);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		boolean isS=accountServ.regist(new LoginDto(id, pw, name, nickName, sex, date, email));
+//		boolean  (new Admin_OnwerDto(null,id, pw, name,null,phone,null,email));
 		
+		
+		boolean isS = accountServ.onwerregist(new Admin_OnwerDto(0,id,pw,name,0,phone,null,null,email));
 		
 		if (isS) {
-			isS=accountServ.regist_taste00(id);
 			if (isS) {
-				logger.info("ac_regist_after: 성공");
-				return "redirect:ac_login.do";
+				logger.info("ac_onwerRegist_after: 성공");
+				return "redirect:ow_loginhome.do";
 			}else {
-				logger.info("ac_regist_after: 회원가입은 성공했지만 taste00 insert는 실패");
-				return "redirect:ac_login.do";
+				logger.info("ac_onwerRegist_after: 회원가입은 성공했지만 taste00 insert는 실패");
+				return "redirectow_loginhome.do";
 			}
 		}else {
 			logger.info("regist자체 실패");
-			return "redirect:ac_registPage.do";
+			return "redirect:ac_onwerRegist_after.do";
 		}
 	}
 	
