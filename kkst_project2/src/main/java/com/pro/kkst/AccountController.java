@@ -85,8 +85,14 @@ public class AccountController {
 		}
 	}
 	
-	@RequestMapping(value = "/ad_admin.do")
+	@RequestMapping(value="/ow_owner.do")
 	public String ownerlogin() {
+		return "ow_owner";
+		
+	}
+	
+	@RequestMapping(value = "/ad_admin.do")
+	public String adminlogin() {
 		return "ad_admin";
 	}
 	
@@ -147,22 +153,26 @@ public class AccountController {
 	
 	
 	//회원가입 점주
-	@RequestMapping(value = "/ac_onwerRegist_after.do")
+	@RequestMapping(value = "/ac_onwerRegist_after.do",method = RequestMethod.POST)
 	public String onwerRegist_after(Model model, String id, String pw, String name,String phone, String email) {
 		logger.info("ac_onwerRegist_after");
-		boolean isS = accountServ.onwerregist(new Admin_OnwerDto(0,id,pw,name,0,phone,null,null,email));
-		if (isS) {
+		
+		Map<String, String>map = new HashMap<String,String>();
+		
+		map.put("id", id);
+		map.put("pw", pw);
+		map.put("name", name);
+		map.put("phone", phone);
+		map.put("email", email);
+		
+		boolean isS = accountServ.onwerregist(map);
 			if (isS) {
 				logger.info("ac_onwerRegist_after: 성공");
-				return "redirect:ow_loginhome.do";
+				return "redirect:ac_ResListAddPage.do";
 			}else {
-				logger.info("ac_onwerRegist_after: 회원가입은 성공했지만 taste00 insert는 실패");
-				return "redirectow_loginhome.do";
+				logger.info("ac_onwerRegist_after: insert 실패");
+				return "redirect:ac_ownerRegistPage.do";
 			}
-		}else {
-			logger.info("regist자체 실패");
-			return "redirect:ac_onwerRegist_after.do";
-		}
 	}
 	
 	
@@ -198,10 +208,17 @@ public class AccountController {
 		}
 	}
 	
-	//아이디 / 비밀번호 찾기 페이지
+	//아이디 / 비밀번호 찾기 페이지 유저
 	@RequestMapping(value = "/ac_retrunAccPage.do")
 	public String retrunAccPage(Locale locale, Model model) {
 		return "ac_retrunAcc";
+	}
+	
+	
+	//아이디 / 비밀번호 찾기 페이지 점주
+	@RequestMapping(value = "/ac_retrunAccPage_ow.do")
+	public String retrunAccPage_ow(Locale locale, Model model) {
+		return "ac_retrunAcc_ow";
 	}
 	
 	
@@ -225,9 +242,8 @@ public class AccountController {
 			
 			model.addAttribute("msg",str);
 			
-			System.out.println(str);
 			
-			return "ac_login";
+			return "ac_login.do";
 	}
 	
 	
@@ -240,11 +256,85 @@ public class AccountController {
 		map.put("name", name_pw);
 		map.put("email", email_pw);
 		List<LoginDto>lists=accountServ.pw_return(map);
-		model.addAttribute("lists",lists);
 		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
-		return "ac_Mail";
+		
+		
+		String str = "";
+		if(lists.size()!=0) {
+			 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
+			}
+			if(lists.size()==0) {
+			 str="실패. 로그인페이지로 이동합니다";
+			}
+			
+			model.addAttribute("msg",str);
+			
+		
+		return "ac_login.do";
 	}
 	
+	
+	//아이디 찾기 점주
+	@RequestMapping(value = "/ac_idRetrun_ow.do",method = RequestMethod.POST)
+	public String idRetrun_ow(Locale locale, Model model,String name_id, String email_id,HttpServletRequest request,HttpServletResponse response) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("name", name_id);
+			map.put("email", email_id);
+			List<Admin_OnwerDto>lists=accountServ.id_return_ow(map);
+			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
+			
+			String str ="";
+			
+			if(lists.size()!=0) {
+			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
+			}
+			if(lists.size()==0) {
+			 str="실패. 로그인페이지로 이동합니다";
+			}
+			
+			model.addAttribute("msg",str);
+			
+			
+			return "ow_loginhome.do";
+	}
+	
+	
+	//비밀번호 찾기 점주
+	@RequestMapping(value = "/ac_pwRetrun_ow.do",method = RequestMethod.POST)
+	public String pwRetrun_ow(Locale locale, Model model,String id_pw,String name_pw,String email_pw) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id_pw);
+		map.put("name", name_pw);
+		map.put("email", email_pw);
+		List<Admin_OnwerDto>lists=accountServ.pw_return_ow(map);
+		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
+		
+		String str ="";
+		
+		if(lists.size()!=0) {
+		 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
+		}
+		if(lists.size()==0) {
+		 str="실패. 로그인페이지로 이동합니다";
+		}
+		
+		model.addAttribute("msg",str);
+		
+		
+		return "ow_loginhome.do";
+	}
+	
+	
+	
+	
+	
+	
+	//식당 등록
+	@RequestMapping(value = "/ac_ResListAddPage.do")
+	public String ResListAddPage(Locale locale, Model model) {
+		return "ac_retrunAcc";
+	}
 	
 	
 }

@@ -74,8 +74,20 @@ public class AccountService implements I_AccountService {
 	}
 
 	@Override
-	public boolean onwerregist(Admin_OnwerDto aoDto) {
-		 return accountDao.onwerregist(aoDto);
+	public boolean onwerregist(Map<String,String> map) {
+		
+		 return accountDao.onwerregist(map);
 	}
+
+	@Override
+	public List<Admin_OnwerDto> id_return_ow(Map<String, String> map) {
+		return accountDao.id_return_ow(map);
+	}
+
+	@Override
+	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map) {
+		return accountDao.pw_return_ow(map);
+	}
+
 
 }

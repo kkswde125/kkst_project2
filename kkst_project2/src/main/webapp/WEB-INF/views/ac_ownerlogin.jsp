@@ -59,7 +59,7 @@
 
 <div>
 아이디나 패스워드를 잊어버리셨다면?
-<a href="ac_retrunAccPage.do">HERE</a>
+<a href="ac_retrunAccPage_ow.do">HERE</a>
 </div>
 
 </div>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
@@ -59,13 +60,32 @@ public class AccountDao implements I_AccountDao {
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map) {
 		return sqlSessoin.selectOne(namespace+"onwerLogin",map);
 	}
+	
+	@Transactional
 	@Override
-	public boolean onwerregist(Admin_OnwerDto aoDto) {
+	public boolean onwerregist(Map<String,String> map) {
 		
-		int count=sqlSessoin.insert(namespace+"onewrRegist",aoDto);
+		int count=0;
+		count=sqlSessoin.insert(namespace+"ResListDefault");
+		
+		String res_seq = sqlSessoin.selectOne(namespace+"DefaultResList");
+		
+		map.put("res_seq", res_seq);
+		
+		if(count==1) {
+			count=sqlSessoin.insert(namespace+"onewrRegist",map);
+		}
 		
 		return count>0?true:false;
 		 
+	}
+	@Override
+	public List<Admin_OnwerDto> id_return_ow(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"id_Retrun_ow",map);
+	}
+	@Override
+	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"pw_Retrun_ow",map);
 	}
 
 }

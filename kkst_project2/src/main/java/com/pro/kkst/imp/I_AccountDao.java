@@ -8,6 +8,7 @@ import com.pro.kkst.dtos.LoginDto;
 
 public interface I_AccountDao {
 
+	//유저
 	public List<LoginDto> userList();
 	public List<LoginDto> id_return(Map<String, String> map);
 	public List<LoginDto> pw_return(Map<String, String> map);
@@ -16,6 +17,11 @@ public interface I_AccountDao {
 	public int selectSearchSeq(Map<String,String> map);
 	public int selectGetAttrCount();
 	public int insertRegist_taste(Map<String,String> map);
+
+	
+	//점주
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map);
-	public boolean onwerregist(Admin_OnwerDto aoDto);
+	public boolean onwerregist(Map<String,String> map);
+	public List<Admin_OnwerDto> id_return_ow(Map<String, String> map);
+	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map);
 }
