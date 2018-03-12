@@ -141,10 +141,12 @@ public class UserService implements I_UserService {
 	}
 
 	@Override
-	public List<MenuzDto> recommendMenuList(int user_seq) {
+	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end) {
 		List<MenuzDto> list=new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
 		map.put("user_seq", ""+user_seq);
+		map.put("start", start);
+		map.put("end", end);
 		list=userDao.selectRecommendMenuList(map);
 		return list;
 	}
@@ -194,6 +196,15 @@ public class UserService implements I_UserService {
 			}
 			list.add(dto);
 		}
+		return list;
+	}
+
+	@Override
+	public List<MenuzDto> getKeepList(String[] seqs) {
+		List<MenuzDto> list= new ArrayList<>();
+		Map<String, String[]> map = new HashMap<>();
+		map.put("seqs", seqs);
+		list=userDao.selectKeepList(map);
 		return list;
 	}
 	

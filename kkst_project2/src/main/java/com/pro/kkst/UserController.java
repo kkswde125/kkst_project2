@@ -222,14 +222,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "us_recommend_menu.do")
-	public String us_Recommend_Menu(Model model, HttpSession session) {
+	public String us_Recommend_Menu(Model model, HttpSession session, String start, String end, String seqs) {
 		logger.info("us_recommend_menu");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
 			return "ac_login";
 		}else {
-			List<MenuzDto> list = userServ.recommendMenuList(ldto.getSeq());
+			String[] seq=seqs.split("_");
+			List<MenuzDto> list = userServ.recommendMenuList(ldto.getSeq(), start, end);
 			model.addAttribute("list", list);
+			model.addAttribute("start", start);
+			model.addAttribute("end", end);
+			model.addAttribute("seqs",seq);
 			return "us_recommend_menu";
 		}
 	}
@@ -260,5 +264,18 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = "us_keeplist.do")
+	public String us_KeepList(Model model, HttpSession session, String seqs) {
+		logger.info("us_keeplist");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			String[] seq=seqs.split("_");
+			List<MenuzDto> list = userServ.getKeepList(seq);
+			model.addAttribute("list", list);
+			return "us_keeplist";
+		}
+	}
 	
 }

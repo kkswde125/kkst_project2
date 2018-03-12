@@ -11,6 +11,33 @@
 <%response.setContentType("text/html; charset=utf-8"); %>
 <!DOCTYPE html>
 <html>
+<%
+	LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");
+	if(ldto==null){
+		pageContext.forward("ac_login.do");
+	}
+	
+	int start = Integer.parseInt((String)request.getAttribute("start"));
+	int end = Integer.parseInt((String)request.getAttribute("end"));
+	start=start+20;
+	end=end+20;
+	String[] seqs = request.getParameterValues("seqs");
+	String rs="";
+	for (int i = 0; i < seqs.length; i++) {
+		if (i!=seqs.length-1) {
+			rs= rs+seqs[i]+"_";
+		}else {
+			rs= rs+seqs[i];
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	List<MenuzDto> list=(List<MenuzDto>)request.getAttribute("list");
+	boolean isLast=false;
+	if(list.size()<20){
+		isLast=true;
+	}
+%>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,17 +45,55 @@
 <script type="text/javascript">
 	var menuIndex=0;
 	var keepMenuNames = [];
+	var keepMenuSeqs = [];
 	var hateMenuCodes = [];
+	
+	function goMore(start, end) {
+		location.href="us_recommend_menu.do?start="+start+"&end="+end+"&seqs="+keepMenuSeqs;
+	}
+	function moreRcmd() {
+			$('table').hide();
+			$('#more').show();
+	}
+	
+	function goKeepList() {
+		var rs="";
+		for (var i = 0; i < keepMenuSeqs.length; i++) {
+			if (i!=keepMenuSeqs.length-1) {
+				rs= rs+keepMenuSeqs[i]+"_";
+			}else {
+				rs= rs+keepMenuSeqs[i];
+			}
+		}
+		location.href="us_keeplist.do?seqs="+rs;
+	}
+	
+	function theLast() {
+		if (<%=list.size()%>==menuIndex) {
+			$('table').hide();
+			$('#theLast').show();
+		}
+	}
 	
 	function choiceThis(cate) {
 		location.href= "us_reslist.do?cate="+cate;
 	}
 		
-	function keepThis(name) {
+	function keepThis(name, seq) {
 		keepMenuNames.push(name);
+		keepMenuSeqs.push(seq);
 		menuIndex++;
 		$('table').hide();
 		$('#tables'+menuIndex).show();
+		if (<%=isLast%>) {
+			theLast();
+		}
+		if (menuIndex==20) {
+			moreRcmd();
+		}
+		$('#keepList').text(keepMenuNames.toString());
+		$('#keepSeqs').text(keepMenuSeqs.toString());
+		$('#hateList').text(hateMenuCodes.toString());
 // 		alert(keepMenuNames.toString());
 		
 	}
@@ -38,24 +103,38 @@
 		menuIndex++;
 		$('table').hide();
 		$('#tables'+menuIndex).show();
+		
+		if (<%=isLast%>) {
+			theLast();
+		}
+		if (menuIndex==20) {
+			moreRcmd();
+		}
+		$('#keepList').text(keepMenuNames.toString());
+		$('#keepSeqs').text(keepMenuSeqs.toString());
+		$('#hateList').text(hateMenuCodes.toString());
 // 		alert(hateMenuCodes.toString());
 	}
 	
 	$(function() {
+		$('#more').hide();
+		$('#theLast').hide();
 		$('table').hide();
 		$('#tables'+menuIndex).show();
+		var asdf= '<%=rs%>';
+		keepMenuSeqs=asdf.split(",");
+		
+		
+		
+		
 	});
 </script>
 </head>
-<%
-	LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");
-	if(ldto==null){
-		pageContext.forward("ac_login.do");
-	}
-	@SuppressWarnings("unchecked")
-	List<MenuzDto> list=(List<MenuzDto>)request.getAttribute("list");
-%>
 <body>
+<p>listSize=<%=list.size()%> / </p>
+<p>Keep리스트: <span id="keepList"></span></p>
+<p>KeepSeqs: <span id="keepSeqs"></span></p>
+<p>Hate리스트: <span id="hateList"></span></p>
 <%
 	for(int i = 0; i < list.size(); i++){
 		
@@ -71,7 +150,7 @@
 	<tr>
 		<td>
 			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>')">결정!</button>
-			<button onclick="keepThis('<%=list.get(i).getName()%>')">보류하고 다음메뉴보기</button>
+			<button onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')">보류하고 다음메뉴보기</button>
 			<button onclick="hateThis('<%=list.get(i).getCode()%>')">이건 싫음</button>
 		</td>
 	</tr>
@@ -79,7 +158,14 @@
 	<%
 	}
 	%>
-	
+<button id="more" onclick="goMore('<%=start%>','<%=end%>')">더 추천받기</button>
+<p id="theLast">모든 메뉴를 추천받으셨습니다. Keep리스트를 보시거나 메인페이지로 이동하세요.</p>
+<hr/>
+<button onclick="goKeepList()">KeepList보기</button>
+<button onclick="location.href='us_usermain.do'">유저메인으로</button>
+<hr/>
+<hr/>
+<h3>밑은개발용</h3>
 <%
 	for(int i = 0; i < list.size(); i++){
 		%>
