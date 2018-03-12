@@ -149,12 +149,8 @@ public class AccountController {
 	//회원가입 점주
 	@RequestMapping(value = "/ac_onwerRegist_after.do")
 	public String onwerRegist_after(Model model, String id, String pw, String name,String phone, String email) {
-		logger.info("ac_regist_after");
-//		boolean  (new Admin_OnwerDto(null,id, pw, name,null,phone,null,email));
-		
-		
+		logger.info("ac_onwerRegist_after");
 		boolean isS = accountServ.onwerregist(new Admin_OnwerDto(0,id,pw,name,0,phone,null,null,email));
-		
 		if (isS) {
 			if (isS) {
 				logger.info("ac_onwerRegist_after: 성공");
@@ -181,6 +177,9 @@ public class AccountController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
 		boolean isS=accountServ.regist(new LoginDto(id, pw, name, nickName, sex, date, email));
 		
 		

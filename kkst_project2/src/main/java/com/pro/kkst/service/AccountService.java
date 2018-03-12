@@ -75,7 +75,7 @@ public class AccountService implements I_AccountService {
 
 	@Override
 	public boolean onwerregist(Admin_OnwerDto aoDto) {
-		return accountDao.onwerregist(aoDto);
+		 return accountDao.onwerregist(aoDto);
 	}
 
 }

@@ -56,7 +56,6 @@
 <button class="btn btn-default">OK</button>
 </fieldset>
 </form>
-<input class="btn btn-default" type="button" value="Join-Us" onclick="location.href='ac_registPage.do'"/>
 
 <div>
 아이디나 패스워드를 잊어버리셨다면?

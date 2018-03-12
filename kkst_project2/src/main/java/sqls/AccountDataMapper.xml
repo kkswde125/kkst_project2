@@ -42,9 +42,11 @@
 	</select>
 	
 	<insert id="onewrRegist" parameterType="AoDto">
-		INSERT INTO ADMIN_OWNER(SEQ,ID,PW,NAME,PHONE,RES_CALL,GRADE,EMAIL) 
-		VALUES(ADMIN_OWNER_SEQ.NEXTVAL,#{id},#{pw},'#{name}',#{phone},'000-0000-0000','O',#{email});
+		INSERT INTO ADMIN_OWNER VALUES(ADMIN_OWNER_SEQ.NEXTVAL,#{id},#{pw},#{name},#{res_seq},#{phone},'000-0000-0000','O',#{email})
 	</insert>
 	
+	<insert id="ResListDefault">
+		INSERT INTO RESLIST VALUES(RESLIST_SEQ.NEXTVAL,'DEFAULT','DEFAULT','DEFAULT','000-0000-0000','6:00','23:59','00:00','00:00','U','Y','DEF','작성된 코멘트가 없습니다.','00.00000','00.00000')
+	</insert>
 	
 </mapper>
