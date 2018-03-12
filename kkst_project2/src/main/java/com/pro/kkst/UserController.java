@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -66,10 +65,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "us_reslist.do")
-	public String reslist(Locale locale, Model model,String cate) {
+	public String reslist(Locale locale, Model model, String cate, String seq, String mName) {
 		logger.info("us_reslist");
 		List<ResDto> lists =userServ.ResList(cate);
+		List<ResDto> lists2 = userServ.ResList2(seq);
 		model.addAttribute("lists",lists);
+		model.addAttribute("lists2",lists2);
+		model.addAttribute("cate",cate);
+		model.addAttribute("mName",mName);
+		model.addAttribute("seq",seq);
 		return "us_resMap";
 	}
 	
@@ -275,6 +279,22 @@ public class UserController {
 			List<MenuzDto> list = userServ.getKeepList(seq);
 			model.addAttribute("list", list);
 			return "us_keeplist";
+		}
+	}
+	
+	@RequestMapping(value = "us_res_detail.do")
+	public String us_Res_Detail(Model model, HttpSession session, String name, String cate, String mName, String seq) {
+		logger.info("us_res_detail");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			ResDto dto = userServ.getResDetail(name);
+			model.addAttribute("dto", dto);
+			model.addAttribute("seq", seq);
+			model.addAttribute("mName", mName);
+			model.addAttribute("cate", cate);
+			return "us_res_detail";
 		}
 	}
 	

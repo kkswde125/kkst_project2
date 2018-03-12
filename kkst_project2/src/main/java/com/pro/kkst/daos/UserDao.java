@@ -105,4 +105,14 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.selectList(namespace+"getKeepList", map);
 	}
 
+	@Override
+	public ResDto selectResDetail(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"getResDetail", map);
+	}
+
+	@Override
+	public List<ResDto> ResList2(String seq) {
+		return sqlSessoin.selectList(namespace+"ResList2", seq);
+	}
+
 }

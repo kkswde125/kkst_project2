@@ -7,7 +7,12 @@
 <% 
 @SuppressWarnings("unchecked")
 List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
+@SuppressWarnings("unchecked")
+List<ResDto> lists2 =(List<ResDto>)request.getAttribute("lists2");
 
+String cate= (String)request.getAttribute("cate");
+String mName= (String)request.getAttribute("mName");
+String seq= (String)request.getAttribute("seq");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,9 +26,11 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
     <div id="map" style="width:100%;height:400px;"></div>
 	<script>
 	
-	
-	
-	 var cSize=100;
+		function goDetail(name,cate) {
+			location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
+		}
+		var HOME_PATH = "img/redMarker.png";
+	 var cSize=1000;
 	    function go100() {
 			cSize=100;
 		}
@@ -51,8 +58,73 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 	      var str = '';
 	      var menuLayer = $('<div style="position:absolute;z-index:10000;background-color:#fff;border:solid 1px #333;padding:10px;display:none;"></div>');
 	      map.getPanes().floatPane.appendChild(menuLayer[0]);
-	   
 	      
+	   	
+	      
+		
+    	
+	    	
+	    $(function() {
+	    	//추천메뉴가 있는 집 마커생성
+	    	
+	    	var name2=[];
+	    	var markers2=[];
+		      <%
+		      	for(int i=0; i< lists2.size(); i++){
+		      %>
+		      
+			      		var pp<%=i%>_2 = new naver.maps.LatLng(<%=lists2.get(i).getX()%>,<%=lists2.get(i).getY()%>);	      
+						name2.push("<%=lists2.get(i).getName()%>");
+						
+						var icon = {
+					            url: HOME_PATH,
+					            size: new naver.maps.Size(24, 37),
+					            anchor: new naver.maps.Point(12, 37),
+					            origin: new naver.maps.Point(i * 29, 0)
+					        },
+					        marker = new naver.maps.Marker({
+					            position: pp<%=i%>_2,
+					            map: map,
+					            icon: icon
+					        });
+
+					    marker.set('seq', i);
+
+					    markers2.push(marker);
+
+					    marker.addListener('mouseover', onMouseOver);
+					    marker.addListener('mouseout', onMouseOut);
+
+					    icon = null;
+					    marker = null;
+				
+		        <%
+		      	}
+		      %>
+		      function onMouseOver(e) {
+		    	    var marker = e.overlay,
+		    	        seq = marker.get('seq');
+
+		    	    marker.setIcon({
+		    	        url: HOME_PATH,
+		    	        size: new naver.maps.Size(24, 37),
+		    	        anchor: new naver.maps.Point(12, 37),
+		    	        origin: new naver.maps.Point(seq * 29, 50)
+		    	    });
+		    	}
+
+		    	function onMouseOut(e) {
+		    	    var marker = e.overlay,
+		    	        seq = marker.get('seq');
+
+		    	    marker.setIcon({
+		    	        url: HOME_PATH,
+		    	        size: new naver.maps.Size(24, 37),
+		    	        anchor: new naver.maps.Point(12, 37),
+		    	        origin: new naver.maps.Point(seq * 29, 0)
+		    	    });
+		    	}
+		});
 	      
 	      
 	      
@@ -65,13 +137,22 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 // 	          }).html(coordHtml);
 	          
 	          var info = new naver.maps.InfoWindow({		
-	        	  content:'<div style="width:150px;text-align:center;padding:10px;">현재위치가 여기신가요?</div>'
+	        	  content:'<div style="width:150px;text-align:center;padding:10px;">현위치</div>'
 				});
 	          
-	          var markerz = new naver.maps.Marker({
-	              position: e.coord,
-	              map: map
-	          });
+// 	          var markerz = new naver.maps.Marker({
+// 	              position: e.coord,
+// 	              map: map
+// 	          });
+	          var icon = {
+			            url: HOME_PATH,
+			            size: new naver.maps.Size(24, 37),
+			        },
+			        markerz = new naver.maps.Marker({
+			            position: e.coord,
+			            map: map,
+			            icon: icon
+			        });
 	          
 	          info.open(map,markerz);
 	          
@@ -149,13 +230,15 @@ List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 			 for (var j = 0; j < name1.length; j++) {
 					
 					var infoWindow = new naver.maps.InfoWindow({
-						content:'<div style="width:150px;text-align:center;padding:10px;">'+name1[j]+'</div>'
+						content:"<div style='width:150px;text-align:center;padding:10px;'>"+
+						"<span onclick='goDetail(this.innerHTML,\"<%=cate%>\")'>"+name1[j]+"</span>"
+						+"</div>"
 					});
 				
-				alert(name1);
+// 				alert(name1);
 // 				alert(name[j]);
 				infoWindows.push(infoWindow);
-				alert(infoWindows);
+// 				alert(infoWindows);
 
 			 }	
 			 
