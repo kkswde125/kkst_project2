@@ -28,8 +28,7 @@ public class AdminService implements I_AdminService {
 
 	@Override
 	public List<ResDto> restList() {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.restList();
 	}
 
 	@Override

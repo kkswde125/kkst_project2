@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminService;
 
@@ -47,6 +48,16 @@ public class AdminController {
 		
 		
 		return "ad_reviewChoice";
+	}
+	
+	@RequestMapping(value = "ad_restList.do", method = RequestMethod.GET)
+	public String ad_reslist(Locale locale, Model model, HttpServletRequest request) {
+		List<ResDto> lists = adminServ.restList();
+		System.out.println(lists.toString());
+		model.addAttribute("lists", lists);
+		request.setAttribute("lists", lists);
+		
+		return "ad_restList";
 	}
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
