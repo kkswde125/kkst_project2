@@ -126,7 +126,6 @@ public class AccountDao implements I_AccountDao {
 	}
 	@Override
 	public List<menuDto> searchMenuSeq(Map<String, String> map) {
-		
 		return sqlSessoin.selectList(namespace+"SearchMenuSeq",map);
 	}
 

@@ -30,7 +30,7 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="menuUpload" id="upload" style="display: none" />
+<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="menuUpload" id="upload" style="display: none" multiple="multiple" />
 </div>
 </td>
 <td>
@@ -95,7 +95,7 @@
 
 
 
-<form action="ac_ResListAdd.do" method="post" id="newMenu">
+<form action="ac_ResListAdd.do" method="post" id="newMenu" encType="multipart/form-data">
 <input type="hidden" name="res_seq" value="<%=res_seq%>" />
 <table>
 <!-- 사진 올라갈곳 -->

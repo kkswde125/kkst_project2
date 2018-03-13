@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
@@ -119,10 +120,10 @@ public class AccountService implements I_AccountService {
 	
 	@Transactional
 	@Override
-	public boolean addAllRes(HttpServletRequest request,String res_seq,String name,String cate,String addr,
+	public boolean addAllRes(MultipartHttpServletRequest request,HttpServletRequest request2,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
-			String[] price,String comment,String upload,String[] menuUpload) {
+			String[] price,String comment) {
 		
 		boolean isS=false;
 		
@@ -165,9 +166,7 @@ public class AccountService implements I_AccountService {
 //		boolean checkz2 = false;
 			
 			Map<String,String> Searchmap = new HashMap<String,String>();
-			
-			List<menuDto> menulists=null;
-			
+			List<menuDto> menulists = null;
 			for (int i = 0; i < menu_name.length; i++) {
 				
 				//메뉴 추가부분
@@ -175,16 +174,16 @@ public class AccountService implements I_AccountService {
 				menumap.put("code", code[i]);
 				menumap.put("res_seq", res_seq);
 				menumap.put("price", price[i]);
-				accountDao.addMenu(menumap);
-			
-				Searchmap.put("name", menu_name[i]);
-				Searchmap.put("res_seq", res_seq);
-				
-				menulists=accountDao.searchMenuSeq(Searchmap);
+				isS=accountDao.addMenu(menumap);
 		
-				utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
+				Searchmap.put("name", menu_name[0]);
+				Searchmap.put("res_seq", res_seq);
+				menulists=accountDao.searchMenuSeq(Searchmap);
+
+				utils.imageUpload(request,request2,"menuUpload", res_seq, menulists.get(0).getSeq()+"");
+				System.out.println(menulists.get(0).getSeq());
 			}
-			utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
+			utils.imageUpload(request,request2,"Upload", res_seq, null);
 		}
 		
 		

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.pro.kkst.imp.I_AccountDao;
@@ -47,18 +48,21 @@ public class ac_Utils {
 		return code;
 	}
 	
-	public boolean imageUpload(HttpServletRequest request,String filename,String res_seq,String menu_seq) {
+	public boolean imageUpload(MultipartHttpServletRequest request,HttpServletRequest request2,String filename,String res_seq,String menu_seq) {
 		
 		boolean isS= true;
 		
-		MultipartRequest multi=(MultipartRequest)request;
+		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
 		MultipartFile multifile = multi.getFile(filename);
 		
 		String originName=multifile.getOriginalFilename();
+		
+		System.out.println(originName);
+		
 		String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
 		String storeName=createUUid+originName.substring(originName.indexOf("."));
 		
-		File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg"+storeName);
+		File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
 		
 		try {
 			multifile.transferTo(f);
@@ -67,7 +71,12 @@ public class ac_Utils {
 			filemap.put("origin", originName);
 			filemap.put("change", storeName);
 			filemap.put("res_seq", res_seq);
-			filemap.put("menu_seq", menu_seq);
+			
+			if(menu_seq==null) {
+				filemap.put("menu_seq", null);
+			}else {
+				filemap.put("menu_seq", menu_seq);
+			}
 			
 			accountDao.addPhoto(filemap);
 		} catch (IllegalStateException e) {

@@ -89,8 +89,8 @@
 	</insert>
 	
 	<!-- 등록식당의 menu_seq를 가져오기 위함 -->
-	<select id="SearchMenuSeq" parameterType="Map">
-		SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME = #{name}
+	<select id="SearchMenuSeq" parameterType="Map" resultType="menuDto">
+		SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME=#{name}
 	</select>
 	
 	<!-- 이미지 등록시 photo 테이블 insert -->
