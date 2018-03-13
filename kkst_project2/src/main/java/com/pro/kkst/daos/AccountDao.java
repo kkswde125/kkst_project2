@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountDao;
 
 @Repository
@@ -106,7 +107,27 @@ public class AccountDao implements I_AccountDao {
 	}
 	@Override
 	public boolean addRes(Map<String, String> map) {
-		return false;
+		
+		int count=sqlSessoin.update(namespace+"ResAdd",map);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean addMenu(Map<String, String> map) {
+		
+		int count = sqlSessoin.insert(namespace+"AddMenu",map);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean addPhoto(Map<String, String> map) {
+		int count = sqlSessoin.insert(namespace+"AddImg",map);
+		return count>0?true:false;
+	}
+	@Override
+	public List<menuDto> searchMenuSeq(Map<String, String> map) {
+		
+		return sqlSessoin.selectList(namespace+"SearchMenuSeq") ;
 	}
 
 }

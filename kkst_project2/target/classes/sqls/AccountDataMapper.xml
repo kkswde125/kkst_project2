@@ -77,10 +77,25 @@
 	SELECT CODE,ATTR FROM ATTRS WHERE TYPE='5온도'
 	</select>
 
+	<!-- Default식당 에 update -->
 	<update id="ResAdd" parameterType="Map">
 	UPDATE RESLIST SET NAME=#{name},CATE=#{cate},ADDR=#{addr},'CALL'=#{call},'START'=#{start},'END'=#{end},
 	REST_START=#{rest_start},REST_END=#{rest_end},PARKING=#{parking},CHK='N',COMMENT=#{COMMENT},X='0.00000',Y='0.00000' WHERE RES_SEQ=#{res_seq}
 	</update>
-
+	
+	<!-- menulist에 insert -->
+	<insert id="AddMenu" parameterType="Map">
+		INSERT INTO MENULIST VALUES(MENULIST_SEQ.NEXTVAL,#{name},#{code},#{res_seq},#{price})
+	</insert>
+	
+	<!-- 등록식당의 menu_seq를 가져오기 위함 -->
+	<select id="SearchMenuSeq" parameterMap="Map">
+		SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME = #{name}
+	</select>
+	
+	<!-- 이미지 등록시 photo 테이블 insert -->
+	<insert id="AddImg" parameterMap="Map">
+		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},#{menu_seq})
+	</insert>
 	
 </mapper>

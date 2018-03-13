@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
 
@@ -112,7 +113,22 @@ public class AccountService implements I_AccountService {
 
 	@Override
 	public boolean addRes(Map<String, String> map) {
-		return false;
+		return accountDao.addRes(map);
+	}
+
+	@Override
+	public boolean addMenu(Map<String, String> map) {
+		return accountDao.addMenu(map);
+	}
+
+	@Override
+	public boolean addPhoto(Map<String, String> map) {
+		return accountDao.addPhoto(map);
+	}
+
+	@Override
+	public List<menuDto> searchMenuSeq(Map<String, String>map) {
+		return accountDao.searchMenuSeq(map);
 	}
 
 

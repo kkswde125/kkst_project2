@@ -6,6 +6,7 @@ import java.util.Map;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.menuDto;
 
 public interface I_AccountService {
 	//유저
@@ -26,4 +27,7 @@ public interface I_AccountService {
 	public List<AttrsDto> ATTRS4();
 	public List<AttrsDto> ATTRS5();
 	public boolean addRes(Map<String, String>map);
+	public boolean addMenu(Map<String, String>map);
+	public boolean addPhoto(Map<String, String>map);
+	public List<menuDto> searchMenuSeq(Map<String, String>map);
 }

@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountService;
 import com.pro.kkst.utils.Us_Utils;
 import com.pro.kkst.utils.ac_MailUtils;
+import com.pro.kkst.utils.ac_Utils;
 
 /**
  * Handles requests for the application home page.
@@ -43,6 +45,7 @@ public class AccountController {
 	
 	ac_MailUtils utils=new ac_MailUtils();
 	Us_Utils u_utils = new Us_Utils();
+	ac_Utils ac_utils=new ac_Utils();
 
 	
 	//로그인 분기
@@ -360,7 +363,73 @@ public class AccountController {
 	
 	//식당 등록
 	@RequestMapping(value = "/ac_ResListAdd.do")
-	public String ResListAdd(Locale locale, Model model) {
+	public String ResListAdd(Model model,HttpServletRequest request,String res_seq,String name,String cate,String addr,
+			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
+			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
+			String[] price,String comment,String upload,String[] menuUpload) {
+		
+			String Sdate = ac_utils.isTwo(S_hour)+":"+ac_utils.isTwo(S_min);
+			String Edate = ac_utils.isTwo(E_hour)+":"+ac_utils.isTwo(E_min);
+			String RsDate = ac_utils.isTwo(Rs_hour)+":"+ac_utils.isTwo(Rs_min);
+			String ReDate = ac_utils.isTwo(Re_hour)+":"+ac_utils.isTwo(Re_min);
+		
+			String code[]=new String[menu_name.length];
+
+			for (int i = 0; i < menu_name.length; i++) {
+				code[i]=ac_utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);
+				
+			}
+			
+			Map<String, String> resmap = new HashMap<String,String>();
+			//식당 추가 부분	
+			resmap.put("name",name);
+			resmap.put("cate", cate);
+			resmap.put("addr", addr);
+			resmap.put("call",call);
+			resmap.put("start", Sdate);
+			resmap.put("end", Edate);
+			resmap.put("rest_start", RsDate);
+			resmap.put("rest_end", ReDate);
+			resmap.put("parking", parking);
+			resmap.put("comment",comment);
+			resmap.put("res_seq", res_seq);	
+			
+			
+			boolean check = accountServ.addRes(resmap);
+			
+			if (check==true) {
+				Map<String,String> menumap = new HashMap<String,String>();
+				
+				boolean check2 = false;
+				
+				Map<String,String> Searchmap = new HashMap<String,String>();
+				
+				List<menuDto> menulists=null;
+				
+				for (int i = 0; i < menu_name.length; i++) {
+					
+					//메뉴 추가부분
+					menumap.put("name", menu_name[i]);
+					menumap.put("code", code[i]);
+					menumap.put("res_seq", res_seq);
+					menumap.put("price", price[i]);
+					accountServ.addMenu(menumap);
+				
+					Searchmap.put("name", menu_name[i]);
+					Searchmap.put("res_seq", res_seq);
+					menulists=accountServ.searchMenuSeq(Searchmap);
+					
+					ac_utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
+					
+				}
+			
+				ac_utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
+			
+			}
+			
+			
+			
+		
 		
 		return "ac_ownerlogin";
 	}

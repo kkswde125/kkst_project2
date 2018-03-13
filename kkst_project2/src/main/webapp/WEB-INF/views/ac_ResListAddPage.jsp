@@ -24,16 +24,18 @@
 </script>
 </head>
 <body>
+<!-- 복제할 메뉴 폼 -->
+
 <table id="menuAdd"  style="display: none;">
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" id="upload" style="display: none" />
+<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="menuUpload" id="upload" style="display: none" />
 </div>
 </td>
 <td>
 
-<!-- 복제할 메뉴 폼 -->
+
 <table border="1">
 	<tr>
 		<th>메뉴이름</th>
@@ -82,7 +84,7 @@
 		</td>
 	</tr>
 	<tr>
-	<td>메뉴설명</td><td colspan="2"><textarea rows="10" cols="60" name="comment"></textarea></td>
+	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required"/></td>
 	</tr>
 </table>
 </td>
@@ -100,7 +102,7 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" id="upload" style="display: none" />
+<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="upload" id="upload" style="display: none" />
 </div>
 </td>
 <!-- 입력 부분 -->
@@ -204,6 +206,15 @@
 			</select>
 		</td>
 	</tr>
+	
+	<tr>
+		<th>식당 설명</th>
+		<td>
+		<textarea rows="10" cols="60" name="comment"></textarea>
+		</td>
+	</tr>
+	
+	
 </table>
 </td>
 </table>
