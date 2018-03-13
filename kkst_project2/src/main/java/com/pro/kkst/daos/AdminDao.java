@@ -39,6 +39,8 @@ public class AdminDao implements I_AdminDao {
 		System.out.println("Dao의 cnum : "+cnum);
 		System.out.println(map.toString());
 		
+		
+		
 		return sqlSession.selectList(namespace+"restList", map);
 	}
 	@Override

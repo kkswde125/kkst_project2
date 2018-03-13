@@ -71,7 +71,7 @@
 		for(int i=0; i < count; i++){
 		%>          
 	<a href='ad_restList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>'>
-	<%=%>
+	<%=i+1 %>
 	 </a>
 <%
 	}
