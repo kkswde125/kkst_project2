@@ -221,10 +221,10 @@
 <hr id="line">
 
 
-
+<input type="submit" value="식당 등록 완료!">
+<input type="button" value="메뉴추가" onclick="AddMenu()" />
 </form>
 
-<input type="button" value="메뉴추가" onclick="AddMenu()" />
 
 
 </body>

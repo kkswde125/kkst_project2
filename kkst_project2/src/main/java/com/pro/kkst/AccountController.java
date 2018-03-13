@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -178,8 +179,8 @@ public class AccountController {
 				map2.put("pw", pw);
 
 				Admin_OnwerDto AoDto=accountServ.getOnwerLogin(map2);
+				System.out.println(AoDto);
 				model.addAttribute("AoDto",AoDto);
-				
 				return "redirect:ac_ResListAddPage.do";
 	
 			}else {
@@ -345,7 +346,7 @@ public class AccountController {
 	
 	//식당 등록 페이지 이동
 	@RequestMapping(value = "/ac_ResListAddPage.do")
-	public String ResListAddPage(Locale locale, Model model) {
+	public String ResListAddPage(Locale locale, Model model,Admin_OnwerDto AoDto) {
 		
 		List<AttrsDto> lists2=accountServ.ATTRS2();
 		List<AttrsDto> lists3=accountServ.ATTRS3();
@@ -356,6 +357,7 @@ public class AccountController {
 		model.addAttribute("lists3", lists3);
 		model.addAttribute("lists4", lists4);
 		model.addAttribute("lists5", lists5);
+		model.addAttribute("AoDto",AoDto);
 		
 		return "ac_ResListAddPage";
 	}
@@ -392,7 +394,7 @@ public class AccountController {
 			resmap.put("rest_end", ReDate);
 			resmap.put("parking", parking);
 			resmap.put("comment",comment);
-			resmap.put("res_seq", res_seq);	
+			resmap.put("seq", res_seq);	
 			
 			
 			boolean check = accountServ.addRes(resmap);

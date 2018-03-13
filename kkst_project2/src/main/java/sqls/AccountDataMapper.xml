@@ -79,8 +79,8 @@
 
 	<!-- Default식당 에 update -->
 	<update id="ResAdd" parameterType="Map">
-	UPDATE RESLIST SET NAME=#{name},CATE=#{cate},ADDR=#{addr},'CALL'=#{call},'START'=#{start},'END'=#{end},
-	REST_START=#{rest_start},REST_END=#{rest_end},PARKING=#{parking},CHK='N',COMMENT=#{COMMENT},X='0.00000',Y='0.00000' WHERE RES_SEQ=#{res_seq}
+	UPDATE RESLIST SET NAME=#{name},CATE=#{cate},ADDR=#{addr},"CALL"=#{call},"START"=#{start},"END"=#{end},
+	REST_START=#{rest_start},REST_END=#{rest_end},PARKING=#{parking},"OPEN"='Y',CHK='N',"COMMENT"=#{comment},X='0.00000',Y='0.00000' WHERE SEQ=#{seq}
 	</update>
 	
 	<!-- menulist에 insert -->
@@ -89,12 +89,12 @@
 	</insert>
 	
 	<!-- 등록식당의 menu_seq를 가져오기 위함 -->
-	<select id="SearchMenuSeq" parameterMap="Map">
+	<select id="SearchMenuSeq" parameterType="Map">
 		SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME = #{name}
 	</select>
 	
 	<!-- 이미지 등록시 photo 테이블 insert -->
-	<insert id="AddImg" parameterMap="Map">
+	<insert id="AddImg" parameterType="Map">
 		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},#{menu_seq})
 	</insert>
 	
