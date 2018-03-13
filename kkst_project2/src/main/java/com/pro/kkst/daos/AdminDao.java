@@ -30,8 +30,16 @@ public class AdminDao implements I_AdminDao {
 		return sqlSession.selectList(namespace+"reviewAll");
 	}
 	@Override	// 식당 관리
-	public List<ResDto> restList() {
-		return sqlSession.selectList(namespace+"restList");
+	public List<ResDto> restList(String snum, String cnum) {
+		System.out.println("Dao 진입");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("snum", snum);
+		map.put("cnum", cnum);
+		System.out.println("Dao의 snum : "+snum);
+		System.out.println("Dao의 cnum : "+cnum);
+		System.out.println(map.toString());
+		
+		return sqlSession.selectList(namespace+"restList", map);
 	}
 	@Override
 	public boolean memberDel(String[] seq) {
@@ -52,6 +60,14 @@ public class AdminDao implements I_AdminDao {
 			return null;
 		}
 
+	}
+	
+	
+	@Override
+	public int paging() {
+		int count = sqlSession.selectOne(namespace+"pageCnt");
+		
+		return count;	
 	}
 	
 

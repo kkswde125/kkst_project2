@@ -29,9 +29,18 @@
 		FROM REVIEW WHERE SEQ = #{seq}
 	</select>
 	
-	<select id="restList" resultType="ResDto">
-		SELECT SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
-FROM RESLIST WHERE CHK = 'DEF'
+	<select id="restList" resultType="ResDto" parameterType="Map">
+		SELECT SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
+		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
+		FROM
+		(SELECT ROW_NUMBER() OVER(ORDER BY SEQ) AS RN, 
+		SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
+		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
+		FROM RESLIST WHERE CHK = 'DEF') WHERE RN BETWEEN #{snum} AND #{cnum}
+	</select>
+	
+	<select id="pageCnt" resultType="int">
+		SELECT CEIL(COUNT(*)/10) CNT FROM RESLIST
 	</select>
 
 </mapper>

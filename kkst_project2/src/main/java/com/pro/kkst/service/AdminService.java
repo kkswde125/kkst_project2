@@ -27,8 +27,10 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ResDto> restList() {
-		return adminDao.restList();
+	public List<ResDto> restList(String snum, String cnum) {
+		System.out.println("service snum :"+snum);
+		System.out.println("service cnum :"+cnum);
+		return adminDao.restList(snum, cnum);
 	}
 
 	@Override
@@ -41,6 +43,10 @@ public class AdminService implements I_AdminService {
 		return adminDao.reviewReport(seq);
 	}
 	
+	@Override
+	public int paging() {
+		return adminDao.paging();
+	}
 	
 
 }

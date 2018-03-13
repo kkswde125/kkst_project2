@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +52,24 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "ad_restList.do", method = RequestMethod.GET)
-	public String ad_reslist(Locale locale, Model model, HttpServletRequest request) {
-		List<ResDto> lists = adminServ.restList();
-		System.out.println(lists.toString());
+	public String ad_reslist(Model model, String snum, String cnum, HttpSession session) {
+		
+	    
+	    if(snum==null) {
+	       snum=(String)session.getAttribute("snum");
+	       cnum=(String)session.getAttribute("cnum");
+	    }else {
+	       session.setAttribute("snum", snum);
+	       session.setAttribute("cnum", cnum);   
+	    }
+		List<ResDto> lists = adminServ.restList(snum, cnum);
+		int count = adminServ.paging();
+		System.out.println(count);
 		model.addAttribute("lists", lists);
-		request.setAttribute("lists", lists);
+		model.addAttribute("count", count);
+		
+		System.out.println("Controller snum: "+snum);
+		System.out.println("Controller cnum: "+cnum);
 		
 		return "ad_restList";
 	}
@@ -105,5 +119,6 @@ public class AdminController {
 		}
 		
 	}
+	
 
 }
