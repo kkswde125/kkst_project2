@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
@@ -368,80 +369,16 @@ public class AccountController {
 	
 	//식당 등록
 	@RequestMapping(value = "/ac_ResListAdd.do")
-	public String ResListAdd(Model model,HttpServletRequest request,String res_seq,String name,String cate,String addr,
+	public String ResListAdd(Model model,MultipartHttpServletRequest request,HttpServletRequest request2,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
-			String[] price,String comment,String upload,String[] menuUpload) {
+			String[] price,String comment) {
 		
-		
-			System.out.println(res_seq);
-		
-	/*		String Sdate = ac_utils.isTwo(S_hour)+":"+ac_utils.isTwo(S_min);
-			String Edate = ac_utils.isTwo(E_hour)+":"+ac_utils.isTwo(E_min);
-			String RsDate = ac_utils.isTwo(Rs_hour)+":"+ac_utils.isTwo(Rs_min);
-			String ReDate = ac_utils.isTwo(Re_hour)+":"+ac_utils.isTwo(Re_min);
-		
-			String code[]=new String[menu_name.length];
-
-			for (int i = 0; i < menu_name.length; i++) {
-				code[i]=ac_utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);
-				System.out.println(i+":"+code[i]);
-				
-			}
+//		String upload,String[] menuUpload
 			
-			Map<String, String> resmap = new HashMap<String,String>();
-			//식당 추가 부분	
-			resmap.put("name",name);
-			resmap.put("cate", cate);
-			resmap.put("addr", addr);
-			resmap.put("call",call);
-			resmap.put("start", Sdate);
-			resmap.put("end", Edate);
-			resmap.put("rest_start", RsDate);
-			resmap.put("rest_end", ReDate);
-			resmap.put("parking", parking);
-			resmap.put("comment",comment);
-			resmap.put("seq", res_seq);	
-			
-			
-//			boolean checkz = accountServ.addRes(resmap);
-			
-			if (checkz==true) {
-				Map<String,String> menumap = new HashMap<String,String>();
-				
-//				boolean checkz2 = false;
-				
-				Map<String,String> Searchmap = new HashMap<String,String>();
-				
-				List<menuDto> menulists=null;
-				
-				for (int i = 0; i < menu_name.length; i++) {
-					
-					//메뉴 추가부분
-					menumap.put("name", menu_name[i]);
-					menumap.put("code", code[i]);
-					menumap.put("res_seq", res_seq);
-					menumap.put("price", price[i]);
-					accountServ.addMenu(menumap);
-				
-					Searchmap.put("name", menu_name[i]);
-					Searchmap.put("res_seq", res_seq);
-					
-					menulists=accountServ.searchMenuSeq(Searchmap);
-					
-					ac_utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
-					
-				}
-			
-				ac_utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
-			
-			}
-			*/
-			
-			
-		 boolean isS=accountServ.addAllRes(request, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
+		 boolean isS=accountServ.addAllRes(request,request2,res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
 					Rs_hour, Rs_min, Re_hour, Re_min, call, parking, menu_name, cateCode, cookCode, 
-					spicyCode, tempCode, price, comment, upload, menuUpload);
+					spicyCode, tempCode, price, comment);
 		
 		 String msg="";
 		
