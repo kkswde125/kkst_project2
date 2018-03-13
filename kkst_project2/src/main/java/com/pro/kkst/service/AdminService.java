@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
@@ -46,6 +47,17 @@ public class AdminService implements I_AdminService {
 	@Override
 	public int paging() {
 		return adminDao.paging();
+	}
+
+	@Override
+	public boolean restChk(String[] seqs) {
+		return adminDao.restChk(seqs);
+	}
+	
+	@Override
+	public List<Admin_OnwerDto> a_o_list(String[] seqs){
+		
+		return null;
 	}
 	
 

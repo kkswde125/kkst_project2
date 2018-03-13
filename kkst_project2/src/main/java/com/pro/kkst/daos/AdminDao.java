@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
@@ -63,6 +64,18 @@ public class AdminDao implements I_AdminDao {
 		
 		return count;	
 	}
+	@Override
+	public boolean restChk(String[] seqs) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqs", seqs);
+		int count = sqlSession.update(namespace+"restChk", map);
+		return count > 0 ? true : false;
+	}
 	
-
+	@Override
+	public List<Admin_OnwerDto> a_o_list(String[] seqs){
+		
+		return null;
+	}
+	
 }

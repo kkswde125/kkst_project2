@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
@@ -126,6 +127,22 @@ public class AdminController {
 		
 		
 		return "ad_restList";
+	}
+	
+	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.GET)
+	public String ad_restList_Chk(Locale locale, Model model, HttpServletRequest request) {
+		
+		String[] seqs = request.getParameterValues("chk");
+//		List<Admin_OnwerDto> lists =  
+//		model.addAttribute("");
+		
+		boolean isS = adminServ.restChk(seqs);
+		if(isS) {
+			return "redirect:ad_restList.do?snum=1&cnum=10";
+		}else {
+			
+			return "redirect:ad_restList_Chk.do";
+		}
 	}
 	
 

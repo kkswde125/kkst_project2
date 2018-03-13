@@ -9,11 +9,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	function allChk(bool){
+		$("input[name==chk]").prop("checked", bool);
+	}
+</script>
 </head>
 <body>
 
 <h1>식당 등록 관리</h1>
-<form action="shopChk.do" method="GET">
+<form action="ad_restList_Chk.do" method="GET">
 <table border = "1">
 	<tr>
 		<td>

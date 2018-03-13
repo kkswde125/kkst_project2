@@ -42,5 +42,12 @@
 	<select id="pageCnt" resultType="int">
 		SELECT CEIL(COUNT(*)/10) CNT FROM RESLIST
 	</select>
+	
+	<select id="restChk" parameterType="Map">
+		UPDATE RESLIST SET CHK='Y' WHERE SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
+	</select>
 
 </mapper>
