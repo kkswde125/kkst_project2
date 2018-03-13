@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -379,6 +380,7 @@ public class AccountController {
 
 			for (int i = 0; i < menu_name.length; i++) {
 				code[i]=ac_utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);
+				System.out.println(i+":"+code[i]);
 				
 			}
 			
@@ -397,12 +399,12 @@ public class AccountController {
 			resmap.put("seq", res_seq);	
 			
 			
-			boolean check = accountServ.addRes(resmap);
+			boolean checkz = accountServ.addRes(resmap);
 			
-			if (check==true) {
+			if (checkz==true) {
 				Map<String,String> menumap = new HashMap<String,String>();
 				
-				boolean check2 = false;
+//				boolean checkz2 = false;
 				
 				Map<String,String> Searchmap = new HashMap<String,String>();
 				
@@ -419,6 +421,7 @@ public class AccountController {
 				
 					Searchmap.put("name", menu_name[i]);
 					Searchmap.put("res_seq", res_seq);
+					
 					menulists=accountServ.searchMenuSeq(Searchmap);
 					
 					ac_utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
