@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
@@ -87,6 +88,31 @@ public class AccountService implements I_AccountService {
 	@Override
 	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map) {
 		return accountDao.pw_return_ow(map);
+	}
+
+	@Override
+	public List<AttrsDto> ATTRS2() {
+		return accountDao.ATTRS2();
+	}
+
+	@Override
+	public List<AttrsDto> ATTRS3() {
+		return accountDao.ATTRS3();
+	}
+
+	@Override
+	public List<AttrsDto> ATTRS4() {
+		return accountDao.ATTRS4();
+	}
+
+	@Override
+	public List<AttrsDto> ATTRS5() {
+		return accountDao.ATTRS5();
+	}
+
+	@Override
+	public boolean addRes(Map<String, String> map) {
+		return false;
 	}
 
 

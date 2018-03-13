@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountDao;
 
@@ -86,6 +87,26 @@ public class AccountDao implements I_AccountDao {
 	@Override
 	public List<Admin_OnwerDto> pw_return_ow(Map<String, String> map) {
 		return sqlSessoin.selectList(namespace+"pw_Retrun_ow",map);
+	}
+	@Override
+	public List<AttrsDto> ATTRS2() {
+		return sqlSessoin.selectList(namespace+"attrs2");
+	}
+	@Override
+	public List<AttrsDto> ATTRS3() {
+		return sqlSessoin.selectList(namespace+"attrs3");
+	}
+	@Override
+	public List<AttrsDto> ATTRS4() {
+		return sqlSessoin.selectList(namespace+"attrs4");
+	}
+	@Override
+	public List<AttrsDto> ATTRS5() {
+		return sqlSessoin.selectList(namespace+"attrs5");
+	}
+	@Override
+	public boolean addRes(Map<String, String> map) {
+		return false;
 	}
 
 }

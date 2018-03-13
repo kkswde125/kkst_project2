@@ -28,4 +28,6 @@ public interface I_UserDao {
 	public int selectGetAllMenuCount(Map<String,String> map);
 	public WatchaDto selectWatchaMoreMoreBox(Map<String,String> map);
 	public List<MenuzDto> selectKeepList(Map<String, String[]> map);
+	public ResDto selectResDetail(Map<String, String> map);
+	public List<ResDto> ResList2(String seq);
 }

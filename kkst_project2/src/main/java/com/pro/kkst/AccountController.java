@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.imp.I_AccountService;
 import com.pro.kkst.utils.Us_Utils;
@@ -168,7 +169,16 @@ public class AccountController {
 		boolean isS = accountServ.onwerregist(map);
 			if (isS) {
 				logger.info("ac_onwerRegist_after: 성공");
+				
+				Map<String, String>map2=new HashMap<String,String>();
+				map2.put("id", id);
+				map2.put("pw", pw);
+
+				Admin_OnwerDto AoDto=accountServ.getOnwerLogin(map2);
+				model.addAttribute("AoDto",AoDto);
+				
 				return "redirect:ac_ResListAddPage.do";
+	
 			}else {
 				logger.info("ac_onwerRegist_after: insert 실패");
 				return "redirect:ac_ownerRegistPage.do";
@@ -330,11 +340,31 @@ public class AccountController {
 	
 	
 	
-	//식당 등록
+	//식당 등록 페이지 이동
 	@RequestMapping(value = "/ac_ResListAddPage.do")
 	public String ResListAddPage(Locale locale, Model model) {
-		return "ac_retrunAcc";
+		
+		List<AttrsDto> lists2=accountServ.ATTRS2();
+		List<AttrsDto> lists3=accountServ.ATTRS3();
+		List<AttrsDto> lists4=accountServ.ATTRS4();
+		List<AttrsDto> lists5=accountServ.ATTRS5();
+		
+		model.addAttribute("lists2", lists2);
+		model.addAttribute("lists3", lists3);
+		model.addAttribute("lists4", lists4);
+		model.addAttribute("lists5", lists5);
+		
+		return "ac_ResListAddPage";
 	}
+	
+	
+	//식당 등록
+	@RequestMapping(value = "/ac_ResListAdd.do")
+	public String ResListAdd(Locale locale, Model model) {
+		
+		return "ac_ownerlogin";
+	}
+	
 	
 	
 }

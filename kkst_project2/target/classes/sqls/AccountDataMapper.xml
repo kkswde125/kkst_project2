@@ -61,5 +61,26 @@
 		SELECT ID,PW,NAME,EMAIL FROM ADMIN_OWNER WHERE ID=#{id} AND NAME=#{name} AND EMAIL=#{email}
 	</select>
 	
+	<select id="attrs2" resultType="AttrsDto">
+	SELECT CODE,ATTR FROM ATTRS WHERE TYPE='2주재료'
+	</select>
+	
+	<select id="attrs3" resultType="AttrsDto">
+	SELECT CODE,ATTR FROM ATTRS WHERE TYPE='3조리방식'
+	</select>
+	
+	<select id="attrs4" resultType="AttrsDto">
+	SELECT CODE,ATTR FROM ATTRS WHERE TYPE='4매움정도'
+	</select>
+	
+	<select id="attrs5" resultType="AttrsDto">
+	SELECT CODE,ATTR FROM ATTRS WHERE TYPE='5온도'
+	</select>
+
+	<update id="ResAdd" parameterType="Map">
+	UPDATE RESLIST SET NAME=#{name},CATE=#{cate},ADDR=#{addr},'CALL'=#{call},'START'=#{start},'END'=#{end},
+	REST_START=#{rest_start},REST_END=#{rest_end},PARKING=#{parking},CHK='N',COMMENT=#{COMMENT},X='0.00000',Y='0.00000' WHERE RES_SEQ=#{res_seq}
+	</update>
+
 	
 </mapper>

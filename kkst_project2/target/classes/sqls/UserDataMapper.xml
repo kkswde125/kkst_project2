@@ -115,4 +115,13 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		SELECT SEQ, NAME, CODE FROM MENULIST WHERE SEQ IN
 		<foreach separator="," close=")" open="(" item="seqs" collection="seqs">TO_NUMBER(#{seqs})</foreach>
 	</select>
+	
+	<select id="getResDetail" parameterType="Map" resultType="ResDto">
+		SELECT SEQ, NAME, CATE, ADDR, "CALL", "START", "END", REST_START, REST_END, PARKING, "OPEN", CHK, "COMMENT", X, Y
+		FROM KKST.RESLIST WHERE (NAME = #{name}) AND ("OPEN" = 'Y') AND (CHK ='DEF' OR CHK='Y')
+	</select>
+	
+	<select id="ResList2" parameterType="Map" resultType="ResDto">
+		SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE SEQ = NVL((SELECT RES_SEQ FROM MENULIST WHERE seq=#{seq}),0)
+	</select>
 </mapper>

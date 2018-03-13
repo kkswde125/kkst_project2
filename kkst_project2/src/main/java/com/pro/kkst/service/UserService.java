@@ -207,6 +207,20 @@ public class UserService implements I_UserService {
 		list=userDao.selectKeepList(map);
 		return list;
 	}
+
+	@Override
+	public ResDto getResDetail(String name) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		return userDao.selectResDetail(map);
+	}
+
+	@Override
+	public List<ResDto> ResList2(String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		return userDao.ResList2(seq);
+	}
 	
 	
 

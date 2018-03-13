@@ -25,6 +25,8 @@ public interface I_UserService {
 	public boolean hasTaste(int user_seq);
 	public List<WatchaDto> watchaMoreMoreBox();
 	public List<MenuzDto> getKeepList(String[] seqs);
+	public ResDto getResDetail(String name);
+	public List<ResDto> ResList2(String seq);
 	
 	
 }
