@@ -124,4 +124,28 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	<select id="ResList2" parameterType="Map" resultType="ResDto">
 		SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE SEQ = NVL((SELECT RES_SEQ FROM MENULIST WHERE seq=#{seq}),0)
 	</select>
+	
+	<update id="customizeTastePlus" parameterType="Map">
+		UPDATE TASTE SET STAR=(CASE WHEN ((STAR+CEIL(STAR/COUNTS)+5)/(COUNTS+1) BETWEEN 100 AND 200) THEN (COUNTS+1)*100 ELSE STAR+CEIL(STAR/COUNTS)+5 END), COUNTS=COUNTS+1
+		WHERE USER_SEQ= #{user_seq} AND
+			ATTR IN (
+						SELECT ATTR FROM ATTRS WHERE (TYPE = '1카테고리' AND CODE = (SELECT SUBSTR(CODE,1,1) FROM MENULIST WHERE name= #{mName})) OR
+													 (TYPE = '2주재료' AND CODE = (SELECT SUBSTR(CODE,2,1) FROM MENULIST WHERE name= #{mName})) OR
+													 (TYPE = '3조리방식' AND CODE = (SELECT SUBSTR(CODE,3,1) FROM MENULIST WHERE name= #{mName})) OR
+													 (TYPE = '4매움정도' AND CODE = (SELECT SUBSTR(CODE,4,1) FROM MENULIST WHERE name= #{mName})) OR
+													 (TYPE = '5온도' AND CODE = (SELECT SUBSTR(CODE,5,1) FROM MENULIST WHERE name= #{mName}))
+					)
+	</update>
+	
+	<update id="customizeTasteMinus" parameterType="Map">
+		UPDATE TASTE SET STAR=(CASE WHEN (STAR+CEIL(STAR/COUNTS)-2 BETWEEN -10 AND 1) THEN 1 ELSE STAR+CEIL(STAR/COUNTS)-2 END), COUNTS=COUNTS+1
+		WHERE USER_SEQ= #{user_seq} AND
+			ATTR IN (
+						SELECT ATTR FROM ATTRS WHERE (TYPE = '1카테고리' AND CODE = #{code1}) OR
+													 (TYPE = '2주재료' AND CODE = #{code2}) OR
+													 (TYPE = '3조리방식' AND CODE = #{code3}) OR
+													 (TYPE = '4매움정도' AND CODE = #{code4}) OR
+													 (TYPE = '5온도' AND CODE = #{code5})
+					)
+	</update>
 </mapper>

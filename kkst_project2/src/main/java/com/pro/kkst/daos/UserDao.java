@@ -115,4 +115,14 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.selectList(namespace+"ResList2", seq);
 	}
 
+	@Override
+	public int updateCustomizeTastePlus(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"customizeTastePlus", map);
+	}
+
+	@Override
+	public int updateCustomizeTasteMinus(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"customizeTasteMinus", map);
+	}
+
 }

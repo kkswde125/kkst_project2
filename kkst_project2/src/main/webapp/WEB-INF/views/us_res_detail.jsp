@@ -27,7 +27,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	function goBack() {
-		location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName"+"<%=mName%>"+"&seq="+"<%=seq%>";
+		location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
 	}
 </script>
 </head>

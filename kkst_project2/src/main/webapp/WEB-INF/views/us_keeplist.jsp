@@ -17,6 +17,9 @@
 		
 	@SuppressWarnings("unchecked")
 	List<MenuzDto> list=(List<MenuzDto>)request.getAttribute("list");
+	
+	String hateRs=request.getParameter("hateRs");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -25,8 +28,8 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-	function choiceThis(cate) {
-		location.href= "us_reslist.do?cate="+cate;
+	function choiceThis(cate,seq,mName) {
+		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateRs;
 	}
 </script>
 </head>
@@ -45,7 +48,7 @@
 	</tr>
 	<tr>
 		<td>
-			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>')">결정!</button>
+			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')">결정!</button>
 		</td>
 	</tr>
 </table>

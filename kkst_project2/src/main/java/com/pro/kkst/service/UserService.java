@@ -221,7 +221,38 @@ public class UserService implements I_UserService {
 		map.put("seq", seq);
 		return userDao.ResList2(seq);
 	}
+
+	@Transactional
+	@Override
+	public boolean customizeTaste(int user_seq, String mName, String[] codes) {
+		int count=0;
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("user_seq", user_seq+"");
+		map.put("mName", mName);
+		count=userDao.updateCustomizeTastePlus(map);
+		
+		for (int i = 0; i < codes.length; i++) {
+			map.put("code1", codes[i].substring(0, 1));
+			map.put("code2", codes[i].substring(1, 2));
+			map.put("code3", codes[i].substring(2, 3));
+			map.put("code4", codes[i].substring(3, 4));
+			map.put("code5", codes[i].substring(4, 5));
+			
+			count=userDao.updateCustomizeTasteMinus(map);
+		}
+		
+		return count>0?true:false;
+	}
 	
-	
+	@Override
+	public boolean customizeTaste(int user_seq, String mName) {
+		int count=0;
+		Map<String, String> map = new HashMap<>();
+		map.put("user_seq", user_seq+"");
+		map.put("mName", mName);
+		count=userDao.updateCustomizeTastePlus(map);
+		return count>0?true:false;
+	}
 
 }

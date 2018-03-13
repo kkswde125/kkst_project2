@@ -28,5 +28,8 @@ public interface I_UserService {
 	public ResDto getResDetail(String name);
 	public List<ResDto> ResList2(String seq);
 	
+	public boolean customizeTaste(int user_seq, String mName, String[] codes);
+	public boolean customizeTaste(int user_seq, String mName);
+	
 	
 }

@@ -30,4 +30,6 @@ public interface I_UserDao {
 	public List<MenuzDto> selectKeepList(Map<String, String[]> map);
 	public ResDto selectResDetail(Map<String, String> map);
 	public List<ResDto> ResList2(String seq);
+	public int updateCustomizeTastePlus(Map<String, String> map);
+	public int updateCustomizeTasteMinus(Map<String, String> map);
 }

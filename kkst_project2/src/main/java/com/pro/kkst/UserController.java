@@ -64,8 +64,38 @@ public class UserController {
 		return "ad_admin";
 	}
 	
+	@RequestMapping(value = "us_customize_taste.do")
+	public String us_Customize_Taste(Model model, HttpSession session , String cate, String seq, String mName, String hateRs) {
+		logger.info("us_customize_taste");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			boolean isS=false;
+			if (hateRs.equals("null")) {
+				
+				isS = userServ.customizeTaste(ldto.getSeq(), mName);
+			}else {
+				
+				String[] hates= hateRs.split("_");
+				
+				isS = userServ.customizeTaste(ldto.getSeq(), mName, hates);
+			}
+			
+			if (isS) {
+				logger.info("us_customize_taste:성공");
+				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
+			}else {
+				logger.info("us_customize_taste:실패");
+				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
+			}
+			
+		}
+	}
+	
+	
 	@RequestMapping(value = "us_reslist.do")
-	public String reslist(Locale locale, Model model, String cate, String seq, String mName) {
+	public String reslist(Model model, String cate, String seq, String mName) {
 		logger.info("us_reslist");
 		List<ResDto> lists =userServ.ResList(cate);
 		List<ResDto> lists2 = userServ.ResList2(seq);
@@ -78,7 +108,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="us_olympic.do")
-	public String olympic(Locale locale, Model model) {
+	public String olympic(Model model) {
 		logger.info("us_olympic");
 		List<menuDto> lists1=userServ.menuList();
 		List<menuDto> lists2=null;
@@ -126,7 +156,7 @@ public class UserController {
 	}*/
 	
 	@RequestMapping(value="us_winner.do")
-	public String winner(Locale locale, Model model,String seq) {
+	public String winner(Model model,String seq) {
 		logger.info("us_winner");
 		int[] seqs = new int[1]; 
 		seqs[0]=Integer.parseInt(seq);
@@ -139,7 +169,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value="us_nextOlympic.do")
-	public String test(Locale locale, Model model,String[] choiceSeq) {
+	public String test(Model model,String[] choiceSeq) {
 		logger.info("us_nextOlympic");
 		int [] seqs= new int[16];
 		for (int i = 0; i < choiceSeq.length; i++) {
@@ -269,7 +299,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "us_keeplist.do")
-	public String us_KeepList(Model model, HttpSession session, String seqs) {
+	public String us_KeepList(Model model, HttpSession session, String seqs, String hateRs) {
 		logger.info("us_keeplist");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
@@ -278,6 +308,7 @@ public class UserController {
 			String[] seq=seqs.split("_");
 			List<MenuzDto> list = userServ.getKeepList(seq);
 			model.addAttribute("list", list);
+			model.addAttribute("hateRs", hateRs);
 			return "us_keeplist";
 		}
 	}

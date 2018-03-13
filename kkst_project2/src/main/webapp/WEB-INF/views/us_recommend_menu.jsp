@@ -65,7 +65,20 @@
 				rs= rs+keepMenuSeqs[i];
 			}
 		}
-		location.href="us_keeplist.do?seqs="+rs;
+		
+		var hateRs="";
+		if (hateMenuCodes.length==0) {
+			hateRs="null";
+		}
+		for (var i = 0; i < hateMenuCodes.length; i++) {
+			if (i!=hateMenuCodes.length-1) {
+				hateRs= hateRs+hateMenuCodes[i]+"_";
+			}else {
+				hateRs= hateRs+hateMenuCodes[i];
+			}
+		}
+		
+		location.href="us_keeplist.do?seqs="+rs+"&hateRs="+hateRs;
 	}
 	
 	function theLast() {
@@ -76,7 +89,20 @@
 	}
 	
 	function choiceThis(cate,seq,mName) {
-		location.href= "us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
+		var hateRs="";
+		if (hateMenuCodes.length==0) {
+			hateRs="null";
+		}
+		
+		for (var i = 0; i < hateMenuCodes.length; i++) {
+			if (i!=hateMenuCodes.length-1) {
+				hateRs= hateRs+hateMenuCodes[i]+"_";
+			}else {
+				hateRs= hateRs+hateMenuCodes[i];
+			}
+		}
+		
+		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateRs;
 	}
 		
 	function keepThis(name, seq) {
@@ -149,7 +175,7 @@
 	</tr>
 	<tr>
 		<td>
-			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName() %>')">결정!</button>
+			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')">결정!</button>
 			<button onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')">보류하고 다음메뉴보기</button>
 			<button onclick="hateThis('<%=list.get(i).getCode()%>')">이건 싫음</button>
 		</td>
