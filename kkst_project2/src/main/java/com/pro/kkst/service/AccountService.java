@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +16,15 @@ import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
+import com.pro.kkst.utils.ac_Utils;
 
 @Service
 public class AccountService implements I_AccountService {
 	@Autowired
 	private I_AccountDao accountDao;
+	
+	@Autowired
+	private ac_Utils utils= new ac_Utils();
 
 	@Override
 	public List<LoginDto> userList() {
@@ -111,28 +117,92 @@ public class AccountService implements I_AccountService {
 		return accountDao.ATTRS5();
 	}
 
-	@Transactional
-	@Override
-	public boolean addRes(Map<String, String> map) {
-		return accountDao.addRes(map);
-	}
-
-	@Transactional
-	@Override
-	public boolean addMenu(Map<String, String> map) {
-		return accountDao.addMenu(map);
-	}
-	@Transactional
-	@Override
-	public boolean addPhoto(Map<String, String> map) {
-		return accountDao.addPhoto(map);
-	}
 	
-	@Transactional
 	@Override
-	public List<menuDto> searchMenuSeq(Map<String, String>map) {
-		return accountDao.searchMenuSeq(map);
+	public boolean addAllRes(HttpServletRequest request,String res_seq,String name,String cate,String addr,
+			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
+			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
+			String[] price,String comment,String upload,String[] menuUpload) {
+		
+		boolean isS=false;
+		
+		
+		String Sdate = utils.isTwo(S_hour)+":"+utils.isTwo(S_min);
+		String Edate = utils.isTwo(E_hour)+":"+utils.isTwo(E_min);
+		String RsDate = utils.isTwo(Rs_hour)+":"+utils.isTwo(Rs_min);
+		String ReDate = utils.isTwo(Re_hour)+":"+utils.isTwo(Re_min);
+		
+		String code[]=new String[menu_name.length];
+
+		for (int i = 0; i < menu_name.length; i++) {
+			code[i]=utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);
+			System.out.println(i+":"+code[i]);
+			
+		}
+		
+		
+		Map<String, String> resmap = new HashMap<String,String>();
+		//식당 추가 부분	
+		resmap.put("name",name);
+		resmap.put("cate", cate);
+		resmap.put("addr", addr);
+		resmap.put("call",call);
+		resmap.put("start", Sdate);
+		resmap.put("end", Edate);
+		resmap.put("rest_start", RsDate);
+		resmap.put("rest_end", ReDate);
+		resmap.put("parking", parking);
+		resmap.put("comment",comment);
+		resmap.put("seq", res_seq);	
+		
+		isS=accountDao.addRes(resmap);
+		
+		if (isS==true) {
+			Map<String,String> menumap = new HashMap<String,String>();
+			
+//			boolean checkz2 = false;
+			
+			Map<String,String> Searchmap = new HashMap<String,String>();
+			
+			List<menuDto> menulists=null;
+			
+			for (int i = 0; i < menu_name.length; i++) {
+				
+				//메뉴 추가부분
+				menumap.put("name", menu_name[i]);
+				menumap.put("code", code[i]);
+				menumap.put("res_seq", res_seq);
+				menumap.put("price", price[i]);
+				accountDao.addMenu(menumap);
+			
+				Searchmap.put("name", menu_name[i]);
+				Searchmap.put("res_seq", res_seq);
+				
+				menulists=accountDao.searchMenuSeq(Searchmap);
+				
+				utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
+			}
+			
+			utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
+		}
+		
+		
+		return isS;
 	}
+//
+//	@Override
+//	public boolean addMenu(Map<String, String> map) {
+//		return accountDao.addMenu(map);
+//	}
+//	@Override
+//	public boolean addPhoto(Map<String, String> map) {
+//		return accountDao.addPhoto(map);
+//	}
+//	
+//	@Override
+//	public List<menuDto> searchMenuSeq(Map<String, String>map) {
+//		return accountDao.searchMenuSeq(map);
+//	}
 
 
 }

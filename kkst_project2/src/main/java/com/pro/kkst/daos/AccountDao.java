@@ -105,7 +105,6 @@ public class AccountDao implements I_AccountDao {
 	public List<AttrsDto> ATTRS5() {
 		return sqlSessoin.selectList(namespace+"attrs5");
 	}
-	@Transactional
 	@Override
 	public boolean addRes(Map<String, String> map) {
 		
@@ -113,7 +112,6 @@ public class AccountDao implements I_AccountDao {
 		
 		return count>0?true:false;
 	}
-	@Transactional
 	@Override
 	public boolean addMenu(Map<String, String> map) {
 		
@@ -121,13 +119,11 @@ public class AccountDao implements I_AccountDao {
 		
 		return count>0?true:false;
 	}
-	@Transactional
 	@Override
 	public boolean addPhoto(Map<String, String> map) {
 		int count = sqlSessoin.insert(namespace+"AddImg",map);
 		return count>0?true:false;
 	}
-	@Transactional
 	@Override
 	public List<menuDto> searchMenuSeq(Map<String, String> map) {
 		

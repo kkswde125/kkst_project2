@@ -365,14 +365,13 @@ public class AccountController {
 	
 	
 	//식당 등록
-	@Transactional
 	@RequestMapping(value = "/ac_ResListAdd.do")
 	public String ResListAdd(Model model,HttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment,String upload,String[] menuUpload) {
 		
-			String Sdate = ac_utils.isTwo(S_hour)+":"+ac_utils.isTwo(S_min);
+	/*		String Sdate = ac_utils.isTwo(S_hour)+":"+ac_utils.isTwo(S_min);
 			String Edate = ac_utils.isTwo(E_hour)+":"+ac_utils.isTwo(E_min);
 			String RsDate = ac_utils.isTwo(Rs_hour)+":"+ac_utils.isTwo(Rs_min);
 			String ReDate = ac_utils.isTwo(Re_hour)+":"+ac_utils.isTwo(Re_min);
@@ -400,7 +399,7 @@ public class AccountController {
 			resmap.put("seq", res_seq);	
 			
 			
-			boolean checkz = accountServ.addRes(resmap);
+//			boolean checkz = accountServ.addRes(resmap);
 			
 			if (checkz==true) {
 				Map<String,String> menumap = new HashMap<String,String>();
@@ -432,9 +431,12 @@ public class AccountController {
 				ac_utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
 			
 			}
+			*/
 			
 			
-			
+			accountServ.addAllRes(request, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
+					Rs_hour, Rs_min, Re_hour, Re_min, call, parking, menu_name, cateCode, cookCode, 
+					spicyCode, tempCode, price, comment, upload, menuUpload);
 		
 		
 		return "ac_ownerlogin";

@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
 
 public class ac_Utils {
 	
 	
-	private I_AccountService accountServ;
+	private I_AccountDao accountDao;
 	
 	public String isTwo(String date) {
 		
@@ -67,7 +68,7 @@ public class ac_Utils {
 			filemap.put("res_seq", res_seq);
 			filemap.put("menu_seq", menu_seq);
 			
-			accountServ.addPhoto(filemap);
+			accountDao.addPhoto(filemap);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
