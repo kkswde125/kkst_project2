@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
@@ -17,7 +18,7 @@ import com.pro.kkst.imp.I_AccountService;
 
 public class ac_Utils {
 	
-	
+	@Autowired
 	private I_AccountDao accountDao;
 	
 	public String isTwo(String date) {

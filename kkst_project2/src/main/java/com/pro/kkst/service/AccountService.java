@@ -23,7 +23,6 @@ public class AccountService implements I_AccountService {
 	@Autowired
 	private I_AccountDao accountDao;
 	
-	@Autowired
 	private ac_Utils utils= new ac_Utils();
 
 	@Override
@@ -118,6 +117,7 @@ public class AccountService implements I_AccountService {
 	}
 
 	
+	@Transactional
 	@Override
 	public boolean addAllRes(HttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
@@ -155,12 +155,14 @@ public class AccountService implements I_AccountService {
 		resmap.put("comment",comment);
 		resmap.put("seq", res_seq);	
 		
+		System.out.println(resmap);
+		
 		isS=accountDao.addRes(resmap);
 		
 		if (isS==true) {
 			Map<String,String> menumap = new HashMap<String,String>();
 			
-//			boolean checkz2 = false;
+//		boolean checkz2 = false;
 			
 			Map<String,String> Searchmap = new HashMap<String,String>();
 			
@@ -179,10 +181,9 @@ public class AccountService implements I_AccountService {
 				Searchmap.put("res_seq", res_seq);
 				
 				menulists=accountDao.searchMenuSeq(Searchmap);
-				
+		
 				utils.imageUpload(request, menuUpload[i], res_seq, menulists.get(0).getSeq()+"");
 			}
-			
 			utils.imageUpload(request, upload, res_seq, menulists.get(0).getSeq()+"");
 		}
 		

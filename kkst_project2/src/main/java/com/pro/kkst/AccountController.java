@@ -181,7 +181,8 @@ public class AccountController {
 
 				Admin_OnwerDto AoDto=accountServ.getOnwerLogin(map2);
 				System.out.println(AoDto);
-				model.addAttribute("AoDto",AoDto);
+				model.addAttribute("res_seq",AoDto.getRes_seq());
+				
 				return "redirect:ac_ResListAddPage.do";
 	
 			}else {
@@ -347,18 +348,19 @@ public class AccountController {
 	
 	//식당 등록 페이지 이동
 	@RequestMapping(value = "/ac_ResListAddPage.do")
-	public String ResListAddPage(Locale locale, Model model,Admin_OnwerDto AoDto) {
+	public String ResListAddPage(Locale locale, Model model,String res_seq) {
 		
 		List<AttrsDto> lists2=accountServ.ATTRS2();
 		List<AttrsDto> lists3=accountServ.ATTRS3();
 		List<AttrsDto> lists4=accountServ.ATTRS4();
 		List<AttrsDto> lists5=accountServ.ATTRS5();
 		
+		System.out.println(res_seq);
 		model.addAttribute("lists2", lists2);
 		model.addAttribute("lists3", lists3);
 		model.addAttribute("lists4", lists4);
 		model.addAttribute("lists5", lists5);
-		model.addAttribute("AoDto",AoDto);
+		model.addAttribute("res_seq",res_seq);
 		
 		return "ac_ResListAddPage";
 	}
@@ -370,6 +372,9 @@ public class AccountController {
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment,String upload,String[] menuUpload) {
+		
+		
+			System.out.println(res_seq);
 		
 	/*		String Sdate = ac_utils.isTwo(S_hour)+":"+ac_utils.isTwo(S_min);
 			String Edate = ac_utils.isTwo(E_hour)+":"+ac_utils.isTwo(E_min);
@@ -434,14 +439,23 @@ public class AccountController {
 			*/
 			
 			
-			accountServ.addAllRes(request, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
+		 boolean isS=accountServ.addAllRes(request, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
 					Rs_hour, Rs_min, Re_hour, Re_min, call, parking, menu_name, cateCode, cookCode, 
 					spicyCode, tempCode, price, comment, upload, menuUpload);
 		
+		 String msg="";
 		
-		return "ac_ownerlogin";
+		 if(isS==true) {
+			msg="식당 등록성공! 로그인페이지로 이동합니다.";
+			return "redirect:ac_ownerlogin";
+		 }else {
+			 
+			msg="식당 등록에 실패하였습니다.다시 등록해주세요";
+			return "redirect:ac_ResListAddPage.do";
+			
+		 }
+		 
 	}
-	
 	
 	
 }

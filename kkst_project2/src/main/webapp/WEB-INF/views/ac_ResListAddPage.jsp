@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8");%>
-<%Admin_OnwerDto AoDto=(Admin_OnwerDto)request.getAttribute("AoDto"); %>
+<% String res_seq = request.getParameter("res_seq"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -96,7 +96,7 @@
 
 
 <form action="ac_ResListAdd.do" method="post" id="newMenu">
-<input type="hidden" name="res_seq" value="<%=AoDto.getRes_seq()%>" />
+<input type="hidden" name="res_seq" value="<%=res_seq%>" />
 <table>
 <!-- 사진 올라갈곳 -->
 <tr>
