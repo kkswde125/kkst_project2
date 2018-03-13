@@ -64,17 +64,32 @@
 <table id="page" border="1">
 <tr>
 	<td>
-
 		<% 
 		int count = (Integer)request.getAttribute("count");
+		int START = (Integer)request.getAttribute("START");
+		int END = (Integer)request.getAttribute("END");
+		if(END>count){
+			END = count;
+		}
 		
-		for(int i=0; i < count; i++){
+		if(START!=1){
+		%>
+		<a href="ad_restList.do?snum=<%=START*10-19 %>&cnum=<%=START*10-10 %>">이전</a>
+		
+		<%
+		}
+		for(int i=START-1; i < END-1; i++){
 		%>          
 	<a href='ad_restList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>'>
 	<%=i+1 %>
 	 </a>
 <%
 	}
+		if(END!=count){
+			%>
+		<a href="ad_restList.do?snum=<%=START+100 %>&cnum=<%=END+99 %>">다음</a>
+			<%
+		}
 %>
 	</td>
 </tr>

@@ -1,11 +1,9 @@
 package com.pro.kkst.daos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,12 +33,6 @@ public class AdminDao implements I_AdminDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snum", snum);
 		map.put("cnum", cnum);
-		System.out.println("Dao의 snum : "+snum);
-		System.out.println("Dao의 cnum : "+cnum);
-		System.out.println(map.toString());
-		
-		
-		
 		return sqlSession.selectList(namespace+"restList", map);
 	}
 	@Override
