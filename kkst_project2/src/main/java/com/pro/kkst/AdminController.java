@@ -64,12 +64,9 @@ public class AdminController {
 	    }
 		List<ResDto> lists = adminServ.restList(snum, cnum);
 		int count = adminServ.paging();
-		System.out.println(count);
 		model.addAttribute("lists", lists);
 		model.addAttribute("count", count);
 		
-		System.out.println("Controller snum: "+snum);
-		System.out.println("Controller cnum: "+cnum);
 		
 		return "ad_restList";
 	}
