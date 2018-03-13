@@ -365,6 +365,7 @@ public class AccountController {
 	
 	
 	//식당 등록
+	@Transactional
 	@RequestMapping(value = "/ac_ResListAdd.do")
 	public String ResListAdd(Model model,HttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,

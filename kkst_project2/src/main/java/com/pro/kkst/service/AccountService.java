@@ -111,21 +111,24 @@ public class AccountService implements I_AccountService {
 		return accountDao.ATTRS5();
 	}
 
+	@Transactional
 	@Override
 	public boolean addRes(Map<String, String> map) {
 		return accountDao.addRes(map);
 	}
 
+	@Transactional
 	@Override
 	public boolean addMenu(Map<String, String> map) {
 		return accountDao.addMenu(map);
 	}
-
+	@Transactional
 	@Override
 	public boolean addPhoto(Map<String, String> map) {
 		return accountDao.addPhoto(map);
 	}
-
+	
+	@Transactional
 	@Override
 	public List<menuDto> searchMenuSeq(Map<String, String>map) {
 		return accountDao.searchMenuSeq(map);
