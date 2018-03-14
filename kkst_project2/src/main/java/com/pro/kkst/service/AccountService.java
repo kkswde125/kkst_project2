@@ -218,8 +218,14 @@ public class AccountService implements I_AccountService {
 						filemap.put("origin", originName);
 						filemap.put("change", storeName);
 						filemap.put("res_seq", res_seq);
-						filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+						
 					
+						if(originName.equals(multifile.get(0).getOriginalFilename())) {
+							filemap.put("menu_seq",null);
+						}else {
+							filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+						}
+						
 						System.out.println(filemap);
 						
 						accountDao.addPhoto(filemap);
