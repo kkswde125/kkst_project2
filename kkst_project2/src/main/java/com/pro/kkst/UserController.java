@@ -49,6 +49,10 @@ public class UserController {
 	public String goUser() {
 		return "us_user";
 	}
+	@RequestMapping(value = "us_menu_photo_upload.do")
+	public String goOwner2() {
+		return "us_menu_photo_upload";
+	}
 	
 	@RequestMapping(value = "account.do")
 	public String goAccount() {
