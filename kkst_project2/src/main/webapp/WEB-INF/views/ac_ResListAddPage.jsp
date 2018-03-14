@@ -102,7 +102,7 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="upload" id="upload" style="display: none" />
+<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" value="사진등록" name="upload" id="upload" style="display: none" multiple="multiple"/>
 </div>
 </td>
 <!-- 입력 부분 -->
@@ -218,7 +218,8 @@
 </table>
 </td>
 </table>
-<hr id="line">
+<hr/>
+<div id="line"></div>
 
 
 <input type="submit" value="식당 등록 완료!">
