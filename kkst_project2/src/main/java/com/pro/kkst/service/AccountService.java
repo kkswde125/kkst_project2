@@ -124,7 +124,7 @@ public class AccountService implements I_AccountService {
 	
 	@Transactional
 	@Override
-	public boolean addAllRes(MultipartHttpServletRequest request,HttpServletRequest request2,String res_seq,String name,String cate,String addr,
+	public boolean addAllRes(MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment) {
@@ -188,29 +188,32 @@ public class AccountService implements I_AccountService {
 				
 				
 				
-				List<MultipartFile> multifile = request.getFiles("upload");
 				
-				System.out.println(multifile.size());
+			 List<MultipartFile> multifile=request.getFiles("uploadFile");
+				
+			 	System.out.println(multifile.size());
+			 
+				String originName = "";
+				String createUUid ="";
+				String storeName ="";
+				
+				System.out.println(multifile);
 				
 				
-				System.out.println(multifile.get(0).getOriginalFilename());
-				System.out.println(multifile.get(1).getOriginalFilename());
-				
-				for (int j = 0; j < multifile.size(); j++) {
-					String originName ="";
-					String createUUid ="";
-					String storeName ="";
+				for (int j = 1; j < multifile.size(); j++) {
 				
 					
 					originName=multifile.get(j).getOriginalFilename();
 					System.out.println(originName);
 					createUUid=UUID.randomUUID().toString().replaceAll("-", "");
-					System.out.println(originName.lastIndexOf(".")+"kkkkkkkkkkkkkk");
-//					storeName=createUUid+originName.substring(originName.lastIndexOf("."));
-					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+originName);
+					System.out.println(originName.lastIndexOf("."));
+					storeName=createUUid+originName.substring(originName.lastIndexOf("."));
+					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
 					
 					try {
+						
 						multifile.get(j).transferTo(f);
+						
 						Map<String, String> filemap = new HashMap<String,String>();
 						
 						filemap.put("origin", originName);
