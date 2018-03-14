@@ -50,14 +50,24 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public boolean restChk(String[] seqs) {
-		return adminDao.restChk(seqs);
+	public boolean restChk(int seq, Double x, Double y) {
+		return adminDao.restChk(seq, x, y);
 	}
 	
 	@Override
 	public List<Admin_OnwerDto> a_o_list(String[] seqs){
 		
 		return null;
+	}
+
+	@Override
+	public boolean restDel(String[] seq) {
+		return adminDao.restDel(seq);
+	}
+
+	@Override
+	public Admin_OnwerDto sendEmail(int seq) {
+		return adminDao.sendEmail(seq);
 	}
 	
 

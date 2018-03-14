@@ -14,7 +14,7 @@
 	<tr>
 		<td>검토 결과를 통보할 이메일 : </td>
 		<td>
-			<input type="text" value="${dto.email }" name="email"/>
+			<input type="text" value="${dto.email }" name="email" readonly="readonly"/>
 		</td>
 	</tr>
 	<tr>

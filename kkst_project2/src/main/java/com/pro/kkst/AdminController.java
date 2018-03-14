@@ -129,21 +129,35 @@ public class AdminController {
 		return "ad_restList";
 	}
 	
-	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.POST)
 	public String ad_restList_Chk(Locale locale, Model model, HttpServletRequest request) {
 		
-		String[] seqs = request.getParameterValues("chk");
-//		List<Admin_OnwerDto> lists =  
-//		model.addAttribute("");
+		double x = Double.parseDouble(request.getParameter("x"));
+		double y = Double.parseDouble(request.getParameter("y"));
+		int seq = Integer.parseInt(request.getParameter("seq"));
 		
-		boolean isS = adminServ.restChk(seqs);
+		Admin_OnwerDto dto = adminServ.sendEmail(seq);
+		model.addAttribute("dto", dto);
+		boolean isS = adminServ.restChk(seq, x, y);
 		if(isS) {
-			return "redirect:ad_restList.do?snum=1&cnum=10";
+			return "ad_restList_Chk";
 		}else {
-			
-			return "redirect:ad_restList_Chk.do";
+			return "redirect:ad_restList.do?snum=1&cnum=10";			
 		}
 	}
 	
+	@RequestMapping(value = "ad_restList_Del.do", method = RequestMethod.POST)
+	public String ad_restList_Del(Locale locale, Model model, HttpServletRequest request) {
+		
+		String[] seqs = request.getParameterValues("chk");
+		boolean isS = adminServ.restDel(seqs);
+		if(isS) {
+			return "redirect:ad_restList.do?snum=1&cnum=10";			
+		}else {
+			return "redirect:ad_restList.do?snum=1&cnum=10";
+		}
+	}
+	
+
 
 }

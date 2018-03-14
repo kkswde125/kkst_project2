@@ -36,18 +36,25 @@
 		(SELECT ROW_NUMBER() OVER(ORDER BY SEQ) AS RN, 
 		SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
 		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
-		FROM RESLIST WHERE CHK = 'DEF') WHERE RN BETWEEN #{snum} AND #{cnum}
+		FROM RESLIST WHERE CHK = 'N') WHERE RN BETWEEN #{snum} AND #{cnum}
 	</select>
 	
 	<select id="pageCnt" resultType="int">
-		SELECT CEIL(COUNT(*)/10) CNT FROM RESLIST
+		SELECT CEIL(COUNT(*)/10) CNT FROM RESLIST WHERE CHK='N'
 	</select>
 	
 	<select id="restChk" parameterType="Map">
-		UPDATE RESLIST SET CHK='Y' WHERE SEQ IN
-		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
-			#{seq}
-		</foreach>
+		UPDATE RESLIST SET CHK='Y', X=#{x}, Y=#{y} WHERE SEQ = #{seq}
+	</select>
+	
+	<select id="restChkEmail" parameterType="int">
+		SELECT RESLIST.SEQ, EMAIL FROM RESLIST, ADMIN_OWNER 
+		WHERE RESLIST.SEQ = ADMIN_OWNER.RES_SEQ 
+		AND RESLIST.SEQ = #{seq}
+	</select>
+	
+	<select id="restDel" parameterType="int">
+		UPDATE RESLIST SET CHK='DEL' WHERE SEQ = #{seq}
 	</select>
 
 </mapper>

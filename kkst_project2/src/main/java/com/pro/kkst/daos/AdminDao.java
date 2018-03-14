@@ -65,17 +65,33 @@ public class AdminDao implements I_AdminDao {
 		return count;	
 	}
 	@Override
-	public boolean restChk(String[] seqs) {
-		Map<String, String[]> map = new HashMap<String, String[]>();
-		map.put("seqs", seqs);
+	public boolean restChk(int seq, Double x, Double y) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seq", seq);
+		map.put("x", x);
+		map.put("y", y);
 		int count = sqlSession.update(namespace+"restChk", map);
 		return count > 0 ? true : false;
 	}
+	
+	
 	
 	@Override
 	public List<Admin_OnwerDto> a_o_list(String[] seqs){
 		
 		return null;
+	}
+	@Override
+	public boolean restDel(String[] seq) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqs", seq);
+		int count = sqlSession.update(namespace+"restDel", map);
+		return count > 0 ? true : false;
+	}
+	@Override
+	public Admin_OnwerDto sendEmail(int seq) {
+		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"restChkEmail", seq);
+		return dto;
 	}
 	
 }

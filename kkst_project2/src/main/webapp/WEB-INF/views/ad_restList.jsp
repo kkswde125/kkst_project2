@@ -11,16 +11,37 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+	$(function(){
+		var msg = '<%request.getParameter("msg");%>';
+		if (msg!='') {
+		alert(msg);
+		}
+		
+	});
+
 	function allChk(bool){
 		$("input[name==chk]").prop("checked", bool);
 	}
+	
+	function shopChk(seq){
+		var x = $("input[value=="+seq+"]").parent("tr").children("input[name==x]");
+		var y = $("input[value=="+seq+"]").parent("tr").children("input[name==y]");
+		location.href="ad_restList_Chk.do&x="+x+"&y="+y+"&seq="+seq;
+	}
+	
+	function Check(seq){
+		var tr = $("input[value=="+seq+"]").parent("tr");
+		$(tr).children("input[name==x]").attr("disable", none);
+		$(tr).children("input[name==y]").attr("disable", none);
+	}
+	
 </script>
 </head>
 <body>
 
 <h1>식당 등록 관리</h1>
-<form action="ad_restList_Chk.do" method="GET">
-<table border = "1">
+<form action="ad_restList_Del.do" method="POST">
+<table border = "1" id="table">
 	<tr>
 		<td>
 			<input type="checkbox" name="chkAll" onclick="allChk(this.checked)"/>
@@ -40,14 +61,14 @@
 		<td>
 			<input type="checkbox" disabled="disabled"/>
 		</td>
-		<td colspan="8">=== 대기중인 식당이 없습니다 ===</td>
+		<td colspan="9">=== 대기중인 식당이 없습니다 ===</td>
 		</tr>
 	</c:when>
 	<c:otherwise>
 	<c:forEach items="${lists}" var="dto">
 	<tr>
 		<td>
-			<input type="checkbox" name="chk" value="${dto.seq }"/>
+			<input type="checkbox" name="chk" value="${dto.seq }" onclick="Check(${dto.seq})"/>
 		</td>
 		<td>${dto.name }</td>
 		<td>${dto.cate }</td>
@@ -56,10 +77,13 @@
 		<td>${dto.start }~${dto.end }</td>
 		<td>${dto.rest_start }~${dto.rest_end }</td>
 		<td>
-			<input type="text" value="X 좌표" name="x">
+			<input type="text" value="X 좌표" name="x" disabled="disabled">
 		</td>
 		<td>
-			<input type="text" value="Y 좌표" name="y">
+			<input type="text" value="Y 좌표" name="y" disabled="disabled">
+		</td>
+		<td>
+			<input type="button" value="검토완료" onclick="shopChk(${dto.seq})"/>
 		</td>
 	</tr>
 	
@@ -84,7 +108,7 @@
 		
 		<%
 		}
-		for(int i=START-1; i < END-1; i++){
+		for(int i=START-1; i < END; i++){
 		%>          
 	<a href='ad_restList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>'>
 	<%=i+1 %>
@@ -101,6 +125,10 @@
 </tr>
 </table>
 </td>
+<td>
+		<input type="submit" value="삭제"/>
+		<input type="button" value="돌아가기" onclick="location.href='ad_admin.do'"/>
+	</td>
 </tr>
 </table>
 </form>

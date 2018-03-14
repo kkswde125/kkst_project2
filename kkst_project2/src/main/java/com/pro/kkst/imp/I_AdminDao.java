@@ -16,7 +16,9 @@ public interface I_AdminDao {
 	public List<ResDto> restList(String snum, String cnum);
 	public boolean memberDel(String[] seq);
 	public int paging();
-	public boolean restChk(String[] seqs);
+	public boolean restChk(int seq, Double x, Double y);
 	public List<Admin_OnwerDto> a_o_list(String[] seqs);
+	public boolean restDel(String[] seq);
+	public Admin_OnwerDto sendEmail(int seq);
 	
 }
