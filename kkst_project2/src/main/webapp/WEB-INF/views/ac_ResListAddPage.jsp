@@ -19,11 +19,12 @@
 		
 		$("#line").append(copy);
 		
-		
+		$("#upload").css("display", "block");
 
 		
 	}
-	
+// 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
+// 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 </script>
 </head>
 <body>
@@ -33,8 +34,9 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file"  name="uploadFile" id="upload" style="display: none" />
+<input type="file"  name="uploadFile" id="upload" />
 </div>
+
 </td>
 <td>
 
@@ -105,8 +107,9 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label><input type="file" name="uploadFile" id="upload" style="display: none"/>
+
 </div>
+<input type="file" name="uploadFile" id="upload" />
 </td>
 <!-- 입력 부분 -->
 <td>

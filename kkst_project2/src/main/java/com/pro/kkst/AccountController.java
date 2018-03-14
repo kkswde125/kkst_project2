@@ -381,7 +381,6 @@ public class AccountController {
 					spicyCode, tempCode, price, comment);
 		
 		 
-		 System.out.println(request.getFiles("uploadFile").get(0).getOriginalFilename());
 		 
 		 
 		 String msg="";
@@ -389,7 +388,7 @@ public class AccountController {
 		 if(isS==true) {
 			msg="식당 등록성공! 로그인페이지로 이동합니다.";
 			model.addAttribute("msg", msg);
-			return "redirect:ac_ownerlogin";
+			return "redirect:ow_loginhome.do";
 		 }else {
 			 
 			msg="식당 등록에 실패하였습니다.다시 등록해주세요";

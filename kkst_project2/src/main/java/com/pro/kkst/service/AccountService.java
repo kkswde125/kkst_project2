@@ -197,10 +197,9 @@ public class AccountService implements I_AccountService {
 				String createUUid ="";
 				String storeName ="";
 				
-				System.out.println(multifile);
 				
 				
-				for (int j = 1; j < multifile.size(); j++) {
+				for (int j = 0; j < multifile.size(); j++) {
 				
 					
 					originName=multifile.get(j).getOriginalFilename();
@@ -208,7 +207,7 @@ public class AccountService implements I_AccountService {
 					createUUid=UUID.randomUUID().toString().replaceAll("-", "");
 					System.out.println(originName.lastIndexOf("."));
 					storeName=createUUid+originName.substring(originName.lastIndexOf("."));
-					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
+					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
 					
 					try {
 						
@@ -219,9 +218,8 @@ public class AccountService implements I_AccountService {
 						filemap.put("origin", originName);
 						filemap.put("change", storeName);
 						filemap.put("res_seq", res_seq);
-						
-						filemap.put("menu_seq",menulists.get(j).getSeq()+"");
-						
+						filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+					
 						System.out.println(filemap);
 						
 						accountDao.addPhoto(filemap);
