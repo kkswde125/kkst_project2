@@ -20,20 +20,16 @@
 	});
 
 	function allChk(bool){
-		$("input[name==chk]").prop("checked", bool);
+		$("input[name=chk]").prop("checked", bool);
 	}
 	
 	function shopChk(seq){
-		var x = $("input[value=="+seq+"]").parent("tr").children("input[name==x]");
-		var y = $("input[value=="+seq+"]").parent("tr").children("input[name==y]");
+		var parent = $("input[value="+seq+"]").parent("tr");
+		var x = $(parent).children("input[name=x]");
+		var y = $("input[value="+seq+"]").parent("tr").children("input[name=y]");
 		location.href="ad_restList_Chk.do&x="+x+"&y="+y+"&seq="+seq;
 	}
 	
-	function Check(seq){
-		var tr = $("input[value=="+seq+"]").parent("tr");
-		$(tr).children("input[name==x]").attr("disable", none);
-		$(tr).children("input[name==y]").attr("disable", none);
-	}
 	
 </script>
 </head>
@@ -77,10 +73,10 @@
 		<td>${dto.start }~${dto.end }</td>
 		<td>${dto.rest_start }~${dto.rest_end }</td>
 		<td>
-			<input type="text" value="X 좌표" name="x" disabled="disabled">
+			<input type="text" value="X 좌표" name="x">
 		</td>
 		<td>
-			<input type="text" value="Y 좌표" name="y" disabled="disabled">
+			<input type="text" value="Y 좌표" name="y">
 		</td>
 		<td>
 			<input type="button" value="검토완료" onclick="shopChk(${dto.seq})"/>
