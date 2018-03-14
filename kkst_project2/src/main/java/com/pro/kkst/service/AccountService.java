@@ -1,14 +1,18 @@
 package com.pro.kkst.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
@@ -179,11 +183,53 @@ public class AccountService implements I_AccountService {
 				Searchmap.put("name", menu_name[0]);
 				Searchmap.put("res_seq", res_seq);
 				menulists=accountDao.searchMenuSeq(Searchmap);
-
-				utils.imageUpload(request,request2,"menuUpload", res_seq, menulists.get(0).getSeq()+"");
-				System.out.println(menulists.get(0).getSeq());
+				
 			}
-			utils.imageUpload(request,request2,"Upload", res_seq, null);
+				
+				
+				
+				List<MultipartFile> multifile = request.getFiles("upload");
+				
+				System.out.println(multifile.size());
+				
+				
+				System.out.println(multifile.get(0).getOriginalFilename());
+				System.out.println(multifile.get(1).getOriginalFilename());
+				
+				for (int j = 0; j < multifile.size(); j++) {
+					String originName ="";
+					String createUUid ="";
+					String storeName ="";
+				
+					
+					originName=multifile.get(j).getOriginalFilename();
+					System.out.println(originName);
+					createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+					System.out.println(originName.lastIndexOf(".")+"kkkkkkkkkkkkkk");
+//					storeName=createUUid+originName.substring(originName.lastIndexOf("."));
+					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+originName);
+					
+					try {
+						multifile.get(j).transferTo(f);
+						Map<String, String> filemap = new HashMap<String,String>();
+						
+						filemap.put("origin", originName);
+						filemap.put("change", storeName);
+						filemap.put("res_seq", res_seq);
+						
+						filemap.put("menu_seq",menulists.get(j).getSeq()+"");
+						
+						System.out.println(filemap);
+						
+						accountDao.addPhoto(filemap);
+						
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
 		}
 		
 		

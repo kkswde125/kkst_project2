@@ -380,14 +380,20 @@ public class AccountController {
 					Rs_hour, Rs_min, Re_hour, Re_min, call, parking, menu_name, cateCode, cookCode, 
 					spicyCode, tempCode, price, comment);
 		
+		 
+		 System.out.println(request.getFiles("upload").get(0).getOriginalFilename());
+		 
+		 
 		 String msg="";
 		
 		 if(isS==true) {
 			msg="식당 등록성공! 로그인페이지로 이동합니다.";
+			model.addAttribute("msg", msg);
 			return "redirect:ac_ownerlogin";
 		 }else {
 			 
 			msg="식당 등록에 실패하였습니다.다시 등록해주세요";
+			model.addAttribute("msg", msg);
 			return "redirect:ac_ResListAddPage.do";
 			
 		 }

@@ -3,6 +3,7 @@ package com.pro.kkst.utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
@@ -48,42 +50,58 @@ public class ac_Utils {
 		return code;
 	}
 	
+	@Transactional
 	public boolean imageUpload(MultipartHttpServletRequest request,HttpServletRequest request2,String filename,String res_seq,String menu_seq) {
 		
 		boolean isS= true;
 		
-		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
-		MultipartFile multifile = multi.getFile(filename);
+//		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
+		List<MultipartFile> multifile = request.getFiles(filename);
 		
-		String originName=multifile.getOriginalFilename();
+		System.out.println(multifile.size());
 		
-		System.out.println(originName);
+		String originName ="";
+		String createUUid ="";
+		String storeName ="";
 		
-		String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
-		String storeName=createUUid+originName.substring(originName.indexOf("."));
+		for (int i = 0; i < multifile.size(); i++) {
 		
-		File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
-		
-		try {
-			multifile.transferTo(f);
-			Map<String, String> filemap = new HashMap<String,String>();
 			
-			filemap.put("origin", originName);
-			filemap.put("change", storeName);
-			filemap.put("res_seq", res_seq);
+			originName=multifile.get(i).getOriginalFilename();
+			System.out.println(originName);
+			createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+			storeName=createUUid+originName.substring(originName.lastIndexOf("."));
 			
-			if(menu_seq==null) {
-				filemap.put("menu_seq", null);
-			}else {
-				filemap.put("menu_seq", menu_seq);
+			
+			File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
+			
+			try {
+				multifile.get(i).transferTo(f);
+				Map<String, String> filemap = new HashMap<String,String>();
+				
+				filemap.put("origin", originName);
+				filemap.put("change", storeName);
+				filemap.put("res_seq", res_seq);
+				
+				
+				
+				if(menu_seq==null) {
+					filemap.put("menu_seq", null);
+				}else {
+					filemap.put("menu_seq", menu_seq);
+				}
+				
+				System.out.println(filemap);
+				
+				accountDao.addPhoto(filemap);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			
-			accountDao.addPhoto(filemap);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		
+		
 		
 		return isS;
 		
