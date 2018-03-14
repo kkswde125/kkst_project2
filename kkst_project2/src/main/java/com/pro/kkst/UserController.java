@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.MenuzDto;
@@ -328,5 +329,24 @@ public class UserController {
 			return "us_res_detail";
 		}
 	}
+	
+	@RequestMapping(value = "/us_menu_photo_upload")
+	public String fileuploads(Model model, MultipartHttpServletRequest request) {
+		logger.info("파일업로드실행");
+		
+		for (int i = 0; i < request.getFiles("uploadFile").size(); i++) {
+			System.out.println(request.getFiles("uploadFile").get(i).getOriginalFilename());
+		}
+		
+		boolean isS=userServ.fileUploads(request);
+		if (isS) {
+			logger.info("파일업로드 성공");
+			return "us_user";
+		} else {
+			logger.info("파일업로드 실패");
+			return "us_menu_photo_upload";
+		}
+	}
+	
 	
 }

@@ -125,4 +125,11 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.update(namespace+"customizeTasteMinus", map);
 	}
 
+	@Override
+	public boolean fileupload(Map<String, String> map) {
+		int count=0;
+		count=sqlSessoin.insert(namespace+"insertFile",map);
+		return count>0?true:false;
+	}
+
 }

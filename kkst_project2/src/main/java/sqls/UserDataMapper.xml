@@ -148,4 +148,8 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 													 (TYPE = '5온도' AND CODE = #{code5})
 					)
 	</update>
+	
+	<insert id="insertFile" parameterType="Map">
+		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL, #{originName}, #{storedName}, NULL, (SELECT SEQ FROM MENULIST WHERE NAME= (SUBSTR(#{originName},1,LENGTH(#{originName})-4))))
+	</insert>
 </mapper>

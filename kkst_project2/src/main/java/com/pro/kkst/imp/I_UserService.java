@@ -3,6 +3,8 @@ package com.pro.kkst.imp;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.ResDto;
@@ -30,6 +32,8 @@ public interface I_UserService {
 	
 	public boolean customizeTaste(int user_seq, String mName, String[] codes);
 	public boolean customizeTaste(int user_seq, String mName);
+	
+	public boolean fileUploads(MultipartHttpServletRequest request);
 	
 	
 }

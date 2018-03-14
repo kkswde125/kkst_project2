@@ -1,13 +1,17 @@
 package com.pro.kkst.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.MenuzDto;
@@ -253,6 +257,39 @@ public class UserService implements I_UserService {
 		map.put("mName", mName);
 		count=userDao.updateCustomizeTastePlus(map);
 		return count>0?true:false;
+	}
+
+	@Transactional
+	@Override
+	public boolean fileUploads(MultipartHttpServletRequest request) {
+		boolean isS=false;
+		Map<String, String> map =new HashMap<>();
+		System.out.println("1..1");
+		List<MultipartFile> multiFile=request.getFiles("uploadFile");
+		System.out.println("1..2");
+		System.out.println("1");
+		System.out.println(multiFile.size());
+		
+		for (int i = 0; i < multiFile.size(); i++) {
+			System.out.println("2");
+			String originName=multiFile.get(i).getOriginalFilename();
+			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+			String storedName=createUUid+originName.substring(originName.lastIndexOf("."));
+			System.out.println("3");
+			File f=new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/upload"+storedName);
+			System.out.println("4");
+			
+			map.put("originName", originName);
+			map.put("storedName", storedName);
+			try {
+				multiFile.get(i).transferTo(f);
+				isS=userDao.fileupload(map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return isS;
 	}
 
 }

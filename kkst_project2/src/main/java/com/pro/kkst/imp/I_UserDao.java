@@ -32,4 +32,6 @@ public interface I_UserDao {
 	public List<ResDto> ResList2(String seq);
 	public int updateCustomizeTastePlus(Map<String, String> map);
 	public int updateCustomizeTasteMinus(Map<String, String> map);
+	
+	public boolean fileupload(Map<String, String> map);
 }
