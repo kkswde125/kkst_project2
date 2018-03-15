@@ -21,8 +21,11 @@ public class AdminDao implements I_AdminDao {
 	String namespace="com.pro.admin.";
 	
 	@Override	// 회원 관리
-	public List<LoginDto> memberList() {
-		return sqlSession.selectList(namespace+"memberList");
+	public List<LoginDto> memberList(String snum, String cnum) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("snum", snum);
+		map.put("cnum", cnum);
+		return sqlSession.selectList(namespace+"memberList", map);
 	}
 	@Override	// 리뷰 관리
 	public List<ReviewDto> reviewAll() {
@@ -58,11 +61,19 @@ public class AdminDao implements I_AdminDao {
 	
 	
 	@Override
-	public int paging() {
-		int count = sqlSession.selectOne(namespace+"pageCnt");
+	public int RestPaging() {
+		int count = sqlSession.selectOne(namespace+"pageCntRest");
 		
 		return count;	
 	}
+	
+	@Override
+	public int MemPaging() {
+		int count = sqlSession.selectOne(namespace+"pageCntMem");
+		
+		return count;	
+	}
+	
 	@Override
 	public boolean restChk(int seq, Double x, Double y) {
 		System.out.println("Dao 입장");
@@ -77,13 +88,6 @@ public class AdminDao implements I_AdminDao {
 		return count > 0 ? true : false;
 	}
 	
-	
-	
-	@Override
-	public List<Admin_OnwerDto> a_o_list(String[] seqs){
-		
-		return null;
-	}
 	@Override
 	public boolean restDel(String[] seq) {
 		Map<String, String[]> map = new HashMap<String, String[]>();
@@ -96,5 +100,6 @@ public class AdminDao implements I_AdminDao {
 		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"restChkEmail", seq);
 		return dto;
 	}
+	
 	
 }

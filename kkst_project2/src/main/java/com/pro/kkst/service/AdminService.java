@@ -18,8 +18,8 @@ public class AdminService implements I_AdminService {
 	private I_AdminDao adminDao;
 
 	@Override
-	public List<LoginDto> memberList() {
-		return adminDao.memberList();
+	public List<LoginDto> memberList(String snum, String cnum) {
+		return adminDao.memberList(snum, cnum);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class AdminService implements I_AdminService {
 	}
 	
 	@Override
-	public int paging() {
-		return adminDao.paging();
+	public int RestPaging() {
+		return adminDao.RestPaging();
 	}
 
 	@Override
@@ -53,12 +53,6 @@ public class AdminService implements I_AdminService {
 	}
 	
 	@Override
-	public List<Admin_OnwerDto> a_o_list(String[] seqs){
-		
-		return null;
-	}
-
-	@Override
 	public boolean restDel(String[] seq) {
 		return adminDao.restDel(seq);
 	}
@@ -66,6 +60,11 @@ public class AdminService implements I_AdminService {
 	@Override
 	public Admin_OnwerDto sendEmail(int seq) {
 		return adminDao.sendEmail(seq);
+	}
+
+	@Override
+	public int MemPaging() {
+		return adminDao.MemPaging();
 	}
 	
 

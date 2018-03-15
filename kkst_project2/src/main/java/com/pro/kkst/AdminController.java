@@ -19,9 +19,6 @@ import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class AdminController {
 	
@@ -29,12 +26,38 @@ public class AdminController {
 	private I_AdminService adminServ;
 	
 	@RequestMapping(value = "ad_memberList.do", method = RequestMethod.GET)
-	public String memberList(Model model) {
+	public String memberList(Model model, String snum, String cnum, HttpSession session) {
 		
-		List<LoginDto> lists = adminServ.memberList();
-		
-		model.addAttribute("lists", lists);
-		
+		if(snum==null) {
+		       snum=(String)session.getAttribute("snum");
+		       cnum=(String)session.getAttribute("cnum");
+		    }else {
+		       session.setAttribute("snum", snum);
+		       session.setAttribute("cnum", cnum);   
+		    }
+		    
+		    double d_snum = (Integer.parseInt(snum)/100);
+		    
+		    int start = 0;
+		    int end = 0;
+		    
+		    if(d_snum<1) {
+		    	start = (int)d_snum+1;
+		    	end = 11;
+		    	
+		    }else {
+		    	start = Integer.parseInt((int)d_snum+"1");
+		    	end = Integer.parseInt(((int)d_snum+1)+"0");
+		    }
+		    
+			int count = adminServ.MemPaging();
+			List<LoginDto> lists = adminServ.memberList(snum, cnum);
+			
+			model.addAttribute("lists", lists);
+			model.addAttribute("count", count);
+			model.addAttribute("start", start);
+	    	model.addAttribute("end", end);
+	    	
 		return "ad_memberList";
 	}
 	
@@ -47,13 +70,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
 	public String reviewAll(Locale locale, Model model) {
-		List<LoginDto> memberList = adminServ.memberList();
 		List<ReviewDto> reviewList = adminServ.reviewAll();
 		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("memberList", memberList);
-		
-		System.out.println(memberList.toString());
-		System.out.println(reviewList.toString());
 		
 		return "ad_reviewAll";
 	}
@@ -118,12 +136,12 @@ public class AdminController {
 	    }
 	    
 		List<ResDto> lists = adminServ.restList(snum, cnum);
-		int count = adminServ.paging();
+		int count = adminServ.RestPaging();
 		
 		model.addAttribute("lists", lists);
 		model.addAttribute("count", count);
-		model.addAttribute("START", start);
-    	model.addAttribute("END", end);
+		model.addAttribute("start", start);
+    	model.addAttribute("end", end);
 		
 		
 		return "ad_restList";

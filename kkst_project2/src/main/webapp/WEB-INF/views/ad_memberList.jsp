@@ -20,7 +20,7 @@
 <body>
 
 <%
-// 	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
+ 	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
 %>
 <h1>가입 회원 목록</h1>
 <form action="ad_memDel.do" method="post">
@@ -87,7 +87,33 @@
 				<input type="button" value="돌아가기" onclick="location.href='admin.do'"/>
 			</td>
 			<td colspan="5">
-				<!-- 페이징 -->
+			<% 
+			int count = (Integer)request.getAttribute("count");
+			int start = (Integer)request.getAttribute("start");
+			int end = (Integer)request.getAttribute("end");
+			if(end>count){
+				end = count;
+			}
+			
+			if(start!=1){
+			%>
+				<a href="ad_memberList.do?snum=<%=start*10-19 %>&cnum=<%=start*10-10 %>">이전</a>
+			<%
+			}
+			
+			for(int i = start-1; i <end ; i++){
+			%>
+				<a href="ad_memberList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>">
+				<%=i+1 %>
+				</a>
+				<%
+			}
+			if(end!=count){
+				%>
+			<a href="ad_memberList.do?snum=<%=start+100 %>&cnum=<%=end+99 %>">다음</a>
+				<%
+			}
+				%>
 			</td>
 			<td>
 				<input type="submit" value="강제탈퇴"/>
