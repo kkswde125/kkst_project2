@@ -144,14 +144,17 @@ public class UserService implements I_UserService {
 		return list;
 	}
 
+	@Transactional
 	@Override
 	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end) {
 		List<MenuzDto> list=new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
+		Map<String, String[]> map2 = new HashMap<>();
 		map.put("user_seq", ""+user_seq);
 		map.put("start", start);
 		map.put("end", end);
 		list=userDao.selectRecommendMenuList(map);
+		System.out.println("list에 storedNames담기:"+list.get(0).getChange()+" / 앞서실행한 리스트도 유지되는지?:"+list.get(0).getName());
 		return list;
 	}
 
@@ -209,6 +212,7 @@ public class UserService implements I_UserService {
 		Map<String, String[]> map = new HashMap<>();
 		map.put("seqs", seqs);
 		list=userDao.selectKeepList(map);
+		System.out.println("getKeepList에서 storedNames오는지:"+list.get(0).getChange()+"/ 기존껀 그대론지:"+list.get(0).getName());
 		return list;
 	}
 
@@ -276,7 +280,7 @@ public class UserService implements I_UserService {
 			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
 			String storedName=createUUid+originName.substring(originName.lastIndexOf("."));
 			System.out.println("3");
-			File f=new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/upload"+storedName);
+			File f=new File("C:/Users/hk_EDU/git/kkst_project2/kkst_project2/src/main/webapp/resources/upload/"+storedName);
 			System.out.println("4");
 			
 			map.put("originName", originName);

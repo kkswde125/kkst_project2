@@ -6,18 +6,27 @@ public class MenuzDto {
 	private String code;
 	private String name;
 	private double starz;
-	public MenuzDto(String seq, String code, String name, double starz) {
+	private String change;
+	
+	public MenuzDto(String seq, String code, String name, double starz, String change) {
 		super();
 		this.seq = seq;
 		this.code = code;
 		this.name = name;
 		this.starz = starz;
+		this.change = change;
 	}
 	public MenuzDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
+	}
 	public String getSeq() {
 		return seq;
 	}

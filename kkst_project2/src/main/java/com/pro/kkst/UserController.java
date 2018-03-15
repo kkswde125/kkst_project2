@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -51,6 +53,7 @@ public class UserController {
 	}
 	@RequestMapping(value = "us_menu_photo_upload.do")
 	public String goOwner2() {
+		logger.info("메뉴사진업로드");
 		return "us_menu_photo_upload";
 	}
 	
@@ -69,36 +72,6 @@ public class UserController {
 		return "ad_admin";
 	}
 	
-	@RequestMapping(value = "us_customize_taste.do")
-	public String us_Customize_Taste(Model model, HttpSession session , String cate, String seq, String mName, String hateRs) {
-		logger.info("us_customize_taste");
-		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		if (ldto==null) {
-			return "ac_login";
-		}else {
-			boolean isS=false;
-			if (hateRs.equals("null")) {
-				
-				isS = userServ.customizeTaste(ldto.getSeq(), mName);
-			}else {
-				
-				String[] hates= hateRs.split("_");
-				
-				isS = userServ.customizeTaste(ldto.getSeq(), mName, hates);
-			}
-			
-			if (isS) {
-				logger.info("us_customize_taste:성공");
-				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
-			}else {
-				logger.info("us_customize_taste:실패");
-				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
-			}
-			
-		}
-	}
-	
-	
 	@RequestMapping(value = "us_reslist.do")
 	public String reslist(Model model, String cate, String seq, String mName) {
 		logger.info("us_reslist");
@@ -112,6 +85,7 @@ public class UserController {
 		return "us_resMap";
 	}
 	
+	@Transactional
 	@RequestMapping(value="us_olympic.do")
 	public String olympic(Model model) {
 		logger.info("us_olympic");
@@ -261,19 +235,73 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "us_recommend_menu.do")
-	public String us_Recommend_Menu(Model model, HttpSession session, String start, String end, String seqs) {
+	public String us_Recommend_Menu(Model model, HttpSession session, String start, String end, String[] seqs, String[] hateRs) {
 		logger.info("us_recommend_menu");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
 			return "ac_login";
 		}else {
-			String[] seq=seqs.split("_");
+			if (seqs!=null) {
+				model.addAttribute("seqs",seqs);
+			}
+			if (hateRs!=null) {
+				model.addAttribute("hateRs",hateRs);
+			}
 			List<MenuzDto> list = userServ.recommendMenuList(ldto.getSeq(), start, end);
+			
 			model.addAttribute("list", list);
 			model.addAttribute("start", start);
 			model.addAttribute("end", end);
-			model.addAttribute("seqs",seq);
 			return "us_recommend_menu";
+		}
+	}
+	
+	@RequestMapping(value = "us_keeplist.do")
+	public String us_KeepList(Model model, HttpSession session, String[] seqs, String[] hateRs) {
+		logger.info("us_keeplist");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			if (seqs!=null) {
+				model.addAttribute("seqs",seqs);
+			}
+			if (hateRs!=null) {
+				model.addAttribute("hateRs",hateRs);
+			}
+			List<MenuzDto> list = userServ.getKeepList(seqs);
+			model.addAttribute("list", list);
+			return "us_keeplist";
+		}
+	}
+	
+	@RequestMapping(value = "us_customize_taste.do")
+	public String us_Customize_Taste(Model model, HttpSession session , String cate, String seq, String mName, String[] hateRs) {
+		logger.info("us_customize_taste");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			boolean isS=false;
+			if (hateRs==null) {
+				isS = userServ.customizeTaste(ldto.getSeq(), mName);
+			}else {
+				isS = userServ.customizeTaste(ldto.getSeq(), mName, hateRs);
+			}
+			
+			model.addAttribute("cate", cate);
+			model.addAttribute("seq", seq);
+			model.addAttribute("mName", mName);
+			if (isS) {
+				logger.info("us_customize_taste:성공");
+				return "redirect:us_reslist.do";
+//				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
+			}else {
+				logger.info("us_customize_taste:실패");
+				return "redirect:us_reslist.do";
+//				return "redirect:us_reslist.do?cate="+cate+"&seq="+seq+"&mName="+mName;
+			}
+			
 		}
 	}
 	
@@ -303,21 +331,6 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "us_keeplist.do")
-	public String us_KeepList(Model model, HttpSession session, String seqs, String hateRs) {
-		logger.info("us_keeplist");
-		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		if (ldto==null) {
-			return "ac_login";
-		}else {
-			String[] seq=seqs.split("_");
-			List<MenuzDto> list = userServ.getKeepList(seq);
-			model.addAttribute("list", list);
-			model.addAttribute("hateRs", hateRs);
-			return "us_keeplist";
-		}
-	}
-	
 	@RequestMapping(value = "us_res_detail.do")
 	public String us_Res_Detail(Model model, HttpSession session, String name, String cate, String mName, String seq) {
 		logger.info("us_res_detail");
@@ -334,7 +347,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/us_menu_photo_upload")
+	@RequestMapping(value = "/us_menu_photo_uploads.do")
 	public String fileuploads(Model model, MultipartHttpServletRequest request) {
 		logger.info("파일업로드실행");
 		

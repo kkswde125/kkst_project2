@@ -85,9 +85,9 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE SEQ IN
 	</select>
 	
 	<select id="recommendMenuList" parameterType="Map" resultType="MenuzDto">
-		SELECT SEQ, CODE, NAME, STARZ FROM
+		SELECT SEQ, CODE, NAME, STARZ, "CHANGE" FROM
 (
-SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ DESC) AS RN
+SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ DESC) AS RN, X3."CHANGE"
 		FROM MENULIST X1,
 		(
 		SELECT Z1.CODE||Z2.CODE||Z3.CODE||Z4.CODE||Z5.CODE AS CODEZ, (Z1.STARS*1.2+Z2.STARS*1.6+Z3.STARS*1.4+Z4.STARS*1.0+Z5.STARS*0.3)/5.5 AS STARZ
@@ -98,8 +98,9 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='4매움정도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z4,
 		(SELECT CODE, T1.ATTR, STARS FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='5온도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 WHERE T1.ATTR=T2.ATTR) Z5
 		ORDER BY STARZ DESC
-		) X2
-		WHERE X1.CODE=X2.CODEZ
+		) X2,
+		PHOTO X3
+		WHERE X1.CODE=X2.CODEZ AND X1.SEQ = X3.MENU_SEQ
 ) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
@@ -112,7 +113,10 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	</select>
 	
 	<select id="getKeepList" parameterType="Map" resultType="MenuzDto">
-		SELECT SEQ, NAME, CODE FROM MENULIST WHERE SEQ IN
+<!-- 		SELECT SEQ, NAME, CODE FROM MENULIST WHERE SEQ IN -->
+<!-- 		<foreach separator="," close=")" open="(" item="seqs" collection="seqs">TO_NUMBER(#{seqs})</foreach> -->
+
+		SELECT T1.SEQ, T1.NAME, T1.CODE, T2."CHANGE" FROM MENULIST T1, PHOTO T2 WHERE T1.SEQ=T2.MENU_SEQ AND T1.SEQ IN
 		<foreach separator="," close=")" open="(" item="seqs" collection="seqs">TO_NUMBER(#{seqs})</foreach>
 	</select>
 	
@@ -152,4 +156,9 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	<insert id="insertFile" parameterType="Map">
 		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL, #{originName}, #{storedName}, NULL, (SELECT SEQ FROM MENULIST WHERE NAME= (SUBSTR(#{originName},1,LENGTH(#{originName})-4))))
 	</insert>
+	
+	<select id="getStoredNames" parameterType="Map" resultType="MenuzDto">
+		SELECT "CHANGE" FROM PHOTO WHERE MENU_SEQ IN 
+		<foreach separator="," close=")" open="(" item="seqs" collection="seqs">TO_NUMBER(#{seqs})</foreach>
+	</select>
 </mapper>

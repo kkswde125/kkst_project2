@@ -18,8 +18,17 @@
 	@SuppressWarnings("unchecked")
 	List<MenuzDto> list=(List<MenuzDto>)request.getAttribute("list");
 	
-	String hateRs=request.getParameter("hateRs");
-	
+	String[] hateRs = request.getParameterValues("hateRs");
+	String hateRs_str="";
+	if(hateRs!=null){
+		for (int i = 0; i < hateRs.length; i++) {
+			if (i!=hateRs.length-1) {
+				hateRs_str += hateRs[i]+"_";
+			}else {
+				hateRs_str += hateRs[i];
+			}
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -28,12 +37,25 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
+	var hateMenuCodes = [];
+	$(function() {
+		var qwer= "<%=hateRs_str%>";
+		if (qwer!="") {
+			hateMenuCodes=qwer.split("_");
+		}
+		
+		$('#hateList').text(hateMenuCodes.toString());
+	});
+	
 	function choiceThis(cate,seq,mName) {
-		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateRs;
+		alert(mName);
+		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateMenuCodes;
 	}
 </script>
 </head>
 <body>
+<p>hateList:<span id="hateList"></span></p>
 <%
 	for(int i = 0; i < list.size(); i++){
 		
@@ -41,7 +63,7 @@
 %>
 <table>
 	<tr>
-		<td>음식사진</td>
+		<td><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>"></td>
 	</tr>
 	<tr>
 		<td><%=list.get(i).getName() %></td>

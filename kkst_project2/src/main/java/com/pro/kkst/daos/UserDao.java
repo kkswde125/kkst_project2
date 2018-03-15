@@ -132,4 +132,9 @@ public class UserDao implements I_UserDao {
 		return count>0?true:false;
 	}
 
+	@Override
+	public List<MenuzDto> selectStoredNames(Map<String, String[]> map) {
+		return sqlSessoin.selectList(namespace+"getStoredNames", map);
+	}
+
 }
