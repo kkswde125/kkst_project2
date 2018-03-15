@@ -63,4 +63,10 @@
 		UPDATE RESLIST SET CHK='DEL' WHERE SEQ = #{seq}
 	</select>
 
+
+	<select id="sendEmail" parameterType="String" resultType="AoDto">
+		SELECT SEQ, ID, PW, NAME, NICKNAME, REGDATE, DELFLAG, SEX, BIRTH, EMAIL
+		FROM ADMIN_OWNER WHERE EMAIL = #{email}
+	</select>
+
 </mapper>

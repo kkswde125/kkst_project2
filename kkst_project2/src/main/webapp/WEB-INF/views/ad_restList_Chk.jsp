@@ -24,8 +24,8 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="button" value="재검토" onclick="">
-			<input type="submit" value="메일 전송" onclick="">
+			<input type="button" value="돌아가기" onclick="location.href='ad_restList.do?snum=1&cnum=10'">
+			<input type="submit" value="메일 전송">
 		</td>
 	</tr>
 </table>
