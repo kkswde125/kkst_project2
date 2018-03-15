@@ -71,25 +71,41 @@ public class AccountController {
 	
 	//점주 로그인_after
 	@RequestMapping(value = "/ac_onwerLogin_after.do")
-	public String onwerlogin_after(HttpSession session, String id, String pw) {
+	public String onwerlogin_after(Model model,HttpSession session, String id, String pw) {
 		logger.info("ac_onwerlogin_after");
 		Map<String, String>map = new HashMap<String,String>();
 		map.put("id", id);
 		map.put("pw", pw);
 		Admin_OnwerDto AoDto= accountServ.getOnwerLogin(map);
-		if(AoDto!=null){ //회원 정보가 존재한다면 -> 회원이 확인되면 
+		String msg="";
+		if(AoDto!=null&&AoDto.getId().equals(id)&&AoDto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("AoDto", AoDto);
 			session.setMaxInactiveInterval(60*600); 
-			
 			if(AoDto.getGrade().equals("A")) {
-				return "redirect:ad_admin.do";
+				msg="Admin 로그인";
+				model.addAttribute("msg",msg);
+				return "ad_admin";
 			}else {
-				return "redirect:ow_owner.do";
+				msg="점주 로그인";
+				model.addAttribute("msg",msg);
+				return "ow_owner";
 			}
 		}else {
-			return "redirect:ow_loginhome.do";
+			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";
+			model.addAttribute("msg",msg);
+			return "ac_ownerlogin";
 			
 		}
+	}
+	
+	
+	//점주로그아웃 
+	@RequestMapping(value = "/ac_ownerlogout.do")
+	public String ownerlogout(HttpSession session) {
+		logger.info("ac_logout");
+		session.removeAttribute("AoDto");
+		session.invalidate();
+		return "ow_loginhome.do";
 	}
 	
 	@RequestMapping(value="/ow_owner.do")
@@ -115,19 +131,24 @@ public class AccountController {
 	
 	//유저로그인_after 
 	@RequestMapping(value = "/ac_login_after.do")
-	public String login_after(HttpSession session, String id, String pw) {
+	public String login_after(Model model,HttpSession session, String id, String pw) {
 		logger.info("ac_login_after");
 		LoginDto ldto= accountServ.getLogin(id, pw);
-		if(ldto!=null){ //회원 정보가 존재한다면 -> 회원이 확인되면 
+		String msg="";
+		if(ldto!=null&&ldto.getId().equals(id)&&ldto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("ldto", ldto);
 			session.setMaxInactiveInterval(60*600); 
-			return "redirect:us_usermain.do";
+			msg="어서오세요"+ldto.getId()+"님!";
+			model.addAttribute("msg",msg);
+			return "us_usermain";
 		}else {
-			return "redirect:ac_login.do";
+			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";
+			model.addAttribute("msg",msg);
+			return "ac_login";
 		}
 	}
 	
-	//로그아웃 
+	//유저로그아웃 
 	@RequestMapping(value = "/ac_logout.do")
 	public String logout(HttpSession session) {
 		logger.info("ac_logout");
@@ -254,7 +275,7 @@ public class AccountController {
 			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
 			if(lists.size()==0) {
-			 str="실패. 로그인페이지로 이동합니다";
+			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
 			model.addAttribute("msg",str);
@@ -281,7 +302,7 @@ public class AccountController {
 			 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
 			if(lists.size()==0) {
-			 str="실패. 로그인페이지로 이동합니다";
+			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
 			model.addAttribute("msg",str);
@@ -306,7 +327,7 @@ public class AccountController {
 			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
 			if(lists.size()==0) {
-			 str="실패. 로그인페이지로 이동합니다";
+			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
 			model.addAttribute("msg",str);
@@ -333,7 +354,7 @@ public class AccountController {
 		 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 		}
 		if(lists.size()==0) {
-		 str="실패. 로그인페이지로 이동합니다";
+		 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 		}
 		
 		model.addAttribute("msg",str);
