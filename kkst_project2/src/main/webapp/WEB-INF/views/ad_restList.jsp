@@ -24,10 +24,10 @@
 	}
 	
 	function shopChk(seq){
-		var parent = $("input[value="+seq+"]").parent("tr");
-		var x = $(parent).children("input[name=x]");
-		var y = $("input[value="+seq+"]").parent("tr").children("input[name=y]");
-		location.href="ad_restList_Chk.do&x="+x+"&y="+y+"&seq="+seq;
+		var parent = $("input[value="+seq+"]").parent("td").parent("tr");
+		var x = parent.find("input[name=x]").val();
+		var y = parent.find("input[name=y]").val();
+		location.href="ad_restList_Chk.do?x="+x+"&y="+y+"&seq="+seq;
 	}
 	
 	

@@ -30,7 +30,6 @@ public class AdminDao implements I_AdminDao {
 	}
 	@Override	// 식당 관리
 	public List<ResDto> restList(String snum, String cnum) {
-		System.out.println("Dao 진입");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snum", snum);
 		map.put("cnum", cnum);
@@ -66,6 +65,10 @@ public class AdminDao implements I_AdminDao {
 	}
 	@Override
 	public boolean restChk(int seq, Double x, Double y) {
+		System.out.println("Dao 입장");
+		System.out.println("seq="+seq);
+		System.out.println("x="+x);
+		System.out.println("y="+y);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seq", seq);
 		map.put("x", x);

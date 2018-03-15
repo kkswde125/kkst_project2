@@ -19,9 +19,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea rows="10" cols="60" name="content">
-				내용을 입력해주세요.
-			</textarea>
+			<textarea rows="10" cols="60" name="content">내용을 입력해주세요.</textarea>
 		</td>
 	</tr>
 	<tr>

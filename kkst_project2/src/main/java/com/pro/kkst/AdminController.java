@@ -129,12 +129,16 @@ public class AdminController {
 		return "ad_restList";
 	}
 	
-	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.POST)
+	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.GET)
 	public String ad_restList_Chk(Locale locale, Model model, HttpServletRequest request) {
+		System.out.println("Controller 입장");
 		
+		System.out.println("x="+request.getParameter("x"));
 		double x = Double.parseDouble(request.getParameter("x"));
 		double y = Double.parseDouble(request.getParameter("y"));
+		System.out.println("y="+y);
 		int seq = Integer.parseInt(request.getParameter("seq"));
+		System.out.println("seq="+seq);
 		
 		Admin_OnwerDto dto = adminServ.sendEmail(seq);
 		model.addAttribute("dto", dto);

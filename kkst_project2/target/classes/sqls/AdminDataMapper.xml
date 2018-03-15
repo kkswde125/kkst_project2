@@ -47,8 +47,8 @@
 		UPDATE RESLIST SET CHK='Y', X=#{x}, Y=#{y} WHERE SEQ = #{seq}
 	</select>
 	
-	<select id="restChkEmail" parameterType="int">
-		SELECT RESLIST.SEQ, EMAIL FROM RESLIST, ADMIN_OWNER 
+	<select id="restChkEmail" parameterType="int" resultType="AoDto">
+		SELECT ADMIN_OWNER.SEQ, ID, PW, ADMIN_OWNER.NAME, RES_SEQ, PHONE, RES_CALL, GRADE, EMAIL FROM RESLIST, ADMIN_OWNER 
 		WHERE RESLIST.SEQ = ADMIN_OWNER.RES_SEQ 
 		AND RESLIST.SEQ = #{seq}
 	</select>
