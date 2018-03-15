@@ -88,7 +88,7 @@ text-align: center;
 	
 	<tr>
 		<th>이메일</th>
-		<td><input class="form-control" type="text" name="email" required="required"/></td>
+		<td><input class="form-control" type="email" name="email" required="required"/></td>
 	</tr>
 	
 

@@ -14,16 +14,28 @@
 <script type="text/javascript">
 
 
+	window.onload=function(){
+		$(".reset").on("click", function() {
+			$(this).attr("value", "");
+		});
+		
+		$("body").on("click",".price1",function() {
+			$(this).attr("value", "");
+		});
+	}
+
+	
+		
+	
 
 		
 		var countT=1;
 		var countM=1;
-		
-	
+
 	function AddMenu() {
 		
 		var count=1;
-		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block")
+		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
 		
 		$("#line").append(copy);
 		
@@ -54,24 +66,20 @@
 <body>
 <!-- 복제할 메뉴 폼 -->
 
-<table id="menuAdd"  style="display: none;">
+<table id="menuAdd"  style="display: none;"  >
 <tr>
 <td>
 
-<div style="border: 1px solid; width: 300px; height: 200px;">
-<img id="output" style="border: 1px solid; width: 300px; height: 200px;" >
+<div style="width: 350px; height: 350px; padding: 40px;">
 <input type="file" accept="image/*"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<img id="output" style="width: 350px; height: 350px;" >
 </div>
-
-<script type="text/javascript">
-</script>
-
 
 </td>
 <td>
 
 
-<table border="1">
+<table border="1" >
 	<tr>
 		<th>메뉴이름</th>
 		<td colspan="2"><input type="text" name="menu_name"/></td>
@@ -119,7 +127,7 @@
 		</td>
 	</tr>
 	<tr>
-	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required"/></td>
+	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" /></td>
 	</tr>
 </table>
 </td>
@@ -136,9 +144,9 @@
 <!-- 사진 올라갈곳 -->
 <tr>
 <td>
-<div style="border: 1px solid; width: 300px; height: 200px;">
-<img id="outputs" style="border: 1px solid; width: 300px; height: 200px;">
-<input type="file" name="uploadFile" id="upload" onchange="loadfile(event)" />
+<div style="width: 350px; height: 350px; padding: 40px;">
+<input type="file" accept="image/*" name="uploadFile" id="upload" onchange="loadfile(event)" />
+<img id="outputs" style=" width: 350px; height: 350px;">
 </div>
 </td>
 <!-- 입력 부분 -->
@@ -229,7 +237,7 @@
 	<tr>
 		<th>전화번호</th>
 	<td>
-	<input type="text" value="- 를 포함하여 입력해주세요" name="call" required="required" />
+	<input type="text" value="- 를 포함하여 입력해주세요" name="call" required="required" class="reset" />
 	</td>
 	</tr>
 
@@ -254,8 +262,8 @@
 </table>
 </td>
 </table>
-<hr/>
-<div id="line"></div>
+<hr id="line"/>
+
 
 
 <input type="submit" value="식당 등록 완료!">

@@ -21,8 +21,6 @@ import com.pro.kkst.imp.I_AccountService;
 
 public class ac_Utils {
 	
-	@Autowired
-	private I_AccountDao accountDao;
 	
 	public String isTwo(String date) {
 		
@@ -46,65 +44,59 @@ public class ac_Utils {
 		 code="a"+cateCode+cookCode+spicyCode+tempCode;
 			
 		}
+		if(cate.equals("중식")) {
+			
+			 code="b"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("일식")) {
+			
+			 code="c"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("양식")) {
+			
+			 code="d"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("횟집")) {
+			
+			 code="k"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("분식")) {
+			
+			 code="e"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("냉면집")) {
+			
+			 code="i"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("인도,태국")) {
+			
+			 code="f"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("치킨")) {
+			
+			 code="g"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("식육(숯불구이)")) {
+			
+			 code="h"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
+		if(cate.equals("보신용")) {
+			
+			 code="j"+cateCode+cookCode+spicyCode+tempCode;
+				
+			}
 		
 		return code;
 	}
 	
-	@Transactional
-	public boolean imageUpload(MultipartHttpServletRequest request,HttpServletRequest request2,String filename,String res_seq,String menu_seq) {
-		
-		boolean isS= true;
-		
-//		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
-		List<MultipartFile> multifile = request.getFiles(filename);
-		
-		System.out.println(multifile.size());
-		
-		String originName ="";
-		String createUUid ="";
-		String storeName ="";
-		
-		for (int i = 0; i < multifile.size(); i++) {
-		
-			
-			originName=multifile.get(i).getOriginalFilename();
-			System.out.println(originName);
-			createUUid=UUID.randomUUID().toString().replaceAll("-", "");
-			storeName=createUUid+originName.substring(originName.lastIndexOf("."));
-			
-			
-			File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/Resimg/"+storeName);
-			
-			try {
-				multifile.get(i).transferTo(f);
-				Map<String, String> filemap = new HashMap<String,String>();
-				
-				filemap.put("origin", originName);
-				filemap.put("change", storeName);
-				filemap.put("res_seq", res_seq);
-				
-				
-				
-				if(menu_seq==null) {
-					filemap.put("menu_seq", null);
-				}else {
-					filemap.put("menu_seq", menu_seq);
-				}
-				
-				System.out.println(filemap);
-				
-				accountDao.addPhoto(filemap);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
-		
-		return isS;
-		
-	}
 
 }

@@ -37,7 +37,7 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
-		<filter>
+	<filter>
 
 		<filter-name>CharacterEncodingFilter</filter-name>
 

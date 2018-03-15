@@ -24,6 +24,7 @@ public interface I_UserDao {
 	public WatchaDto selectGetZeroMenu(Map<String, String[]> map);
 	public List<TasteDto> selectGetMyTaste(Map<String,String> map);
 	public List<MenuzDto> selectRecommendMenuList(Map<String,String> map);
+	public List<MenuzDto> selectStoredNames(Map<String, String[]> map); 
 	public int selectHasTaste(Map<String,String> map);
 	public int selectGetAllMenuCount(Map<String,String> map);
 	public WatchaDto selectWatchaMoreMoreBox(Map<String,String> map);
@@ -34,4 +35,5 @@ public interface I_UserDao {
 	public int updateCustomizeTasteMinus(Map<String, String> map);
 	
 	public boolean fileupload(Map<String, String> map);
+	
 }

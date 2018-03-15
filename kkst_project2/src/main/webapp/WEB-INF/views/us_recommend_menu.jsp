@@ -21,13 +21,31 @@
 	int end = Integer.parseInt((String)request.getAttribute("end"));
 	start=start+20;
 	end=end+20;
+	
+	
 	String[] seqs = request.getParameterValues("seqs");
-	String rs="";
-	for (int i = 0; i < seqs.length; i++) {
-		if (i!=seqs.length-1) {
-			rs= rs+seqs[i]+"_";
-		}else {
-			rs= rs+seqs[i];
+	String[] hateRs = request.getParameterValues("hateRs");
+	
+	String seqs_str="";
+	String hateRs_str="";
+	
+	if(seqs!=null){
+		for (int i = 0; i < seqs.length; i++) {
+			if (i!=seqs.length-1) {
+				seqs_str += seqs[i]+"_";
+			}else {
+				seqs_str += seqs[i];
+			}
+		}
+	}
+	
+	if(hateRs!=null){
+		for (int i = 0; i < hateRs.length; i++) {
+			if (i!=hateRs.length-1) {
+				hateRs_str += hateRs[i]+"_";
+			}else {
+				hateRs_str += hateRs[i];
+			}
 		}
 	}
 	
@@ -48,8 +66,28 @@
 	var keepMenuSeqs = [];
 	var hateMenuCodes = [];
 	
+	$(function() {
+		$('#more').hide();
+		$('#theLast').hide();
+		$('table').hide();
+		$('#tables'+menuIndex).show();
+		var asdf= "<%=seqs_str%>";
+		if (asdf!="") {
+			keepMenuSeqs=asdf.split("_");
+		}
+		
+		var qwer= "<%=hateRs_str%>";
+		if (qwer!="") {
+			hateMenuCodes=qwer.split("_");
+		}
+		
+		$('#keepList').text(keepMenuNames.toString());
+		$('#keepSeqs').text(keepMenuSeqs.toString());
+		$('#hateList').text(hateMenuCodes.toString());
+	});
+	
 	function goMore(start, end) {
-		location.href="us_recommend_menu.do?start="+start+"&end="+end+"&seqs="+keepMenuSeqs;
+		location.href="us_recommend_menu.do?start="+start+"&end="+end+"&seqs="+keepMenuSeqs+"&hateRs="+hateMenuCodes;
 	}
 	function moreRcmd() {
 			$('table').hide();
@@ -57,28 +95,11 @@
 	}
 	
 	function goKeepList() {
-		var rs="";
-		for (var i = 0; i < keepMenuSeqs.length; i++) {
-			if (i!=keepMenuSeqs.length-1) {
-				rs= rs+keepMenuSeqs[i]+"_";
-			}else {
-				rs= rs+keepMenuSeqs[i];
-			}
+		if (keepMenuNames.length==0) {
+			alert("keep한 메뉴가 없습니다.")
+			return;
 		}
-		
-		var hateRs="";
-		if (hateMenuCodes.length==0) {
-			hateRs="null";
-		}
-		for (var i = 0; i < hateMenuCodes.length; i++) {
-			if (i!=hateMenuCodes.length-1) {
-				hateRs= hateRs+hateMenuCodes[i]+"_";
-			}else {
-				hateRs= hateRs+hateMenuCodes[i];
-			}
-		}
-		
-		location.href="us_keeplist.do?seqs="+rs+"&hateRs="+hateRs;
+		location.href="us_keeplist.do?seqs="+keepMenuSeqs+"&hateRs="+hateMenuCodes;
 	}
 	
 	function theLast() {
@@ -89,20 +110,7 @@
 	}
 	
 	function choiceThis(cate,seq,mName) {
-		var hateRs="";
-		if (hateMenuCodes.length==0) {
-			hateRs="null";
-		}
-		
-		for (var i = 0; i < hateMenuCodes.length; i++) {
-			if (i!=hateMenuCodes.length-1) {
-				hateRs= hateRs+hateMenuCodes[i]+"_";
-			}else {
-				hateRs= hateRs+hateMenuCodes[i];
-			}
-		}
-		
-		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateRs;
+		location.href= "us_customize_taste.do?cate="+cate+"&seq="+seq+"&mName="+mName+"&hateRs="+hateMenuCodes;
 	}
 		
 	function keepThis(name, seq) {
@@ -142,18 +150,7 @@
 // 		alert(hateMenuCodes.toString());
 	}
 	
-	$(function() {
-		$('#more').hide();
-		$('#theLast').hide();
-		$('table').hide();
-		$('#tables'+menuIndex).show();
-		var asdf= '<%=rs%>';
-		keepMenuSeqs=asdf.split(",");
-		
-		
-		
-		
-	});
+	
 </script>
 </head>
 <body>
@@ -168,7 +165,7 @@
 %>
 <table id="tables<%=i%>">
 	<tr>
-		<td>음식사진</td>
+		<td><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;"></td>
 	</tr>
 	<tr>
 		<td><%=list.get(i).getName() %></td>
@@ -191,21 +188,7 @@
 <button onclick="location.href='us_usermain.do'">유저메인으로</button>
 <hr/>
 <hr/>
-<h3>밑은개발용</h3>
-<%
-	for(int i = 0; i < list.size(); i++){
-		%>
-			<p>
-				<span>
-					<a href="us_reslist.do?cate=<%=(list.get(i).getCode()).substring(0, 1)%>">
-						<%=list.get(i).getName()%>(<%=Math.round(list.get(i).getStarz())%>)
-					</a>
-				</span>
-				<input type="button" value="안선택"/>
-			</p>
-		<%
-	}
-%>
+
 <button onclick="location.href='us_usermain.do'">뒤로</button>
 </body>
 </html>
