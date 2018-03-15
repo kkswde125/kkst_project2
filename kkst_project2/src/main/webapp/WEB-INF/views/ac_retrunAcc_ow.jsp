@@ -20,7 +20,7 @@
 </tr>
 <tr>
 <th>이메일</th>
-<td><input type="text" value="E-Mail을 입력해주세요" name="email_id" /></td>
+<td><input type="email" value="E-Mail을 입력해주세요" name="email_id" /></td>
 </tr>
 <tr>
 <td colspan="2" style="text-align: center;"><input type="submit" value="메일로 전송" /></td>
@@ -43,7 +43,7 @@
 </tr>
 <tr>
 <th>E-Mail</th>
-<td><input type="text" value="E-Mail을 입력해주세요" name="email_pw" /></td>
+<td><input type="email" value="E-Mail을 입력해주세요" name="email_pw" /></td>
 </tr>
 <tr>
 <td colspan="2" style="text-align: center;"><input type="submit" value="메일로 전송" /></td>
