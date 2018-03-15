@@ -29,8 +29,11 @@
 <%
 	for(int i = 0; i < list.size(); i++){
 		%>
-			<label><%=list.get(i).getName()%><input type="range" min="1" max="100" name="stars"/></label><br/>
+			<p><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;"></p>
+			<p><%=list.get(i).getName()%><p>
+			<input type="range" min="1" max="100" name="stars"/><br/>
 			<input type="hidden" name="codes" value="<%=list.get(i).getCode()%>"/>
+			<hr/>
 		<%
 	}
 %>

@@ -7,22 +7,26 @@ public class WatchaDto {
 	private String code;
 	private int res_seq;
 	private int price;
+	private String change;
 	public WatchaDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public WatchaDto(int seq, String name, String code, int res_seq, int price) {
+	public WatchaDto(int seq, String name, String code, int res_seq, int price, String change) {
 		super();
 		this.seq = seq;
 		this.name = name;
 		this.code = code;
 		this.res_seq = res_seq;
 		this.price = price;
+		this.change = change;
 	}
-	@Override
-	public String toString() {
-		return "WatchaDto [seq=" + seq + ", name=" + name + ", code=" + code + ", res_seq=" + res_seq + ", price="
-				+ price + "]";
+	
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
 	}
 	public int getSeq() {
 		return seq;

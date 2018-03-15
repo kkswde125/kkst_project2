@@ -154,7 +154,7 @@ public class UserService implements I_UserService {
 		map.put("start", start);
 		map.put("end", end);
 		list=userDao.selectRecommendMenuList(map);
-		System.out.println("list에 storedNames담기:"+list.get(0).getChange()+" / 앞서실행한 리스트도 유지되는지?:"+list.get(0).getName());
+//		System.out.println("list에 storedNames담기:"+list.get(0).getChange()+" / 앞서실행한 리스트도 유지되는지?:"+list.get(0).getName());
 		return list;
 	}
 
