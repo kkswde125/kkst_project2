@@ -12,17 +12,41 @@
 <title> ㅈ같은 다솔이가 만든! 식당등록페이지에요~</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
+
+
+		
+		var countT=1;
+		var countM=1;
+		
 	
 	function AddMenu() {
 		
-		var copy = $("#menuAdd").clone().attr("id", "menuAdd1").css("display", "block");
+		var count=1;
+		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block")
 		
 		$("#line").append(copy);
 		
-		$("#upload").css("display", "block");
-
-		
 	}
+	
+	function loadfile(event) {
+		var output = document.getElementById("output");
+		var blobURL = URL.createObjectURL(event.target.files[0]);
+		 $('#outputs').attr('src', blobURL);
+         $('#outputs').slideDown(); //업로드한 이미지 미리보기 
+         $(this).slideUp(); //파일 양식 감춤
+	}
+	
+	function loadfile2(event) {
+		var count=1;
+		var blobURL = URL.createObjectURL(event.target.files[0]);
+	 	$("#menuAdd"+countM++).find('img').attr('src', blobURL);
+     	$("#menuAdd"+countM).find('img').slideDown(); //업로드한 이미지 미리보기 
+     	$(this).slideUp(); //파일 양식 감춤
+}
+
+	
+	
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 </script>
@@ -33,9 +57,15 @@
 <table id="menuAdd"  style="display: none;">
 <tr>
 <td>
+
 <div style="border: 1px solid; width: 300px; height: 200px;">
-<input type="file"  name="uploadFile" id="upload" />
+<img id="output" style="border: 1px solid; width: 300px; height: 200px;" >
+<input type="file" accept="image/*"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
 </div>
+
+<script type="text/javascript">
+</script>
+
 
 </td>
 <td>
@@ -107,9 +137,9 @@
 <tr>
 <td>
 <div style="border: 1px solid; width: 300px; height: 200px;">
-
+<img id="outputs" style="border: 1px solid; width: 300px; height: 200px;">
+<input type="file" name="uploadFile" id="upload" onchange="loadfile(event)" />
 </div>
-<input type="file" name="uploadFile" id="upload" />
 </td>
 <!-- 입력 부분 -->
 <td>
