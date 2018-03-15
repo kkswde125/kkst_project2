@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title> ㅈ같은 다솔이가 만든! 식당등록페이지에요~</title>
+<title>카탈리스트 점주식당 등록페이지 입니다.</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
@@ -24,17 +24,12 @@
 		});
 	}
 
-	
-		
-	
-
-		
 		var countT=1;
 		var countM=1;
-
+		var countMenu=0;
 	function AddMenu() {
 		
-		var count=1;
+		countMenu++;
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
 		
 		$("#line").append(copy);
@@ -56,6 +51,17 @@
      	$("#menuAdd"+countM).find('img').slideDown(); //업로드한 이미지 미리보기 
      	$(this).slideUp(); //파일 양식 감춤
 }
+	
+	
+	function chekMenu(seq) {
+		
+		if(countMenu==0){
+			alert("하나이상의 메뉴를 등록하세요!");
+			location.href="ac_ResListAddPage.do?res_seq="+seq;
+			return false;
+		}
+		
+	}
 
 	
 	
@@ -71,7 +77,7 @@
 <td>
 
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
 <img id="output" style="width: 350px; height: 350px;" >
 </div>
 
@@ -82,13 +88,13 @@
 <table border="1" >
 	<tr>
 		<th>메뉴이름</th>
-		<td colspan="2"><input type="text" name="menu_name"/></td>
+		<td colspan="2"><input type="text" name="menu_name" required="required"/></td>
 	</tr>
 	<tr>
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode">
+		<select name="cateCode" >
 		<c:forEach items="${lists2}" var="dto">
 			<option label="${dto.attr}" value="${dto.code}"/>
 		</c:forEach>
@@ -119,7 +125,7 @@
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode">
+		<select name="tempCode" >
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" />
 		</c:forEach>
@@ -138,14 +144,14 @@
 
 
 
-<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data">
+<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=res_seq%>')">
 <input type="hidden" name="res_seq" value="<%=res_seq%>" />
 <table>
 <!-- 사진 올라갈곳 -->
 <tr>
 <td>
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" name="uploadFile" id="upload" onchange="loadfile(event)" />
+<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" />
 <img id="outputs" style=" width: 350px; height: 350px;">
 </div>
 </td>
@@ -254,7 +260,7 @@
 	<tr>
 		<th>식당 설명</th>
 		<td>
-		<textarea rows="10" cols="60" name="comment"></textarea>
+		<textarea rows="10" cols="60" name="comment" required="required"></textarea>
 		</td>
 	</tr>
 	
