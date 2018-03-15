@@ -98,4 +98,8 @@
 		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},#{menu_seq})
 	</insert>
 	
+	<insert id="AddImg2" parameterType="Map">
+		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},null)
+	</insert>
+	
 </mapper>

@@ -221,14 +221,15 @@ public class AccountService implements I_AccountService {
 						
 					
 						if(originName.equals(multifile.get(0).getOriginalFilename())) {
-							filemap.put("menu_seq",null);
+							accountDao.addPhoto2(filemap);
 						}else {
 							filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+							accountDao.addPhoto(filemap);
 						}
 						
 						System.out.println(filemap);
 						
-						accountDao.addPhoto(filemap);
+						
 						
 					} catch (IllegalStateException e) {
 						e.printStackTrace();
