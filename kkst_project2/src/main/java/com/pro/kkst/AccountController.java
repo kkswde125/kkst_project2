@@ -138,9 +138,7 @@ public class AccountController {
 		if(ldto!=null&&ldto.getId().equals(id)&&ldto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("ldto", ldto);
 			session.setMaxInactiveInterval(60*600); 
-			msg="어서오세요"+ldto.getId()+"님!";
-			model.addAttribute("msg",msg);
-			return "us_usermain";
+			return "redirect:us_usermain.do";
 		}else {
 			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";
 			model.addAttribute("msg",msg);

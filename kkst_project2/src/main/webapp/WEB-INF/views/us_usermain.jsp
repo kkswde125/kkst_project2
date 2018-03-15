@@ -5,6 +5,7 @@
 	response.setHeader("Pragma","no-cache");
 	response.setHeader("Expires","0");
 %>
+<%String msg=(String)request.getAttribute("msg"); %>
 <%@page import="com.pro.kkst.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -14,6 +15,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>usermain.jsp</title>
+<script type="text/javascript">
+window.onload=function(){
+    
+    if(<%=msg!=null%>){
+       alert('<%=msg%>');
+    }
+    
+ }
+</script>
 </head>
 <% LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");
 if(ldto==null){
