@@ -25,7 +25,8 @@ public class AdminDao implements I_AdminDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snum", snum);
 		map.put("cnum", cnum);
-		return sqlSession.selectList(namespace+"memberList", map);
+		List<LoginDto> lists = sqlSession.selectList(namespace+"memberLsit", map);
+		return lists;
 	}
 	@Override	// 리뷰 관리
 	public List<ReviewDto> reviewAll() {
@@ -98,6 +99,11 @@ public class AdminDao implements I_AdminDao {
 	@Override
 	public Admin_OnwerDto sendEmail(int seq) {
 		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"restChkEmail", seq);
+		return dto;
+	}
+	@Override
+	public Admin_OnwerDto send_Email(String email) {
+		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"sendEmail", email);
 		return dto;
 	}
 	

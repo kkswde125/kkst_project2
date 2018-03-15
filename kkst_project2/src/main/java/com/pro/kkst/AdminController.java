@@ -18,12 +18,15 @@ import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminService;
+import com.pro.kkst.utils.Ad_Utils;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private I_AdminService adminServ;
+	
+	Ad_Utils utils = new Ad_Utils();
 	
 	@RequestMapping(value = "ad_memberList.do", method = RequestMethod.GET)
 	public String memberList(Model model, String snum, String cnum, HttpSession session) {
@@ -180,6 +183,14 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping(value = "sendEmail.do", method = RequestMethod.POST)
+	public String sendEmail(Locale locale, Model model, String email, String content) {
+		
+		Admin_OnwerDto dto = adminServ.send_Email(email);
+		utils.mail_acccount(dto.getName(), email, content);
+		
+		return "redirect:ad_restList.do?snum=1&cnum=10";
+	}
 
 
 }

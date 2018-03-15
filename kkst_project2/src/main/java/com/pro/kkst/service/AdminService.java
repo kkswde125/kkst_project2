@@ -66,6 +66,11 @@ public class AdminService implements I_AdminService {
 	public int MemPaging() {
 		return adminDao.MemPaging();
 	}
+
+	@Override
+	public Admin_OnwerDto send_Email(String email) {
+		return adminDao.send_Email(email);
+	}
 	
 
 }

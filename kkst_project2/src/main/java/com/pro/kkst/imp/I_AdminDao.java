@@ -20,5 +20,5 @@ public interface I_AdminDao {
 	public boolean restChk(int seq, Double x, Double y);
 	public boolean restDel(String[] seq);
 	public Admin_OnwerDto sendEmail(int seq);
-	
+	public Admin_OnwerDto send_Email(String email);
 }

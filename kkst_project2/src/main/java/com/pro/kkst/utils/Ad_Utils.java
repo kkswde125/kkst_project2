@@ -16,7 +16,7 @@ public class Ad_Utils {
 
 
 
-	public void mail_acccount(String u_id,String u_pw,String name,String email) {
+	public void mail_acccount(String name, String email, String content) {
 		Properties props = System.getProperties();
 
 		String host="smtp.naver.com";
@@ -59,14 +59,7 @@ public class Ad_Utils {
 				msg.setRecipient(Message.RecipientType.TO, addressTo);
 				msg.setSubject(name+"님의 요청");
 				
-				
-				if(u_id!=null) {
-					msg.setText("안녕하세요 까탈리스트 운영진입니다 "+name+"님의 아이디 :"+u_id,"utf-8");
-				}
-				if(u_pw!=null) {
-					msg.setText("안녕하세요 까탈리스트 운영진입니다 "+name+"님의 비밀번호 :"+u_pw,"utf-8");
-				}
-				
+				msg.setText("안녕하세요 까탈리스트입니다 "+name+"님의 식당 정보 등록이 완료 되었습니다.","utf-8");
 				
 				Transport.send(msg);
 			} catch (MessagingException e) {
