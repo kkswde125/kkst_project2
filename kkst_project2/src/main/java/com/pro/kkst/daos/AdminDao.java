@@ -25,7 +25,7 @@ public class AdminDao implements I_AdminDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snum", snum);
 		map.put("cnum", cnum);
-		List<LoginDto> lists = sqlSession.selectList(namespace+"memberLsit", map);
+		List<LoginDto> lists = sqlSession.selectList(namespace+"memberList", map);
 		return lists;
 	}
 	@Override	// 리뷰 관리
@@ -50,12 +50,17 @@ public class AdminDao implements I_AdminDao {
 	public ReviewDto reviewReport(int seq) {
 		ReviewDto dto = sqlSession.selectOne(namespace+"reviewReport", seq);
 		String report = dto.getReport();
+		if(report==null) {
+			return null;
+		}else {
 		String[] reportArray = report.split(",");
 		int count = reportArray.length;
+		System.out.println(count);
 		if(count > 5) {
 			return dto;
 		}else {
 			return null;
+		}
 		}
 
 	}

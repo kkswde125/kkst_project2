@@ -72,28 +72,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
-	public String reviewAll(Locale locale, Model model) {
+	public String reviewAll(Locale locale, HttpServletRequest request) {
 		List<ReviewDto> reviewList = adminServ.reviewAll();
-		model.addAttribute("reviewList", reviewList);
+		request.setAttribute("reviewList", reviewList);
 		
 		return "ad_reviewAll";
 	}
 	
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
-	public String reviewReport(Locale locale, Model model) {
-		
+	public String reviewReport(Locale locale, HttpServletRequest request) {
 		List<ReviewDto> lists = adminServ.reviewAll();
 		List<ReviewDto> reportList = new ArrayList<>();
 		for (int i = 0; i < lists.size(); i++) {
 			
 			ReviewDto dto = adminServ.reviewReport(lists.get(i).getSeq());
-			
 			if (dto!=null) {
 				reportList.add(dto);
 			}
 		}
-		System.out.println(reportList.toString());
-		model.addAttribute("reportList", reportList);
+		request.setAttribute("reportList", reportList);
 		return "ad_reviewReport";
 	}
 	
