@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountDao;
 import com.pro.kkst.imp.I_AccountService;
@@ -257,6 +258,11 @@ public class AccountService implements I_AccountService {
 //	public List<menuDto> searchMenuSeq(Map<String, String>map) {
 //		return accountDao.searchMenuSeq(map);
 //	}
+
+	@Override
+	public ResDto chkRes(int res_seq) {
+		return accountDao.chkRes(res_seq);
+	}
 
 
 }

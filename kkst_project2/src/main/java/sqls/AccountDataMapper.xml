@@ -102,4 +102,11 @@
 		INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},null)
 	</insert>
 	
+	<!-- 식당등록을 안한 점주의 경우 다시 로그인했을때 식당등록하기위함 -->
+	<select id="ChkRes" parameterType="Integer" resultType="ResDto">
+		SELECT SEQ,NAME,CATE,ADDR,CALL,START,END,REST_START,REST_END,
+		PARKING,OPEN,CHK,COMMENT,X,Y
+		 FROM RESLIST WHERE RES_SEQ = #{res_seq}
+	</select>
+	
 </mapper>

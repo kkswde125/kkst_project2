@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 
 public interface I_AccountService {
 	//유저
@@ -32,6 +33,8 @@ public interface I_AccountService {
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment);
+	
+	public ResDto chkRes(int res_seq);
 //	public boolean addMenu(Map<String, String>map);
 //	public boolean addPhoto(Map<String, String>map);
 //	public List<menuDto> searchMenuSeq(Map<String, String>map);

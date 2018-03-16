@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountService;
 import com.pro.kkst.utils.Us_Utils;
@@ -77,6 +78,7 @@ public class AccountController {
 		map.put("id", id);
 		map.put("pw", pw);
 		Admin_OnwerDto AoDto= accountServ.getOnwerLogin(map);
+		ResDto rDto = accountServ.chkRes(AoDto.getRes_seq());
 		String msg="";
 		if(AoDto!=null&&AoDto.getId().equals(id)&&AoDto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("AoDto", AoDto);
@@ -86,9 +88,18 @@ public class AccountController {
 				model.addAttribute("msg",msg);
 				return "ad_admin";
 			}else {
-				msg="점주 로그인";
-				model.addAttribute("msg",msg);
-				return "ow_owner";
+
+				if(rDto.getName().equals("DEFAULT")) {
+					msg="점주 로그인";
+					model.addAttribute("Chk", "No");
+					model.addAttribute("msg",msg);
+					return "ow_owner";
+				}else {
+					msg="점주 로그인";
+					model.addAttribute("Chk", "Yes");
+					model.addAttribute("msg",msg);
+					return "ow_owner";
+				}
 			}
 		}else {
 			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";

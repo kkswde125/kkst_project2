@@ -6,6 +6,7 @@ import java.util.Map;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 
 public interface I_AccountDao {
@@ -35,4 +36,5 @@ public interface I_AccountDao {
 	public boolean addPhoto(Map<String, String>map);
 	public List<menuDto> searchMenuSeq(Map<String, String>map);
 	public boolean addPhoto2(Map<String, String>map);
+	public ResDto chkRes(int res_seq);
 }

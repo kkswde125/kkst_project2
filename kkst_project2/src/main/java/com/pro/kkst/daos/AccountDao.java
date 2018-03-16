@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountDao;
 
@@ -132,6 +133,10 @@ public class AccountDao implements I_AccountDao {
 	public boolean addPhoto2(Map<String, String> map) {
 		int count = sqlSessoin.insert(namespace+"AddImg2",map);
 		return count>0?true:false;
+	}
+	@Override
+	public ResDto chkRes(int res_seq) {
+		return sqlSessoin.selectOne(namespace+"ChkRes",res_seq);
 	}
 
 }
