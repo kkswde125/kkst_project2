@@ -37,7 +37,7 @@ window.onload=function(){
 	if(chk.equals("Yes")){
 		%>
 <a href="#">소비자 선호도 통계조회</a>
-<a href="#">개발 메뉴 추천</a>
+<a href="devMenu.do?seq=<%=AoDto.getRes_seq()%>">개발 메뉴 추천</a>
 <a href="#">지역별 최다 선호 음식 출력</a>
 <a href="#">추가 식당 등록</a>
 <a href="#">식당 정보 수정</a>
