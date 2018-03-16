@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.menuDto;
@@ -223,13 +224,6 @@ public class UserService implements I_UserService {
 		return userDao.selectResDetail(map);
 	}
 
-	@Override
-	public List<ResDto> ResList2(String seq) {
-		Map<String, String> map = new HashMap<>();
-		map.put("seq", seq);
-		return userDao.ResList2(seq);
-	}
-
 	@Transactional
 	@Override
 	public boolean customizeTaste(int user_seq, String mName, String[] codes) {
@@ -294,6 +288,67 @@ public class UserService implements I_UserService {
 			
 		}
 		return isS;
+	}
+
+	
+	@Override
+	public List<ResDto> ResList2(String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		return userDao.ResList2(seq);
+	}
+	
+	@Override
+	public String getResPhoto(String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		return userDao.getResPhoto(map);
+	}
+
+	@Override
+	public String[] getResMenuPhoto(String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		return userDao.getResMenuPhoto(map);
+	}
+
+	@Override
+	public List<ResReviewDto> selectGetResReview(String res_Seq, String start, String end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		map.put("start", start);
+		map.put("end", end);
+		return userDao.selectGetResReview(map);
+	}
+
+	
+	@Override
+	public boolean insertResReview(ResReviewDto dto) {
+		return userDao.insertResReview(dto);
+	}
+
+	@Override
+	public boolean updateResReview(ResReviewDto dto) {
+		return userDao.updateResReview(dto);
+	}
+
+	@Transactional
+	@Override
+	public boolean insertAnsResReview(ResReviewDto dto) {
+		boolean isS = false;
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", dto.getSeq());
+		isS = userDao.insertAnsResReviewUpdate(map);
+		isS = userDao.insertAnsResReviewInsert(dto);
+		return isS;
+	}
+
+	@Override
+	public boolean delMyReview(String id, String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("seq", seq);
+		return userDao.delMyReview(map);
 	}
 
 }

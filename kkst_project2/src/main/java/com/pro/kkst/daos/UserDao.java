@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.menuDto;
@@ -136,5 +137,47 @@ public class UserDao implements I_UserDao {
 	public List<MenuzDto> selectStoredNames(Map<String, String[]> map) {
 		return sqlSessoin.selectList(namespace+"getStoredNames", map);
 	}
+
+	
+	@Override
+	public String getResPhoto(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"getResPhoto", map);
+	}
+	
+	@Override
+	public String[] getResMenuPhoto(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"getResMenuPhoto", map).toArray(new String[0]);
+	}
+	
+	@Override
+	public List<ResReviewDto> selectGetResReview(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"getResReview", map);
+	}
+
+	@Override
+	public boolean insertResReview(ResReviewDto dto) {
+		return sqlSessoin.insert(namespace+"insertResReview", dto)>0?true:false;
+	}
+
+	@Override
+	public boolean updateResReview(ResReviewDto dto) {
+		return sqlSessoin.update(namespace+"updateResReview", dto)>0?true:false;
+	}
+
+	@Override
+	public boolean insertAnsResReviewUpdate(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"insertAnsResReviewUpdate", map)>0?true:false;
+	}
+
+	@Override
+	public boolean insertAnsResReviewInsert(ResReviewDto dto) {
+		return sqlSessoin.insert(namespace+"insertAnsResReviewInsert", dto)>0?true:false;
+	}
+
+	@Override
+	public boolean delMyReview(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"delMyReview", map)>0?true:false;
+	}
+
 
 }

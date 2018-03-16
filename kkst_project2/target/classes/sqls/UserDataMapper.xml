@@ -178,6 +178,16 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE SEQ = NVL((SELECT RES_SEQ FROM MENULIST WHERE seq=#{seq}),0)
 	</select>
 	
+	<select id="getResPhoto" parameterType="Map" resultType="String">
+		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NULL
+	</select>
+	
+	<select id="getResMenuPhoto" parameterType="Map" resultType="String">
+		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NOT NULL		
+	</select>
+	
+	
+	
 	<select id="getResReview" parameterType="Map" resultType="ResReviewDto">
 		SELECT SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG
 		FROM
@@ -186,12 +196,29 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
-	<select id="getResPhoto" parameterType="Map" resultType="String">
-		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NULL
-	</select>
+	<insert id="insertResReview" parameterType="ResReviewDto" >
+		INSERT INTO REVIEW(SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG)
+		VALUES(REVIEW_SEQ.NEXTVAL,#{id},#{content}, (SELECT NVL(MAX(REFER)+1,0) FROM REVIEW), #{star}, 0, 0, #{res_Seq}, SYSDATE, NULL, NULL, NULL, 'N')
+	</insert>
 	
-	<select id="getResMenuPhoto" parameterType="Map" resultType="String[]">
-		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NOT NULL		
-	</select>
+	<update id="updateResReview" parameterType="ResReviewDto">
+		UPDATE REVIEW SET CONTENT=#{content}, REGDATE=SYSDATE WHERE SEQ = #{seq}
+	</update>
+	
+	<update id="insertAnsResReviewUpdate" parameterType="Map"><!-- 답변입력 -->
+		UPDATE REVIEW SET STEP = STEP+1
+		WHERE REFER = (SELECT REFER FROM REVIEW WHERE SEQ = #{seq} )
+		AND STEP > (SELECT STEP FROM REVIEW WHERE SEQ = #{seq} )
+	</update>
+	
+	<insert id="insertAnsResReviewInsert" parameterType="ResReviewDto"> 
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{id}, #{content}, 
+			(SELECT REFER FROM REVIEW WHERE SEQ= #{seq} ), #{star}, (SELECT STEP FROM REVIEW WHERE SEQ = #{seq} )+1, (SELECT DEPTH FROM REVIEW WHERE SEQ = #{seq} )+1, 
+			#{res_Seq}, SYSDATE, NULL, NULL, NULL, 'N')
+	</insert>
+	
+	<update id="delMyReview" parameterType="Map">
+		UPDATE REVIEW SET DELFLAG = 'Y' WHERE ID = #{id} AND SEQ = #{seq}
+	</update>
 	
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.menuDto;
 
@@ -28,12 +29,22 @@ public interface I_UserService {
 	public List<WatchaDto> watchaMoreMoreBox();
 	public List<MenuzDto> getKeepList(String[] seqs);
 	public ResDto getResDetail(String name);
-	public List<ResDto> ResList2(String seq);
 	
 	public boolean customizeTaste(int user_seq, String mName, String[] codes);
 	public boolean customizeTaste(int user_seq, String mName);
 	
 	public boolean fileUploads(MultipartHttpServletRequest request);
 	
+	
+	public List<ResDto> ResList2(String seq);
+	public String getResPhoto(String res_Seq);
+	public String[] getResMenuPhoto(String res_Seq);
+	
+	public List<ResReviewDto> selectGetResReview(String res_Seq, String start, String end);
+	
+	public boolean insertResReview(ResReviewDto dto);
+	public boolean updateResReview(ResReviewDto dto);
+	public boolean insertAnsResReview(ResReviewDto dto);
+	public boolean delMyReview(String id, String seq);
 	
 }

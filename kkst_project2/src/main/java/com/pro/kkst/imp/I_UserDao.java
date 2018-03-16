@@ -6,6 +6,7 @@ import java.util.Map;
 import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.menuDto;
@@ -30,10 +31,20 @@ public interface I_UserDao {
 	public WatchaDto selectWatchaMoreMoreBox(Map<String,String> map);
 	public List<MenuzDto> selectKeepList(Map<String, String[]> map);
 	public ResDto selectResDetail(Map<String, String> map);
-	public List<ResDto> ResList2(String seq);
 	public int updateCustomizeTastePlus(Map<String, String> map);
 	public int updateCustomizeTasteMinus(Map<String, String> map);
 	
 	public boolean fileupload(Map<String, String> map);
+	
+	public List<ResDto> ResList2(String seq);
+	public String getResPhoto(Map<String, String> map);
+	public String[] getResMenuPhoto(Map<String, String> map);
+	
+	public List<ResReviewDto> selectGetResReview(Map<String, String> map);
+	public boolean insertResReview(ResReviewDto dto);
+	public boolean updateResReview(ResReviewDto dto);
+	public boolean insertAnsResReviewUpdate(Map<String, String> map);
+	public boolean insertAnsResReviewInsert(ResReviewDto dto);
+	public boolean delMyReview(Map<String, String> map);
 	
 }

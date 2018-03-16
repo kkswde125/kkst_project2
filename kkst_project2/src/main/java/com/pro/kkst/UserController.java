@@ -25,6 +25,7 @@ import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_UserService;
 
@@ -331,21 +332,6 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "us_res_detail.do")
-	public String us_Res_Detail(Model model, HttpSession session, String name, String cate, String mName, String seq) {
-		logger.info("us_res_detail");
-		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		if (ldto==null) {
-			return "ac_login";
-		}else {
-			ResDto dto = userServ.getResDetail(name);
-			model.addAttribute("dto", dto);
-			model.addAttribute("seq", seq);
-			model.addAttribute("mName", mName);
-			model.addAttribute("cate", cate);
-			return "us_res_detail";
-		}
-	}
 	
 	@RequestMapping(value = "/us_menu_photo_uploads.do")
 	public String fileuploads(Model model, MultipartHttpServletRequest request) {
@@ -365,5 +351,30 @@ public class UserController {
 		}
 	}
 	
+	
+	@Transactional
+	@RequestMapping(value = "us_res_detail.do")
+	public String us_Res_Detail(Model model, HttpSession session, String name, String cate, String mName, String seq, String start, String end) {
+		logger.info("us_res_detail");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			ResDto dto = userServ.getResDetail(name);
+			model.addAttribute("dto", dto);
+			model.addAttribute("seq", seq);
+			model.addAttribute("mName", mName);
+			model.addAttribute("cate", cate);
+			
+			String resPhoto =userServ.getResPhoto(String.valueOf(dto.getSeq()));
+			model.addAttribute("resPhoto", resPhoto);
+			String [] menuPhotos = userServ.getResMenuPhoto(String.valueOf(dto.getSeq()));
+			model.addAttribute("menuPhotos", menuPhotos);
+			List<ResReviewDto> list = userServ.selectGetResReview(String.valueOf(dto.getSeq()), start, end);
+			model.addAttribute("list", list);
+			
+			return "us_res_detail";
+		}
+	}
 	
 }
