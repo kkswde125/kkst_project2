@@ -66,7 +66,11 @@ public class AccountController {
 	
 	//점주 로그인
 	@RequestMapping(value = "/ow_loginhome.do")
-	public String ow_loginhome(Locale locale, Model model) {
+	public String ow_loginhome(Locale locale, Model model,String msg) {
+		
+		if(msg!=null) {
+			model.addAttribute("msg",msg);
+		}
 		return "ac_ownerlogin";
 	}
 	
@@ -78,21 +82,27 @@ public class AccountController {
 		map.put("id", id);
 		map.put("pw", pw);
 		Admin_OnwerDto AoDto= accountServ.getOnwerLogin(map);
-		ResDto rDto = accountServ.chkRes(AoDto.getRes_seq());
 		String msg="";
 		if(AoDto!=null&&AoDto.getId().equals(id)&&AoDto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("AoDto", AoDto);
 			session.setMaxInactiveInterval(60*600);
+			
+			
 			if(AoDto.getGrade().equals("A")) {
 				msg="Admin 로그인";
 				model.addAttribute("msg",msg);
 				return "ad_admin";
-			}else {
+				
+				
+			}else{
+				
+				ResDto rDto = accountServ.chkRes(AoDto.getRes_seq());
 
 				if(rDto.getName().equals("DEFAULT")) {
 					msg="점주 로그인";
 					model.addAttribute("Chk", "No");
 					model.addAttribute("msg",msg);
+					model.addAttribute("rDto",rDto);
 					return "ow_owner";
 				}else {
 					msg="점주 로그인";
@@ -101,12 +111,14 @@ public class AccountController {
 					model.addAttribute("rDto",rDto);
 					return "ow_owner";
 				}
+				
+				
 			}
-		}else {
+	
+		}else{
 			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";
 			model.addAttribute("msg",msg);
-			return "ac_ownerlogin";
-			
+			return "ow_loginhome.do";
 		}
 	}
 	
@@ -117,7 +129,7 @@ public class AccountController {
 		logger.info("ac_logout");
 		session.removeAttribute("AoDto");
 		session.invalidate();
-		return "ow_loginhome.do";
+		return "redirect:ow_loginhome.do";
 	}
 	
 	@RequestMapping(value="/ow_owner.do")
@@ -403,7 +415,7 @@ public class AccountController {
 	public String ResListAdd(Model model,MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
-			String[] price,String comment,HttpSession session) {
+			String[] price,String comment) {
 		
 //		String upload,String[] menuUpload
 			
@@ -412,26 +424,13 @@ public class AccountController {
 					spicyCode, tempCode, price, comment);
 		
 		 
-		 Admin_OnwerDto AoDto =(Admin_OnwerDto)session.getAttribute("AoDto");
-		 
-		 
 		 
 		 String msg="";
 		
 		 if(isS==true) {
-			
-			if(AoDto==null) {
-				msg="식당 등록성공!메인페이지로 이동합니다.";
-				model.addAttribute("msg", msg);
-				model.addAttribute("AoDto", AoDto);
-				model.addAttribute("Chk","Yes");
-				return "ow_owner";
-			} else {
-				msg="식당 등록성공! 로그인페이지로 이동합니다.";
+				msg="식당 등록성공!로그인페이지로 이동합니다.";
 				model.addAttribute("msg", msg);
 				return "redirect:ow_loginhome.do";
-			}
-			 
 		 }else {
 			 
 			msg="식당 등록에 실패하였습니다.다시 등록해주세요";

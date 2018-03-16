@@ -14,11 +14,14 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-window.onload=function(){
     
+
+window.onload=function(){
+	
     if(<%=msg!=null%>){
-       alert('<%=msg%>');
-    }
+        alert('<%=msg%>');
+    	return; 
+	}
     
     if(<%=rDto.getChk().equals("N")%>){
     	$("a").attr("hidden","hidden");
@@ -38,11 +41,13 @@ window.onload=function(){
 <a href="#">지역별 최다 선호 음식 출력</a>
 <a href="#">추가 식당 등록</a>
 <a href="#">식당 정보 수정</a>
+<button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
 		<%
 	}else if(chk.equals("No")){
 		%>
 		 <h1>아직 식당을 등록하지 않았군요!아래버튼을 눌러 등록해주세요!</h1>
-		 <button value="식당등록" onclick="location.href=ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>">식당 등록</button>
+		 <button onclick="location.href='ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>'">식당 등록</button>
+		 <button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
 		<%
 	}
 
