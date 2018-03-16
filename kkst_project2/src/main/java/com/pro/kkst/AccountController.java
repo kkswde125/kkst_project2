@@ -82,7 +82,7 @@ public class AccountController {
 		String msg="";
 		if(AoDto!=null&&AoDto.getId().equals(id)&&AoDto.getPw().equals(pw)){ //회원 정보가 존재한다면 -> 회원이 확인되면 
 			session.setAttribute("AoDto", AoDto);
-			session.setMaxInactiveInterval(60*600); 
+			session.setMaxInactiveInterval(60*600);
 			if(AoDto.getGrade().equals("A")) {
 				msg="Admin 로그인";
 				model.addAttribute("msg",msg);
@@ -98,6 +98,7 @@ public class AccountController {
 					msg="점주 로그인";
 					model.addAttribute("Chk", "Yes");
 					model.addAttribute("msg",msg);
+					model.addAttribute("rDto",rDto);
 					return "ow_owner";
 				}
 			}
@@ -402,7 +403,7 @@ public class AccountController {
 	public String ResListAdd(Model model,MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
 			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
-			String[] price,String comment) {
+			String[] price,String comment,HttpSession session) {
 		
 //		String upload,String[] menuUpload
 			
@@ -411,14 +412,26 @@ public class AccountController {
 					spicyCode, tempCode, price, comment);
 		
 		 
+		 Admin_OnwerDto AoDto =(Admin_OnwerDto)session.getAttribute("AoDto");
+		 
 		 
 		 
 		 String msg="";
 		
 		 if(isS==true) {
-			msg="식당 등록성공! 로그인페이지로 이동합니다.";
-			model.addAttribute("msg", msg);
-			return "redirect:ow_loginhome.do";
+			
+			if(AoDto==null) {
+				msg="식당 등록성공!메인페이지로 이동합니다.";
+				model.addAttribute("msg", msg);
+				model.addAttribute("AoDto", AoDto);
+				model.addAttribute("Chk","Yes");
+				return "ow_owner";
+			} else {
+				msg="식당 등록성공! 로그인페이지로 이동합니다.";
+				model.addAttribute("msg", msg);
+				return "redirect:ow_loginhome.do";
+			}
+			 
 		 }else {
 			 
 			msg="식당 등록에 실패하였습니다.다시 등록해주세요";

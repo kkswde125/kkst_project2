@@ -1,21 +1,30 @@
+<%@page import="com.pro.kkst.dtos.ResDto"%>
 <%@page import="com.pro.kkst.dtos.Admin_OnwerDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
 <%String msg=(String)request.getAttribute("msg"); %>
-<%String chk=(String)request.getAttribute("chk"); %>
+<%String chk=(String)request.getAttribute("Chk"); %>
 <%Admin_OnwerDto AoDto =(Admin_OnwerDto)session.getAttribute("AoDto"); %>
+<%ResDto rDto=(ResDto)request.getAttribute("rDto"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 window.onload=function(){
     
     if(<%=msg!=null%>){
        alert('<%=msg%>');
     }
+    
+    if(<%=rDto.getChk().equals("N")%>){
+    	$("a").attr("hidden","hidden");
+    	$("body").append("<h1>아직 승인 대기중 입니다. 관리자에게 문의하세요!</h1>");
+    }
+    
     
  }
 </script>
@@ -33,7 +42,7 @@ window.onload=function(){
 	}else if(chk.equals("No")){
 		%>
 		 <h1>아직 식당을 등록하지 않았군요!아래버튼을 눌러 등록해주세요!</h1>
-		 <a href="ac_ResListAddPage.do?res_seq="+<%=AoDto.getRes_seq()%>>식당 등록</a>
+		 <button value="식당등록" onclick="location.href=ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>">식당 등록</button>
 		<%
 	}
 

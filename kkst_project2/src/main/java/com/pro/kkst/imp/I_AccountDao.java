@@ -36,5 +36,5 @@ public interface I_AccountDao {
 	public boolean addPhoto(Map<String, String>map);
 	public List<menuDto> searchMenuSeq(Map<String, String>map);
 	public boolean addPhoto2(Map<String, String>map);
-	public ResDto chkRes(int res_seq);
+	public ResDto chkRes(int seq);
 }

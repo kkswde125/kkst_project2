@@ -34,7 +34,7 @@ public interface I_AccountService {
 			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment);
 	
-	public ResDto chkRes(int res_seq);
+	public ResDto chkRes(int seq);
 //	public boolean addMenu(Map<String, String>map);
 //	public boolean addPhoto(Map<String, String>map);
 //	public List<menuDto> searchMenuSeq(Map<String, String>map);

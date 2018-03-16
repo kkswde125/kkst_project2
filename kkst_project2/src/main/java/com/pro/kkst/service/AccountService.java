@@ -260,8 +260,8 @@ public class AccountService implements I_AccountService {
 //	}
 
 	@Override
-	public ResDto chkRes(int res_seq) {
-		return accountDao.chkRes(res_seq);
+	public ResDto chkRes(int seq) {
+		return accountDao.chkRes(seq);
 	}
 
 

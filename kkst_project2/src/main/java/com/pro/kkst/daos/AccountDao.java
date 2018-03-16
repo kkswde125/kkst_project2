@@ -135,8 +135,8 @@ public class AccountDao implements I_AccountDao {
 		return count>0?true:false;
 	}
 	@Override
-	public ResDto chkRes(int res_seq) {
-		return sqlSessoin.selectOne(namespace+"ChkRes",res_seq);
+	public ResDto chkRes(int seq) {
+		return sqlSessoin.selectOne(namespace+"ChkRes",seq);
 	}
 
 }
