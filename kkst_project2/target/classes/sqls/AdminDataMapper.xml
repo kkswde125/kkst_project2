@@ -64,8 +64,8 @@
 	</select>
 
 
-	<select id="sendEmail" parameterType="String" resultType="AoDto">
-		SELECT SEQ, ID, PW, NAME, NICKNAME, REGDATE, DELFLAG, SEX, BIRTH, EMAIL
+	<select id="sendEmail" parameterType="Map" resultType="AoDto">
+		SELECT SEQ, ID, PW, NAME, RES_SEQ, PHONE, RES_CALL, GRADE, EMAIL
 		FROM ADMIN_OWNER WHERE EMAIL = #{email}
 	</select>
 

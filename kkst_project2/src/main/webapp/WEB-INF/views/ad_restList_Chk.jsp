@@ -10,6 +10,7 @@
 
 <h1>검토 완료!</h1>
 <form action="sendEmail.do" method="POST">
+<input type="hidden" name="seq" value="${dto.seq }"/>
 <table>
 	<tr>
 		<td>검토 결과를 통보할 이메일 : </td>

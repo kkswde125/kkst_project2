@@ -68,8 +68,8 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public Admin_OnwerDto send_Email(String email) {
-		return adminDao.send_Email(email);
+	public Admin_OnwerDto send_Email(String email, String seq) {
+		return adminDao.send_Email(email, seq);
 	}
 	
 

@@ -102,7 +102,8 @@ public class AdminDao implements I_AdminDao {
 		return dto;
 	}
 	@Override
-	public Admin_OnwerDto send_Email(String email) {
+	public Admin_OnwerDto send_Email(String email, String seq) {
+		Map<String, String> map = new HashMap<String, String>();
 		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"sendEmail", email);
 		return dto;
 	}

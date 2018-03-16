@@ -57,9 +57,9 @@ public class Ad_Utils {
 			addressTo = new InternetAddress(email);
 			try {
 				msg.setRecipient(Message.RecipientType.TO, addressTo);
-				msg.setSubject(name+"님의 요청");
+				msg.setSubject("[까탈리스트]"+name+" 점주 님 반갑습니다.");
 				
-				msg.setText("안녕하세요 까탈리스트입니다 "+name+"님의 식당 정보 등록이 완료 되었습니다.","utf-8");
+				msg.setText(content,"utf-8");
 				
 				Transport.send(msg);
 			} catch (MessagingException e) {

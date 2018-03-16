@@ -184,9 +184,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "sendEmail.do", method = RequestMethod.POST)
-	public String sendEmail(Locale locale, Model model, String email, String content) {
-		
-		Admin_OnwerDto dto = adminServ.send_Email(email);
+	public String sendEmail(Locale locale, Model model, String email, String content, String seq) {
+		Admin_OnwerDto dto = adminServ.send_Email(email, seq);
 		utils.mail_acccount(dto.getName(), email, content);
 		
 		return "redirect:ad_restList.do?snum=1&cnum=10";
