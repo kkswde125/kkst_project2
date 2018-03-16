@@ -1,6 +1,5 @@
 package com.pro.kkst.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Message;
