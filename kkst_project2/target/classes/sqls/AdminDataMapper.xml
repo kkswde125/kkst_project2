@@ -66,7 +66,7 @@
 
 	<select id="sendEmail" parameterType="Map" resultType="AoDto">
 		SELECT SEQ, ID, PW, NAME, RES_SEQ, PHONE, RES_CALL, GRADE, EMAIL
-		FROM ADMIN_OWNER WHERE EMAIL = #{email}
+		FROM ADMIN_OWNER WHERE EMAIL = #{email} AND SEQ = ${seq}
 	</select>
 
 </mapper>
