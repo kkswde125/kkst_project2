@@ -182,23 +182,30 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NULL
 	</select>
 	
-	<select id="getResMenuPhoto" parameterType="Map" resultType="String">
-		SELECT "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NOT NULL		
+	<select id="getResMenuPhoto" parameterType="Map" resultType="MenuzDto">
+		SELECT SUBSTR(ORIGIN,1,LENGTH(ORIGIN)-4) AS NAME, "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NOT NULL		
 	</select>
 	
-	
+	<select id="getResReviewCount" parameterType="Map" resultType="int">
+		SELECT COUNT(SEQ) FROM REVIEW WHERE RES_SEQ = #{res_Seq}
+	</select>
 	
 	<select id="getResReview" parameterType="Map" resultType="ResReviewDto">
-		SELECT SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG
+		SELECT T1.SEQ, T2.NAME AS ID, T1.CONTENT, T1.REFER, T1.STAR, T1."DEPTH", T1.STEP, T1.RES_SEQ, T1.REGDATE, T1.REPORT, T1.LIKEY, T1.DISLIKEY, T1.DELFLAG
 		FROM
 			(SELECT SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG, ROW_NUMBER() OVER(ORDER BY REFER DESC, STEP ASC) AS RN
-			 FROM REVIEW WHERE DELFLAG = 'N' AND RES_SEQ = #{res_Seq})
-		WHERE RN BETWEEN #{start} AND #{end}
+			 FROM REVIEW WHERE DELFLAG = 'N' AND RES_SEQ = #{res_Seq}) T1,
+			 USERS T2
+		WHERE (T1.RN BETWEEN #{start} AND #{end}) AND (T1.ID=T2.SEQ)
+	</select>
+	
+	<select id="beforeInsertResReview" parameterType="Map" resultType="int">
+		SELECT COUNT(SEQ) FROM REVIEW WHERE ID = #{user_seq} AND RES_SEQ = #{res_Seq}
 	</select>
 	
 	<insert id="insertResReview" parameterType="ResReviewDto" >
 		INSERT INTO REVIEW(SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG)
-		VALUES(REVIEW_SEQ.NEXTVAL,#{id},#{content}, (SELECT NVL(MAX(REFER)+1,0) FROM REVIEW), #{star}, 0, 0, #{res_Seq}, SYSDATE, NULL, NULL, NULL, 'N')
+		VALUES(REVIEW_SEQ.NEXTVAL,#{id},#{content}, (SELECT NVL(MAX(REFER)+1,0) FROM REVIEW), TO_NUMBER(#{star}), 0, 0, TO_NUMBER(#{res_Seq}), SYSDATE, NULL, NULL, NULL, 'N')
 	</insert>
 	
 	<update id="updateResReview" parameterType="ResReviewDto">
@@ -219,6 +226,14 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	
 	<update id="delMyReview" parameterType="Map">
 		UPDATE REVIEW SET DELFLAG = 'Y' WHERE ID = #{id} AND SEQ = #{seq}
+	</update>
+	
+	<update id="addLikey0" parameterType="Map">
+		UPDATE REVIEW SET LIKEY = #{id} WHERE SEQ = #{seq}
+	</update>
+	
+	<update id="addLikey" parameterType="Map">
+		UPDATE REVIEW SET LIKEY = LIKEY||#{id} WHERE SEQ = #{seq}
 	</update>
 	
 </mapper>

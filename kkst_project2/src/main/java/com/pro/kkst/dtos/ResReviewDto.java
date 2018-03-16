@@ -5,7 +5,7 @@ import java.util.Date;
 public class ResReviewDto {
 	
 	private String seq;
-	private String id;
+	private String id;//user_seq
 	private String content;
 	private String refer;
 	private double star;
@@ -17,6 +17,14 @@ public class ResReviewDto {
 	private String likey;
 	private String dislikey;
 	private String delFlag;
+	
+	public ResReviewDto(String id, String content, String star, String res_Seq) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.star = (double)Integer.parseInt(star);
+		this.res_Seq = res_Seq;
+	}
 	public ResReviewDto() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -150,7 +150,7 @@ public class UserService implements I_UserService {
 	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end) {
 		List<MenuzDto> list=new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
-		Map<String, String[]> map2 = new HashMap<>();
+//		Map<String, String[]> map2 = new HashMap<>();
 		map.put("user_seq", ""+user_seq);
 		map.put("start", start);
 		map.put("end", end);
@@ -306,7 +306,7 @@ public class UserService implements I_UserService {
 	}
 
 	@Override
-	public String[] getResMenuPhoto(String res_Seq) {
+	public List<MenuzDto> getResMenuPhoto(String res_Seq) {
 		Map<String, String> map = new HashMap<>();
 		map.put("res_Seq", res_Seq);
 		return userDao.getResMenuPhoto(map);
@@ -349,6 +349,34 @@ public class UserService implements I_UserService {
 		map.put("id", id);
 		map.put("seq", seq);
 		return userDao.delMyReview(map);
+	}
+
+	@Override
+	public int selectGetResReviewCount(String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		return userDao.getResReviewCount(map);
+	}
+
+	@Override
+	public int beforeInsertResReview(String user_seq, String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("user_seq", user_seq);
+		map.put("res_Seq", res_Seq);
+		return userDao.beforeInsertResReview(map);
+	}
+
+	@Override
+	public boolean addLikey(String likey, String id, String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		if (Integer.parseInt(likey)==0) {
+			map.put("id", id);
+			return userDao.addLikey0(map);
+		}else {
+			map.put("id", ","+id);
+			return userDao.addLikey(map);
+		}
 	}
 
 }

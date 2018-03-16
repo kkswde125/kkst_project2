@@ -145,8 +145,13 @@ public class UserDao implements I_UserDao {
 	}
 	
 	@Override
-	public String[] getResMenuPhoto(Map<String, String> map) {
-		return sqlSessoin.selectList(namespace+"getResMenuPhoto", map).toArray(new String[0]);
+	public List<MenuzDto> getResMenuPhoto(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"getResMenuPhoto", map);
+	}
+	
+	@Override
+	public int getResReviewCount(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"getResReviewCount", map);
 	}
 	
 	@Override
@@ -178,6 +183,23 @@ public class UserDao implements I_UserDao {
 	public boolean delMyReview(Map<String, String> map) {
 		return sqlSessoin.update(namespace+"delMyReview", map)>0?true:false;
 	}
+
+	@Override
+	public int beforeInsertResReview(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"beforeInsertResReview", map);
+	}
+
+	@Override
+	public boolean addLikey0(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addLikey0", map)>0?true:false;
+	}
+	
+	@Override
+	public boolean addLikey(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addLikey", map)>0?true:false;
+	}
+
+	
 
 
 }

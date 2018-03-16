@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.WatchaDto;
@@ -360,20 +363,83 @@ public class UserController {
 		if (ldto==null) {
 			return "ac_login";
 		}else {
+			if (seq==null||mName==null||cate==null||name==null) {
+				name= (String)session.getAttribute("name");
+				seq= (String)session.getAttribute("seq");
+				mName= (String)session.getAttribute("mName");
+				cate= (String)session.getAttribute("cate");
+				
+			}else {
+				session.setAttribute("name", name);
+				session.setAttribute("seq", seq);
+				session.setAttribute("mName", mName);
+				session.setAttribute("cate", cate);
+			}
 			ResDto dto = userServ.getResDetail(name);
 			model.addAttribute("dto", dto);
-			model.addAttribute("seq", seq);
-			model.addAttribute("mName", mName);
-			model.addAttribute("cate", cate);
+			String res_Seq = String.valueOf(dto.getSeq());
+			if (start==null||end==null||res_Seq==null) {
+				start= (String)session.getAttribute("start");
+				end= (String)session.getAttribute("end");
+				res_Seq= (String)session.getAttribute("res_Seq");
+			}else {
+				session.setAttribute("start", start);
+				session.setAttribute("end", end);
+				session.setAttribute("res_Seq", res_Seq);
+			}
 			
-			String resPhoto =userServ.getResPhoto(String.valueOf(dto.getSeq()));
+			String count = String.valueOf(userServ.selectGetResReviewCount(res_Seq));
+			model.addAttribute("count", count);
+			
+			String resPhoto =userServ.getResPhoto(res_Seq);
 			model.addAttribute("resPhoto", resPhoto);
-			String [] menuPhotos = userServ.getResMenuPhoto(String.valueOf(dto.getSeq()));
-			model.addAttribute("menuPhotos", menuPhotos);
-			List<ResReviewDto> list = userServ.selectGetResReview(String.valueOf(dto.getSeq()), start, end);
+			List<MenuzDto> menuList = userServ.getResMenuPhoto(res_Seq);
+			model.addAttribute("menuList", menuList);
+			List<ResReviewDto> list = userServ.selectGetResReview(res_Seq, start, end);
 			model.addAttribute("list", list);
 			
 			return "us_res_detail";
+		}
+	}
+	
+	@RequestMapping(value = "/us_write_review.do")
+	public String writeReview(Model model, HttpSession session, String id, String res_Seq, String content, String[] star) {
+		logger.info("us_write_review");
+		int count=userServ.beforeInsertResReview(id, res_Seq);
+		if (count==0) {
+			String starCount= star[star.length-1];
+			boolean isS = userServ.insertResReview(new ResReviewDto(id, content, starCount, res_Seq));
+			if (isS) {
+				logger.info("리뷰쓰기 성공");
+				return "redirect:us_res_detail.do";
+			}else {
+				logger.info("리뷰쓰기 실패");
+				return "redirect:us_res_detail.do";
+			}
+		}else {
+			logger.info("리뷰쓰기 예외처리:이미 리뷰가 등록되어있음");
+			return "redirect:us_res_detail.do";
+		}
+		
+		
+	}
+	
+	@RequestMapping(value = "us_addLikeyAjax.do")
+	public @ResponseBody String us_addLikey_Ajax(Model model, HttpSession session, @RequestParam String id, @RequestParam String review_seq, @RequestParam String likey) {
+		logger.info("us_addLikeyAjax");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			boolean isS = false;
+			isS = userServ.addLikey(likey, id, review_seq);
+			if (isS) {
+				logger.info("us_addLikeyAjax:성공");
+				return "us_res_detail";
+			}else {
+				logger.info("us_addLikeyAjax:실패");
+				return "us_res_detail";
+			}
 		}
 	}
 	

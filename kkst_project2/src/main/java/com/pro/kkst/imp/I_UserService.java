@@ -38,13 +38,16 @@ public interface I_UserService {
 	
 	public List<ResDto> ResList2(String seq);
 	public String getResPhoto(String res_Seq);
-	public String[] getResMenuPhoto(String res_Seq);
+	public List<MenuzDto> getResMenuPhoto(String res_Seq);
 	
+	public int selectGetResReviewCount(String res_Seq);
 	public List<ResReviewDto> selectGetResReview(String res_Seq, String start, String end);
 	
+	public int beforeInsertResReview(String user_seq, String res_Seq);
 	public boolean insertResReview(ResReviewDto dto);
 	public boolean updateResReview(ResReviewDto dto);
 	public boolean insertAnsResReview(ResReviewDto dto);
 	public boolean delMyReview(String id, String seq);
+	public boolean addLikey(String likey, String id, String seq);
 	
 }

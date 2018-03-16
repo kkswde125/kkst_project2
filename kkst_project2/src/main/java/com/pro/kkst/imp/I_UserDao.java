@@ -38,13 +38,17 @@ public interface I_UserDao {
 	
 	public List<ResDto> ResList2(String seq);
 	public String getResPhoto(Map<String, String> map);
-	public String[] getResMenuPhoto(Map<String, String> map);
+	public List<MenuzDto> getResMenuPhoto(Map<String, String> map);
 	
+	public int getResReviewCount(Map<String, String> map);
 	public List<ResReviewDto> selectGetResReview(Map<String, String> map);
+	public int beforeInsertResReview(Map<String, String> map); 
 	public boolean insertResReview(ResReviewDto dto);
 	public boolean updateResReview(ResReviewDto dto);
 	public boolean insertAnsResReviewUpdate(Map<String, String> map);
 	public boolean insertAnsResReviewInsert(ResReviewDto dto);
 	public boolean delMyReview(Map<String, String> map);
+	public boolean addLikey0(Map<String, String> map);
+	public boolean addLikey(Map<String, String> map);
 	
 }

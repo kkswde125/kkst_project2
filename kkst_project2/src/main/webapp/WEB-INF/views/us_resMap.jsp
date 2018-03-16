@@ -63,7 +63,7 @@
 		
 		
 	function goDetail(name,cate) {
-		location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
+		location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>"+"&start=1&end=10";
 	}
 	  
 	  //------------------- 멥 생성---------------------------------------------------------  
