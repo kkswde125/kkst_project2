@@ -199,7 +199,25 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.update(namespace+"addLikey", map)>0?true:false;
 	}
 
-	
+	@Override
+	public boolean addDislikey0(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addDislikey0", map)>0?true:false;
+	}
+
+	@Override
+	public boolean addDislikey(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addDislikey", map)>0?true:false;
+	}
+
+	@Override
+	public boolean addReport0(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addReport0", map)>0?true:false;
+	}
+
+	@Override
+	public boolean addReport(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"addReport", map)>0?true:false;
+	}
 
 
 }

@@ -18,6 +18,14 @@ public class ResReviewDto {
 	private String dislikey;
 	private String delFlag;
 	
+	public ResReviewDto(String seq, String id, String content, String res_Seq, String delFlag) {
+		super();
+		this.seq = seq;
+		this.id = id;
+		this.content = content;
+		this.res_Seq = res_Seq;
+		this.delFlag = delFlag;
+	}
 	public ResReviewDto(String id, String content, String star, String res_Seq) {
 		super();
 		this.id = id;

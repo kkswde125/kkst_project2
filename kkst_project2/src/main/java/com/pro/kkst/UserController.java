@@ -453,4 +453,45 @@ public class UserController {
 //			return map;
 //	}
 	
+	@RequestMapping(value = "us_addDislikey.do")
+	public String us_addDislikey(Model model, HttpSession session, String id, String review_seq, String dislikey) {
+		logger.info("us_addLikey");
+			boolean isS = false;
+			isS = userServ.addDislikey(dislikey, id, review_seq);
+			if (isS) {
+				logger.info("us_addDislikey:성공");
+			}else {
+				logger.info("us_addDislikey:실패");
+			}
+			return "redirect:us_res_detail.do";
+	}
+	
+	@RequestMapping(value = "us_addReport.do")
+	public String us_addReport(Model model, HttpSession session, String id, String review_seq, String report) {
+		logger.info("us_addReport");
+		boolean isS = false;
+		isS = userServ.addReport(report, id, review_seq);
+		if (isS) {
+			logger.info("us_addReport:성공");
+		}else {
+			logger.info("us_addReport:실패");
+		}
+		return "redirect:us_res_detail.do";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "us_reply.do")
+	public String us_reply(Model model, HttpSession session, String seq, String content) {
+		logger.info("us_reply");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		String res_Seq= (String)session.getAttribute("res_Seq");
+		boolean isS = false;
+		isS= userServ.insertAnsResReview(new ResReviewDto(seq, String.valueOf(ldto.getSeq()), content, res_Seq, null));
+		if (isS) {
+			logger.info("us_reply:성공");
+		}else {
+			logger.info("us_reply:실패");
+		}
+		return "redirect:us_res_detail.do";
+	}
 }

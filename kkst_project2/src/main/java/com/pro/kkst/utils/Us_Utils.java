@@ -1,10 +1,8 @@
 package com.pro.kkst.utils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 public class Us_Utils {
-
+	private String arrowNbsp;
+	
 	public int randomBox(int aryLength) {
 		
 		int rs=0;//결과인덱스
@@ -32,7 +30,26 @@ public class Us_Utils {
 		return rs;
 	}
 	
+	public String getArrowNbsp() {
+		return arrowNbsp;
+	}
+	public void setArrowNbsp(String depth) {
+		String nbsp="";
+		int depthInt=Integer.parseInt(depth);
+		for (int i = 0; i < depthInt; i++) {
+			nbsp+= "&nbsp;&nbsp;&nbsp;&nbsp;";
+		}
+		
+		this.arrowNbsp = (depthInt>0?nbsp+"<img src='resources/upload/arrow.png' alt='답글'>&nbsp;":"");
+	}
 	
-	
+	public static String jsForward(String msg, String url){
+		StringBuffer str = new StringBuffer();
+		str.append("<script type='text/javascript'>");
+		str.append("alert('"+msg+"');");		
+		str.append("location.href = '"+url+"';");
+		str.append("</script>;");
+	return str.toString();
+}
 	
 }

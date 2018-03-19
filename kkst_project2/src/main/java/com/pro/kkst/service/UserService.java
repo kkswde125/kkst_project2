@@ -379,4 +379,30 @@ public class UserService implements I_UserService {
 		}
 	}
 
+	@Override
+	public boolean addDislikey(String dislikey, String id, String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		if (Integer.parseInt(dislikey)==0) {
+			map.put("id", id);
+			return userDao.addDislikey0(map);
+		}else {
+			map.put("id", ","+id);
+			return userDao.addDislikey(map);
+		}
+	}
+
+	@Override
+	public boolean addReport(String report, String id, String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		if (Integer.parseInt(report)==0) {
+			map.put("id", id);
+			return userDao.addReport0(map);
+		}else {
+			map.put("id", ","+id);
+			return userDao.addReport(map);
+		}
+	}
+
 }
