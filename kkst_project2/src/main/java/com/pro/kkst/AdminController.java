@@ -84,9 +84,14 @@ public class AdminController {
 	public String reviewAll(Locale locale, HttpServletRequest request, String area) {
 		System.out.println(area);
 		List<ReviewDto> reviewList = adminServ.reviewAll(area);
+		if(reviewList==null) {
+			String msg = "해당 지역에 등록된 식당 리뷰가 존재하지 않습니다.";
+			return "ad_review_Choice";
+		}else {
 		request.setAttribute("reviewList", reviewList);
 		
 		return "ad_reviewAll";
+		}
 	}
 	
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
