@@ -49,5 +49,8 @@ public interface I_UserService {
 	public boolean insertAnsResReview(ResReviewDto dto);
 	public boolean delMyReview(String id, String seq);
 	public boolean addLikey(String likey, String id, String seq);
+	public boolean addDislikey(String dislikey, String id, String review_seq);
+	public boolean addReport(String report, String id, String review_seq);
+	
 	
 }

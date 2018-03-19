@@ -32,7 +32,11 @@ public class AdminDao implements I_AdminDao {
 	@Override	// 리뷰 관리
 	public List<ReviewDto> reviewAll(String area) {
 		System.out.println("Dao : "+area);
-		return sqlSession.selectList(namespace+"reviewAll", area);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("area", area);
+		List<ReviewDto> lists = sqlSession.selectList(namespace+"reviewAll", map);
+		System.out.println(lists);
+		return lists;
 	}
 	@Override	// 식당 관리
 	public List<ResDto> restList(String snum, String cnum) {

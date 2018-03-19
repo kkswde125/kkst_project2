@@ -51,4 +51,10 @@ public interface I_UserDao {
 	public boolean addLikey0(Map<String, String> map);
 	public boolean addLikey(Map<String, String> map);
 	
+	public boolean addDislikey0(Map<String, String> map);
+	public boolean addDislikey(Map<String, String> map);
+	
+	public boolean addReport0(Map<String, String> map);
+	public boolean addReport(Map<String, String> map);
+	
 }

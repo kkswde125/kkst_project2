@@ -20,6 +20,7 @@
 </style>
 </head>
 <%
+	@SuppressWarnings("unchecked")
 	List<ReviewDto> lists = (List<ReviewDto>)request.getAttribute("reviewList");
 %>
 <body>

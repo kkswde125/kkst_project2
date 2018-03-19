@@ -7,16 +7,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%
+	@SuppressWarnings("unchecked")
 	List<AddrDto> lists = (List<AddrDto>)request.getAttribute("addrList");
 %>
 </head>
 <body>
 <script type="text/javascript">
 	function movePage(area){
-<%-- 		<% request.setAttribute("area", area);%> --%>
 		location.href="ad_reviewAll.do?area="+area;
 	}
 </script>
