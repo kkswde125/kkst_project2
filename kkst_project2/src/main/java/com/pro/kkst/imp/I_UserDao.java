@@ -57,4 +57,6 @@ public interface I_UserDao {
 	public boolean addReport0(Map<String, String> map);
 	public boolean addReport(Map<String, String> map);
 	
+	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map);
+	
 }

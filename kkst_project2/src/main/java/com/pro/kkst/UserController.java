@@ -397,7 +397,8 @@ public class UserController {
 			model.addAttribute("menuList", menuList);
 			List<ResReviewDto> list = userServ.selectGetResReview(res_Seq, start, end);
 			model.addAttribute("list", list);
-			
+			List<ResReviewDto> list2 = userServ.getResBestLikeyReview(res_Seq);
+			model.addAttribute("list2", list2);
 			return "us_res_detail";
 		}
 	}

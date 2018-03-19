@@ -51,6 +51,7 @@ public interface I_UserService {
 	public boolean addLikey(String likey, String id, String seq);
 	public boolean addDislikey(String dislikey, String id, String review_seq);
 	public boolean addReport(String report, String id, String review_seq);
+	public List<ResReviewDto> getResBestLikeyReview(String res_Seq);
 	
 	
 }

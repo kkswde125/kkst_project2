@@ -17,7 +17,49 @@ public class ResReviewDto {
 	private String likey;
 	private String dislikey;
 	private String delFlag;
+	private String report_Count;
+	private String likey_Count;
+	private String dislikey_Count;
 	
+	public String getReport_Count() {
+		return report_Count;
+	}
+	public void setReport_Count(String report_Count) {
+		this.report_Count = report_Count;
+	}
+	public String getLikey_Count() {
+		return likey_Count;
+	}
+	public void setLikey_Count(String likey_Count) {
+		this.likey_Count = likey_Count;
+	}
+	public String getDislikey_Count() {
+		return dislikey_Count;
+	}
+	public void setDislikey_Count(String dislikey_Count) {
+		this.dislikey_Count = dislikey_Count;
+	}
+	public ResReviewDto(String seq, String id, String content, String refer, double star, String depth, String step,
+			String res_Seq, Date regDate, String report, String likey, String dislikey, String delFlag,
+			String report_Count, String likey_Count, String dislikey_Count) {
+		super();
+		this.seq = seq;
+		this.id = id;
+		this.content = content;
+		this.refer = refer;
+		this.star = star;
+		this.depth = depth;
+		this.step = step;
+		this.res_Seq = res_Seq;
+		this.regDate = regDate;
+		this.report = report;
+		this.likey = likey;
+		this.dislikey = dislikey;
+		this.delFlag = delFlag;
+		this.report_Count = report_Count;
+		this.likey_Count = likey_Count;
+		this.dislikey_Count = dislikey_Count;
+	}
 	public ResReviewDto(String seq, String id, String content, String res_Seq, String delFlag) {
 		super();
 		this.seq = seq;

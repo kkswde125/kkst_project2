@@ -219,5 +219,10 @@ public class UserDao implements I_UserDao {
 		return sqlSessoin.update(namespace+"addReport", map)>0?true:false;
 	}
 
+	@Override
+	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"getResBestLikeyReview", map);
+	}
+
 
 }

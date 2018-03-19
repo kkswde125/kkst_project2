@@ -16,6 +16,8 @@
 	List<MenuzDto> menuList = (List<MenuzDto>)request.getAttribute("menuList");
 	@SuppressWarnings("unchecked")
 	List<ResReviewDto> list = (List<ResReviewDto>)request.getAttribute("list");
+	@SuppressWarnings("unchecked")
+	List<ResReviewDto> list2 = (List<ResReviewDto>)request.getAttribute("list2");
 	String resPhoto = (String)request.getAttribute("resPhoto");
 	String start = (String)request.getSession().getAttribute("start");
 	String end = (String)request.getSession().getAttribute("end");
@@ -45,10 +47,11 @@
 		if ($('input[name=content]').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
 		
 	}
-	function goBack() {location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";}
+	function goBack() {location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
+	}
 	function addLikey(user_id, likey, review_seq) {
 		if (likey=='0') {location.href="us_addLikey.do?id="+user_id+"&review_seq="+review_seq+"&likey=0";
-		}else{var likeys = likey.split(",")	for (var i = 0; i < likeys.length; i++) {if (user_id==likeys[i]) {alert('이미 공감한 리뷰입니다.');return;	}}
+		}else{var likeys = likey.split(",");	for (var i = 0; i < likeys.length; i++) {if (user_id==likeys[i]) {alert('이미 공감한 리뷰입니다.');return;	}}
 			location.href="us_addLikey.do?id="+user_id+"&review_seq="+review_seq+"&likey=1";}
 	}
 	function addDislikey(user_id, dislikey, review_seq) {
@@ -106,6 +109,20 @@ for(int i = 0; i < menuList.size(); i++){
 		%>
 			<tr><th>작성자</th><th>리뷰</th><th>식당평점</th>	<th>공감</th>	<th>비공감</th><th>신고</th><th>등록일시</th></tr>
 		<%
+		if(list2==null||list2.size()==0){}else{
+			for(int i = 0; i < list2.size(); i++){
+			%>
+			<tr>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getId() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getContent() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getStar() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getLikey_Count() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getDislikey_Count() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getReport_Count() %></td>
+				<td style="background-color: green; opacity: 0.3;"><%=list.get(i).getRegDate() %></td>
+			</tr>
+			<%}
+		}
 		for(int i = 0; i < list.size(); i++){
 			%>
 				<tr>
@@ -123,11 +140,11 @@ for(int i = 0; i < menuList.size(); i++){
 					</td><%}%>
 					<td><%=list.get(i).getStar() %></td>
 					<td><input type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey()) %>', '<%=list.get(i).getSeq() %>')" value="공감">
-						<span>(<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey().split(",").length) %>)</span></td>
+						<span>(<%=list.get(i).getLikey_Count()%>)</span></td>
 					<td><input type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감">
-						<span>(<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey().split(",").length) %>)</span></td>
+						<span>(<%=list.get(i).getDislikey_Count() %>)</span></td>
 					<td><input type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고">
-						<span>(<%=list.get(i).getReport()==null?0:(list.get(i).getReport().split(",").length) %>)</span></td>
+						<span>(<%=list.get(i).getReport_Count() %>)</span></td>
 					<td><%=list.get(i).getRegDate() %></td>
 				</tr><%}%>
 		<tr><td colspan="7" style="text-align: center"><%if(count>100){int starts = Integer.parseInt(start); int ends = Integer.parseInt(end);

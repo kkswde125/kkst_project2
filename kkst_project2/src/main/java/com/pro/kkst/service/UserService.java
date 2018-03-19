@@ -405,4 +405,11 @@ public class UserService implements I_UserService {
 		}
 	}
 
+	@Override
+	public List<ResReviewDto> getResBestLikeyReview(String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		return userDao.getResBestLikeyReview(map);
+	}
+
 }
