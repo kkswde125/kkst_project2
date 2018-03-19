@@ -2,8 +2,13 @@ package com.pro.kkst;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrJoinDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
@@ -37,7 +43,9 @@ public class OwnerController {
 	
 	ac_Utils ac_util = new ac_Utils();
 	
-/*	@RequestMapping(value = "devMenu.do")
+	
+	//개발 메뉴 추천 --> 진행중
+	@RequestMapping(value = "devMenu.do")
 	public String devMenu(Locale locale, Model model,String seq) {
 		
 		 List<AttrJoinDto> menuAttr1 = ownerServ.menuAttr1();
@@ -51,13 +59,74 @@ public class OwnerController {
 	
 		 String ResultCode=ac_util.Resultcode(cate, menuAttr1.get(0).getCode(),menuAttr2.get(0).getCode(), menuAttr3.get(0).getCode(), menuAttr4.get(0).getCode());
 		
+		 System.out.println(ResultCode);
+		 
 		 menuDto mDto=ownerServ.menuSearch(ResultCode);
 		 
+		 System.out.println(mDto);
+		 
+		if(mDto==null) {
+		 String msg="저희가 제공하는 메뉴에 포함되지 않은 메뉴입니다. 아래의 특성을 이용하여 새로운 요리를 개발해보세요!";
+		  
+		  model.addAttribute("msg",msg);
+		  model.addAttribute("Attr1", menuAttr1);
+		  model.addAttribute("Attr2", menuAttr2);
+		  model.addAttribute("Attr3", menuAttr3);
+		  model.addAttribute("Attr4", menuAttr4);
+		  return "ow_devMenu";
+		}else {
+			model.addAttribute("mDto",mDto);
+			return "ow_devMenu";
+		}
 		 
 		 
-		 
-		 
-		return "ow_devMenu";
-	}*/
+	}
 	
+	//내 정보 페이지
+	
+	@RequestMapping(value = "InfoView.do")
+	public String InfoView(Locale locale, Model model,String id,String seq,HttpSession session) {
+		
+	 return"ow_InfoView";
+	}
+	//내정보 수정 페이지
+	@RequestMapping(value = "ownerMyInfopage.do")
+	public String ownerMyInfopage(Locale locale, Model model,String id,String seq,HttpSession session) {
+		
+	 return"ow_MyInfo";
+	}
+	
+	//내정보 수정
+	@RequestMapping(value = "ownerMyInfo.do")
+	public String ownerMyInfo(Locale locale, Model model,String seq,String id,String pw_chk,String phone,String email,HttpSession session) {
+		
+		Map<String, String> map = new HashMap<String,String>();
+		
+		map.put("seq", seq);
+		map.put("pw", pw_chk);
+		map.put("phone", phone);
+		map.put("email", email);
+	
+		boolean isS= ownerServ.ownerMyInfo(map);
+		
+		if(isS) {
+			System.out.println("수정 성공");
+			
+			Map<String, String> map2 = new HashMap<String,String>();
+			map2.put("id", id);
+			map2.put("pw", pw_chk);
+			Admin_OnwerDto AoDto= accountServ.getOnwerLogin(map2);
+			ResDto rDto = accountServ.chkRes(AoDto.getRes_seq());
+			session.setAttribute("rDto", rDto);
+			session.setAttribute("AoDto", AoDto);
+			return "ow_owner";
+		}else {
+			System.out.println("수정 실패");
+			return"redirect:ownerMyInfopage.do";
+		}
+		
+		
+	}
 }
+	
+	

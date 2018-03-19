@@ -1,6 +1,7 @@
 package com.pro.kkst.daos;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ public class OwnerDao implements I_OwnerDao {
 	@Override
 	public menuDto menuSearch(String code) {
 		return sqlSessoin.selectOne(namespace+"MenuSearch",code);
+	}
+	@Override
+	public boolean ownerMyInfo(Map<String, String> map) {
+		
+		int count = sqlSessoin.update(namespace+"ownerMyInfo",map);
+		
+		return count>0? true:false ;
 	}
 
 }

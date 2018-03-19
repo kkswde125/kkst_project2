@@ -1,6 +1,7 @@
 package com.pro.kkst.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ public class OwnerService implements I_OwnerService {
 	@Override
 	public menuDto menuSearch(String code) {
 		return ownerDao.menuSearch(code);
+	}
+
+	@Override
+	public boolean ownerMyInfo(Map<String, String> map) {
+		return ownerDao.ownerMyInfo(map);
 	}
 
 }

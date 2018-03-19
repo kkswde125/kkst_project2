@@ -11,6 +11,17 @@ public class AttrJoinDto {
 	
 	
 	
+
+
+
+
+	public AttrJoinDto() {
+		super();
+	}
+
+
+
+
 	public AttrJoinDto(int rk, String attr, String code, int stars) {
 		super();
 		this.rk = rk;

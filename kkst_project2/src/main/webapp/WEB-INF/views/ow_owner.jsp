@@ -4,9 +4,9 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
 <%String msg=(String)request.getAttribute("msg"); %>
-<%String chk=(String)request.getAttribute("Chk"); %>
+<%String chk=(String)request.getSession().getAttribute("Chk"); %>
 <%Admin_OnwerDto AoDto =(Admin_OnwerDto)session.getAttribute("AoDto"); %>
-<%ResDto rDto=(ResDto)request.getAttribute("rDto"); %>
+<%ResDto rDto=(ResDto)request.getSession().getAttribute("rDto"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +41,7 @@ window.onload=function(){
 <a href="#">지역별 최다 선호 음식 출력</a>
 <a href="#">추가 식당 등록</a>
 <a href="#">식당 정보 수정</a>
+<a href="InfoView.do">내정보보기</a>
 <button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
 		<%
 	}else if(chk.equals("No")){

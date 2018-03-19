@@ -100,15 +100,15 @@ public class AccountController {
 
 				if(rDto.getName().equals("DEFAULT")) {
 					msg="점주 로그인";
-					model.addAttribute("Chk", "No");
+					session.setAttribute("Chk", "No");
 					model.addAttribute("msg",msg);
-					model.addAttribute("rDto",rDto);
+					session.setAttribute("rDto", rDto);;
 					return "ow_owner";
 				}else {
 					msg="점주 로그인";
-					model.addAttribute("Chk", "Yes");
+					session.setAttribute("Chk", "Yes");
 					model.addAttribute("msg",msg);
-					model.addAttribute("rDto",rDto);
+					session.setAttribute("rDto", rDto);
 					return "ow_owner";
 				}
 				
@@ -118,7 +118,7 @@ public class AccountController {
 		}else{
 			msg="아이디가 틀렸거나 존재하는 회원이 아닙니다.";
 			model.addAttribute("msg",msg);
-			return "ow_loginhome.do";
+			return "redirect:ow_loginhome.do";
 		}
 	}
 	
