@@ -37,7 +37,7 @@ public class OwnerService implements I_OwnerService {
 	}
 
 	@Override
-	public menuDto menuSearch(String code) {
+	public List<menuDto> menuSearch(String code) {
 		return ownerDao.menuSearch(code);
 	}
 

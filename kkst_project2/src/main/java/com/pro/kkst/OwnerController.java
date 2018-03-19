@@ -61,13 +61,12 @@ public class OwnerController {
 		
 		 System.out.println(ResultCode);
 		 
-		 menuDto mDto=ownerServ.menuSearch(ResultCode);
+		 List<menuDto> mDto=ownerServ.menuSearch(ResultCode);
 		 
 		 System.out.println(mDto);
 		 
-		if(mDto==null) {
+		if(mDto.size()==0) {
 		 String msg="저희가 제공하는 메뉴에 포함되지 않은 메뉴입니다. 아래의 특성을 이용하여 새로운 요리를 개발해보세요!";
-		  
 		  model.addAttribute("msg",msg);
 		  model.addAttribute("Attr1", menuAttr1);
 		  model.addAttribute("Attr2", menuAttr2);
@@ -75,7 +74,11 @@ public class OwnerController {
 		  model.addAttribute("Attr4", menuAttr4);
 		  return "ow_devMenu";
 		}else {
-			model.addAttribute("mDto",mDto);
+			  model.addAttribute("Attr1", menuAttr1);
+			  model.addAttribute("Attr2", menuAttr2);
+			  model.addAttribute("Attr3", menuAttr3);
+			  model.addAttribute("Attr4", menuAttr4);
+			  model.addAttribute("mDto",mDto);
 			return "ow_devMenu";
 		}
 		 

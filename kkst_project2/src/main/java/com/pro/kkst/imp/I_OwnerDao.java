@@ -12,6 +12,6 @@ public interface I_OwnerDao {
 	public List<AttrJoinDto> menuAttr2();
 	public List<AttrJoinDto> menuAttr3();
 	public List<AttrJoinDto> menuAttr4();
-	public menuDto menuSearch(String code);
+	public List<menuDto> menuSearch(String code);
 	public boolean ownerMyInfo (Map<String, String> map);
 }

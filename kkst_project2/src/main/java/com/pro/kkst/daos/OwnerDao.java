@@ -34,8 +34,8 @@ public class OwnerDao implements I_OwnerDao {
 		return sqlSessoin.selectList(namespace+"menuAttr4");
 	}
 	@Override
-	public menuDto menuSearch(String code) {
-		return sqlSessoin.selectOne(namespace+"MenuSearch",code);
+	public List<menuDto> menuSearch(String code) {
+		return sqlSessoin.selectList(namespace+"MenuSearch",code);
 	}
 	@Override
 	public boolean ownerMyInfo(Map<String, String> map) {
