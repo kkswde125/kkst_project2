@@ -19,10 +19,17 @@
 		</foreach>
 	</select>
 	
-	<select id="reviewAll" resultType="ReviewDto">
+	<select id="reviewAll" parameterType="String" resultType="ReviewDto">
 		SELECT REVIEW.SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
-		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG, RESLIST.NAME
+		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
+		RESLIST.SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
+		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y
 		FROM REVIEW, RESLIST WHERE REVIEW.RES_SEQ = RESLIST.SEQ
+		AND ADDR LIKE '%#{area}%'
+	</select>
+	
+	<select id="addrList" resultType="AddrDto">
+		SELECT SEQ, SI, GU FROM ADDRESS ORDER BY SEQ
 	</select>
 	
 	<select id="reviewReport" resultType="ReviewDto" parameterType="int">

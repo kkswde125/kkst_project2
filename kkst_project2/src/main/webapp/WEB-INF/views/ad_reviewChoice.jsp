@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="ad_reviewAll.do">전체 리뷰 보기</a>
+<a href="ad_review_Choice.do">전체 리뷰 보기</a>
 <a href="ad_reviewReport.do">신고된 리뷰 보기</a>
 
 </body>

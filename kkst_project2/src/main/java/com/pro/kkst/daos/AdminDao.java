@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
@@ -29,8 +30,9 @@ public class AdminDao implements I_AdminDao {
 		return lists;
 	}
 	@Override	// 리뷰 관리
-	public List<ReviewDto> reviewAll() {
-		return sqlSession.selectList(namespace+"reviewAll");
+	public List<ReviewDto> reviewAll(String area) {
+		System.out.println("Dao : "+area);
+		return sqlSession.selectList(namespace+"reviewAll", area);
 	}
 	@Override	// 식당 관리
 	public List<ResDto> restList(String snum, String cnum) {
@@ -64,7 +66,12 @@ public class AdminDao implements I_AdminDao {
 		}
 
 	}
-	
+	@Override
+	public List<AddrDto> addressList(){
+		List<AddrDto> lists = sqlSession.selectList(namespace+"addrList");
+		
+		return lists;
+	}
 	
 	@Override
 	public int RestPaging() {

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
@@ -71,9 +72,18 @@ public class AdminController {
 		return "ad_reviewChoice";
 	}
 	
+	@RequestMapping(value = "ad_review_Choice.do", method = RequestMethod.GET)
+	public String ad_reviewChoice(Locale locale, HttpServletRequest request) {
+		List<AddrDto> addrList = adminServ.addressList();
+		request.setAttribute("addrList", addrList);
+		
+		return "ad_review_Choice";
+	}
+	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
-	public String reviewAll(Locale locale, HttpServletRequest request) {
-		List<ReviewDto> reviewList = adminServ.reviewAll();
+	public String reviewAll(Locale locale, HttpServletRequest request, String area) {
+		System.out.println(area);
+		List<ReviewDto> reviewList = adminServ.reviewAll(area);
 		request.setAttribute("reviewList", reviewList);
 		
 		return "ad_reviewAll";
@@ -81,7 +91,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
 	public String reviewReport(Locale locale, HttpServletRequest request) {
-		List<ReviewDto> lists = adminServ.reviewAll();
+		String area = (String) request.getAttribute("area");
+		List<ReviewDto> lists = adminServ.reviewAll(area);
 		List<ReviewDto> reportList = new ArrayList<>();
 		for (int i = 0; i < lists.size(); i++) {
 			

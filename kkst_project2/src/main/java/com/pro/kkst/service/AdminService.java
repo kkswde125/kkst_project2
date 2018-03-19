@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
@@ -23,8 +24,13 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ReviewDto> reviewAll() {
-		return adminDao.reviewAll();
+	public List<ReviewDto> reviewAll(String area) {
+		return adminDao.reviewAll(area);
+	}
+	
+	@Override
+	public List<AddrDto> addressList(){
+		return adminDao.addressList();
 	}
 
 	@Override
