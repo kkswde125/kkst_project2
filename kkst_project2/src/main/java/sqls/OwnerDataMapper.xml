@@ -25,7 +25,7 @@ FROM ATTRS T1,(SELECT RANK() OVER(ORDER BY AVG(STAR) DESC) AS RK, ATTR,AVG(STAR)
 WHERE T1.ATTR=T2.ATTR AND RK=1 ORDER BY RK ASC;
 </select>
 
-<select id="MenuSearch" parameterType="String" resultMap="menuDto">
+<select id="MenuSearch" parameterType="String" resultType="menuDto">
 SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE CODE=#{code}
 </select>
 
