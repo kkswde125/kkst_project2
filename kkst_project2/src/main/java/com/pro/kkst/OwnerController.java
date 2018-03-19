@@ -37,7 +37,7 @@ public class OwnerController {
 	
 	ac_Utils ac_util = new ac_Utils();
 	
-	@RequestMapping(value = "devMenu.do")
+/*	@RequestMapping(value = "devMenu.do")
 	public String devMenu(Locale locale, Model model,String seq) {
 		
 		 List<AttrJoinDto> menuAttr1 = ownerServ.menuAttr1();
@@ -58,6 +58,6 @@ public class OwnerController {
 		 
 		 
 		return "ow_devMenu";
-	}
+	}*/
 	
 }
