@@ -43,6 +43,8 @@
 <script type="text/javascript">
 	
 	$(function() {
+		
+		
 		$('input[name=star]').click(function() {
 			
 			if ($(this).prop('checked')) {
@@ -86,18 +88,82 @@
 	
 	function addLikey(user_id, likey, review_seq) {
 		if (likey=='0') {
-			location.href="us_addLikeyAjax.do?id="+user_id+"&review_seq="+review_seq+"&likey=0";
+			
+			location.href="us_addLikey.do?id="+user_id+"&review_seq="+review_seq+"&likey=0";
+			
+// 			jQuery.ajax({
+// 				url:"us_addLikeyAjax.do",
+// 				data:"id="+user_id+"&review_seq="+review_seq+"&likey=0",
+// 				async:true,
+// 				type:"post",
+//  				datatype:"json",
+// 				success: function (obj) {
+// 					if (obj["isS"]=="yes") {
+// 						alert("공감성공?:"+obj["isS"]);
+// 						$('#LikeyCount').text(count+1);
+// 					}else{
+// 						alert("공감성공?:"+obj["isS"]);
+// 					}
+// 				}
+// 			});
+			
 		}else{
 			var likeys = likey.split(",")
 			for (var i = 0; i < likeys.length; i++) {
 				if (user_id==likeys[i]) {
-					alert('이미 공감한 리뷰입니다.ㅅㅂㄻ');
+					alert('이미 공감한 리뷰입니다.');
 					return;
 				}
 			}
-			location.href="us_addLikeyAjax.do?id="+user_id+"&review_seq="+review_seq+"&likey=1";
+			
+			location.href="us_addLikey.do?id="+user_id+"&review_seq="+review_seq+"&likey=1";
+// 			jQuery.ajax({
+// 				url:"us_addLikeyAjax.do",
+// 				data:"id="+user_id+"&review_seq="+review_seq+"&likey=1",
+// 				async:true,
+// 				type:"post",
+//  				datatype:"json",
+// 				success: function (obj) {
+// 					alert(obj);
+// 					if (obj["isS"]=="yes") {
+// 						alert("yes:"+obj["isS"])
+// 					}else{
+// 						alert("no:"+obj["isS"])	
+// 					}
+// 				}
+// 			});
 		}
-	}	
+	}
+	
+	function addDislikey(user_id, dislikey, review_seq) {
+		if (dislikey=='0') {
+			location.href="us_addDislikey.do?id="+user_id+"&review_seq="+review_seq+"&dislikey=0";
+		}else{
+			var dislikeys = dislikey.split(",")
+			for (var i = 0; i < dislikeys.length; i++) {
+				if (user_id==dislikeys[i]) {
+					alert('이미 비공감한 리뷰입니다.');
+					return;
+				}
+			}
+			location.href="us_addDislikey.do?id="+user_id+"&review_seq="+review_seq+"&dislikey=1";
+		}
+	}
+	
+	function addReport(user_id, dislikey, review_seq) {
+		if (dislikey=='0') {
+			location.href="us_addDislikey.do?id="+user_id+"&review_seq="+review_seq+"&dislikey=0";
+		}else{
+			var dislikeys = dislikey.split(",")
+			for (var i = 0; i < dislikeys.length; i++) {
+				if (user_id==dislikeys[i]) {
+					alert('이미 비공감한 리뷰입니다.');
+					return;
+				}
+			}
+			location.href="us_addDislikey.do?id="+user_id+"&review_seq="+review_seq+"&dislikey=1";
+		}
+	}
 </script>
 <style type="text/css">
 input[type=checkbox] { display:none; }
@@ -237,17 +303,17 @@ input[type=checkbox]:checked + label { background-image: url('resources/upload/s
 					<td><%=list.get(i).getStar() %></td>
 					<td>
 						<input type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey()) %>', '<%=list.get(i).getSeq() %>')" value="공감">
-						(<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey().split(",").length) %>)
+						<span>(<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey().split(",").length) %>)</span>
 					</td>
 					
 					<td>
 						<input type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감">
-						(<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey().split(",").length) %>)
+						<span>(<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey().split(",").length) %>)</span>
 					</td>
 					
 					<td>
 						<input type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고">
-						(<%=list.get(i).getReport()==null?0:(list.get(i).getReport().split(",").length) %>)
+						<span>(<%=list.get(i).getReport()==null?0:(list.get(i).getReport().split(",").length) %>)</span>
 					</td>
 					<td><%=list.get(i).getRegDate() %></td>
 				</tr>

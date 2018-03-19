@@ -423,24 +423,34 @@ public class UserController {
 		
 		
 	}
-	
-	@RequestMapping(value = "us_addLikeyAjax.do")
-	public @ResponseBody String us_addLikey_Ajax(Model model, HttpSession session, @RequestParam String id, @RequestParam String review_seq, @RequestParam String likey) {
-		logger.info("us_addLikeyAjax");
-		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		if (ldto==null) {
-			return "ac_login";
-		}else {
+	@RequestMapping(value = "us_addLikey.do")
+	public String us_addLikey(Model model, HttpSession session, String id, String review_seq, String likey) {
+		logger.info("us_addLikey");
 			boolean isS = false;
 			isS = userServ.addLikey(likey, id, review_seq);
 			if (isS) {
-				logger.info("us_addLikeyAjax:성공");
-				return "us_res_detail";
+				logger.info("us_addLikey:성공");
 			}else {
-				logger.info("us_addLikeyAjax:실패");
-				return "us_res_detail";
+				logger.info("us_addLikey:실패");
 			}
-		}
+			return "redirect:us_res_detail.do";
 	}
+	
+	
+//	@RequestMapping(value = "us_addLikeyAjax.do", method = RequestMethod.POST)
+//	public @ResponseBody Map<String, String> us_addLikey_Ajax(Model model, HttpSession session, @RequestParam String id, @RequestParam String review_seq, @RequestParam String likey) {
+//		logger.info("us_addLikeyAjax");
+//			boolean isS = false;
+//			isS = userServ.addLikey(likey, id, review_seq);
+//			Map<String, String> map = new HashMap<>();
+//			if (isS) {
+//				logger.info("us_addLikeyAjax:성공");
+//				map.put("isS", "yes");
+//			}else {
+//				logger.info("us_addLikeyAjax:실패");
+//				map.put("isS", "no");
+//			}
+//			return map;
+//	}
 	
 }
