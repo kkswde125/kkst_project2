@@ -39,8 +39,7 @@ window.onload=function(){
 <a href="#">소비자 선호도 통계조회</a>
 <a href="devMenu.do?seq=<%=AoDto.getRes_seq()%>">개발 메뉴 추천</a>
 <a href="#">지역별 최다 선호 음식 출력</a>
-<a href="#">추가 식당 등록</a>
-<a href="#">식당 정보 수정</a>
+<a href="myRes.do?">내 가게 관리</a>
 <a href="InfoView.do">내정보보기</a>
 <button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
 		<%

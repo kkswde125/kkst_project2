@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrJoinDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountService;
@@ -130,6 +131,34 @@ public class OwnerController {
 		
 		
 	}
+	
+	//내 가게 관리 페이지
+	@RequestMapping(value = "myRes.do")
+	public String myRes(Locale locale, Model model) {
+	 return"ow_myRes";
+	}
+	//내 식당 수정 페이지
+	@RequestMapping(value = "ResUpdatePage.do")
+	public String ResUpdatePage(Locale locale, Model model) {
+		List<AttrsDto> lists2=accountServ.ATTRS2();
+		List<AttrsDto> lists3=accountServ.ATTRS3();
+		List<AttrsDto> lists4=accountServ.ATTRS4();
+		List<AttrsDto> lists5=accountServ.ATTRS5();
+		
+		model.addAttribute("lists2", lists2);
+		model.addAttribute("lists3", lists3);
+		model.addAttribute("lists4", lists4);
+		model.addAttribute("lists5", lists5);
+		
+	 return"ow_ResUpdatePage";
+	}
+	
+	//내 식당 추가 페이지
+	@RequestMapping(value = "ResMoreInsertPage.do")
+	public String ResMoreInsertPage(Locale locale, Model model) {
+	 return"ow_ResMoreInsertPage";
+	}
+	
 }
 	
 	

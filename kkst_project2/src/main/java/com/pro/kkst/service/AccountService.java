@@ -224,9 +224,9 @@ public class AccountService implements I_AccountService {
 						if(originName.equals(multifile.get(0).getOriginalFilename())) {
 							accountDao.addPhoto2(filemap);
 						}else {
-							filemap.put("menu_seq",menulists.get(0).getSeq()+"");
-							accountDao.addPhoto(filemap);
-						}
+								filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+								accountDao.addPhoto(filemap);
+							}
 						
 						System.out.println(filemap);
 						
