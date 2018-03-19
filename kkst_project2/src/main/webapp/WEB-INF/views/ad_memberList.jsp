@@ -20,6 +20,7 @@
 <body>
 
 <%
+	@SuppressWarnings("unchecked")
  	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
 %>
 <h1>가입 회원 목록</h1>

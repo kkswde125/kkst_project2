@@ -9,6 +9,7 @@
 <head>
 <title>Insert title here</title>
 <%
+	@SuppressWarnings("unchecked")
 	List<AddrDto> lists = (List<AddrDto>)request.getAttribute("addrList");
 %>
 </head>

@@ -7,11 +7,18 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
-<% List<menuDto> mDto=(List<menuDto>)request.getAttribute("mDto"); %>
-<% List<AttrJoinDto> Attr1 = (List<AttrJoinDto>) request.getAttribute("Attr1"); %>
-<% List<AttrJoinDto> Attr2 = (List<AttrJoinDto>) request.getAttribute("Attr2"); %>
-<% List<AttrJoinDto> Attr3 = (List<AttrJoinDto>) request.getAttribute("Attr3"); %>
-<% List<AttrJoinDto> Attr4 = (List<AttrJoinDto>) request.getAttribute("Attr4"); %>
+<% 
+	@SuppressWarnings("unchecked")
+	List<menuDto> mDto=(List<menuDto>)request.getAttribute("mDto"); 
+	@SuppressWarnings("unchecked")
+	List<AttrJoinDto> Attr1 = (List<AttrJoinDto>) request.getAttribute("Attr1");
+	@SuppressWarnings("unchecked")
+	List<AttrJoinDto> Attr2 = (List<AttrJoinDto>) request.getAttribute("Attr2");
+	@SuppressWarnings("unchecked")
+	List<AttrJoinDto> Attr3 = (List<AttrJoinDto>) request.getAttribute("Attr3");
+	@SuppressWarnings("unchecked")
+	List<AttrJoinDto> Attr4 = (List<AttrJoinDto>) request.getAttribute("Attr4"); 
+%>
 <% String msg = (String)request.getAttribute("msg"); %>
 <% ResDto rDto=(ResDto)request.getSession().getAttribute("rDto");%>
 <!DOCTYPE html>

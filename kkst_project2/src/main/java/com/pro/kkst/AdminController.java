@@ -72,20 +72,21 @@ public class AdminController {
 		return "ad_reviewChoice";
 	}
 	
-	@RequestMapping(value = "ad_review_Choice.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ad_allRevAreaChoice.do", method = RequestMethod.GET)
 	public String ad_reviewChoice(Locale locale, HttpServletRequest request) {
 		List<AddrDto> addrList = adminServ.addressList();
 		request.setAttribute("addrList", addrList);
 		
-		return "ad_review_Choice";
+		return "ad_allRevAreaChoice";
 	}
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
-	public String reviewAll(Locale locale, HttpServletRequest request, String area) {
+	public String reviewAll(Locale locale, HttpServletRequest request, String area, Model model) {
 		System.out.println(area);
 		List<ReviewDto> reviewList = adminServ.reviewAll(area);
 		if(reviewList==null) {
 			String msg = "해당 지역에 등록된 식당 리뷰가 존재하지 않습니다.";
+			model.addAttribute("msg", msg);
 			return "ad_review_Choice";
 		}else {
 		request.setAttribute("reviewList", reviewList);
