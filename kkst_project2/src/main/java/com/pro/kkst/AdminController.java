@@ -17,6 +17,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminService;
 import com.pro.kkst.utils.Ad_Utils;
@@ -88,9 +89,8 @@ public class AdminController {
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
 	public String reviewAll(Locale locale, HttpServletRequest request, String area, Model model) {
 		List<ResDto> resList = adminServ.areaResList(area);
-		for (int i = 0; i < resList.size(); i++) {			
-		}
-		List<ReviewDto> reviewList = adminServ.reviewAll(area, resList.get(0).getSeq());
+		
+		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, resList.get(0).getSeq());
 		if(reviewList.size()==0) {
 			System.out.println("reviewList가 Null값입니다.");
 			

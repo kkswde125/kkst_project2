@@ -9,6 +9,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminDao;
 import com.pro.kkst.imp.I_AdminService;
@@ -24,7 +25,7 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ReviewDto> reviewAll(String area, int seq) {
+	public List<Res_ReviewDto> reviewAll(String area, int seq) {
 		return adminDao.reviewAll(area, seq);
 	}
 	

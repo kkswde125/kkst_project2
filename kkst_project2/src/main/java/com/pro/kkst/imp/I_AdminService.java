@@ -6,12 +6,13 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 
 public interface I_AdminService {
 
 	public List<LoginDto> memberList(String snum, String cnum);
-	public List<ReviewDto> reviewAll(String area, int seq);
+	public List<Res_ReviewDto> reviewAll(String area, int seq);
 	public ReviewDto reviewReport(int seq);
 	public List<ResDto> restList(String snum, String cnum);
 	public boolean memberDel(String[] seq);

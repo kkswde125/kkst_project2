@@ -1,3 +1,4 @@
+<%@page import="com.pro.kkst.dtos.Res_ReviewDto"%>
 <%@page import="com.pro.kkst.dtos.ResDto"%>
 <%@page import="com.pro.kkst.dtos.ReviewDto"%>
 <%@page import="java.util.List"%>
@@ -26,7 +27,7 @@
 </head>
 <%
 	@SuppressWarnings("unchecked")
-	List<ReviewDto> ReviewList = (List<ReviewDto>)request.getAttribute("reviewList");
+	List<Res_ReviewDto> ReviewList = (List<Res_ReviewDto>)request.getAttribute("reviewList");
 
 	@SuppressWarnings("unchecked")
 	List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");

@@ -13,6 +13,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminDao;
 
@@ -39,11 +40,11 @@ public class AdminDao implements I_AdminDao {
 	}
 	
 	@Override	// 리뷰 관리
-	public List<ReviewDto> reviewAll(String area, int seq) {
+	public List<Res_ReviewDto> reviewAll(String area, int seq) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("area", area);
 		map.put("seq", seq);
-		List<ReviewDto> lists = sqlSession.selectList(namespace+"reviewAll", map);
+		List<Res_ReviewDto> lists = sqlSession.selectList(namespace+"reviewAll", map);
 		return lists;
 	}
 	
