@@ -89,7 +89,7 @@
 	</insert>
 	
 	<!-- 등록식당의 menu_seq를 가져오기 위함 -->
-	<select id="SearchMenuSeq" parameterType="Map" resultType="menuDto">
+	<select id="SearchMenuSeq" parameterType="Map" resultType="String">
 		SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME=#{name}
 	</select>
 	

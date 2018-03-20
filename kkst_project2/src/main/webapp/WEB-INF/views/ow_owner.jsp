@@ -20,7 +20,6 @@ window.onload=function(){
 	
     if(<%=msg!=null%>){
         alert('<%=msg%>');
-    	return; 
 	}
     
     if(<%=rDto.getChk().equals("N")%>){

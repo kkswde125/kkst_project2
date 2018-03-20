@@ -171,7 +171,10 @@ public class AccountService implements I_AccountService {
 //		boolean checkz2 = false;
 			
 			Map<String,String> Searchmap = new HashMap<String,String>();
-			List<menuDto> menulists = null;
+//			List<menuDto> menulists = null;
+			String [] menulists=new String[menu_name.length];
+			
+			//메뉴를 등록 -> 등록한걸 select 
 			for (int i = 0; i < menu_name.length; i++) {
 				
 				//메뉴 추가부분
@@ -181,10 +184,10 @@ public class AccountService implements I_AccountService {
 				menumap.put("price", price[i]);
 				isS=accountDao.addMenu(menumap);
 		
-				Searchmap.put("name", menu_name[0]);
+				Searchmap.put("name", menu_name[i]);
 				Searchmap.put("res_seq", res_seq);
-				menulists=accountDao.searchMenuSeq(Searchmap);
-				
+//				menulists=accountDao.searchMenuSeq(Searchmap);
+				menulists[i]=accountDao.searchMenuSeq(Searchmap);
 			}
 				
 				
@@ -224,9 +227,13 @@ public class AccountService implements I_AccountService {
 						if(originName.equals(multifile.get(0).getOriginalFilename())) {
 							accountDao.addPhoto2(filemap);
 						}else {
-								filemap.put("menu_seq",menulists.get(0).getSeq()+"");
+								System.out.println("menulist ="+menulists.length);
+								
+								filemap.put("menu_seq",menulists[j-1]);
 								accountDao.addPhoto(filemap);
-							}
+								System.out.println("실행");
+						}
+					
 						
 						System.out.println(filemap);
 						

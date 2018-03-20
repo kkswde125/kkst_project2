@@ -126,8 +126,8 @@ public class AccountDao implements I_AccountDao {
 		return count>0?true:false;
 	}
 	@Override
-	public List<menuDto> searchMenuSeq(Map<String, String> map) {
-		return sqlSessoin.selectList(namespace+"SearchMenuSeq",map);
+	public String searchMenuSeq(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"SearchMenuSeq",map);
 	}
 	@Override
 	public boolean addPhoto2(Map<String, String> map) {
