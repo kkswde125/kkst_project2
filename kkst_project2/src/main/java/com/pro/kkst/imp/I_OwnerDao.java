@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pro.kkst.dtos.AttrJoinDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.menuDto;
 
 public interface I_OwnerDao {
@@ -14,4 +15,6 @@ public interface I_OwnerDao {
 	public List<AttrJoinDto> menuAttr4();
 	public List<menuDto> menuSearch(String code);
 	public boolean ownerMyInfo (Map<String, String> map);
+	public List<PhotoDto> ResPhotoList(String res_seq);
+	public List<menuDto> ResMenuList(String res_seq);
 }

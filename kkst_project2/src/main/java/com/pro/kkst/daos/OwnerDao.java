@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pro.kkst.dtos.AttrJoinDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_OwnerDao;
 
@@ -43,6 +44,14 @@ public class OwnerDao implements I_OwnerDao {
 		int count = sqlSessoin.update(namespace+"ownerMyInfo",map);
 		
 		return count>0? true:false ;
+	}
+	@Override
+	public List<PhotoDto> ResPhotoList(String res_seq) {
+		return sqlSessoin.selectList(namespace+"selectResPhoto",res_seq);
+	}
+	@Override
+	public List<menuDto> ResMenuList(String res_seq) {
+		return sqlSessoin.selectList(namespace+"selectResMenuDto",res_seq);
 	}
 
 }

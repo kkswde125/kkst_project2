@@ -33,8 +33,12 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE CODE=#{code}
 	UPDATE ADMIN_OWNER SET PW=#{pw},PHONE=#{phone}, EMAIL=#{email} WHERE SEQ=#{seq}
 </update>
 
-<select id="selectResPhoto" parameterType="String" resultType="">
-SELECT SEQ,ORIGIN,'CHANGE',RES_SEQ,MENU_SEQ FROM PHOTO WHERE RES_SEQ=#{res_seq}
+<select id="selectResPhoto" parameterType="String" resultType="PhotoDto">
+SELECT SEQ,ORIGIN,"CHANGE",RES_SEQ,MENU_SEQ FROM PHOTO WHERE RES_SEQ=#{res_seq}
+</select>
+
+<select id="selectResMenuDto" parameterType="String" resultType="menuDto">
+SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq}
 </select>
 
 

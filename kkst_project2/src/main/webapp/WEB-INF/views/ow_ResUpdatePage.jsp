@@ -1,10 +1,15 @@
+<%@page import="com.pro.kkst.dtos.menuDto"%>
+<%@page import="com.pro.kkst.dtos.PhotoDto"%>
+<%@page import="java.util.List"%>
 <%@page import="com.pro.kkst.dtos.ResDto"%>
 <%@page import="com.pro.kkst.dtos.Admin_OnwerDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8");%>
-<% String res_seq = request.getParameter("res_seq"); %>
+<%List<PhotoDto> pDto=(List<PhotoDto>)request.getAttribute("pDto"); %>
+<%List<menuDto> mDto=(List<menuDto>)request.getAttribute("mDto"); %>
+<%ResDto rDto=(ResDto)request.getSession().getAttribute("rDto"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -28,12 +33,13 @@
 		var countT=1;
 		var countM=1;
 		var countMenu=0;
+		var countdefault=0;
 	function AddMenu() {
 		
 		countMenu++;
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
 		
-		$("#line").append(copy);
+		$("#line2").append(copy);
 		
 	}
 	
@@ -145,14 +151,14 @@
 <%----------/////////////////////////////////////////////////////////////////////////////  --%>
 
 
-<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=res_seq%>')">
-<input type="hidden" name="res_seq" value="<%=res_seq%>" />
+<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=rDto.getSeq()%>">
+<input type="hidden" name="res_seq" value="<%=rDto.getSeq()%>" />
 <table>
 <!-- 사진 올라갈곳 -->
 <tr>
 <td>
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" />
+<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" value="C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/<%=pDto.get(0).getChange()%>" />
 <img id="outputs" style=" width: 350px; height: 350px;">
 </div>
 </td>
@@ -269,10 +275,11 @@
 </table>
 </td>
 </table>
+
 <hr id="line"/>
-
-
-<table id="menuAdd"  style="display: none;"  >
+<% for(int i=0; i< mDto.size(); i++){
+	%>
+<table id="menuAdd<%="default"%>">
 <tr>
 <td>
 
@@ -340,8 +347,10 @@
 </tr>
 </table>
 
-
-
+	<%	
+} 
+%>
+<hr id="line2"/>
 <input type="submit" value="식당 등록 완료!">
 <input type="button" value="메뉴추가" onclick="AddMenu()" />
 </form>

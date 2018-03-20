@@ -11,6 +11,14 @@ public class PhotoDto {
 	
 	
 	
+	
+	public PhotoDto() {
+		super();
+	}
+
+
+
+
 	public PhotoDto(int seq, String origin, String change, int res_seq, int menu_seq) {
 		super();
 		this.seq = seq;

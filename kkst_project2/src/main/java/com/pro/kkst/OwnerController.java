@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrJoinDto;
 import com.pro.kkst.dtos.AttrsDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountService;
@@ -145,11 +146,19 @@ public class OwnerController {
 		List<AttrsDto> lists4=accountServ.ATTRS4();
 		List<AttrsDto> lists5=accountServ.ATTRS5();
 		
+		
+		List<PhotoDto> pDto = ownerServ.ResPhotoList(res_seq);
+		List<menuDto> mDto = ownerServ.ResMenuList(res_seq);
+		
+		model.addAttribute("pDto", pDto);
+		System.out.println(pDto);
+		System.out.println(mDto);
+		model.addAttribute("mDto", mDto);
+		
 		model.addAttribute("lists2", lists2);
 		model.addAttribute("lists3", lists3);
 		model.addAttribute("lists4", lists4);
 		model.addAttribute("lists5", lists5);
-		
 		
 		
 		

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pro.kkst.dtos.AttrJoinDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_OwnerDao;
 import com.pro.kkst.imp.I_OwnerService;
@@ -45,5 +46,16 @@ public class OwnerService implements I_OwnerService {
 	public boolean ownerMyInfo(Map<String, String> map) {
 		return ownerDao.ownerMyInfo(map);
 	}
+
+	@Override
+	public List<PhotoDto> ResPhotoList(String res_seq) {
+		return ownerDao.ResPhotoList(res_seq);
+	}
+
+	@Override
+	public List<menuDto> ResMenuList(String res_seq) {
+		return ownerDao.ResMenuList(res_seq);
+	}
+
 
 }
