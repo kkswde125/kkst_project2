@@ -85,7 +85,7 @@
 
 <div style="width: 350px; height: 350px; padding: 40px;">
 <input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
-<img id="output" style="width: 350px; height: 350px;" >
+<img id="output" style="width: 350px; height: 350px;">
 </div>
 
 </td>
@@ -158,8 +158,8 @@
 <tr>
 <td>
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" value="C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/<%=pDto.get(0).getChange()%>" />
-<img id="outputs" style=" width: 350px; height: 350px;">
+<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)"/>
+<img id="outputs" style=" width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
 </div>
 </td>
 <!-- 입력 부분 -->
@@ -285,7 +285,7 @@
 
 <div style="width: 350px; height: 350px; padding: 40px;">
 <input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
-<img id="output" style="width: 350px; height: 350px;" >
+<img id="output" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
 </div>
 
 </td>
