@@ -31,6 +31,7 @@ import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_UserService;
+import com.pro.kkst.utils.Us_Utils;
 
 @Controller
 public class UserController {
@@ -378,6 +379,11 @@ public class UserController {
 			ResDto dto = userServ.getResDetail(name);
 			model.addAttribute("dto", dto);
 			String res_Seq = String.valueOf(dto.getSeq());
+//			double avgStar = userServ.getAvgStar(res_Seq);
+//			if (avgStar!=0.0) {
+//				model.addAttribute("avgStar", String.valueOf(avgStar));
+//			}
+			
 			if (start==null||end==null||res_Seq==null) {
 				start= (String)session.getAttribute("start");
 				end= (String)session.getAttribute("end");
@@ -492,6 +498,32 @@ public class UserController {
 			logger.info("us_reply:성공");
 		}else {
 			logger.info("us_reply:실패");
+		}
+		return "redirect:us_res_detail.do";
+	}
+	
+	@RequestMapping(value = "us_modify.do")
+	public String us_modify(Model model, HttpSession session, String seq, String content) {
+		logger.info("us_modify");
+		boolean isS = false;
+		isS = userServ.updateResReview(seq, content);
+		if (isS) {
+			logger.info("us_modify:성공");
+		}else {
+			logger.info("us_modify:실패");
+		}
+		return "redirect:us_res_detail.do";
+	}
+	
+	@RequestMapping(value = "us_delete.do")
+	public String us_delete(Model model, HttpSession session, String seq) {
+		logger.info("us_delete");
+		boolean isS = false;
+		isS = userServ.delMyReview(seq);
+		if (isS) {
+			logger.info("us_delete:성공");
+		}else {
+			logger.info("us_delete:실패");
 		}
 		return "redirect:us_res_detail.do";
 	}

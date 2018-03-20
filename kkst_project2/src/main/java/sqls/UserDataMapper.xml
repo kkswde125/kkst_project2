@@ -191,12 +191,12 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	</select>
 	
 	<select id="getResReview" parameterType="Map" resultType="ResReviewDto">
-		SELECT T1.SEQ, T2.NAME AS ID, T1.CONTENT, T1.REFER, T1.STAR, T1."DEPTH", T1.STEP, T1.RES_SEQ, T1.REGDATE, T1.REPORT, T1.LIKEY, T1.DISLIKEY, T1.DELFLAG, 
+		SELECT T1.SEQ, T2.NICKNAME AS ID, T1.CONTENT, T1.REFER, T1.STAR, T1."DEPTH", T1.STEP, T1.RES_SEQ, T1.REGDATE, T1.REPORT, T1.LIKEY, T1.DISLIKEY, T1.DELFLAG, 
 		T1.REPORT_COUNT, T1.LIKEY_COUNT, T1.DISLIKEY_COUNT
 		FROM
 			(SELECT SEQ, ID, CONTENT, REFER, STAR, "DEPTH", STEP, RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG, REPORT_COUNT, LIKEY_COUNT, DISLIKEY_COUNT, 
 			ROW_NUMBER() OVER(ORDER BY REFER DESC, STEP ASC) AS RN
-			 FROM REVIEW WHERE DELFLAG = 'N' AND RES_SEQ = #{res_Seq}) T1,
+			 FROM REVIEW WHERE RES_SEQ = #{res_Seq}) T1,
 			 USERS T2
 		WHERE (T1.RN BETWEEN #{start} AND #{end}) AND (T1.ID=T2.SEQ)
 	</select>
@@ -210,10 +210,6 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		VALUES(REVIEW_SEQ.NEXTVAL,#{id},#{content}, (SELECT NVL(MAX(REFER)+1,0) FROM REVIEW), TO_NUMBER(#{star}), 0, 0, TO_NUMBER(#{res_Seq}), SYSDATE, NULL, NULL, NULL, 'N', 0, 0, 0)
 	</insert>
 	
-	<update id="updateResReview" parameterType="ResReviewDto">
-		UPDATE REVIEW SET CONTENT=#{content}, REGDATE=SYSDATE WHERE SEQ = #{seq}
-	</update>
-	
 	<update id="insertAnsResReviewUpdate" parameterType="Map"><!-- 답변입력 -->
 		UPDATE REVIEW SET STEP = STEP+1
 		WHERE REFER = (SELECT REFER FROM REVIEW WHERE SEQ = #{seq} )
@@ -226,8 +222,12 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		(SELECT STEP FROM REVIEW WHERE SEQ = #{seq} )+1, #{res_Seq}, SYSDATE, NULL, NULL, NULL, 'N', 0, 0, 0)
 	</insert>
 	
+	<update id="updateResReview" parameterType="Map">
+		UPDATE REVIEW SET CONTENT=#{content}, REGDATE=SYSDATE WHERE SEQ = #{seq}
+	</update>
+	
 	<update id="delMyReview" parameterType="Map">
-		UPDATE REVIEW SET DELFLAG = 'Y' WHERE ID = #{id} AND SEQ = #{seq}
+		UPDATE REVIEW SET DELFLAG = 'Y' WHERE SEQ = #{seq}
 	</update>
 	
 	<update id="addLikey0" parameterType="Map">
@@ -263,5 +263,9 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 			 FROM REVIEW WHERE RES_SEQ = #{res_Seq} AND LIKEY_COUNT > 4) T1,
 			 USERS T2
 		WHERE (T1.RN BETWEEN 1 AND 3) AND (T1.ID=T2.SEQ)
+	</select>
+	
+	<select id="getAvgStar" parameterType="Map" resultType="double">
+		SELECT ROUND(AVG(STAR),1) FROM REVIEW WHERE RES_SEQ = #{res_Seq} AND STAR IS NOT NULL
 	</select>
 </mapper>

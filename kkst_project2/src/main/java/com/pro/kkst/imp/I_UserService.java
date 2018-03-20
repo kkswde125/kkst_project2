@@ -45,13 +45,13 @@ public interface I_UserService {
 	
 	public int beforeInsertResReview(String user_seq, String res_Seq);
 	public boolean insertResReview(ResReviewDto dto);
-	public boolean updateResReview(ResReviewDto dto);
 	public boolean insertAnsResReview(ResReviewDto dto);
-	public boolean delMyReview(String id, String seq);
+	public boolean updateResReview(String seq, String content);
+	public boolean delMyReview(String seq);
 	public boolean addLikey(String likey, String id, String seq);
 	public boolean addDislikey(String dislikey, String id, String review_seq);
 	public boolean addReport(String report, String id, String review_seq);
 	public List<ResReviewDto> getResBestLikeyReview(String res_Seq);
-	
+	public double getAvgStar(String res_Seq);
 	
 }

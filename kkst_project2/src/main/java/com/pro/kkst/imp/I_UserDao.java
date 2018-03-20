@@ -44,9 +44,9 @@ public interface I_UserDao {
 	public List<ResReviewDto> selectGetResReview(Map<String, String> map);
 	public int beforeInsertResReview(Map<String, String> map); 
 	public boolean insertResReview(ResReviewDto dto);
-	public boolean updateResReview(ResReviewDto dto);
 	public boolean insertAnsResReviewUpdate(Map<String, String> map);
 	public boolean insertAnsResReviewInsert(ResReviewDto dto);
+	public boolean updateResReview(Map<String, String> map);
 	public boolean delMyReview(Map<String, String> map);
 	public boolean addLikey0(Map<String, String> map);
 	public boolean addLikey(Map<String, String> map);
@@ -58,5 +58,6 @@ public interface I_UserDao {
 	public boolean addReport(Map<String, String> map);
 	
 	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map);
+	public double getAvgStar(Map<String, String> map);
 	
 }

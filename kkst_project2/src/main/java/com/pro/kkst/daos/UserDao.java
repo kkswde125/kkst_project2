@@ -165,11 +165,6 @@ public class UserDao implements I_UserDao {
 	}
 
 	@Override
-	public boolean updateResReview(ResReviewDto dto) {
-		return sqlSessoin.update(namespace+"updateResReview", dto)>0?true:false;
-	}
-
-	@Override
 	public boolean insertAnsResReviewUpdate(Map<String, String> map) {
 		return sqlSessoin.update(namespace+"insertAnsResReviewUpdate", map)>0?true:false;
 	}
@@ -177,6 +172,11 @@ public class UserDao implements I_UserDao {
 	@Override
 	public boolean insertAnsResReviewInsert(ResReviewDto dto) {
 		return sqlSessoin.insert(namespace+"insertAnsResReviewInsert", dto)>0?true:false;
+	}
+	
+	@Override
+	public boolean updateResReview(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"updateResReview", map)>0?true:false;
 	}
 
 	@Override
@@ -222,6 +222,11 @@ public class UserDao implements I_UserDao {
 	@Override
 	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map) {
 		return sqlSessoin.selectList(namespace+"getResBestLikeyReview", map);
+	}
+
+	@Override
+	public double getAvgStar(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"getAvgStar", map);//null처리하자
 	}
 
 

@@ -327,11 +327,6 @@ public class UserService implements I_UserService {
 		return userDao.insertResReview(dto);
 	}
 
-	@Override
-	public boolean updateResReview(ResReviewDto dto) {
-		return userDao.updateResReview(dto);
-	}
-
 	@Transactional
 	@Override
 	public boolean insertAnsResReview(ResReviewDto dto) {
@@ -342,11 +337,18 @@ public class UserService implements I_UserService {
 		isS = userDao.insertAnsResReviewInsert(dto);
 		return isS;
 	}
+	
+	@Override
+	public boolean updateResReview(String seq, String content) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("content", content);
+		return userDao.updateResReview(map);
+	}
 
 	@Override
-	public boolean delMyReview(String id, String seq) {
+	public boolean delMyReview(String seq) {
 		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
 		map.put("seq", seq);
 		return userDao.delMyReview(map);
 	}
@@ -410,6 +412,13 @@ public class UserService implements I_UserService {
 		Map<String, String> map = new HashMap<>();
 		map.put("res_Seq", res_Seq);
 		return userDao.getResBestLikeyReview(map);
+	}
+
+	@Override
+	public double getAvgStar(String res_Seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("res_Seq", res_Seq);
+		return userDao.getAvgStar(map);
 	}
 
 }

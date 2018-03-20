@@ -43,13 +43,5 @@ public class Us_Utils {
 		this.arrowNbsp = (depthInt>0?nbsp+"<img src='resources/upload/arrow.png' alt='답글'>&nbsp;":"");
 	}
 	
-	public static String jsForward(String msg, String url){
-		StringBuffer str = new StringBuffer();
-		str.append("<script type='text/javascript'>");
-		str.append("alert('"+msg+"');");		
-		str.append("location.href = '"+url+"';");
-		str.append("</script>;");
-	return str.toString();
 }
 	
-}
