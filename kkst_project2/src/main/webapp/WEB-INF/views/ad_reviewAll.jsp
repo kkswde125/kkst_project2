@@ -1,3 +1,4 @@
+<%@page import="com.pro.kkst.dtos.ResDto"%>
 <%@page import="com.pro.kkst.dtos.ReviewDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,7 +10,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <script type="text/javascript">
+
+
+	
 
 </script>
 <style type="text/css">
@@ -21,46 +26,56 @@
 </head>
 <%
 	@SuppressWarnings("unchecked")
-	List<ReviewDto> lists = (List<ReviewDto>)request.getAttribute("reviewList");
+	List<ReviewDto> ReviewList = (List<ReviewDto>)request.getAttribute("reviewList");
+
+	@SuppressWarnings("unchecked")
+	List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 %>
 <body>
 <h1>전체 리뷰 목록</h1>
+	<%
+		for(int i = 0; i < resList.size() ; i++){
+	%>
 <div id="scroll">
 <table border ="1">
 	<thead>
 		<tr>
-		<td colspan="${reviewList.size()}">식당 이름 </td>
+		<td colspan="${reviewList.size()}"><%=resList.get(i).getName() %> </td>
 		</tr><tr>
 			<%
-			for(int i = 0; i < lists.size() ; i++){
+			for(int j = 0; j < ReviewList.size() ; j++){
 		%>
 				<td>
 					<table border ="1">
 						<tr>
-							<td><%=lists.get(i).getRegdate() %></td>
+							<td><%=ReviewList.get(j).getRegdate() %></td>
 							<td>
-								<input type="checkbox" name="chk" value="<%=lists.get(i).getSeq()%>}"/>
+								<input type="checkbox" name="chk" value="<%=ReviewList.get(j).getSeq()%>}"/>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" >
-								<textarea rows="10" cols="60" readonly="readonly"><%=lists.get(i).getContent() %></textarea>
+								<textarea rows="10" cols="60" readonly="readonly"><%=ReviewList.get(j).getContent() %></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								추천 수 : <%=lists.get(i).getLikey()==null?"0":(lists.get(i).getLikey().split(",").length) %>
-								신고 수 : <%=lists.get(i).getReport()==null?"0":(lists.get(i).getReport().split(",").length) %>
+								추천 수 : <%=ReviewList.get(j).getLikey()==null?"0":(ReviewList.get(j).getLikey().split(",").length) %>
+								신고 수 : <%=ReviewList.get(j).getReport()==null?"0":(ReviewList.get(j).getReport().split(",").length) %>
 							</td>
 						</tr>
 					</table>
 				</td>
 			<%
 			}
+	
 			%>
 		</tr>
 	</thead>
 </table>
 </div>
+<%
+}
+%>
 </body>
 </html>

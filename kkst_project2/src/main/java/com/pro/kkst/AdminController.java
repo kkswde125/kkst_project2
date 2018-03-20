@@ -73,43 +73,51 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "ad_allRevAreaChoice.do", method = RequestMethod.GET)
-	public String ad_reviewChoice(Locale locale, HttpServletRequest request) {
+	public String ad_reviewChoice(Locale locale, HttpServletRequest request, String msg) {
 		List<AddrDto> addrList = adminServ.addressList();
 		request.setAttribute("addrList", addrList);
-		
+		if(msg!=null) {
+			msg = "해당 지역에 등록된 식당 리뷰가 존재하지 않습니다.";
+			request.setAttribute("msg", msg);
+		}
 		return "ad_allRevAreaChoice";
+		
+		
 	}
 	
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
 	public String reviewAll(Locale locale, HttpServletRequest request, String area, Model model) {
-		System.out.println(area);
-		List<ReviewDto> reviewList = adminServ.reviewAll(area);
-		if(reviewList==null) {
-			String msg = "해당 지역에 등록된 식당 리뷰가 존재하지 않습니다.";
-			model.addAttribute("msg", msg);
-			return "ad_review_Choice";
+		List<ResDto> resList = adminServ.areaResList(area);
+		for (int i = 0; i < resList.size(); i++) {			
+		}
+		List<ReviewDto> reviewList = adminServ.reviewAll(area, resList.get(0).getSeq());
+		if(reviewList.size()==0) {
+			System.out.println("reviewList가 Null값입니다.");
+			
+			return "redirect:ad_allRevAreaChoice.do?msg=no";
 		}else {
+		System.out.println("reviewList가 Null값이 아닙니다.");
 		request.setAttribute("reviewList", reviewList);
-		
+		request.setAttribute("resList", resList);
 		return "ad_reviewAll";
 		}
 	}
 	
-	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
-	public String reviewReport(Locale locale, HttpServletRequest request) {
-		String area = (String) request.getAttribute("area");
-		List<ReviewDto> lists = adminServ.reviewAll(area);
-		List<ReviewDto> reportList = new ArrayList<>();
-		for (int i = 0; i < lists.size(); i++) {
-			
-			ReviewDto dto = adminServ.reviewReport(lists.get(i).getSeq());
-			if (dto!=null) {
-				reportList.add(dto);
-			}
-		}
-		request.setAttribute("reportList", reportList);
-		return "ad_reviewReport";
-	}
+//	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
+//	public String reviewReport(Locale locale, HttpServletRequest request) {
+//		String area = (String) request.getAttribute("area");
+//		List<ReviewDto> lists = adminServ.reviewAll(area);
+//		List<ReviewDto> reportList = new ArrayList<>();
+//		for (int i = 0; i < lists.size(); i++) {
+//			
+//			ReviewDto dto = adminServ.reviewReport(lists.get(i).getSeq());
+//			if (dto!=null) {
+//				reportList.add(dto);
+//			}
+//		}
+//		request.setAttribute("reportList", reportList);
+//		return "ad_reviewReport";
+//	}
 	
 	@RequestMapping(value = "ad_memDel.do", method = RequestMethod.POST)
 	public String memDel(Locale locale, HttpServletRequest request) {

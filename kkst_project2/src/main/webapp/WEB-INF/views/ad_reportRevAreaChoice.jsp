@@ -14,19 +14,9 @@
 %>
 </head>
 <body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-	$(function(){
-		var msg = '<%=(String)request.getAttribute("msg")%>';
-		if(msg=='null'){
-			return false;
-		}else{
-			alert(msg);
-		}
-		})
-
 	function movePage(area){
-		location.href="ad_reviewAll.do?area="+area;
+		location.href="ad_reviewReport.do?area="+area;
 	}
 </script>
 		<%

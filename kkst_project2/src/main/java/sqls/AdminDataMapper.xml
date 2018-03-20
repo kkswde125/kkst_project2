@@ -25,7 +25,7 @@
 		RESLIST.SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
 		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y
 		FROM REVIEW, RESLIST WHERE REVIEW.RES_SEQ = RESLIST.SEQ
-		AND ADDR LIKE '%'||#{area}||'%'
+		AND ADDR LIKE '%'||#{area}||'%' AND RESLIST.SEQ = #{seq}
 	</select>
 	
 	<select id="addrList" resultType="AddrDto">
@@ -76,5 +76,11 @@
 		SELECT SEQ, ID, PW, NAME, RES_SEQ, PHONE, RES_CALL, GRADE, EMAIL
 		FROM ADMIN_OWNER WHERE EMAIL = #{email} AND SEQ = ${seq}
 	</select>
+
+	<select id="areaResList" parameterType="String" resultType="ResDto">
+		SELECT SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
+		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
+		FROM RESLIST WHERE ADDR LIKE '%'||#{area}||'%'
+	</select>	
 
 </mapper>

@@ -24,8 +24,8 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<ReviewDto> reviewAll(String area) {
-		return adminDao.reviewAll(area);
+	public List<ReviewDto> reviewAll(String area, int seq) {
+		return adminDao.reviewAll(area, seq);
 	}
 	
 	@Override
@@ -76,6 +76,11 @@ public class AdminService implements I_AdminService {
 	@Override
 	public Admin_OnwerDto send_Email(String email, String seq) {
 		return adminDao.send_Email(email, seq);
+	}
+	
+	@Override
+	public List<ResDto> areaResList(String area){
+		return adminDao.areaResList(area);
 	}
 	
 

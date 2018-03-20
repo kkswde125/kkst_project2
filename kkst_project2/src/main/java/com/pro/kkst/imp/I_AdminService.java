@@ -11,7 +11,7 @@ import com.pro.kkst.dtos.ReviewDto;
 public interface I_AdminService {
 
 	public List<LoginDto> memberList(String snum, String cnum);
-	public List<ReviewDto> reviewAll(String area);
+	public List<ReviewDto> reviewAll(String area, int seq);
 	public ReviewDto reviewReport(int seq);
 	public List<ResDto> restList(String snum, String cnum);
 	public boolean memberDel(String[] seq);
@@ -22,4 +22,5 @@ public interface I_AdminService {
 	public Admin_OnwerDto sendEmail(int seq);
 	public Admin_OnwerDto send_Email(String email, String seq);
 	public List<AddrDto> addressList();
+	public List<ResDto> areaResList(String area);
 }

@@ -1,5 +1,6 @@
 package com.pro.kkst.daos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,15 +30,23 @@ public class AdminDao implements I_AdminDao {
 		List<LoginDto> lists = sqlSession.selectList(namespace+"memberList", map);
 		return lists;
 	}
+	
+	@Override
+	public List<ResDto> areaResList(String area){
+		List<ResDto> lists = sqlSession.selectList(namespace+"areaResList", area);
+		return lists;
+		
+	}
+	
 	@Override	// 리뷰 관리
-	public List<ReviewDto> reviewAll(String area) {
-		System.out.println("Dao : "+area);
-		Map<String, String> map = new HashMap<String, String>();
+	public List<ReviewDto> reviewAll(String area, int seq) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("area", area);
+		map.put("seq", seq);
 		List<ReviewDto> lists = sqlSession.selectList(namespace+"reviewAll", map);
-		System.out.println(lists);
 		return lists;
 	}
+	
 	@Override	// 식당 관리
 	public List<ResDto> restList(String snum, String cnum) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -70,6 +79,9 @@ public class AdminDao implements I_AdminDao {
 		}
 
 	}
+	
+	
+	
 	@Override
 	public List<AddrDto> addressList(){
 		List<AddrDto> lists = sqlSession.selectList(namespace+"addrList");
