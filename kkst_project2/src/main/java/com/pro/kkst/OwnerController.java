@@ -139,7 +139,7 @@ public class OwnerController {
 	}
 	//내 식당 수정 페이지
 	@RequestMapping(value = "ResUpdatePage.do")
-	public String ResUpdatePage(Locale locale, Model model) {
+	public String ResUpdatePage(Locale locale, Model model,String res_seq) {
 		List<AttrsDto> lists2=accountServ.ATTRS2();
 		List<AttrsDto> lists3=accountServ.ATTRS3();
 		List<AttrsDto> lists4=accountServ.ATTRS4();
@@ -149,6 +149,9 @@ public class OwnerController {
 		model.addAttribute("lists3", lists3);
 		model.addAttribute("lists4", lists4);
 		model.addAttribute("lists5", lists5);
+		
+		
+		
 		
 	 return"ow_ResUpdatePage";
 	}

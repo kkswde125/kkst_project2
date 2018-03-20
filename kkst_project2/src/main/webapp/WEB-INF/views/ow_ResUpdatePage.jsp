@@ -5,7 +5,6 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8");%>
 <% String res_seq = request.getParameter("res_seq"); %>
-<%ResDto rDto=(ResDto)request.getSession().getAttribute("rDto"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -143,7 +142,7 @@
 </table>
 
 
-<%----------///////////////////////////////////////////////////////////////////////////// --%>
+<%----------/////////////////////////////////////////////////////////////////////////////  --%>
 
 
 <form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=res_seq%>')">
@@ -271,6 +270,75 @@
 </td>
 </table>
 <hr id="line"/>
+
+
+<table id="menuAdd"  style="display: none;"  >
+<tr>
+<td>
+
+<div style="width: 350px; height: 350px; padding: 40px;">
+<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<img id="output" style="width: 350px; height: 350px;" >
+</div>
+
+</td>
+<td>
+
+
+<table border="1" >
+	<tr>
+		<th>메뉴이름</th>
+		<td colspan="2"><input type="text" name="menu_name" required="required"/></td>
+	</tr>
+	<tr>
+		<td rowspan="4">메뉴특성</td>
+		<td>주재료</td> 
+		<td>
+		<select name="cateCode" >
+		<c:forEach items="${lists2}" var="dto">
+			<option label="${dto.attr}" value="${dto.code}"/>
+		</c:forEach>
+		</select>
+		
+		</td>
+	</tr>
+	<tr>
+		<td>조리방식</td>
+		<td>
+		<select name="cookCode">
+		<c:forEach items="${lists3}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>매움정도</td>
+		<td>
+		<select name="spicyCode">
+		<c:forEach items="${lists4}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>온도</td>
+		<td>
+		<select name="tempCode" >
+		<c:forEach items="${lists5}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" /></td>
+	</tr>
+</table>
+</td>
+</tr>
+</table>
 
 
 

@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%request.setCharacterEncoding("utf-8"); %>
-<%response.setContentType("text/html; charset=utf-8"); %>  
+<%response.setContentType("text/html; charset=utf-8"); %>
+<%ResDto rDto=(ResDto)request.getSession().getAttribute("rDto"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,6 @@
 </head>
 <body>
 <a href="ResMoreInsertPage.do">추가 식당 등록</a>
-<a href="ResUpdatePage.do">식당 정보 수정</a>
+<a href="ResUpdatePage.do?res_seq=<%=rDto.getSeq()%>">식당 정보 수정</a>
 </body>
 </html>
