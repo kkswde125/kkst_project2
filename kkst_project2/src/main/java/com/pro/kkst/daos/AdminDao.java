@@ -40,10 +40,10 @@ public class AdminDao implements I_AdminDao {
 	}
 	
 	@Override	// 리뷰 관리
-	public List<Res_ReviewDto> reviewAll(String area, int seq) {
+	public List<Res_ReviewDto> reviewAll(String area, int[] seqs) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("area", area);
-		map.put("seq", seq);
+		map.put("seqs", seqs);
 		List<Res_ReviewDto> lists = sqlSession.selectList(namespace+"reviewAll", map);
 		return lists;
 	}

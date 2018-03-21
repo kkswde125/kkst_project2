@@ -34,24 +34,31 @@
 %>
 <body>
 <h1>전체 리뷰 목록</h1>
-	<%
-		for(int i = 0; i < resList.size() ; i++){
-	%>
 <div id="scroll">
 <table border ="1">
 	<thead>
+
+	<%
+		for(int i = 0; i < resList.size() ; i++){
+	%>
 		<tr>
 		<td colspan="${reviewList.size()}"><%=resList.get(i).getName() %> </td>
-		</tr><tr>
-			<%
+		</tr>
+		<tr>
+		<%
 			for(int j = 0; j < ReviewList.size() ; j++){
+		%>
+		
+		<%
+			if(resList.get(i).getName().equals(ReviewList.get(j).getName())){
+				
 		%>
 				<td>
 					<table border ="1">
 						<tr>
 							<td><%=ReviewList.get(j).getRegdate() %></td>
 							<td>
-								<input type="checkbox" name="chk" value="<%=ReviewList.get(j).getSeq()%>}"/>
+								<input type="checkbox" name="chk" value="<%=ReviewList.get(j).getSeq()%>"/>
 							</td>
 						</tr>
 						<tr>
@@ -67,16 +74,20 @@
 						</tr>
 					</table>
 				</td>
-			<%
+		<%
 			}
-	
-			%>
+			}
+		
+		%>
 		</tr>
 	</thead>
 </table>
 </div>
 <%
-}
+			
+		
+		
+		}
 %>
 </body>
 </html>

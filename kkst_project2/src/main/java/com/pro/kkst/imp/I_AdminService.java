@@ -12,7 +12,7 @@ import com.pro.kkst.dtos.ReviewDto;
 public interface I_AdminService {
 
 	public List<LoginDto> memberList(String snum, String cnum);
-	public List<Res_ReviewDto> reviewAll(String area, int seq);
+	public List<Res_ReviewDto> reviewAll(String area, int[] seqs);
 	public ReviewDto reviewReport(int seq);
 	public List<ResDto> restList(String snum, String cnum);
 	public boolean memberDel(String[] seq);

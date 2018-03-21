@@ -22,9 +22,17 @@
 	<select id="reviewAll" parameterType="Map" resultType="Res_ReviewDto">
 		SELECT ID, CONTENT, REFER, STAR, DEPTH, STEP, 
 		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
-		RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
+		R.SEQ, NAME, ADDR	
+		FROM REVIEW, (
+			SELECT RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
 		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
-		AND ADDR LIKE '%'||#{area}||'%'
+		GROUP BY (RESLIST.SEQ, NAME, ADDR)
+		) R
+		WHERE ADDR LIKE '%'||#{area}||'%'
+		AND R.SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
 	</select>
 	
 	<select id="addrList" resultType="AddrDto">
@@ -77,9 +85,10 @@
 	</select>
 
 	<select id="areaResList" parameterType="String" resultType="ResDto">
-		SELECT SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
-		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
-		FROM RESLIST WHERE ADDR LIKE '%'||#{area}||'%'
+		SELECT RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
+		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
+		AND ADDR LIKE '%'||#{area}||'%'
+		GROUP BY (RESLIST.SEQ, NAME, ADDR)
 	</select>	
 
 </mapper>

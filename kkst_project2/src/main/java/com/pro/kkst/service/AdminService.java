@@ -25,8 +25,8 @@ public class AdminService implements I_AdminService {
 	}
 
 	@Override
-	public List<Res_ReviewDto> reviewAll(String area, int seq) {
-		return adminDao.reviewAll(area, seq);
+	public List<Res_ReviewDto> reviewAll(String area, int[] seqs) {
+		return adminDao.reviewAll(area, seqs);
 	}
 	
 	@Override

@@ -89,8 +89,17 @@ public class AdminController {
 	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
 	public String reviewAll(Locale locale, HttpServletRequest request, String area, Model model) {
 		List<ResDto> resList = adminServ.areaResList(area);
-		
-		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, resList.get(0).getSeq());
+		int[] seqs = null;
+		if(resList.size()==0) {
+			seqs = new int[1];
+			seqs[0] = 0;
+		}else {
+			seqs = new int[resList.size()];
+			for (int i = 0; i < resList.size(); i++) {
+				seqs[i] = resList.get(i).getSeq();
+			}
+		}
+		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, seqs);
 		if(reviewList.size()==0) {
 			System.out.println("reviewList가 Null값입니다.");
 			
@@ -99,8 +108,9 @@ public class AdminController {
 		System.out.println("reviewList가 Null값이 아닙니다.");
 		request.setAttribute("reviewList", reviewList);
 		request.setAttribute("resList", resList);
-		return "ad_reviewAll";
+		return "ad_reviewDetail";
 		}
+		
 	}
 	
 //	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
