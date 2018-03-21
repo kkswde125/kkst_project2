@@ -25,15 +25,49 @@ String eHour= util.isOne(rDto.getEnd().substring(0,2));
 String eMin= util.isOne(rDto.getEnd().substring(3));
 
 String RsHour=util.isOne(rDto.getRest_start().substring(0,2));
-String RsMin=util.isOne(rDto.getRest_end().substring(3));
+String RsMin=util.isOne(rDto.getRest_start().substring(3));
 
-String ReHour=rDto.getRest_end().substring(0,2);
-String ReMin=rDto.getRest_end().substring(3);
+String ReHour=util.isOne(rDto.getRest_end().substring(0,2));
+String ReMin=util.isOne(rDto.getRest_end().substring(3));
+
+String [] cateCode= new String[mDto.size()];
+String [] cookCode=new String[mDto.size()];
+String [] spicyCode=new String[mDto.size()];
+String [] tempCode=new String[mDto.size()];
+
+
+for(int j=0; j<mDto.size(); j++){
+	
+	String[] code = new String[mDto.size()];
+		code[j]=mDto.get(j).getCode();
+	
+	cateCode[j] = code[j].substring(1,2);
+	cookCode[j]= code[j].substring(2,3);
+	spicyCode[j]= code[j].substring(3,4);
+	tempCode[j]= code[j].substring(4,5);
+}
+
+
 %>
 
 
-
 <!DOCTYPE html>
+
+<c:set scope="session" var="rdto" value="${rDto}"/>
+<c:set var="sHour" value="<%=sHour %>" />
+<c:set var="sMin" value="<%=sMin %>"/>
+<c:set var="eHour" value="<%=eHour %>"/>
+<c:set var="eMin" value="<%=eMin%>"/>
+<c:set var="RsHour" value="<%=RsHour%>"/>
+<c:set var="RsMin" value="<%=RsMin%>"/>
+<c:set var="ReHour" value="<%=ReHour%>"/>
+<c:set var="ReMin" value="<%=ReMin%>"/>
+
+<c:set var="cateCode" value="<%=cateCode%>"/>
+<c:set var="cookCode" value="<%=cookCode%>"/>
+<c:set var="spicyCode" value="<%=spicyCode%>"/>
+<c:set var="tempCode" value="<%=tempCode%>"/>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -93,12 +127,32 @@ String ReMin=rDto.getRest_end().substring(3);
 	}
 
 	
+	function delectMenu(seq) {
+		$("#menuAddDefault").remove();
+// 		location.href="deleteMenu.do?seq="+seq;
+
+		$.ajax({
+			url:"deleteMenu.do",
+			type:"post",
+			data:"seq="+seq,
+			dataType:"json",
+			success : function() {
+				alert("메뉴삭제 성공");
+			},
+			error:function(){
+				alert("실패");
+			}
+			
+		});
+
+	}
+	
 	
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 </script>
 </head>
-<c:set scope="session" var="rdto" value="${rDto}"/>
+
 <body>
 <!-- 복제할 메뉴 폼 -->
 
@@ -109,206 +163,6 @@ String ReMin=rDto.getRest_end().substring(3);
 <div style="width: 350px; height: 350px; padding: 40px;">
 <input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
 <img id="output" style="width: 350px; height: 350px;">
-</div>
-
-</td>
-<td>
-
-
-<table border="1" >
-	<tr>
-		<th>메뉴이름 <%=sHour%> <%=sMin %></th>
-		<td colspan="2"><input type="text" name="menu_name" required="required"/></td>
-	</tr>
-	<tr>
-		<td rowspan="4">메뉴특성</td>
-		<td>주재료</td> 
-		<td>
-		<select name="cateCode" >
-		<c:forEach items="${lists2}" var="dto">
-			<option label="${dto.attr}" value="${dto.code}"/>
-		</c:forEach>
-		</select>
-		
-		</td>
-	</tr>
-	<tr>
-		<td>조리방식</td>
-		<td>
-		<select name="cookCode">
-		<c:forEach items="${lists3}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td>매움정도</td>
-		<td>
-		<select name="spicyCode">
-		<c:forEach items="${lists4}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td>온도</td>
-		<td>
-		<select name="tempCode" >
-		<c:forEach items="${lists5}" var="dto">
-		<option label="${dto.attr}" value="${dto.code}" />
-		</c:forEach>
-		</select>
-		</td>
-	</tr>
-	<tr>
-	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" /></td>
-	</tr>
-</table>
-</td>
-</tr>
-</table>
-
-
-<%----------/////////////////////////////////////////////////////////////////////////////  --%>
-
-
-<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu(${rdto.seq})">
-<input type="hidden" name="res_seq" value="${rdto.seq}"/>
-<table>
-<!-- 사진 올라갈곳 -->
-<tr>
-<td>
-<div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)"/>
-<img id="outputs" style=" width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
-</div>
-</td>
-<!-- 입력 부분 -->
-<td>
-<table border="1">
-<tr>
-	<th>식당명</th>
-	<td><input type="text" name="name" required="required" value="${rdto.name}" /></td>
-</tr>
-<tr>
-	<th>업종</th>
-	<td>
-	
-	<select name="cate">
-		<option label="한식" value="한식"${rdto.cate=="한식"?"selected":""}>
-		<option label="중식" value="중식"${rdto.cate=="중식"?"selected":""}>
-		<option label="일식" value="일식"${rdto.cate=="일식"?"selected":""}>
-		<option label="양식" value="양식"${rdto.cate=="양식"?"selected":""}>
-		<option label="횟집" value="횟집"${rdto.cate=="횟집"?"selected":""}>
-		<option label="분식" value="분식"${rdto.cate=="분식"?"selected":""}>
-		<option label="냉면집" value="냉면집"${rdto.cate=="냉면집"?"selected":""}>
-		<option label="인도,태국" value="인도,태국"${rdto.cate=="인도,태국"?"selected":""}>
-		<option label="치킨" value="치킨"${rdto.cate=="치킨"?"selected":""}>
-		<option label="식육(숯불구이)" value="식육(숯불구이)"${rdto.cate=="식육(숯불구이)"?"selected":""}>
-		<option label="보신용" value="보신용"${rdto.cate=="보신용"?"selected":""}>
-	</select>
-	</td>
-</tr>
-<tr>
-	<th>주소</th>
-	<td><input type="text" name="addr" required="required" value="${rdto.addr}" /></td>
-</tr>
-
-	<tr>
-		<th>영업시간 </th>
-		<td>
-		<!-- 영업시간 -->
-			<select name="S_hour">
-				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}" ${i eq fn:substring(rdto.start,1,2)? 'selected':''} >
-				</c:forEach>
-			</select> : 
-			<select name="S_min">
-				<c:forEach begin="0" end="59" var="i">
-				<option label="${i}" value="${i}"${i eq fn:substring(rdto.start,4,5)?'selected':''}>
-				</c:forEach>
-			</select>
-			~
-			<select name="E_hour">
-				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}" ${i eq fn:substring(rdto.end,1,2)? 'selected':''}>
-				</c:forEach>
-			</select> : 
-			<select name="E_min">
-				<c:forEach begin="0" end="59" var="i">
-				<option label="${i}" value="${i}">
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<th>휴식시간</th>
-		<td>
-				<!-- 휴식시간 -->	
-			<select name="Rs_hour">
-				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}">
-				</c:forEach>
-			</select> : 
-			<select name="Rs_min">
-				<c:forEach begin="0" end="59" var="i">
-				<option label="${i}" value="${i}">
-				</c:forEach>
-			</select>
-			~
-			<select name="Re_hour">
-				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}">
-				</c:forEach>
-			</select> : 
-			<select name="Re_min">
-				<c:forEach begin="0" end="59" var="i">
-				<option label="${i}" value="${i}">
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<th>전화번호</th>
-	<td>
-	<input type="text" value="- 를 포함하여 입력해주세요" name="call" required="required" class="reset" />
-	</td>
-	</tr>
-
-	<tr>
-		<th>주차가능여부</th>
-		<td>
-			<select name="parking">
-				<option label="가능" value="Y">
-				<option label="불가능" value="N">
-			</select>
-		</td>
-	</tr>
-	
-	<tr>
-		<th>식당 설명</th>
-		<td>
-		<textarea rows="10" cols="60" name="comment" required="required"></textarea>
-		</td>
-	</tr>
-	
-	
-</table>
-</td>
-</table>
-
-<hr id="line"/>
-<% for(int i=0; i< mDto.size(); i++){
-	%>
-<table id="menuAdd<%="default"%>">
-<tr>
-<td>
-
-<div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
-<img id="output" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
 </div>
 
 </td>
@@ -366,6 +220,207 @@ String ReMin=rDto.getRest_end().substring(3);
 	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" /></td>
 	</tr>
 </table>
+</td>
+</tr>
+</table>
+
+
+<%----------/////////////////////////////////////////////////////////////////////////////  --%>
+
+
+<form action="ResUpdate.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu(${rdto.seq})">
+<input type="hidden" name="res_seq" value="${rdto.seq}"/>
+<table>
+<!-- 사진 올라갈곳 -->
+<tr>
+<td>
+<div style="width: 350px; height: 350px; padding: 40px;">
+<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)"/>
+<img id="outputs" style=" width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
+</div>
+</td>
+<!-- 입력 부분 -->
+<td>
+<table border="1">
+<tr>
+	<th>식당명</th>
+	<td><input type="text" name="name" required="required" value="${rdto.name}" /></td>
+</tr>
+<tr>
+	<th>업종</th>
+	<td>
+	
+	<select name="cate">
+		<option label="한식" value="한식"${rdto.cate=="한식"?"selected":""}>
+		<option label="중식" value="중식"${rdto.cate=="중식"?"selected":""}>
+		<option label="일식" value="일식"${rdto.cate=="일식"?"selected":""}>
+		<option label="양식" value="양식"${rdto.cate=="양식"?"selected":""}>
+		<option label="횟집" value="횟집"${rdto.cate=="횟집"?"selected":""}>
+		<option label="분식" value="분식"${rdto.cate=="분식"?"selected":""}>
+		<option label="냉면집" value="냉면집"${rdto.cate=="냉면집"?"selected":""}>
+		<option label="인도,태국" value="인도,태국"${rdto.cate=="인도,태국"?"selected":""}>
+		<option label="치킨" value="치킨"${rdto.cate=="치킨"?"selected":""}>
+		<option label="식육(숯불구이)" value="식육(숯불구이)"${rdto.cate=="식육(숯불구이)"?"selected":""}>
+		<option label="보신용" value="보신용"${rdto.cate=="보신용"?"selected":""}>
+	</select>
+	</td>
+</tr>
+<tr>
+	<th>주소</th>
+	<td><input type="text" name="addr" required="required" value="${rdto.addr}" /></td>
+</tr>
+
+	<tr>
+		<th>영업시간 </th>
+		<td>
+		<!-- 영업시간 -->
+			<select name="S_hour">
+				<c:forEach begin="0" end="23" var="i">
+				<option label="${i}" value="${i}" ${i eq sHour? 'selected':''} >
+				</c:forEach>
+			</select> : 
+			<select name="S_min">
+				<c:forEach begin="0" end="59" var="i">
+				<option label="${i}" value="${i}"${i eq sMin?'selected':''}>
+				</c:forEach>
+			</select>
+			~
+			<select name="E_hour">
+				<c:forEach begin="0" end="23" var="i">
+				<option label="${i}" value="${i}" ${i eq eHour? 'selected':''}>
+				</c:forEach>
+			</select> : 
+			<select name="E_min">
+				<c:forEach begin="0" end="59" var="i">
+				<option label="${i}" value="${i}"${i eq eMin? 'selected':'' }>
+				</c:forEach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>휴식시간</th>
+		<td>
+				<!-- 휴식시간 -->	
+			<select name="Rs_hour">
+				<c:forEach begin="0" end="23" var="i">
+				<option label="${i}" value="${i}" ${i eq RsHour? 'selected':'' }>
+				</c:forEach>
+			</select> : 
+			<select name="Rs_min">
+				<c:forEach begin="0" end="59" var="i">
+				<option label="${i}" value="${i}" ${i eq RsMin? 'selected':'' }>
+				</c:forEach>
+			</select>
+			~
+			<select name="Re_hour">
+				<c:forEach begin="0" end="23" var="i">
+				<option label="${i}" value="${i}" ${i eq ReHour? 'selected':'' } >
+				</c:forEach>
+			</select> : 
+			<select name="Re_min">
+				<c:forEach begin="0" end="59" var="i">
+				<option label="${i}" value="${i}" ${i eq ReMin? 'selected':'' }>
+				</c:forEach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>전화번호</th>
+	<td>
+	<input type="text" value="${rdto.call}" name="call" required="required" class="reset"  />
+	</td>
+	</tr>
+
+	<tr>
+		<th>주차가능여부</th>
+		<td>
+			<select name="parking">
+				<option label="가능" value="Y" ${rdto.parking eq "Y" ? 'selected':''}>
+				<option label="불가능" value="N" ${rdto.parking eq "N" ? 'selected':''}>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<th>식당 설명</th>
+		<td>
+		<textarea rows="10" cols="60" name="comment" required="required">${rdto.comment}</textarea>
+		</td>
+	</tr>
+	
+	
+</table>
+</td>
+</table>
+
+<hr id="line"/>
+<% for(int i=0; i< mDto.size(); i++){
+	%>
+<c:set var="i" value="<%=i%>" />
+<table id="menuAdd<%="Default"%>">
+<tr>
+<td>
+
+<div style="width: 350px; height: 350px; padding: 40px;">
+<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<img id="output" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
+</div>
+
+</td>
+<td>
+
+<table border="1" >
+	<tr>
+		<th>메뉴이름</th>
+		<td colspan="2"><input type="text" name="menu_name" required="required" value="<%=mDto.get(i).getName()%>" /></td>
+	</tr>
+	<tr>
+		<td rowspan="4">메뉴특성</td>
+		<td>주재료</td> 
+		<td>
+		<select name="cateCode" >
+		<c:forEach items="${lists2}" var="dto" >
+			<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cateCode[i]? 'selected':''} />
+		</c:forEach>
+		</select>
+		
+		</td>
+	</tr>
+	<tr>
+		<td>조리방식</td>
+		<td>
+		<select name="cookCode">
+		<c:forEach items="${lists3}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cookCode[i]? 'selected':''} />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>매움정도</td>
+		<td>
+		<select name="spicyCode">
+		<c:forEach items="${lists4}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq spicyCode[i]? 'selected':''} />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>온도</td>
+		<td>
+		<select name="tempCode" >
+		<c:forEach items="${lists5}" var="dto">
+		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq tempCode[i]? 'selected':''} />
+		</c:forEach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+	<td>가격</td><td colspan="2"><input type="text" name="price" value="<%=mDto.get(i).getPrice()%>" required="required" class="price1"  /></td>
+	</tr>
+</table>
+	<input type="button" value="삭제" onclick="delectMenu('<%=mDto.get(i).getSeq()%>')" />
 </td>
 </tr>
 </table>

@@ -17,4 +17,9 @@ public interface I_OwnerDao {
 	public boolean ownerMyInfo (Map<String, String> map);
 	public List<PhotoDto> ResPhotoList(String res_seq);
 	public List<menuDto> ResMenuList(String res_seq);
+	public boolean delMenu(String seq);
+	public boolean delPhoto(String seq);
+	public boolean insertMenu(Map<String, String> map);
+	public boolean insertPhoto(Map<String, String> map);
+	
 }

@@ -3,6 +3,9 @@ package com.pro.kkst.imp;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.pro.kkst.dtos.AttrJoinDto;
 import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.menuDto;
@@ -17,4 +20,9 @@ public interface I_OwnerService {
 	public boolean ownerMyInfo (Map<String, String> map);
 	public List<PhotoDto> ResPhotoList(String res_seq);
 	public List<menuDto> ResMenuList(String res_seq);
+	public boolean delMenu(String seq);
+	public boolean updateResInfo(Model model,MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
+			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
+			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
+			String[] price,String comment);
 }

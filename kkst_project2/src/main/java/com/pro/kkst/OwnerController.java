@@ -17,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrJoinDto;
@@ -165,11 +168,42 @@ public class OwnerController {
 	 return"ow_ResUpdatePage";
 	}
 	
+	//식당 수정 affter
+	@RequestMapping(value = "ResUpdate.do")
+	public String ResUpdate(Model model, MultipartHttpServletRequest request, String res_seq, String name,
+			String cate, String addr, String S_hour, String S_min, String E_hour, String E_min, String Rs_hour,
+			String Rs_min, String Re_hour, String Re_min, String call, String parking, String[] menu_name,
+			String[] cateCode, String[] cookCode, String[] spicyCode, String[] tempCode, String[] price,
+			String comment) {
+		
+
+		
+		
+		
+	 return"ow_owner";
+	}
+	
+	//메뉴삭제
+	@RequestMapping(value = "deleteMenu.do")
+	public @ResponseBody Map<String,Boolean> deleteMenu(Locale locale, Model model,@RequestParam String seq) {
+	 
+	    boolean isS=ownerServ.delMenu(seq);
+	    
+	    Map<String, Boolean>map = new HashMap<String,Boolean>();
+	    map.put("isS", isS);
+	    return map;
+	}
+	
+	
+	
 	//내 식당 추가 페이지
 	@RequestMapping(value = "ResMoreInsertPage.do")
 	public String ResMoreInsertPage(Locale locale, Model model) {
 	 return"ow_ResMoreInsertPage";
 	}
+	
+	
+	
 	
 }
 	

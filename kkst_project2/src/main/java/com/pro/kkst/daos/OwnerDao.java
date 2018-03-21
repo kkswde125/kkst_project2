@@ -53,5 +53,28 @@ public class OwnerDao implements I_OwnerDao {
 	public List<menuDto> ResMenuList(String res_seq) {
 		return sqlSessoin.selectList(namespace+"selectResMenuDto",res_seq);
 	}
+	@Override
+	public boolean delMenu(String seq) {
+		
+		int count=sqlSessoin.delete(namespace+"delMenu",seq);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean insertMenu(Map<String, String> map) {
+		int count=sqlSessoin.insert(namespace+"insertMenu",map);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean insertPhoto(Map<String, String> map) {
+		int count=sqlSessoin.insert(namespace+"insetPhoto",map);
+		return count>0?true:false;
+	}
+	@Override
+	public boolean delPhoto(String seq) {
+		int count=sqlSessoin.delete(namespace+"delPhoto",seq);
+		return count>0?true:false ;
+	}
 
 }
