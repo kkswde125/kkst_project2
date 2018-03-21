@@ -104,8 +104,8 @@
 	
 	<!-- 식당등록을 안한 점주의 경우 다시 로그인했을때 식당등록하기위함 -->
 	<select id="ChkRes" parameterType="Integer" resultType="ResDto">
-		SELECT SEQ,NAME,CATE,ADDR,'CALL','START','END',REST_START,REST_END,
-		PARKING,'OPEN',CHK,'COMMENT',X,Y
+		SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,
+		PARKING,"OPEN",CHK,"COMMENT",X,Y
 		 FROM RESLIST WHERE SEQ = #{seq}
 	</select>
 	

@@ -1,3 +1,4 @@
+<%@page import="com.pro.kkst.utils.ow_onwerUtil"%>
 <%@page import="com.pro.kkst.dtos.menuDto"%>
 <%@page import="com.pro.kkst.dtos.PhotoDto"%>
 <%@page import="java.util.List"%>
@@ -11,6 +12,27 @@
 <%List<menuDto> mDto=(List<menuDto>)request.getAttribute("mDto"); %>
 <%ResDto rDto=(ResDto)request.getSession().getAttribute("rDto"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%
+
+ow_onwerUtil util=new ow_onwerUtil();
+
+String sHour= util.isOne(rDto.getStart().substring(0,2));
+String sMin= util.isOne(rDto.getStart().substring(3));
+
+String eHour= util.isOne(rDto.getEnd().substring(0,2));
+String eMin= util.isOne(rDto.getEnd().substring(3));
+
+String RsHour=util.isOne(rDto.getRest_start().substring(0,2));
+String RsMin=util.isOne(rDto.getRest_end().substring(3));
+
+String ReHour=rDto.getRest_end().substring(0,2);
+String ReMin=rDto.getRest_end().substring(3);
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +98,7 @@
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 </script>
 </head>
+<c:set scope="session" var="rdto" value="${rDto}"/>
 <body>
 <!-- 복제할 메뉴 폼 -->
 
@@ -94,7 +117,7 @@
 
 <table border="1" >
 	<tr>
-		<th>메뉴이름</th>
+		<th>메뉴이름 <%=sHour%> <%=sMin %></th>
 		<td colspan="2"><input type="text" name="menu_name" required="required"/></td>
 	</tr>
 	<tr>
@@ -151,8 +174,8 @@
 <%----------/////////////////////////////////////////////////////////////////////////////  --%>
 
 
-<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=rDto.getSeq()%>">
-<input type="hidden" name="res_seq" value="<%=rDto.getSeq()%>" />
+<form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu(${rdto.seq})">
+<input type="hidden" name="res_seq" value="${rdto.seq}"/>
 <table>
 <!-- 사진 올라갈곳 -->
 <tr>
@@ -167,50 +190,50 @@
 <table border="1">
 <tr>
 	<th>식당명</th>
-	<td><input type="text" name="name" required="required" /></td>
+	<td><input type="text" name="name" required="required" value="${rdto.name}" /></td>
 </tr>
 <tr>
 	<th>업종</th>
 	<td>
 	
 	<select name="cate">
-		<option label="한식" value="한식">
-		<option label="중식" value="중식">
-		<option label="일식" value="일식">
-		<option label="양식" value="양식">
-		<option label="횟집" value="횟집">
-		<option label="분식" value="분식">
-		<option label="냉면집" value="냉면집">
-		<option label="인도,태국" value="인도,태국">
-		<option label="치킨" value="치킨">
-		<option label="식육(숯불구이)" value="식육(숯불구이)">
-		<option label="보신용" value="보신용">
+		<option label="한식" value="한식"${rdto.cate=="한식"?"selected":""}>
+		<option label="중식" value="중식"${rdto.cate=="중식"?"selected":""}>
+		<option label="일식" value="일식"${rdto.cate=="일식"?"selected":""}>
+		<option label="양식" value="양식"${rdto.cate=="양식"?"selected":""}>
+		<option label="횟집" value="횟집"${rdto.cate=="횟집"?"selected":""}>
+		<option label="분식" value="분식"${rdto.cate=="분식"?"selected":""}>
+		<option label="냉면집" value="냉면집"${rdto.cate=="냉면집"?"selected":""}>
+		<option label="인도,태국" value="인도,태국"${rdto.cate=="인도,태국"?"selected":""}>
+		<option label="치킨" value="치킨"${rdto.cate=="치킨"?"selected":""}>
+		<option label="식육(숯불구이)" value="식육(숯불구이)"${rdto.cate=="식육(숯불구이)"?"selected":""}>
+		<option label="보신용" value="보신용"${rdto.cate=="보신용"?"selected":""}>
 	</select>
 	</td>
 </tr>
 <tr>
 	<th>주소</th>
-	<td><input type="text" name="addr" required="required" /></td>
+	<td><input type="text" name="addr" required="required" value="${rdto.addr}" /></td>
 </tr>
 
 	<tr>
-		<th>영업시간</th>
+		<th>영업시간 </th>
 		<td>
 		<!-- 영업시간 -->
 			<select name="S_hour">
 				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}">
+				<option label="${i}" value="${i}" ${i eq fn:substring(rdto.start,1,2)? 'selected':''} >
 				</c:forEach>
 			</select> : 
 			<select name="S_min">
 				<c:forEach begin="0" end="59" var="i">
-				<option label="${i}" value="${i}">
+				<option label="${i}" value="${i}"${i eq fn:substring(rdto.start,4,5)?'selected':''}>
 				</c:forEach>
 			</select>
 			~
 			<select name="E_hour">
 				<c:forEach begin="0" end="23" var="i">
-				<option label="${i}" value="${i}">
+				<option label="${i}" value="${i}" ${i eq fn:substring(rdto.end,1,2)? 'selected':''}>
 				</c:forEach>
 			</select> : 
 			<select name="E_min">
