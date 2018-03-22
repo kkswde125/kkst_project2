@@ -34,7 +34,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 </head>
 <body>
 
-<% for(int i = 0; i < ReviewList.size() ; i++){ 
+<% for(int i = 0; i < resList.size() ; i++){ 
 /* 	if() */
 %>
 <div class="scroll">	<!-- Scroll을 넣기위한 Block -->
@@ -55,7 +55,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 					</td>
 					<td><%=ReviewList.get(j).getStar() %></td>
 					<td>
-					<fmt:formatDate value="<%=ReviewList.get(j).getRegdate() %>" pattern="YYYY/MM/DD hh:mm:ss"/>
+					<fmt:formatDate value="<%=ReviewList.get(j).getRegdate() %>" pattern="YYYY/MM/dd HH:mm:ss"/>
 					</td>
 				</tr>
 				<tr>

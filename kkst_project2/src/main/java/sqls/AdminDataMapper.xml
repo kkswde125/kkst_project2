@@ -35,16 +35,35 @@
 		</foreach>
 	</select>
 	
+	
+	<select id="reviewReport" parameterType="Map" resultType="Res_ReviewDto">
+		SELECT ID, CONTENT, REFER, STAR, DEPTH, STEP, 
+		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
+		R.SEQ, NAME, ADDR	
+		FROM REVIEW, (
+			SELECT RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
+		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
+		GROUP BY (RESLIST.SEQ, NAME, ADDR)
+		) R
+		WHERE ADDR LIKE '%'||#{area}||'%'
+		AND REVIEW.RES_SEQ = R.SEQ
+		AND R.SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
+	</select>
+	
+	<select id="areaResList" parameterType="String" resultType="ResDto">
+		SELECT RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
+		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
+		AND ADDR LIKE '%'||#{area}||'%'
+		GROUP BY (RESLIST.SEQ, NAME, ADDR)
+	</select>	
+	
 	<select id="addrList" resultType="AddrDto">
 		SELECT SEQ, SI, GU FROM ADDRESS ORDER BY SEQ
 	</select>
-	
-	<select id="reviewReport" resultType="ReviewDto" parameterType="int">
-		SELECT SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
-		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG 
-		FROM REVIEW WHERE SEQ = #{seq}
-	</select>
-	
+
 	<select id="restList" resultType="ResDto" parameterType="Map">
 		SELECT SEQ, NAME, CATE, ADDR, 'CALL', 'START', 'END', 
 		REST_START, REST_END, PARKING, 'OPEN', CHK, 'COMMENT', X, Y 
@@ -84,11 +103,6 @@
 		FROM ADMIN_OWNER WHERE EMAIL = #{email} AND SEQ = ${seq}
 	</select>
 
-	<select id="areaResList" parameterType="String" resultType="ResDto">
-		SELECT RESLIST.SEQ, NAME, ADDR	FROM REVIEW, RESLIST 
-		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
-		AND ADDR LIKE '%'||#{area}||'%'
-		GROUP BY (RESLIST.SEQ, NAME, ADDR)
-	</select>	
+
 
 </mapper>

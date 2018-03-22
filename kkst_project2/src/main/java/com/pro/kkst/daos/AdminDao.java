@@ -63,22 +63,34 @@ public class AdminDao implements I_AdminDao {
 		return count > 0 ? true : false;
 	}
 	@Override
-	public ReviewDto reviewReport(int seq) {
-		ReviewDto dto = sqlSession.selectOne(namespace+"reviewReport", seq);
-		String report = dto.getReport();
-		if(report==null) {
-			return null;
-		}else {
-		String[] reportArray = report.split(",");
-		int count = reportArray.length;
-		System.out.println(count);
-		if(count > 5) {
-			return dto;
-		}else {
-			return null;
+	public List<Res_ReviewDto> reviewReport(String area, int[] seqs) {
+		System.out.println("Dao_area : "+area);
+		System.out.print("Dao_seqs :");
+		for (int i = 0; i < seqs.length; i++) {
+			System.out.print(seqs[i]+", ");
+		}
+		System.out.println();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("area", area);
+		map.put("seqs", seqs);
+		List<Res_ReviewDto> result = new ArrayList<>();
+		List<Res_ReviewDto> lists = sqlSession.selectList(namespace+"reviewReport", map);
+		System.out.println("Dao lists : "+lists.toString());
+		for (int i = 0; i < lists.size(); i++) {
+			String report = lists.get(i).getReport();
+			System.out.println("report :"+report);
+			if(report!=null) {
+				String[] reportArray = report.split(",");
+				int count = reportArray.length;
+				System.out.println("신고수 : "+count);
+				if(count > 5) {
+					result.add(lists.get(i));
+				}
 		}
 		}
-
+		System.out.println("result.size : "+result.size());
+		System.out.println(result.toString());
+		return result;
 	}
 	
 	
