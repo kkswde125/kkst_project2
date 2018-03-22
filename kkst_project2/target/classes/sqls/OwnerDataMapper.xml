@@ -34,11 +34,11 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE CODE=#{code}
 </update>
 
 <select id="selectResPhoto" parameterType="String" resultType="PhotoDto">
-SELECT SEQ,ORIGIN,"CHANGE",RES_SEQ,MENU_SEQ FROM PHOTO WHERE RES_SEQ=#{res_seq}
+SELECT SEQ,ORIGIN,"CHANGE",RES_SEQ,MENU_SEQ FROM PHOTO WHERE RES_SEQ=#{res_seq} ORDER BY SEQ ASC
 </select>
 
 <select id="selectResMenuDto" parameterType="String" resultType="menuDto">
-SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq}
+SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq} ORDER BY SEQ ASC
 </select>
 
 <delete id="delMenu" parameterType="String">
@@ -49,13 +49,32 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq}
 	DELETE FROM PHOTO WHERE MENU_SEQ=#{seq}
 </delete>
 
-<update id="updateMenu" parameterType="String">
-	UPDATE FROM MENU SET NAME=#{name},CODE={#code} WHERE SEQ=#{seq}
+
+
+<update id="updateResInfo" parameterType="Map">
+	UPDATE RESLIST SET NAME=#{name},CATE=#{cate},ADDR=#{addr},"CALL"=#{call},"START"=#{start},"END"=#{end},
+	REST_START=#{rest_start},REST_END=#{rest_end},PARKING=#{parking},"OPEN"='Y',CHK='N',"COMMENT"=#{comment},X='0.00000',Y='0.00000' WHERE SEQ=#{seq}
 </update>
 
-<update id="updatePhoto" parameterType="String">
-	UPDATE FROM MENU SET ORIGIN=#{origin},CHANGE={#change} WHERE MENU_SEQ=#{manu_seq}
+
+<select id="SearchMenuSeq" parameterType="Map" resultType="String">
+	SELECT SEQ FROM MENULIST WHERE RES_SEQ=#{res_seq} AND NAME=#{name} AND PRICE=#{price}
+</select>
+
+
+<!-- 쓸일이있을지도  -->
+<update id="updateMenu" parameterType="Map">
+	UPDATE MENULIST SET NAME=#{name},CODE=#{code},PRICE=#{price} WHERE SEQ=#{seq}
 </update>
+
+<update id="updatePhoto" parameterType="Map">
+	UPDATE PHOTO SET ORIGIN=#{origin},CHANGE=#{change} WHERE MENU_SEQ=#{menu_seq}
+</update>
+
+<update id="updatePhoto2" parameterType="Map">
+	UPDATE PHOTO SET ORIGIN=#{origin},CHANGE=#{change},RES_SEQ=#{res_seq},MENU_SEQ=null WHERE SEQ=#{seq}
+</update>
+
 
 <insert id="insertMenu" parameterType="Map">
 	INSERT INTO MENULIST VALUES(MENULIST_SEQ.NEXTVAL,#{name},#{code},#{res_seq},#{price})
@@ -64,5 +83,7 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq}
 <insert id="insertPhoto" parameterType="Map">
 	INSERT INTO PHOTO VALUES(PHOTO_SEQ.NEXTVAL,#{origin},#{change},#{res_seq},#{menu_seq})
 </insert>
+<!--  -->
+
 
 </mapper>

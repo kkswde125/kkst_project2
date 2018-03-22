@@ -21,5 +21,10 @@ public interface I_OwnerDao {
 	public boolean delPhoto(String seq);
 	public boolean insertMenu(Map<String, String> map);
 	public boolean insertPhoto(Map<String, String> map);
+	public boolean updateMenu(Map<String,String> map);
+	public boolean updatePhoto(Map<String,String> map);
+	public boolean updatePhoto2(Map<String,String> map);
 	
+	public boolean updateResInfo(Map<String,String> map);
+	public String SearchMenuSeq(Map<String, String>map);
 }

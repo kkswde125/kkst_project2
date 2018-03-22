@@ -174,13 +174,31 @@ public class OwnerController {
 			String cate, String addr, String S_hour, String S_min, String E_hour, String E_min, String Rs_hour,
 			String Rs_min, String Re_hour, String Re_min, String call, String parking, String[] menu_name,
 			String[] cateCode, String[] cookCode, String[] spicyCode, String[] tempCode, String[] price,
-			String comment) {
+			String comment,String[] menu_name_d, String[] cateCode_d,
+			String[] cookCode_d, String[] spicyCode_d, String[] tempCode_d, String[] price_d,String [] menu_seq,String [] Photo_seq,String[] fileOname,String[] fileSname) {
 		
+		boolean isS=false;
+		
+		
+		isS=ownerServ.updateResInfo(model, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, Rs_hour, Rs_min, Re_hour, Re_min, call, parking, comment);
+		
+		if(isS=true) {
+			isS=ownerServ.insertMenu(request, menu_name, cateCode, cookCode, spicyCode, tempCode, price, model, res_seq,cate);
+			isS=ownerServ.updateMenu(request, menu_name_d, cateCode_d, cookCode_d, spicyCode_d, tempCode_d, price_d, model, res_seq, cate,menu_seq,Photo_seq,fileOname,fileSname);
+		
+			if(isS=true) {
+				return"ow_owner";
+			}else {
+				return"ResUpdatePage.do?res_seq="+res_seq;
+			}
 
+		}else {
+			return"ResUpdatePage.do?res_seq="+res_seq;
+		}
 		
 		
 		
-	 return"ow_owner";
+		
 	}
 	
 	//메뉴삭제

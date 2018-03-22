@@ -60,6 +60,14 @@ public class OwnerDao implements I_OwnerDao {
 		
 		return count>0?true:false;
 	}
+	
+	@Override
+	public boolean delPhoto(String seq) {
+		int count=sqlSessoin.delete(namespace+"delPhoto",seq);
+		return count>0?true:false ;
+	}	
+	
+//-------------------------------------------------------------------------
 	@Override
 	public boolean insertMenu(Map<String, String> map) {
 		int count=sqlSessoin.insert(namespace+"insertMenu",map);
@@ -68,13 +76,34 @@ public class OwnerDao implements I_OwnerDao {
 	}
 	@Override
 	public boolean insertPhoto(Map<String, String> map) {
-		int count=sqlSessoin.insert(namespace+"insetPhoto",map);
+		int count=sqlSessoin.insert(namespace+"insertPhoto",map);
 		return count>0?true:false;
 	}
-	@Override
-	public boolean delPhoto(String seq) {
-		int count=sqlSessoin.delete(namespace+"delPhoto",seq);
-		return count>0?true:false ;
-	}
 
+//---------------------------------------------------------------------------
+	@Override
+	public boolean updateResInfo(Map<String, String> map) {
+		int count=sqlSessoin.update(namespace+"updateResInfo",map);
+	 return	count>0?true:false;	
+		}
+	@Override
+	public String SearchMenuSeq(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"SearchMenuSeq",map);
+	}
+	@Override
+	public boolean updateMenu(Map<String, String> map) {
+		int count=sqlSessoin.update(namespace+"updateMenu",map);
+		return count>0?true:false;	
+	}
+	@Override
+	public boolean updatePhoto(Map<String, String> map) {
+		int count=sqlSessoin.update(namespace+"updatePhoto",map);
+		return count>0?true:false;	
+	}
+	@Override
+	public boolean updatePhoto2(Map<String, String> map) {
+		int count=sqlSessoin.update(namespace+"updatePhoto2",map);
+		return count>0?true:false;	
+	}
+	
 }

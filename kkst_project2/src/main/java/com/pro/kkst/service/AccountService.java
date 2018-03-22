@@ -186,6 +186,7 @@ public class AccountService implements I_AccountService {
 		
 				Searchmap.put("name", menu_name[i]);
 				Searchmap.put("res_seq", res_seq);
+				
 //				menulists=accountDao.searchMenuSeq(Searchmap);
 				menulists[i]=accountDao.searchMenuSeq(Searchmap);
 			}

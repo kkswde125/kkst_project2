@@ -235,7 +235,10 @@ for(int j=0; j<mDto.size(); j++){
 <tr>
 <td>
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)"/>
+<input type="hidden" name="Photo_seq" value="<%=pDto.get(0).getSeq() %>" />
+<input type="hidden" name="fileOname" value="<%=pDto.get(0).getOrigin()%>" />
+<input type="hidden" name="fileSname" value="<%=pDto.get(0).getChange()%>" />
+<input type="file" accept="image/*"  name="uploadFile_d" id="upload" onchange="loadfile(event)"/>
 <img id="outputs" style=" width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
 </div>
 </td>
@@ -353,6 +356,8 @@ for(int j=0; j<mDto.size(); j++){
 </td>
 </table>
 
+<!-- 식당 입력 끝 -->
+<!-- 메뉴 입력 시작 -->
 <hr id="line"/>
 <% for(int i=0; i< mDto.size(); i++){
 	%>
@@ -362,7 +367,10 @@ for(int j=0; j<mDto.size(); j++){
 <td>
 
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<input type="file" accept="image/*"   name="uploadFile_d" id="upload" onchange="loadfile2(event)" />
+<input type="hidden" name="menu_seq" value="<%=mDto.get(i).getSeq()%>" />
+<input type="hidden" name="fileOname" value="<%=pDto.get(i+1).getOrigin()%>" />
+<input type="hidden" name="fileSname" value="<%=pDto.get(i+1).getChange()%>" />
 <img id="output" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
 </div>
 
@@ -372,13 +380,13 @@ for(int j=0; j<mDto.size(); j++){
 <table border="1" >
 	<tr>
 		<th>메뉴이름</th>
-		<td colspan="2"><input type="text" name="menu_name" required="required" value="<%=mDto.get(i).getName()%>" /></td>
+		<td colspan="2"><input type="text" name="menu_name_d" required="required" value="<%=mDto.get(i).getName()%>" /></td>
 	</tr>
 	<tr>
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode" >
+		<select name="cateCode_d" >
 		<c:forEach items="${lists2}" var="dto" >
 			<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cateCode[i]? 'selected':''} />
 		</c:forEach>
@@ -389,7 +397,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>조리방식</td>
 		<td>
-		<select name="cookCode">
+		<select name="cookCode_d">
 		<c:forEach items="${lists3}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cookCode[i]? 'selected':''} />
 		</c:forEach>
@@ -399,7 +407,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>매움정도</td>
 		<td>
-		<select name="spicyCode">
+		<select name="spicyCode_d">
 		<c:forEach items="${lists4}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq spicyCode[i]? 'selected':''} />
 		</c:forEach>
@@ -409,7 +417,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode" >
+		<select name="tempCode_d" >
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq tempCode[i]? 'selected':''} />
 		</c:forEach>
@@ -417,7 +425,7 @@ for(int j=0; j<mDto.size(); j++){
 		</td>
 	</tr>
 	<tr>
-	<td>가격</td><td colspan="2"><input type="text" name="price" value="<%=mDto.get(i).getPrice()%>" required="required" class="price1"  /></td>
+	<td>가격</td><td colspan="2"><input type="text" name="price_d" value="<%=mDto.get(i).getPrice()%>" required="required" class="price1"  /></td>
 	</tr>
 </table>
 	<input type="button" value="삭제" onclick="delectMenu('<%=mDto.get(i).getSeq()%>')" />
@@ -428,6 +436,8 @@ for(int j=0; j<mDto.size(); j++){
 	<%	
 } 
 %>
+<!-- 메뉴 입력 끝 -->
+
 <hr id="line2"/>
 <input type="submit" value="식당 등록 완료!">
 <input type="button" value="메뉴추가" onclick="AddMenu()" />
