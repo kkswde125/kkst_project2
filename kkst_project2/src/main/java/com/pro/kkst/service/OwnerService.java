@@ -273,8 +273,15 @@ public class OwnerService implements I_OwnerService {
 						System.out.println(originName.lastIndexOf("."));
 						storeName=createUUid+originName.substring(originName.lastIndexOf("."));
 						File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
+						try {
+							multifile.get(i).transferTo(f);
+						} catch (IllegalStateException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
 					}
-				
+
 					if(!multifile.isEmpty()&&i==0) {
 
 						System.out.println("여기");

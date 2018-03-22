@@ -228,7 +228,7 @@ for(int j=0; j<mDto.size(); j++){
 <%----------/////////////////////////////////////////////////////////////////////////////  --%>
 
 
-<form action="ResUpdate.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu(${rdto.seq})">
+<form action="ResUpdate.do" method="post" id="newMenu" enctype="multipart/form-data">
 <input type="hidden" name="res_seq" value="${rdto.seq}"/>
 <table>
 <!-- 사진 올라갈곳 -->
