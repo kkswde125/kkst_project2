@@ -29,7 +29,7 @@
 	<thead>
 		<tr>
 			<td>
-				<input type="checkbox" name="allChk" onclick="allChk(this.checked)"/>
+				<input type="checkbox" onclick="allChk(this.checked)"/>
 			</td>
 			<td>ID</td>
 			<td>별명</td>

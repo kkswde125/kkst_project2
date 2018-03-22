@@ -10,6 +10,6 @@
 
 <a href="ad_allRevAreaChoice.do">전체 리뷰 보기</a>
 <a href="ad_reportRevAreaChoice.do">신고된 리뷰 보기</a>
-
+<a href="ad_admin.do">메인으로 돌아가기</a>
 </body>
 </html>

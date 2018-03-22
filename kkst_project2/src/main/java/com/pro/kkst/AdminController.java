@@ -101,11 +101,8 @@ public class AdminController {
 		}
 		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, seqs);
 		if(reviewList.size()==0) {
-			System.out.println("reviewList가 Null값입니다.");
-			
 			return "redirect:ad_allRevAreaChoice.do?msg=no";
 		}else {
-		System.out.println("reviewList가 Null값이 아닙니다.");
 		request.setAttribute("reviewList", reviewList);
 		request.setAttribute("resList", resList);
 		return "ad_reviewDetail";
@@ -137,7 +134,6 @@ public class AdminController {
 			seqs[0] = 0;
 		}else {
 			size = lists.size();
-			System.out.println(size);
 			seqs = new int[size];
 			for (int i = 0; i < size; i++) {
 				seqs[i] = lists.get(i).getSeq();
@@ -145,13 +141,9 @@ public class AdminController {
 			
 		}
 			List<Res_ReviewDto> reportList = adminServ.reviewReport(area, seqs);
-			System.out.println("reportList.size() : "+reportList.size());
-			System.out.println("areaList : "+lists.size());
 			if(reportList.size()==0||reportList==null) {
-				System.out.println("reportList가 NULL값 입니다.");
 				return "redirect:ad_reportRevAreaChoice.do?msg=no";
 			}else {
-				System.out.println("else 문으로 정상적 리턴!");
 				request.setAttribute("reportList", reportList);
 				request.setAttribute("areaList", lists);
 				return "ad_reviewReport";
@@ -216,12 +208,9 @@ public class AdminController {
 	public String ad_restList_Chk(Locale locale, Model model, HttpServletRequest request) {
 		System.out.println("Controller 입장");
 		
-		System.out.println("x="+request.getParameter("x"));
 		double x = Double.parseDouble(request.getParameter("x"));
 		double y = Double.parseDouble(request.getParameter("y"));
-		System.out.println("y="+y);
 		int seq = Integer.parseInt(request.getParameter("seq"));
-		System.out.println("seq="+seq);
 		
 		Admin_OnwerDto dto = adminServ.sendEmail(seq);
 		model.addAttribute("dto", dto);

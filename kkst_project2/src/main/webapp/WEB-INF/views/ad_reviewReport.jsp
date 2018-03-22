@@ -10,6 +10,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	
+	function allChk(bool, seq){
+		if(bool){
+			$("input[name=chk"+seq+"]").prop("checked", bool);
+		}
+	}
+	
+</script>
 <title>ReportReview -Detail Area</title>
 <style type="text/css">
 	*{
@@ -25,6 +35,7 @@
 </style>
 
 <%
+
 @SuppressWarnings("unchecked")
 List<Res_ReviewDto> reportList = (List<Res_ReviewDto>)request.getAttribute("reportList");
 @SuppressWarnings("unchecked")
@@ -39,7 +50,9 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 <div class="scroll">	<!-- Scroll을 넣기위한 Block -->
 	<table border="1">	<!-- 지역 식당 별 구분 테이블 -->
 		<thead>
-			<tr><td colspan="<%=reportList.size()%>"><%=resList.get(i).getName() %></td></tr>
+			<tr><td colspan="<%=reportList.size()%>"><%=resList.get(i).getName() %>
+				<input type="checkbox" onclick="allChk(this.checked, <%=i%>)"/>
+			</td></tr>
 		</thead>
 		<tbody>
 		<tr>
@@ -50,7 +63,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 			<table border="1">	<!-- 리뷰 별 구분 테이블 -->
 				<tr>
 					<td>
-						<input type="checkbox" value="<%=reportList.get(j).getSeq()%>" name="chk"/>
+						<input type="checkbox" value="<%=reportList.get(j).getSeq()%>" name="chk<%=i%>"/>
 					</td>
 					<td><%=reportList.get(j).getStar() %></td>
 					<td>
@@ -86,5 +99,6 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 <%
 	}
 %>
+<input type="button" value="돌아가기" onclick="location.href='ad_reportRevAreaChoice.do'"/>
 </body>
 </html>

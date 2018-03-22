@@ -42,5 +42,7 @@
 		}
 	}
 %>
+
+<input type="button" value="돌아가기" onclick="location.href='ad_reviewChoice.do'"/>
 </body>
 </html>
