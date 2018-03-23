@@ -64,7 +64,7 @@
 	<c:forEach items="${lists}" var="dto">
 	<tr>
 		<td>
-			<input type="checkbox" name="chk" value="${dto.seq }" onclick="Check(${dto.seq})"/>
+			<input type="checkbox" name="chk" value="${dto.seq }"/>
 		</td>
 		<td>${dto.name }</td>
 		<td>${dto.cate }</td>

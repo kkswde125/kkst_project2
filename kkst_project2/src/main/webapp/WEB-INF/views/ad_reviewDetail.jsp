@@ -68,7 +68,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 					<td>
 						<input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/>
 					</td>
-					<td><%=ReviewList.get(j).getStar() %></td>
+					<td>평점 : <%=ReviewList.get(j).getStar() %></td>
 					<td>
 					<fmt:formatDate value="<%=ReviewList.get(j).getRegdate() %>" pattern="YYYY/MM/dd HH:mm:ss"/>
 					</td>

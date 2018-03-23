@@ -5,7 +5,7 @@
 	<select id="memberList" resultType="LoginDto" parameterType="Map">
 		SELECT SEQ, ID, PW, NAME, NICKNAME, REGDATE, 
 				DELFLAG, SEX, BIRTH, EMAIL 
-			FROM (SELECT ROW_NUMBER() OVER(ORDER BY SEQ) AS RN,
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY DELFLAG,SEQ) AS RN,
 				  SEQ, ID, PW, NAME, NICKNAME, REGDATE, 
 				  DELFLAG, SEX, BIRTH, EMAIL FROM USERS
 				  ORDER BY DELFLAG, SEQ)
@@ -108,7 +108,10 @@
 	</select>
 	
 	<select id="restDel" parameterType="int">
-		UPDATE RESLIST SET CHK='DEL' WHERE SEQ = #{seq}
+		UPDATE RESLIST SET CHK='DEL' WHERE SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
 	</select>
 
 
