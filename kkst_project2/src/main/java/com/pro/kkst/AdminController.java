@@ -66,6 +66,36 @@ public class AdminController {
 		return "ad_memberList";
 	}
 	
+	@RequestMapping(value = "ad_memDel.do", method = RequestMethod.POST)
+	public String memDel(Locale locale, HttpServletRequest request) {
+		String[] seqs = request.getParameterValues("chk");
+		
+		boolean isS = adminServ.memberDel(seqs);
+		
+		if(isS) {
+			return "redirect:ad_memberList.do";
+		}else {
+			
+			return "ad_memberList.do";
+		}
+		
+	}
+	
+	@RequestMapping(value = "ad_memDelCancle.do", method = RequestMethod.POST)
+	public String ad_memDelCancle(Locale locale, HttpServletRequest request) {
+		String[] seqs = request.getParameterValues("chk");
+		
+		boolean isS = adminServ.memberDelCancle(seqs);
+		
+		if(isS) {
+			return "redirect:ad_memberList.do";
+		}else {
+			
+			return "redirect:ad_memberList.do";
+		}
+		
+	}
+	
 	@RequestMapping(value = "ad_reviewChoice.do", method = RequestMethod.GET)
 	public String reviewChoice(Locale locale, Model model) {
 		
@@ -203,20 +233,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = "ad_memDel.do", method = RequestMethod.POST)
-	public String memDel(Locale locale, HttpServletRequest request) {
-		String[] seqs = request.getParameterValues("chk");
-		
-		boolean isS = adminServ.memberDel(seqs);
-		
-		if(isS) {
-			return "redirect:ad_memberList.do";
-		}else {
-			
-			return "ad_memberList.do";
-		}
-		
-	}
+
 	
 	@RequestMapping(value = "ad_restList.do", method = RequestMethod.GET)
 	public String ad_reslist(Model model, String snum, String cnum, HttpSession session) {

@@ -15,6 +15,12 @@
 	function allChk(bool){
 		$("input[name=chk]").prop("checked", bool);
 	}
+	
+	function memDelCancle(){
+		document.forms[0].action = "ad_memDelCancle.do";
+		document.forms[0].submit();
+
+	}
 </script>
 
 <body>
@@ -24,7 +30,7 @@
  	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
 %>
 <h1>가입 회원 목록</h1>
-<form action="ad_memDel.do" method="post">
+<form action="ad_memDel.do" method="post" name="isForm">
 <table border = "1">
 	<thead>
 		<tr>
@@ -118,6 +124,7 @@
 			</td>
 			<td>
 				<input type="submit" value="강제탈퇴"/>
+				<input type="button" value="활동복구" onclick="memDelCancle()"/>
 			</td>
 		</tr>
 	</tfoot>

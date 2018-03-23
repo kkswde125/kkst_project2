@@ -48,6 +48,11 @@ public class AdminService implements I_AdminService {
 	public boolean memberDel(String[] seq) {
 		return adminDao.memberDel(seq);
 	}
+	
+	@Override
+	public boolean memberDelCancle(String[] seq) {
+		return adminDao.memberDelCancle(seq);
+	}
 
 	@Override
 	public List<Res_ReviewDto> reviewReport(String area, int[] seqs) {

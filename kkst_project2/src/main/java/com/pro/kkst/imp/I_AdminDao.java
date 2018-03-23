@@ -18,6 +18,7 @@ public interface I_AdminDao {
 	public List<ResDto> restList(String snum, String cnum);
 	public boolean reviewDel(String[] seq);
 	public boolean memberDel(String[] seq);
+	public boolean memberDelCancle(String[] seq);
 	public int RestPaging();
 	public int MemPaging();
 	public boolean restChk(int seq, Double x, Double y);

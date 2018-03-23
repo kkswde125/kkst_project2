@@ -73,6 +73,15 @@ public class AdminDao implements I_AdminDao {
 		int count = sqlSession.update(namespace+"memberDel", map);
 		return count > 0 ? true : false;
 	}
+	
+	@Override
+	public boolean memberDelCancle(String[] seq) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqs", seq);
+		int count = sqlSession.update(namespace+"memberDelCancle", map);
+		return count > 0 ? true : false;
+	}
+	
 	@Override
 	public List<Res_ReviewDto> reviewReport(String area, int[] seqs) {
 		Map<String, Object> map = new HashMap<String, Object>();

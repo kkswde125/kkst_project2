@@ -19,6 +19,13 @@
 		</foreach>
 	</select>
 	
+	<select id="memberDelCancle" parameterType="Map">
+		UPDATE USERS SET DELFLAG='N' WHERE SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
+	</select>
+	
 	<select id="reviewAll" parameterType="Map" resultType="Res_ReviewDto">
 		SELECT REVIEW.SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
 		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
