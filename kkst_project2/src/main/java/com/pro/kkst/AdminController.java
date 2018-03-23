@@ -86,8 +86,13 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = "ad_reviewAll.do", method = RequestMethod.GET)
-	public String reviewAll(Locale locale, HttpServletRequest request, String area, Model model) {
+	@RequestMapping(value = "ad_reviewDetail.do", method = RequestMethod.GET)
+	public String reviewAll(Locale locale, HttpServletRequest request, String area, String msg,Model model) {
+		if(area!=null) {
+			request.getSession().setAttribute("area", area);
+		}else {
+			area = (String)request.getSession().getAttribute("area");
+		}
 		List<ResDto> resList = adminServ.areaResList(area);
 		int[] seqs = null;
 		if(resList.size()==0) {
@@ -100,6 +105,7 @@ public class AdminController {
 			}
 		}
 		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, seqs);
+		System.out.println(reviewList.toString());
 		if(reviewList.size()==0) {
 			return "redirect:ad_allRevAreaChoice.do?msg=no";
 		}else {
@@ -123,10 +129,56 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "ad_reviewDel.do", method = RequestMethod.POST)
+	public String ad_reviewDel(Locale locale, HttpServletRequest request) {
+		String area = (String)request.getSession().getAttribute("area");
+		String[] seqs = request.getParameterValues("chk");
+		for (int i = 0; i < seqs.length; i++) {
+			System.out.println(seqs[i]);
+		}
+		boolean isS = adminServ.reviewDel(seqs);
+		if(isS) {
+			System.out.println("리뷰 삭제 성공");
+			request.setAttribute("area", area);
+			return "redirect:ad_reviewDetail.do";
+		}else {
+			System.out.println("리뷰 삭제 실패");
+			request.setAttribute("area", area);	
+			return "redirect:ad_reviewDetail.do";
+		}
+		
+	}
+	
+	@RequestMapping(value = "ad_reviewDel_report.do", method = RequestMethod.POST)
+	public String ad_reviewDel_report(Locale locale, HttpServletRequest request) {
+		String area = (String)request.getSession().getAttribute("area");
+		String[] seqs = request.getParameterValues("chk");
+		for (int i = 0; i < seqs.length; i++) {
+			System.out.println(seqs[i]);
+		}
+		boolean isS = adminServ.reviewDel(seqs);
+		if(isS) {
+			System.out.println("리뷰 삭제 성공");
+			request.setAttribute("area", area);
+			return "redirect:ad_reviewReport.do";
+		}else {
+			System.out.println("리뷰 삭제 실패");
+			request.setAttribute("area", area);	
+			return "redirect:ad_reviewReport.do";
+		}
+		
+	}
+	
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
 	public String reportRevAreaChoice(Locale locale, HttpServletRequest request, String area) {
-		List<ResDto> lists = adminServ.areaResList(area);
 		
+		if(area!=null) {
+			request.getSession().setAttribute("area", area);
+		}else {
+			area = (String)request.getSession().getAttribute("area");
+		}
+		
+		List<ResDto> lists = adminServ.areaResList(area);
 		int size = 0;
 		int[] seqs = null;
 		if(lists.size()==0) {

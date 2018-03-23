@@ -55,6 +55,17 @@ public class AdminDao implements I_AdminDao {
 		map.put("cnum", cnum);
 		return sqlSession.selectList(namespace+"restList", map);
 	}
+	
+	@Override
+	public boolean reviewDel(String[] seq) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqs", seq);
+		int count = sqlSession.update(namespace+"reviewDel", map);
+		return count > 0 ? true : false;
+	}
+	
+	
+	
 	@Override
 	public boolean memberDel(String[] seq) {
 		Map<String, String[]> map = new HashMap<String, String[]>();

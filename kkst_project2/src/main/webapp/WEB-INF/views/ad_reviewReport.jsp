@@ -13,10 +13,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	
-	function allChk(bool, seq){
-		if(bool){
-			$("input[name=chk"+seq+"]").prop("checked", bool);
-		}
+	function allChk(bool, i){
+		$(".chks"+i).prop("checked", bool);
 	}
 	
 </script>
@@ -47,6 +45,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 
 <% for(int i = 0; i < resList.size() ; i++){ 
 %>
+<form action="ad_reviewDel_report.do" method="POST">
 <div class="scroll">	<!-- Scroll을 넣기위한 Block -->
 	<table border="1">	<!-- 지역 식당 별 구분 테이블 -->
 		<thead>
@@ -57,13 +56,14 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 		<tbody>
 		<tr>
 		<% for(int j = 0; j < reportList.size() ; j++){ 
-			if(resList.get(i).getSeq()==reportList.get(j).getRes_seq()){
+			if(resList.get(i).getSeq()==reportList.get(j).getRes_seq()&&
+					reportList.get(j).getDelflag().equals("N")){
 		%>
 		<td>				<!-- 리뷰 별 구분 테이블 들어가는 TD -->
 			<table border="1">	<!-- 리뷰 별 구분 테이블 -->
 				<tr>
 					<td>
-						<input type="checkbox" value="<%=reportList.get(j).getSeq()%>" name="chk<%=i%>"/>
+						<input type="checkbox" value="<%=reportList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/>
 					</td>
 					<td><%=reportList.get(j).getStar() %></td>
 					<td>
@@ -96,6 +96,8 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 		</tbody>
 	</table>					<!-- 지역 식당 별 구분 테이블 -->
 </div>							<!-- Scroll을 넣기위한 Block -->
+<input type="submit" value="삭제"/>
+</form>
 <%
 	}
 %>

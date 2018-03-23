@@ -38,6 +38,11 @@ public class AdminService implements I_AdminService {
 	public List<ResDto> restList(String snum, String cnum) {
 		return adminDao.restList(snum, cnum);
 	}
+	
+	@Override
+	public boolean reviewDel(String[] seq) {
+		return adminDao.reviewDel(seq);
+	}
 
 	@Override
 	public boolean memberDel(String[] seq) {

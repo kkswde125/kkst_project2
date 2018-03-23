@@ -16,6 +16,7 @@ public interface I_AdminDao {
 	public List<Res_ReviewDto> reviewAll(String area, int[] seqs);
 	public List<Res_ReviewDto> reviewReport(String area, int[] seqs);
 	public List<ResDto> restList(String snum, String cnum);
+	public boolean reviewDel(String[] seq);
 	public boolean memberDel(String[] seq);
 	public int RestPaging();
 	public int MemPaging();
@@ -23,7 +24,6 @@ public interface I_AdminDao {
 	public boolean restDel(String[] seq);
 	public Admin_OnwerDto sendEmail(int seq);
 	public Admin_OnwerDto send_Email(String email, String seq);
-//	public List<ResDto> 
 	public List<AddrDto> addressList();
 	public List<ResDto> areaResList(String area);
 }

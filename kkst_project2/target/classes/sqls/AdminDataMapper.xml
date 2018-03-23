@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="reviewAll" parameterType="Map" resultType="Res_ReviewDto">
-		SELECT ID, CONTENT, REFER, STAR, DEPTH, STEP, 
+		SELECT REVIEW.SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
 		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
 		R.SEQ, NAME, ADDR	
 		FROM REVIEW, (
@@ -37,7 +37,7 @@
 	
 	
 	<select id="reviewReport" parameterType="Map" resultType="Res_ReviewDto">
-		SELECT ID, CONTENT, REFER, STAR, DEPTH, STEP, 
+		SELECT REVIEW.SEQ, ID, CONTENT, REFER, STAR, DEPTH, STEP, 
 		RES_SEQ, REGDATE, REPORT, LIKEY, DISLIKEY, DELFLAG,
 		R.SEQ, NAME, ADDR	
 		FROM REVIEW, (
@@ -59,6 +59,13 @@
 		AND ADDR LIKE '%'||#{area}||'%'
 		GROUP BY (RESLIST.SEQ, NAME, ADDR)
 	</select>	
+	
+	<select id="reviewDel" parameterType="Map">
+		UPDATE REVIEW SET DELFLAG='Y' WHERE SEQ IN
+		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
+			#{seq}
+		</foreach>
+	</select>
 	
 	<select id="addrList" resultType="AddrDto">
 		SELECT SEQ, SI, GU FROM ADDRESS ORDER BY SEQ

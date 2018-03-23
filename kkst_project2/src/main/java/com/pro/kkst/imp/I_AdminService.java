@@ -15,6 +15,7 @@ public interface I_AdminService {
 	public List<Res_ReviewDto> reviewAll(String area, int[] seqs);
 	public List<Res_ReviewDto> reviewReport(String area, int[] seqs);
 	public List<ResDto> restList(String snum, String cnum);
+	public boolean reviewDel(String[] seq);
 	public boolean memberDel(String[] seq);
 	public int RestPaging();
 	public int MemPaging();

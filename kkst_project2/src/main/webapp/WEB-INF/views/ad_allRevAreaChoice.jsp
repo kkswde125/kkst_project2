@@ -26,7 +26,7 @@
 		})
 
 	function movePage(area){
-		location.href="ad_reviewAll.do?area="+area;
+		location.href="ad_reviewDetail.do?area="+area;
 	}
 </script>
 		<%
