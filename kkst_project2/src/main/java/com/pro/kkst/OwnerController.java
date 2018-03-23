@@ -183,7 +183,11 @@ public class OwnerController {
 		isS=ownerServ.updateResInfo(model, res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, Rs_hour, Rs_min, Re_hour, Re_min, call, parking, comment);
 		
 		if(isS=true) {
-			isS=ownerServ.insertMenu(request, menu_name, cateCode, cookCode, spicyCode, tempCode, price, model, res_seq,cate);
+			
+			if(menu_name!=null&&cateCode!=null&&cookCode!=null&&spicyCode!=null&& tempCode!=null&& price!=null&&cate!=null) {
+				isS=ownerServ.insertMenu(request, menu_name, cateCode, cookCode, spicyCode, tempCode, price, model, res_seq,cate);
+			}
+			
 			isS=ownerServ.updateMenu(request, menu_name_d, cateCode_d, cookCode_d, spicyCode_d, tempCode_d, price_d, model, res_seq, cate,menu_seq,Photo_seq,fileOname,fileSname);
 		
 			if(isS=true) {

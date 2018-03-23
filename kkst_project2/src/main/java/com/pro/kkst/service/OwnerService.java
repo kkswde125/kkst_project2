@@ -84,6 +84,8 @@ public class OwnerService implements I_OwnerService {
 		return isS; 
 	}
 
+	
+	//식당 정보 업데이트
 	@Override
 	public boolean updateResInfo(Model model, String res_seq, String name, String cate, String addr, String S_hour,
 			String S_min, String E_hour, String E_min, String Rs_hour, String Rs_min, String Re_hour, String Re_min,
@@ -119,6 +121,8 @@ public class OwnerService implements I_OwnerService {
 	}
 
 	
+	
+	//새로운 메뉴를 추가했을때
 	@Transactional
 	@Override
 	public boolean insertMenu(MultipartHttpServletRequest request, String[] menu_name, String[] cateCode,
@@ -220,19 +224,25 @@ public class OwnerService implements I_OwnerService {
 		return isS;
 	}
 
+	
+	//Update
 	@Transactional 
 	@Override
 	public boolean updateMenu(MultipartHttpServletRequest request, String[] menu_name_d, String[] cateCode_d,
 			String[] cookCode_d, String[] spicyCode_d, String[] tempCode_d, String[] price_d, Model model,
 			String res_seq, String cate,String[] menu_seq,String [] Photo_seq,String[] fileOname,String[] fileSname) {
 	
+		System.out.println("Service 진입");
+		
 		boolean isS=false;
 		
 		String code[]=new String[menu_name_d.length];
 		
+		System.out.println("menuname 길이" + menu_name_d.length);
 		
 		for (int i = 0; i < code.length; i++) {
 		code[i]=ac_util.Resultcode(cate, cateCode_d[i], cookCode_d[i], spicyCode_d[i], tempCode_d[i]);
+		System.out.println("code["+i+"]번째에 값넣는중");
 			
 		}
 		
@@ -251,8 +261,11 @@ public class OwnerService implements I_OwnerService {
 		}
 		
 		List<MultipartFile> multifile=request.getFiles("uploadFile_d");
-
+		
+		
+		List<MultipartFile> multifileA=request.getFiles("uploadFile_A");
 		System.out.println(multifile.size());
+		System.out.println(multifileA.size());
 		
 		String originName = "";
 		String createUUid ="";
@@ -264,60 +277,107 @@ public class OwnerService implements I_OwnerService {
 		
 			if(isS==true) {
 				
+				
+				if(multifile.size()==1) {
+				 System.out.println("multi="+multifile);
 				for (int i = 0; i < multifile.size(); i++) {
-					
 					originName=multifile.get(i).getOriginalFilename();
 					System.out.println(originName);
 					createUUid=UUID.randomUUID().toString().replaceAll("-", "");
-					if(!originName.isEmpty()) {
 						System.out.println(originName.lastIndexOf("."));
-						storeName=createUUid+originName.substring(originName.lastIndexOf("."));
-						File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
-						try {
-							multifile.get(i).transferTo(f);
-						} catch (IllegalStateException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}	
-					}
-
-					if(!multifile.isEmpty()&&i==0) {
-
-						System.out.println("여기");
-					
 						
-						if(multifile.get(0).getOriginalFilename()==null) {
+						if(originName.lastIndexOf(".")!=-1) {
+							storeName=createUUid+originName.substring(originName.lastIndexOf("."));
+							File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
+							try {
+								multifile.get(i).transferTo(f);
+							} catch (IllegalStateException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}	
 							
+							if(!multifile.get(0).getOriginalFilename().equals(fileOname[i])){
+								System.out.println("식당 사진이 변했을때");
+								filemap.put("origin",originName);
+								filemap.put("change",storeName);
+								filemap.put("res_seq", res_seq);
+								filemap.put("seq", Photo_seq[0]);
+								
+								isS=ownerDao.updatePhoto2(filemap);
+						
+							}
+							
+							
+						}else {
+							System.out.println("식당 사진이 변하지 않았을때");
 							filemap.put("origin", fileOname[0]);
 							filemap.put("change",fileSname[0]);
 							filemap.put("res_seq", res_seq);
 							filemap.put("seq", Photo_seq[0]);
 							
 							isS=ownerDao.updatePhoto2(filemap);
-						}else {
-							filemap.put("origin",originName);
-							filemap.put("change",storeName);
-							filemap.put("res_seq", res_seq);
-							filemap.put("seq", Photo_seq[0]);
-							
-							isS=ownerDao.updatePhoto2(filemap);
+						
 						}
 						
-					}
-						
-					else {
-						
-						System.out.println("저기");
-						
-						filemap.put("origin", fileOname[i]);
-						filemap.put("change",fileSname[i]);
-						filemap.put("menu_seq", menu_seq[i-1]);
-						
-						isS=ownerDao.updatePhoto(filemap);
-					}
-				
 				}
+				}
+
+				
+				
+					
+				
+					if(multifileA.size()>1) {
+					
+						for (int i = 0; i < multifileA.size(); i++) {
+							
+						System.out.println("multiA"+multifileA);
+						originName=multifileA.get(i).getOriginalFilename();
+						System.out.println(originName);
+						createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+							
+						if(originName.lastIndexOf(".")!=-1) {
+						System.out.println(originName.lastIndexOf("."));
+							storeName=createUUid+originName.substring(originName.lastIndexOf("."));
+							File f_A = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
+							try {
+								multifileA.get(i).transferTo(f_A);
+							} catch (IllegalStateException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}	
+					
+					
+							
+							if(!multifileA.get(i).getOriginalFilename().equals(fileOname[i])) {
+								System.out.println("나머지 메뉴의 사진이 변했을때");
+								filemap.put("origin", originName);
+								filemap.put("change",storeName);
+								filemap.put("menu_seq", menu_seq[i]);
+								
+								isS=ownerDao.updatePhoto(filemap);
+							}
+							
+						
+						}
+						
+						
+						else  {
+							System.out.println("나머지 메뉴의 사진이 변하지 않았을때");
+							filemap.put("origin", fileOname[i+1]);
+							filemap.put("change",fileSname[i+1]);
+							filemap.put("menu_seq", menu_seq[i]);
+							
+							isS=ownerDao.updatePhoto(filemap);
+							
+						}
+						}
+				}
+						
+						
+					
+				
 				
 				
 				

@@ -89,31 +89,44 @@ for(int j=0; j<mDto.size(); j++){
 		var countT=1;
 		var countM=1;
 		var countMenu=0;
-		var countdefault=0;
+		var countdefault=1;
+	
+	
 	function AddMenu() {
 		
 		countMenu++;
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
-		
+		copy.find("#output").attr("id","output"+countdefault++)
 		$("#line2").append(copy);
+		
 		
 	}
 	
 	function loadfile(event) {
+
 		var output = document.getElementById("output");
 		var blobURL = URL.createObjectURL(event.target.files[0]);
 		 $('#outputs').attr('src', blobURL);
          $('#outputs').slideDown(); //업로드한 이미지 미리보기 
          $(this).slideUp(); //파일 양식 감춤
 	}
+
 	
 	function loadfile2(event) {
 		var count=1;
 		var blobURL = URL.createObjectURL(event.target.files[0]);
-	 	$("#menuAdd"+countM++).find('img').attr('src', blobURL);
-     	$("#menuAdd"+countM).find('img').slideDown(); //업로드한 이미지 미리보기 
+	 	$(this).next("img").attr('src', blobURL);
+	 	$(this).next("img").slideDown(); //업로드한 이미지 미리보기 
      	$(this).slideUp(); //파일 양식 감춤
 }
+	
+	
+	function loadfile3(event,i) {
+		var blobURL = URL.createObjectURL(event.target.files[0]);
+     	$("#menuAddDefault"+i).find('#outputs'+i).attr('src', blobURL);
+     	$("#menuAddDefault"+i).find('#outputs'+i).slideDown(); 
+		$(this).slideUp(); //파일 양식 감춤
+	}
 	
 	
 	function chekMenu(seq) {
@@ -362,16 +375,16 @@ for(int j=0; j<mDto.size(); j++){
 <% for(int i=0; i< mDto.size(); i++){
 	%>
 <c:set var="i" value="<%=i%>" />
-<table id="menuAdd<%="Default"%>">
+<table id="menuAdd<%="Default"+i%>">
 <tr>
 <td>
 
 <div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*"   name="uploadFile_d" id="upload" onchange="loadfile2(event)" />
+<input type="file" accept="image/*"   name="uploadFile_A" id="upload" onchange="loadfile3(event,'<%=i%>')" />
 <input type="hidden" name="menu_seq" value="<%=mDto.get(i).getSeq()%>" />
 <input type="hidden" name="fileOname" value="<%=pDto.get(i+1).getOrigin()%>" />
 <input type="hidden" name="fileSname" value="<%=pDto.get(i+1).getChange()%>" />
-<img id="output" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
+<img id="outputs<%=i%>" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
 </div>
 
 </td>
