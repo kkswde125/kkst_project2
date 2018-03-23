@@ -32,12 +32,12 @@ public class UserService implements I_UserService {
 	
 	
 	@Override
-	public List<menuDto> menuList() {
+	public int menuList() {
 		return userDao.menuList();
 	}
 
 	@Override
-	public List<menuDto> food(Map<String, int[]> map) {
+	public List<MenuzDto> food(Map<String, int[]> map) {
 		return userDao.food(map);
 	}
 	
@@ -213,7 +213,6 @@ public class UserService implements I_UserService {
 		Map<String, String[]> map = new HashMap<>();
 		map.put("seqs", seqs);
 		list=userDao.selectKeepList(map);
-		System.out.println("getKeepList에서 storedNames오는지:"+list.get(0).getChange()+"/ 기존껀 그대론지:"+list.get(0).getName());
 		return list;
 	}
 
@@ -419,6 +418,23 @@ public class UserService implements I_UserService {
 		Map<String, String> map = new HashMap<>();
 		map.put("res_Seq", res_Seq);
 		return userDao.getAvgStar(map);
+	}
+
+	@Override
+	public List<MenuzDto> realFood(Map<String, int[]> map) {
+		return userDao.realFood(map);
+	}
+
+	@Override
+	public String[] getTypes() {
+		return userDao.getTypes();
+	}
+
+	@Override
+	public List<AttrsDto> getMyTasteStarStats(String user_seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("user_seq", user_seq);
+		return userDao.getMyTasteStarStats(map);
 	}
 
 }

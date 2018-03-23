@@ -6,7 +6,15 @@ public class AttrsDto {
 	private String code;
 	private String type;
 	private String menu;
+	private double stars;
 	
+	
+	public double getStars() {
+		return stars;
+	}
+	public void setStars(double stars) {
+		this.stars = stars;
+	}
 	public AttrsDto(String attr, String code, String type, String menu) {
 		super();
 		this.attr = attr;

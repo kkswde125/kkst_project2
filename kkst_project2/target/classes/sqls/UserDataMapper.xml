@@ -6,16 +6,19 @@
 SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE CATE = (SELECT ATTR FROM ATTRS WHERE TYPE='1카테고리' AND CODE =#{cate})
 </select>
 
-<select id="menulist" resultType="menuDto">
-SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST
-</select>
+	<select id="foodchosse" parameterType="Map" resultType="MenuzDto">
+		SELECT SEQ, NAME, CODE, "CHANGE", RN FROM (SELECT T1.SEQ, T1.NAME, T1.CODE, T2."CHANGE", ROW_NUMBER() OVER(ORDER BY T1.SEQ) AS RN FROM MENULIST T1, PHOTO T2 WHERE T1.SEQ = T2.MENU_SEQ) WHERE RN IN
+		<foreach collection="Rseq" item="seq" open="(" separator="," close=")">#{seq}</foreach>
+	</select>
 
-<select id="foodchosse" parameterType="Map" resultType="menuDto">
-SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE SEQ IN 
-<foreach collection="Rseq" item="seq" open="(" separator="," close=")">
-#{seq}
-</foreach>
-</select>
+	<select id="realFood" parameterType="Map" resultType="MenuzDto">
+		SELECT T1.SEQ, T1.NAME, T1.CODE, T2."CHANGE" FROM MENULIST T1, PHOTO T2 WHERE T1.SEQ= T2.MENU_SEQ AND T1.SEQ IN 
+		<foreach collection="Rseq" item="seq" open="(" separator="," close=")">#{seq}</foreach>
+	</select>
+
+	<select id="menulist" resultType="int">
+		SELECT COUNT(T1.SEQ) FROM MENULIST T1, PHOTO T2 WHERE T1.SEQ = T2.MENU_SEQ
+	</select>
 
 	<select id="getMenuCount" parameterType="Map" resultType="int">
 		SELECT COUNT(SEQ) FROM MENULIST WHERE SUBSTR(CODE,1,1)=#{codez}
@@ -267,5 +270,14 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	
 	<select id="getAvgStar" parameterType="Map" resultType="double">
 		SELECT ROUND(AVG(STAR),1) FROM REVIEW WHERE RES_SEQ = #{res_Seq} AND STAR IS NOT NULL
+	</select>
+	
+	<select id="getTypes" resultType="String">
+		SELECT "TYPE"||','||COUNT(ATTR) FROM ATTRS GROUP BY "TYPE" ORDER BY "TYPE"		
+	</select>
+	
+	<select id="getMyTasteStarStats" parameterType="Map" resultType="AttrsDto">
+		SELECT T1.CODE, T1."TYPE", T1.ATTR, T2.STARS FROM ATTRS T1, (SELECT USER_SEQ, TYPE, ATTR, ROUND(STAR/COUNTS,2) STARS FROM TASTE WHERE USER_SEQ = #{user_seq}) T2
+		WHERE T1.ATTR=T2.ATTR ORDER BY 2,1
 	</select>
 </mapper>

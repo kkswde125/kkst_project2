@@ -12,8 +12,9 @@ import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.menuDto;
 
 public interface I_UserDao {
-	public List<menuDto> menuList();
-	public List<menuDto> food(Map<String, int[]> map);
+	public int menuList();
+	public List<MenuzDto> food(Map<String, int[]> map);
+	public List<MenuzDto> realFood(Map<String, int[]> map);
 	public List<ResDto> ResList(String cate);
 	public String[] getCateCode();
 	public int getMenuCount(Map<String, String> map);
@@ -59,5 +60,7 @@ public interface I_UserDao {
 	
 	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map);
 	public double getAvgStar(Map<String, String> map);
+	public String[] getTypes();
+	public List<AttrsDto> getMyTasteStarStats(Map<String, String> map);
 	
 }

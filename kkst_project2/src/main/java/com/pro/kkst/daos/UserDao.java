@@ -22,12 +22,12 @@ public class UserDao implements I_UserDao {
 	String namespace="com.pro.user.";
 	
 	@Override
-	public List<menuDto> menuList() {
-		return sqlSessoin.selectList(namespace+"menulist");
+	public int menuList() {
+		return sqlSessoin.selectOne(namespace+"menulist");
 	}
 
 	@Override
-	public List<menuDto> food(Map<String, int[]> map) {
+	public List<MenuzDto> food(Map<String, int[]> map) {
 		return sqlSessoin.selectList(namespace+"foodchosse",map);
 	}
 	
@@ -226,7 +226,22 @@ public class UserDao implements I_UserDao {
 
 	@Override
 	public double getAvgStar(Map<String, String> map) {
-		return sqlSessoin.selectOne(namespace+"getAvgStar", map);//null처리하자
+		return sqlSessoin.selectOne(namespace+"getAvgStar", map)==null?0.0:sqlSessoin.selectOne(namespace+"getAvgStar", map);//null처리하자
+	}
+
+	@Override
+	public List<MenuzDto> realFood(Map<String, int[]> map) {
+		return sqlSessoin.selectList(namespace+"realFood", map);
+	}
+
+	@Override
+	public String[] getTypes() {
+		return sqlSessoin.selectList(namespace+"getTypes").toArray(new String[0]);
+	}
+
+	@Override
+	public List<AttrsDto> getMyTasteStarStats(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"getMyTasteStarStats", map);
 	}
 
 

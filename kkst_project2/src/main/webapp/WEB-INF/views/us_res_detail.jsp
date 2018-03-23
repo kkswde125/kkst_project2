@@ -26,7 +26,16 @@
 	int count = Integer.parseInt((String)request.getAttribute("count"));
 	Us_Utils util = new Us_Utils();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-// 	String avgStar = (String)request.getAttribute("avgStar");
+	String avgStar = (String)request.getAttribute("avgStar");
+	int avgStarCount = (int)Math.floor(Double.parseDouble(avgStar));
+	String starIcon = "";
+	for(int i = 0; i < avgStarCount; i++){
+		starIcon += "★";
+	}
+	for(int i = 0; i < 5-avgStarCount; i++){
+		starIcon += "☆";
+	}
+	
 	%>
 <!DOCTYPE html>
 <html>
@@ -46,10 +55,16 @@
 		$('.modifyIcon').click(function() {$(this).prev().toggle();});
 		$('.deleteIcon').click(function() {$(this).prev().toggle();});
 		$('.blindContent').hide();
-		$('.showBlind').click(function() {
-			$(this).next().show();
+		$('.showBlind').hover(function() {
+			$(this).css("color", "blue");
+			$(this).css("cursor", "pointer");
+		}, function() {
+			$(this).css("color", "black");
+			$(this).css("cursor", "default");
 		});
-		
+		$('.showBlind').click(function() {
+			$(this).next().toggle();
+		});
 	});
 	function chk() {
 		var count=0;var star=0;
@@ -132,12 +147,28 @@ td{text-align: center;}
 #reviewTable td{
 	max-width: 1000px;
 }
+.deletes{
+	color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;
+}
+.reports{
+	color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;
+}
+.contents{
+	font-family: gulim, 굴림, Helvetica;
+	font-size: 9pt;
+	line-height: 150%;
+	word-wrap: break-word;
+}
+.showBlind{
+	font-family: gulim, 굴림, Helvetica;
+	font-size: 9pt;
+}
 </style>
 </head>
 <body>
 <table border="1">
 <tr><td><%if(resPhoto==null){%><span>--등록된 식당사진이 없습니다---</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 200px; height: 200px;"><%}%></td></tr>
-<tr><th><%=dto.getName() %>()</th></tr>
+<tr><th><%=dto.getName() %>(<%=avgStar.equals("0.0")?"평점:평가없음":"평점: "+starIcon+"("+avgStar+")"%>)</th></tr>
 <%if(menuList.size()==0){%>
 <tr><td>---등록된 메뉴사진이 없습니다---</td></tr><%
 }else{%><tr><th colspan="<%=menuList.size()%>">메뉴 사진</th></tr><tr><%
@@ -170,62 +201,64 @@ for(int i = 0; i < menuList.size(); i++){
 			<tr>
 				<td style="background-color: #FFF6F3;"><%=list2.get(i).getId() %></td>
 				<td style="background-color: #FFF6F3;"><%=list2.get(i).getStar()==0.0?"-":list2.get(i).getStar() %></td>
-				<td style="background-color: #FFF6F3; text-align: left;">
-				<%if(list2.get(i).getDelFlag().equals("Y")){%><span style="font-style: italic; font-weight: bold;"><%util.setArrowNbsp(list2.get(i).getDepth());%><%=util.getArrowNbsp() %>※삭제된 글입니다※</span><%}else if(Integer.parseInt(list2.get(i).getReport_Count())>=10){
-					%><span style="color: gray; font-style: italic; font-weight: bold;"><%util.setArrowNbsp(list2.get(i).getDepth());%><%=util.getArrowNbsp() %>※다량의 신고로 블라인드된 글입니다※<span class="showBlind">[내용보기]</span><span class="blindContent"><%=list2.get(i).getContent() %></span></span><%
+				<td style="background-color: #FFF6F3; text-align: left;"><%util.setArrowNbsp(list2.get(i).getDepth());%><%=util.getArrowNbsp() %>
+				<%if(list2.get(i).getDelFlag().equals("Y")){%>
+					<span class="deletes">※삭제된 글입니다※</span><%
+				}else if(Integer.parseInt(list2.get(i).getReport_Count())>=10){%>
+					<span>
+						<span class="reports">※다량의 신고로 블라인드된 글입니다※</span>
+						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list2.get(i).getContent() %></span></span></span><%
 				}else{%>
-				<span><%util.setArrowNbsp(list2.get(i).getDepth());%><%=util.getArrowNbsp() %><%=list2.get(i).getContent() %></span>
-				<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list2.get(i).getReport()==null?0:(list2.get(i).getReport()) %>', '<%=list2.get(i).getSeq() %>')" value="신고 <%=list2.get(i).getReport_Count() %>">
-				<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list2.get(i).getDislikey()==null?0:(list2.get(i).getDislikey()) %>', '<%=list2.get(i).getSeq() %>')" value="비공감 <%=list2.get(i).getDislikey_Count() %>">
-				<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list2.get(i).getLikey()==null?0:(list2.get(i).getLikey()) %>', '<%=list2.get(i).getSeq() %>')" value="공감 <%=list2.get(i).getLikey_Count()%>">
+					<span><span class="contents"><%=list2.get(i).getContent() %></span></span>
+					<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list2.get(i).getReport()==null?0:(list2.get(i).getReport()) %>', '<%=list2.get(i).getSeq() %>')" value="신고 <%=list2.get(i).getReport_Count() %>">
+					<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list2.get(i).getDislikey()==null?0:(list2.get(i).getDislikey()) %>', '<%=list2.get(i).getSeq() %>')" value="비공감 <%=list2.get(i).getDislikey_Count() %>">
+					<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list2.get(i).getLikey()==null?0:(list2.get(i).getLikey()) %>', '<%=list2.get(i).getSeq() %>')" value="공감 <%=list2.get(i).getLikey_Count()%>">
 				</td><%}%>
 				<td style="background-color: #FFF6F3;"><%=sdf.format(list2.get(i).getRegDate()) %></td>
 			</tr><%}}
 		for(int i = 0; i < list.size(); i++){%>
-				<tr>
-					<td><%=list.get(i).getId() %></td>
-					<td><%=list.get(i).getStar()==0.0?"-":list.get(i).getStar()%></td>
-					<td style="text-align: left;">
-					<%if(list.get(i).getDelFlag().equals("Y")){%><span style="font-style: italic; font-weight: bold;"><%util.setArrowNbsp(list.get(i).getDepth());%><%=util.getArrowNbsp() %>※삭제된 글입니다※</span><%}else if(Integer.parseInt(list.get(i).getReport_Count())>=10){
-						%>
-						<span style="color: gray; font-style: italic; font-weight: bold;"><%util.setArrowNbsp(list.get(i).getDepth());%><%=util.getArrowNbsp() %>※다량의 신고로 블라인드된 글입니다※
-						<span class="showBlind">[내용보기]</span><span class="blindContent"><%=list.get(i).getContent() %></span></span><%
-					}else{%>
-						<%util.setArrowNbsp(list.get(i).getDepth());%><%=util.getArrowNbsp() %><%=list.get(i).getContent() %>
-						<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block;">
-								<form action="us_reply.do" method="post" style="display: inline-block;">
-									<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-									<input type="text" name="content" maxlength="100" placeholder="답글을 입력해주세요" required="required" />
-									<button type="submit">확인</button>
-								</form></div></div>
-						<img alt="답글쓰기아이콘" title="답글쓰기" src="resources/upload/reply.png" class="replyIcon"/>
-						<%
-							if(ldto.getNickName().equals(list.get(i).getId())){
-								%>
-								<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block;">
-								<form action="us_modify.do" method="post" style="display: inline-block;">
-									<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-									<input type="text" name="content" maxlength="100" placeholder="수정할 내용을 입력해주세요" required="required" />
-									<button type="submit">수정완료</button>
-								</form></div></div>
-								<img alt="수정하기아이콘" title="수정" src="resources/upload/modify.png" class="modifyIcon"/>
-								<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block;">
-								<form action="us_delete.do" method="post" style="display: inline-block;">
-									<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-									<span style="font-weight: bold; color: red;">※삭제하시겠습니까?※</span>
-									<button type="submit">예</button>
-								</form></div></div>
-								<img alt="삭제하기아이콘" title="삭제" src="resources/upload/delete.png" class="deleteIcon"/>
-								<%
-							}
-						%>
+			<tr>
+				<td><%=list.get(i).getId() %></td>
+				<td><%=list.get(i).getStar()==0.0?"-":list.get(i).getStar()%></td>
+				<td style="text-align: left;"><%util.setArrowNbsp(list.get(i).getDepth());%><%=util.getArrowNbsp() %>
+				<%if(list.get(i).getDelFlag().equals("Y")){%>
+					<span class="deletes">※삭제된 글입니다※</span><%
+				}else if(Integer.parseInt(list.get(i).getReport_Count())>=10){%>
+					<span>
+						<span class="reports">※다량의 신고로 블라인드된 글입니다※</span>
+						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list.get(i).getContent() %></span></span></span><%
+				}else{%>
+					<span class="contents"><%=list.get(i).getContent() %></span>
+					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 1000px;">
+							<form action="us_reply.do" method="post" style="display: inline-block;">
+								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
+								<input type="text" name="content" maxlength="100" placeholder="답글을 입력해주세요" required="required" />
+								<button type="submit">확인</button>
+							</form></div></div>
+					<img alt="답글쓰기아이콘" title="답글쓰기" src="resources/upload/reply.png" class="replyIcon"/>
+					<%if(ldto.getNickName().equals(list.get(i).getId())){%>
+					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 1000px;">
+							<form action="us_modify.do" method="post" style="display: inline-block;">
+								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
+								<input type="text" name="content" maxlength="100" placeholder="수정할 내용을 입력해주세요" required="required" />
+								<button type="submit">수정완료</button>
+							</form></div></div>
+					<img alt="수정하기아이콘" title="수정" src="resources/upload/modify.png" class="modifyIcon"/>
+					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 300px;">
+							<form action="us_delete.do" method="post" style="display: inline-block;">
+								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
+								<span>※삭제하시겠습니까?※</span>
+								<button type="submit">예</button>
+							</form></div></div>
+					<img alt="삭제하기아이콘" title="삭제" src="resources/upload/delete.png" class="deleteIcon"/>
 					<%}%>
-					<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고 <%=list.get(i).getReport_Count() %>">
-					<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감 <%=list.get(i).getDislikey_Count() %>">
-					<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey()) %>', '<%=list.get(i).getSeq() %>')" value="공감 <%=list.get(i).getLikey_Count()%>">
-					</td>
-					<td><%=sdf.format(list.get(i).getRegDate()) %></td>
-				</tr><%}%>
+				<%}%>
+				<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고 <%=list.get(i).getReport_Count() %>">
+				<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감 <%=list.get(i).getDislikey_Count() %>">
+				<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey()) %>', '<%=list.get(i).getSeq() %>')" value="공감 <%=list.get(i).getLikey_Count()%>">
+				</td>
+				<td><%=sdf.format(list.get(i).getRegDate()) %></td>
+			</tr><%}%>
 		<tr><td colspan="4" style="text-align: center"><%if(count>100){int starts = Integer.parseInt(start); int ends = Integer.parseInt(end);
 			if(ends<101){}else{%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(starts/100-1)*100+1%>&end=<%=(starts/100-1)*100+10%>">prev</a><%}
 			for(int j = (starts/100)*10; j < Math.ceil((double)count/10); j++){

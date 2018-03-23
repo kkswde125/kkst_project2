@@ -1,37 +1,37 @@
 package com.pro.kkst;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.WatchaDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.TasteDto;
+import com.pro.kkst.dtos.AttrsDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResReviewDto;
-import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_UserService;
-import com.pro.kkst.utils.Us_Utils;
 
 @Controller
 public class UserController {
@@ -94,30 +94,26 @@ public class UserController {
 	@RequestMapping(value="us_olympic.do")
 	public String olympic(Model model) {
 		logger.info("us_olympic");
-		List<menuDto> lists1=userServ.menuList();
-		List<menuDto> lists2=null;
-		int[]seqs=new int[32];
+		int listSize=userServ.menuList();
+		List<MenuzDto> lists2=null;
+		int[] seqs=new int[32];
 		int num=0;
 		boolean chk=true;
 		for (int i = 0; i <seqs.length; i++) {
 				chk=true;
 			while (chk) {
-				num = (int)(Math.random()*lists1.size()+1);
-				if (i>0) {
-					for (int j = 0; j < seqs.length; j++) {
-						if (seqs[j]==num) {
-							chk=true;
-							break;
-						}else {
-							chk=false;
-						}
+				chk=false;
+				num = (int)(Math.floor(Math.random()*listSize)+1);
+				for (int j = 0; j < i; j++) {
+					if (seqs[j]==num) {
+						chk=true;
+						break;
 					}
-				}else {
-					break;
 				}
-				System.out.println(num);
+				
 			}
 			seqs[i]= num;
+			System.out.print(i+":"+num+"/ ");
 		}
 		Map<String,int[]>map =new HashMap<String,int[]>();
 		map.put("Rseq", seqs);
@@ -146,7 +142,7 @@ public class UserController {
 		seqs[0]=Integer.parseInt(seq);
 		Map<String,int[]>map =new HashMap<String,int[]>();
 		map.put("Rseq", seqs);
-		List<menuDto> lists = userServ.food(map);
+		List<MenuzDto> lists = userServ.food(map);
 		model.addAttribute("lists1", lists);
 		return "us_winner";
 	}
@@ -161,7 +157,7 @@ public class UserController {
 		}	
 		Map<String,int[]>map = new HashMap<String,int[]>();
 		map.put("Rseq",seqs);
-		List<menuDto> lists = userServ.food(map);
+		List<MenuzDto> lists = userServ.realFood(map);
 		model.addAttribute("lists",lists);
 		return "us_olympic";
 	}
@@ -379,10 +375,8 @@ public class UserController {
 			ResDto dto = userServ.getResDetail(name);
 			model.addAttribute("dto", dto);
 			String res_Seq = String.valueOf(dto.getSeq());
-//			double avgStar = userServ.getAvgStar(res_Seq);
-//			if (avgStar!=0.0) {
-//				model.addAttribute("avgStar", String.valueOf(avgStar));
-//			}
+			double avgStar = userServ.getAvgStar(res_Seq);
+			model.addAttribute("avgStar", String.valueOf(avgStar));
 			
 			if (start==null||end==null||res_Seq==null) {
 				start= (String)session.getAttribute("start");
@@ -526,5 +520,112 @@ public class UserController {
 			logger.info("us_delete:실패");
 		}
 		return "redirect:us_res_detail.do";
+	}
+	
+	@Transactional
+	@RequestMapping(value = "us_my_stats.do")
+	public String forJSON(Model model, HttpSession session) {
+		logger.info("us_my_stats");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			String[] getTypes = userServ.getTypes();
+			String[] types = new String[getTypes.length];
+			int[] count = new int[getTypes.length];
+			for (int i = 0; i < getTypes.length; i++) {
+				types[i] = getTypes[i].split(",")[0];
+				count[i] = Integer.parseInt(getTypes[i].split(",")[1]);
+			}
+			List<AttrsDto> list = userServ.getMyTasteStarStats(String.valueOf(ldto.getSeq()));
+			ArrayList<String[]> attrsAryList = new ArrayList<>();
+			ArrayList<double[]> starsAryList = new ArrayList<>();
+			String[] attrs = null;
+			double[] stars = null;
+			int ii = 0;
+			for (int j = 0; j <types.length; j++) {
+				attrs = new String[count[j]];
+				stars = new double[count[j]];
+				for (int i = 0; i < count[j]; i++) {
+					attrs[i]=list.get(ii).getAttr();
+					stars[i]=list.get(ii++).getStars();
+				}
+				attrsAryList.add(attrs);
+				starsAryList.add(stars);
+			}
+				
+			for (int i = 0; i < attrsAryList.size(); i++) {
+				for (int j = 0; j < attrsAryList.get(i).length; j++) {
+					System.out.print(attrsAryList.get(i)[j]+",");
+				}
+				System.out.println();
+			}
+	//		String[] cate = {"한","중","일"};
+	//		String[] jujaeryo = {"밀","육류","해산물"};
+	//		String[] jori = {"튀김","구이","탕"};
+	//		String[] meum = {"매움","약매","안매움"};
+	//		String[] ondo = {"뜨거움","따뜻함","차가움"};
+	//		
+	//		int[] cate1 = {99,88,77};
+	//		int[] jujaeryo2 = {66,55,44};
+	//		int[] jori3 = {33,22,11};
+	//		int[] meum4 = {15,25,35};
+	//		int[] ondo5 = {45,55,65};
+	//		
+	//		String[] types = {"1카테고리","2주재료","3조리방식","4매움정도","5온도"};
+	//		List<String[]> lists = new ArrayList<>();
+	//		List<int[]> lists2 = new ArrayList<>();
+	//		lists.add(cate);
+	//		lists.add(jujaeryo);
+	//		lists.add(jori);
+	//		lists.add(meum);
+	//		lists.add(ondo);
+	//		
+	//		lists2.add(cate1);
+	//		lists2.add(jujaeryo2);
+	//		lists2.add(jori3);
+	//		lists2.add(meum4);
+	//		lists2.add(ondo5);
+			JSONObject JSONobj = new JSONObject();
+			JSONArray JSONary = new JSONArray();
+			for (int i = 0; i < types.length; i++) {
+				JSONObject jo = new JSONObject();
+				JSONArray ja = new JSONArray();
+				for (int j = 0; j < attrsAryList.get(i).length; j++) {
+					JSONObject jo2 = new JSONObject();
+					jo2.put("name", attrsAryList.get(i)[j]);
+					jo2.put("size", starsAryList.get(i)[j]);
+					ja.add(jo2);
+				}
+				jo.put("name", types[i]);
+				jo.put("children", ja);
+				JSONary.add(jo);
+			}
+			JSONobj.put("name", "test2");
+			JSONobj.put("children",JSONary);
+					
+			try {
+				FileWriter file = new FileWriter("C:\\Users\\hk_EDU\\git\\kkst_project2\\kkst_project2\\src\\main\\webapp\\resources\\json\\test2.json");
+				file.write(JSONobj.toJSONString()); 
+				file.flush(); file.close();
+				} catch (IOException e){ 
+					e.printStackTrace(); 
+				} 
+			return "us_my_stats";
+		}
+	}
+	
+	@RequestMapping(value = "us_my_stats2.do")
+	public String forJSON2(Model model, HttpSession session) {
+		logger.info("us_my_stats2");
+		return "us_my_stats2";
+		
+	}
+	
+	@RequestMapping(value = "us_my_stats3.do")
+	public String forJSON3(Model model, HttpSession session) {
+		logger.info("us_my_stats3");
+		return "us_my_stats3";
+		
 	}
 }

@@ -41,6 +41,7 @@ if(ldto==null){
 			<a href="us_recommend_menu.do?start=1&end=20">메뉴추천</a>
 			<a href="us_show_taste.do">내입맛보기</a>
 			<a href="us_regist_moreTaste.do">추가입맛설정</a>
+			<a href="us_my_stats.do">내입맛통계</a>
 		<%
 	}else{
 		%>
