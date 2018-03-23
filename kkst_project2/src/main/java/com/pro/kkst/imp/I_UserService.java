@@ -57,4 +57,5 @@ public interface I_UserService {
 	public double getAvgStar(String res_Seq);
 	public String[] getTypes();
 	public List<AttrsDto> getMyTasteStarStats(String user_seq);
+	public List<MenuzDto> bubbleMenuList(int user_seq);
 }

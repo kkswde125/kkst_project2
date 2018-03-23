@@ -183,13 +183,18 @@ public class UserController {
 	@RequestMapping(value = "us_regist_taste_watcha.do")
 	public String us_Regist_Taste(Model model, HttpSession session) {
 		logger.info("us_regist_taste_watcha");
+		System.out.println("모가널이냐1");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		System.out.println("모가널이냐2");
 		if (ldto==null) {
+			System.out.println("모가널이냐3");
 			return "ac_login";
 		}else {
-				
+			System.out.println("모가널이냐4");
 			List<WatchaDto> list = userServ.watchaBox();
+			System.out.println("모가널이냐5");
 			model.addAttribute("list", list);
+			System.out.println("모가널이냐6");
 			return "us_regist_taste";
 		}
 	}
@@ -583,7 +588,7 @@ public class UserController {
 	//		
 	//		lists2.add(cate1);
 	//		lists2.add(jujaeryo2);
-	//		lists2.add(jori3);
+	//		lists2.add(jori3);{1:1,
 	//		lists2.add(meum4);
 	//		lists2.add(ondo5);
 			JSONObject JSONobj = new JSONObject();
@@ -627,5 +632,27 @@ public class UserController {
 		logger.info("us_my_stats3");
 		return "us_my_stats3";
 		
+	}
+	
+	@RequestMapping(value = "us_bubble.do")
+	public String us_bubble(Model model, HttpSession session) {
+		logger.info("us_bubble");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			List<MenuzDto> list= userServ.bubbleMenuList(ldto.getSeq());
+			model.addAttribute("list", list);
+			String[] theLastIndex = new String[10];
+			int j = 0;
+			for (int i = 1; i < list.size(); i++) {
+				if (!list.get(i-1).getCode().substring(0, 1).equals(list.get(i).getCode().substring(0, 1))) {
+					theLastIndex[j++]= String.valueOf(i-1);
+				}
+				
+			}
+			model.addAttribute("theLastIndex", theLastIndex);
+			return "us_bubble";
+		}
 	}
 }

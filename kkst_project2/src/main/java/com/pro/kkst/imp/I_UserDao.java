@@ -62,5 +62,5 @@ public interface I_UserDao {
 	public double getAvgStar(Map<String, String> map);
 	public String[] getTypes();
 	public List<AttrsDto> getMyTasteStarStats(Map<String, String> map);
-	
+	public List<MenuzDto> bubbleMenuList(Map<String,String> map);
 }

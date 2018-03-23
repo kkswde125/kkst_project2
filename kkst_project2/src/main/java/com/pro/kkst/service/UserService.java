@@ -145,12 +145,10 @@ public class UserService implements I_UserService {
 		return list;
 	}
 
-	@Transactional
 	@Override
 	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end) {
 		List<MenuzDto> list=new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
-//		Map<String, String[]> map2 = new HashMap<>();
 		map.put("user_seq", ""+user_seq);
 		map.put("start", start);
 		map.put("end", end);
@@ -437,4 +435,12 @@ public class UserService implements I_UserService {
 		return userDao.getMyTasteStarStats(map);
 	}
 
+	@Override
+	public List<MenuzDto> bubbleMenuList(int user_seq) {
+		List<MenuzDto> list=new ArrayList<>();
+		Map<String, String> map = new HashMap<>();
+		map.put("user_seq", ""+user_seq);
+		list=userDao.bubbleMenuList(map);
+		return list;
+	}
 }

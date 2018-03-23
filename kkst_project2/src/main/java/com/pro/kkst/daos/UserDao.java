@@ -243,6 +243,11 @@ public class UserDao implements I_UserDao {
 	public List<AttrsDto> getMyTasteStarStats(Map<String, String> map) {
 		return sqlSessoin.selectList(namespace+"getMyTasteStarStats", map);
 	}
+	
+	@Override
+	public List<MenuzDto> bubbleMenuList(Map<String, String> map) {
+		return sqlSessoin.selectList(namespace+"bubbleMenuList", map);
+	}
 
 
 }
