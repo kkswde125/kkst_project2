@@ -54,7 +54,7 @@
 <label>ID:<input class="form-control" type="text" name="id" required="required" id="idz" /></label>
 <label>PW:<input class="form-control" type="password" name="pw" required="required" id="pwz"/></label>
 <button class="btn btn-default">OK</button>
-<input class="btn btn-default" value="이전" onclick="location.href='ac_beforeLogin.do'"/>
+<input class="btn btn-default" value="이전" onclick="location.href='index.jsp'"/>
 </fieldset>
 </form>
 
