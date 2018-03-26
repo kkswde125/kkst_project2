@@ -6,6 +6,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	*{
+		margin : 0;
+		padding : 0;
+		font : bold 11pt "나눔스퀘어라운드 BOLD";
+	}
+	.ui{
+		width: 150px;
+		height: 150px;
+		padding-top: 60px !important;
+	}
+	#all{
+		width : 500px;
+		height: 170px;
+		margin : 0 auto;
+		padding-top : 10%;
+	}
+	img{
+		width: 450px;
+	}
+	
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	<%String msg=(String)request.getAttribute("msg"); %>
@@ -18,14 +40,35 @@
 	 }
 
 </script>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 </head>
 <body>
-
-
-<a href="ad_memberList.do?snum=1&cnum=10">회원관리</a>
-<a href="ad_reviewChoice.do">리뷰관리</a>
-<a href="ad_restList.do?snum=1&cnum=10">식당 등록 관리</a>
-
+<div id="all">
+<img src="img/Logo.jpg"/>
+<div class="ui animated button" tabindex="0" onclick="location.href='ad_memberList.do?snum=1&cnum=10'">
+  <div class="visible content">회원관리</div>
+  <div class="hidden content">
+    <i class="right arrow icon"></i>
+  </div>
+</div>
+<div class="ui animated button" tabindex="0" onclick="location.href='ad_reviewChoice.do'">
+  <div class="visible content">리뷰관리</div>
+  <div class="hidden content">
+    <i class="right arrow icon"></i>
+  </div>
+</div>
+<div class="ui animated button" tabindex="0" onclick="location.href='ad_restList.do?snum=1&cnum=10'">
+  <div class="visible content">식당 등록 검토</div>
+  <div class="hidden content">
+    <i class="right arrow icon"></i>
+  </div>
+</div>
+</div>
 
 </body>
 </html>

@@ -9,6 +9,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	*{
+		margin : 0;
+		padding : 0;
+		font-family: "나눔스퀘어라운드";
+	}
+
+	#box{
+		width: 1200px;
+		height : 300px;
+		margin : 0 auto;
+		padding-top: 5%;
+	}
+	p{
+		font : bold 30pt "나눔스퀘어라운드 BOLD";
+	}
+	
+	#paging{
+		text-align: center;
+	}
+	
+	
+</style>
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
@@ -22,28 +45,37 @@
 
 	}
 </script>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 
 <body>
+
 
 <%
 	@SuppressWarnings("unchecked")
  	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
 %>
-<h1>가입 회원 목록</h1>
+<div id="all">
 <form action="ad_memDel.do" method="post" name="isForm">
-<table border = "1">
+<div id="box">
+<p>가입 회원 목록</p>
+<table border = "1" class="ui celled table">
 	<thead>
 		<tr>
-			<td>
+			<th>
 				<input type="checkbox" onclick="allChk(this.checked)"/>
-			</td>
-			<td>ID</td>
-			<td>별명</td>
-			<td>이름</td>
-			<td>성별</td>
-			<td>생년월일</td>
-			<td>이메일</td>
-			<td>탈퇴여부</td>
+			</th>
+			<th>ID</th>
+			<th>별명</th>
+			<th>이름</th>
+			<th>성별</th>
+			<th>생년월일</th>
+			<th>이메일</th>
+			<th>탈퇴여부</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -89,11 +121,11 @@
 	</c:choose>
 	</tbody>
 	<tfoot>
-		<tr>
+		<tr class="btnPaging">
 			<td colspan="2">
-				<input type="button" value="돌아가기" onclick="location.href='admin.do'"/>
+				<input type="button" value="돌아가기" class="ui button" onclick="location.href='admin.do'"/>
 			</td>
-			<td colspan="5">
+			<td colspan="5" id = "paging">
 			<% 
 			int count = (Integer)request.getAttribute("count");
 			int start = (Integer)request.getAttribute("start");
@@ -122,13 +154,13 @@
 			}
 				%>
 			</td>
-			<td>
-				<input type="submit" value="강제탈퇴"/>
-				<input type="button" value="활동복구" onclick="memDelCancle()"/>
-			</td>
+			<td><input type="submit" value="강제탈퇴" class="ui button"><input type="button" class="ui button" value="활동복구" onclick="memDelCancle()"></td>
+			
 		</tr>
 	</tfoot>
 </table>
+</div>
 </form>
+</div>
 </body>
 </html>
