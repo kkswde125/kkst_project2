@@ -7,9 +7,14 @@
 		WHERE ID = #{id} AND PW = #{pw} AND DELFLAG = 'N'
 	</select>
 	
-	<select id="isChk" parameterType="Map" resultType="integer">
-		SELECT COUNT(ID) FROM USERS WHERE ID = #{id}
+	<select id="isChk_user" parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM USERS WHERE ID=#{id}
 	</select>
+	
+	<select id="idChk_owner" parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM ADMIN_OWNER WHERE ID=#{id}
+	</select>
+	
 	
 	<insert id="regist" parameterType="LoginDto">
 		INSERT INTO USERS

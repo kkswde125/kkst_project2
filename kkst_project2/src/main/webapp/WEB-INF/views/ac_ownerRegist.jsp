@@ -34,16 +34,16 @@ text-align: center;
 			document.getElementById('idChk').focus();
 		}else{
 			$.ajax({
-				url:"IsChkAjax.do", //요청 주소
+				url:"ow_IsChkAjax.do", //요청 주소
 				data:"id="+id, //보내는 값
 				type:"post", //전송방식
-				datatype:"json", //서버에서 보내주는 데이터의 타입
+				dataType:"json", //서버에서 보내주는 데이터의 타입
 				success:function(obj){ 
 					var isChk=obj["isChk"];
 					if (isChk) {
-						$("#isChkAjax").text("이미 존재하는 아이디").css('color', 'red');
-					}else{
 						$("#isChkAjax").text("사용가능한 아이디").css('color','blue');
+					}else{
+						$("#isChkAjax").text("이미 존재하는 아이디").css('color', 'red');
 					}
 				}
 			});				

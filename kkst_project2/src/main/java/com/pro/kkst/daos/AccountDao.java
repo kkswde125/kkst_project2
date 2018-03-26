@@ -138,5 +138,13 @@ public class AccountDao implements I_AccountDao {
 	public ResDto chkRes(int seq) {
 		return sqlSessoin.selectOne(namespace+"ChkRes",seq);
 	}
+	@Override
+	public int IdChk_user(String id) {
+		return sqlSessoin.selectOne(namespace+"isChk_user",id);
+	}
+	@Override
+	public int IdChk_Onwer(String id) {
+		return sqlSessoin.selectOne(namespace+"idChk_owner",id);
+	}
 
 }

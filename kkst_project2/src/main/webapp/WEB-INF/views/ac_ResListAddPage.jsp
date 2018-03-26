@@ -45,10 +45,10 @@
 	}
 	
 	function loadfile2(event) {
-		var count=1;
+		var tableId=$(event.target).parents("table").eq(0).attr("id");
 		var blobURL = URL.createObjectURL(event.target.files[0]);
-	 	$("#menuAdd"+countM++).find('img').attr('src', blobURL);
-     	$("#menuAdd"+countM).find('img').slideDown(); //업로드한 이미지 미리보기 
+		$("#"+tableId).find("img").attr('src', blobURL);
+	 	$("#"+tableId).find("img").slideDown(); //업로드한 이미지 미리보기 
      	$(this).slideUp(); //파일 양식 감춤
 }
 	

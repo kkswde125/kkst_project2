@@ -19,6 +19,7 @@ public interface I_AccountService {
 	public LoginDto getLogin(String id, String pw);
 	public boolean regist(LoginDto dto);
 	public boolean regist_taste00(String id);
+	public int IdChk_user(String id);
 	
 	//점주
 	public Admin_OnwerDto getOnwerLogin(Map<String, String> map);
@@ -35,7 +36,5 @@ public interface I_AccountService {
 			String[] price,String comment);
 	
 	public ResDto chkRes(int seq);
-//	public boolean addMenu(Map<String, String>map);
-//	public boolean addPhoto(Map<String, String>map);
-//	public List<menuDto> searchMenuSeq(Map<String, String>map);
+	public int IdChk_Onwer(String id);
 }

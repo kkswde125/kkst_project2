@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.Admin_OnwerDto;
@@ -51,6 +53,54 @@ public class AccountController {
 	Us_Utils u_utils = new Us_Utils();
 	ac_Utils ac_utils=new ac_Utils();
 
+	
+	
+	//유저 아이디 중복확인 
+	@RequestMapping(value = "/ac_IsChkAjax.do")
+	public @ResponseBody Map<String, Boolean> IsChkAjax(Model model, @RequestParam String id) {
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		
+		int count=0;
+		
+		
+		count=accountServ.IdChk_user(id);
+		
+		if(count<1) {
+			boolean isS = true;
+			map.put("isChk", isS);
+		}else{
+			boolean isS = false;
+			map.put("isChk", isS);
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "/ow_IsChkAjax.do")
+	public @ResponseBody Map<String, Boolean> ow_IsChkAjax(Model model, @RequestParam String id) {
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		
+		int count=0;
+		
+		
+		count=accountServ.IdChk_Onwer(id);
+		
+		if(count<1) {
+			boolean isS = true;
+			map.put("isChk", isS);
+		}else{
+			boolean isS = false;
+			map.put("isChk", isS);
+		}
+		
+		return map;
+	}
+	
+	
 	
 	//로그인 분기
 	@RequestMapping(value = "/ac_beforeLogin.do")

@@ -20,6 +20,9 @@ public interface I_AccountDao {
 	public int selectSearchSeq(Map<String,String> map);
 	public int selectGetAttrCount();
 	public int insertRegist_taste(Map<String,String> map);
+	
+	public int IdChk_user(String id);
+	
 
 	
 	//점주
@@ -37,4 +40,6 @@ public interface I_AccountDao {
 	public String searchMenuSeq(Map<String, String>map);
 	public boolean addPhoto2(Map<String, String>map);
 	public ResDto chkRes(int seq);
+	public int IdChk_Onwer(String id);
+	
 }

@@ -272,5 +272,15 @@ public class AccountService implements I_AccountService {
 		return accountDao.chkRes(seq);
 	}
 
+	@Override
+	public int IdChk_user(String id) {
+		return accountDao.IdChk_user(id);
+	}
+
+	@Override
+	public int IdChk_Onwer(String id) {
+		return accountDao.IdChk_Onwer(id);
+	}
+
 
 }

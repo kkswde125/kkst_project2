@@ -86,18 +86,23 @@ for(int j=0; j<mDto.size(); j++){
 		});
 	}
 
+		<%int count=1;%>
+	
 		var countT=1;
 		var countM=1;
-		var countMenu=0;
+		
+		
+		
+		
 		var countdefault=1;
-	
-	
+		var newMenuCount="<%=count%>";
+		
+		var count=$("#line2").find("img").size();
+		
 	function AddMenu() {
 		
-		countMenu++;
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
-		copy.find("#output").attr("id","output"+countdefault++)
-		$("#line2").append(copy);
+				$("#line2").append(copy);
 		
 		
 	}
@@ -111,12 +116,12 @@ for(int j=0; j<mDto.size(); j++){
          $(this).slideUp(); //파일 양식 감춤
 	}
 
-	
+	///////////
 	function loadfile2(event) {
-		var count=1;
+		var tableId=$(event.target).parents("table").eq(0).attr("id");
 		var blobURL = URL.createObjectURL(event.target.files[0]);
-	 	$(this).next("img").attr('src', blobURL);
-	 	$(this).next("img").slideDown(); //업로드한 이미지 미리보기 
+		$("#"+tableId).find("img").attr('src', blobURL);
+	 	$("#"+tableId).find("img").slideDown(); //업로드한 이미지 미리보기 
      	$(this).slideUp(); //파일 양식 감춤
 }
 	
@@ -129,15 +134,6 @@ for(int j=0; j<mDto.size(); j++){
 	}
 	
 	
-	function chekMenu(seq) {
-		
-		if(countMenu==0){
-			alert("하나이상의 메뉴를 등록하세요!");
-			location.href="ac_ResListAddPage.do?res_seq="+seq;
-			return false;
-		}
-		
-	}
 
 	
 	function delectMenu(seq) {
@@ -172,10 +168,9 @@ for(int j=0; j<mDto.size(); j++){
 <table id="menuAdd"  style="display: none;"  >
 <tr>
 <td>
-
 <div style="width: 350px; height: 350px; padding: 40px;">
 <input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
-<img id="output" style="width: 350px; height: 350px;">
+<img id="newMenu" style="width: 350px; height: 350px;">
 </div>
 
 </td>
