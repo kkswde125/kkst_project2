@@ -14,6 +14,7 @@
 <script src="semantic/dist/semantic.min.js"></script>
 </head>
 <body>
+<hr/>
 <table>
 <tr><td>
   <div class="item">
@@ -23,6 +24,9 @@
       Project Manager
     </div>
   </div>
+  
+  <div></div>
+  
   </td>
   <td>
   <div class="item">
