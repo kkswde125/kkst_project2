@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 	*{
 		margin : 0;
 		padding : 0;
-		font : bold 11pt "나눔스퀘어라운드 BOLD";
+		font : bold 13pt "나눔스퀘어라운드 EXTRABOLD";
 	}
 	.ui{
 		width: 150px;
@@ -40,12 +41,12 @@
 	 }
 
 </script>
-<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css"> -->
+<!-- <script -->
+<!--   src="https://code.jquery.com/jquery-3.1.1.min.js" -->
+<!--   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" -->
+<!--   crossorigin="anonymous"></script> -->
+<!-- <script src="semantic/dist/semantic.min.js"></script> -->
 </head>
 <body>
 <div id="all">
@@ -63,12 +64,13 @@
   </div>
 </div>
 <div class="ui animated button" tabindex="0" onclick="location.href='ad_restList.do?snum=1&cnum=10'">
-  <div class="visible content">식당 등록 검토</div>
+  <div class="visible content">식당등록검토</div>
   <div class="hidden content">
     <i class="right arrow icon"></i>
   </div>
 </div>
 </div>
 
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

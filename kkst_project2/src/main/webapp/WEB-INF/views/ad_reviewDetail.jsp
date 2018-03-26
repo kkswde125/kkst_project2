@@ -10,7 +10,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
@@ -50,7 +63,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 %>
 <form action="ad_reviewDel.do" method="POST">
 	<div class="scroll">	<!-- Scroll을 넣기위한 Block -->
-	<table border="1">	<!-- 지역 식당 별 구분 테이블 -->
+	<table>	<!-- 지역 식당 별 구분 테이블 -->
 		<thead>
 			<tr><td colspan="<%=ReviewList.size()%>"><%=resList.get(i).getName() %>
 				<input type="checkbox" onclick="allChk(this.checked, <%=i%>)"/>
@@ -63,7 +76,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 					ReviewList.get(j).getDelflag().equals("N")){
 		%>
 		<td>				<!-- 리뷰 별 구분 테이블 들어가는 TD -->
-			<table border="1">	<!-- 리뷰 별 구분 테이블 -->
+			<table class="table table-bordered">	<!-- 리뷰 별 구분 테이블 -->
 				<tr>
 					<td>
 						<input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/>

@@ -11,7 +11,9 @@
 		padding : 0;
 		font : bold 11pt "나눔스퀘어라운드 BOLD";
 	}
-	button
+	button{
+		width: 225px;
+	}
 	#all{
 		width : 500px;
 		height: 170px;
