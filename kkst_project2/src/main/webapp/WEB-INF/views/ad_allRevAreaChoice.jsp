@@ -46,12 +46,7 @@
 </style>
 </head>
 
-<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
+
 <body>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
@@ -68,6 +63,7 @@
 		location.href="ad_reviewDetail.do?area="+area;
 	}
 </script>
+<div id="line">
 <div id = "box">
 <div id="top">
 <img src="img/Logo.jpg" onclick="location.href='ad_admin.do'"/>
@@ -97,5 +93,8 @@
 </table>
 
 </div>
+</div>
+<hr/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

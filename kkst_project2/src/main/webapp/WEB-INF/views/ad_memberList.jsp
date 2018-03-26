@@ -59,6 +59,7 @@
 	@SuppressWarnings("unchecked")
  	List<LoginDto> lists = (List<LoginDto>)request.getAttribute("lists");
 %>
+<div id="line">
 <div id="all">
 <form action="ad_memDel.do" method="post" name="isForm">
 <div id="box">
@@ -162,5 +163,8 @@
 </div>
 </form>
 </div>
+</div>
+<hr/>
+<%@include file="footer.jsp" %>
 </body>
 </html>

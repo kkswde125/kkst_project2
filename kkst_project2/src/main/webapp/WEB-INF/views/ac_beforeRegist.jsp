@@ -58,7 +58,7 @@ p {
 </style>
 </head>
 <body>
-
+<div id="line">
 <div id="all">
 <table>
 
@@ -85,5 +85,8 @@ p {
 	</tr>
 </table>
 </div>
+</div>
+<hr/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
