@@ -22,7 +22,7 @@
 	}
 	
 	#all{
-		width: 1200px;
+		width: 1400px;
 		margin : 0 auto;
 		
 	}
@@ -168,5 +168,8 @@
 </div>
 </form>
 </div>
+
+
+
 </body>
 </html>
