@@ -33,7 +33,7 @@
 <script src="semantic/dist/semantic.min.js"></script>
 </head>
 <body>
-
+<div id="line">
 <div id="all">
 <img src="img/Logo.jpg" onclick="location.href='ad_admin.do'"/>
 <div class="ui large buttons">
@@ -41,9 +41,13 @@
   <div class="or"></div>
   <button class="ui button" onclick="location.href='ad_reportRevAreaChoice.do'">신고된 리뷰 보기</button>
 </div>
+<br/><br/>
+<button class="ui button" onclick="location.href='ad_admin.do'" style="width: 455px;">돌아가기</button>
 </div>
 
 
-
+</div>
+<hr/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

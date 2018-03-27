@@ -27,6 +27,7 @@
 	img{
 		width: 450px;
 	}
+
 	
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
@@ -49,6 +50,7 @@
 <!-- <script src="semantic/dist/semantic.min.js"></script> -->
 </head>
 <body>
+<div id="line">
 <div id="all">
 <img src="img/Logo.jpg"/>
 <div class="ui animated button" tabindex="0" onclick="location.href='ad_memberList.do?snum=1&cnum=10'">
@@ -70,8 +72,9 @@
   </div>
 </div>
 </div>
-
-
+</div>
+<hr/>
+<%@include file="footer.jsp" %>
+<%-- <jsp:include page="footer.jsp"/> --%>
 </body>
 </html>
-<jsp:include page="footer.jsp"/>

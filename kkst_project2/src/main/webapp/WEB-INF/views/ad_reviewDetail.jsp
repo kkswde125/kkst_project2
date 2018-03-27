@@ -10,6 +10,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -18,14 +24,11 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
+
+
 
 
 	
@@ -41,12 +44,19 @@
 		margin: 0;
 		padding: 0;
 	}
-
 	.scroll{
 		width: 1200px;
 		overflow: auto;
+	}
+	#shopName{
+		font : bold 20pt "나눔스퀘어 BOLD";
+		padding : 3px;
+	}
+	#all{
+		width: 1300px;
 		margin : 0 auto;
 	}
+	
 </style>
 
 <%
@@ -58,15 +68,19 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 %>
 </head>
 <body>
+<div id="line">
+<div id="all">
 <% for(int i = 0; i < resList.size() ; i++){ 
 /* 	if() */
 %>
 <form action="ad_reviewDel.do" method="POST">
+<table>
+<tr><td>
 	<div class="scroll">	<!-- Scroll을 넣기위한 Block -->
 	<table>	<!-- 지역 식당 별 구분 테이블 -->
 		<thead>
-			<tr><td colspan="<%=ReviewList.size()%>"><%=resList.get(i).getName() %>
-				<input type="checkbox" onclick="allChk(this.checked, <%=i%>)"/>
+			<tr><td colspan="<%=ReviewList.size()%>" id="shopName"><%=resList.get(i).getName() %>
+				<div class="ui checkbox"><input type="checkbox" onclick="allChk(this.checked, <%=i%>)"/></div>
 			</td></tr>
 		</thead>
 		<tbody>
@@ -79,7 +93,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 			<table class="table table-bordered">	<!-- 리뷰 별 구분 테이블 -->
 				<tr>
 					<td>
-						<input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/>
+						<div class="ui checkbox"><input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/></div>
 					</td>
 					<td>평점 : <%=ReviewList.get(j).getStar() %></td>
 					<td>
@@ -103,11 +117,16 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 		} 
 		
 		%>
+		<td></td>
 		</tr>				
 		</tbody>
 	</table>					<!-- 지역 식당 별 구분 테이블 -->
 </div>							<!-- Scroll을 넣기위한 Block -->
-<input type="submit" value="삭제"/>
+</td>
+<td><input type="submit" class="ui button" value="삭제" style="height: 350px;"/></td>
+</tr>
+</table>
+
 <br/>
 <br/>
 </form>
@@ -115,6 +134,9 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 	}
 %>
 <input type="button" value="돌아가기" onclick="location.href='ad_allRevAreaChoice.do'"/>
-
+</div>
+</div>
+<hr/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
