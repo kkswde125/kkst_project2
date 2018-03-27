@@ -152,29 +152,65 @@
 	
 	
 </script>
+<style type="text/css">
+#all{
+		padding-top:0px;
+		width: 1000px;
+		margin : 0 auto;
+	}
+#loading01{
+	width: 89px; height: 85px;
+}
+#mainH1{
+	display: inline-block;
+	font-weight: bold;
+    font-size: 36px;
+    width: 300px;
+    height: 54px;
+}
+#headers{
+	text-align: center;
+}
+table{
+	text-align: center;
+}
+.btnImg{
+	width: 220px;
+	height: 254px;
+}
+.btnImg:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+</style>
 </head>
 <body>
-<p>listSize=<%=list.size()%> / </p>
-<p>Keep리스트: <span id="keepList"></span></p>
-<p>KeepSeqs: <span id="keepSeqs"></span></p>
-<p>Hate리스트: <span id="hateList"></span></p>
+<div id="all">
+<p id="headers">
+<img alt="이미지01" src="resources/images/loading01.gif" id="loading01">
+<span id="mainH1">이 음식은 어때요?</span><br/>
+</p>
 <%
 	for(int i = 0; i < list.size(); i++){
 		
 	
 %>
-<table id="tables<%=i%>">
+<table id="tables<%=i%>" border="1">
 	<tr>
+		<td rowspan="2">
+		<img alt="hateImage" src="resources/images/hate.jpg" title="먹기싫음" onclick="hateThis('<%=list.get(i).getCode()%>')" class="btnImg" >
+		</td>
 		<td><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;"></td>
+		<td rowspan="2">
+		<img alt="choiceImage" src="resources/images/choice.jpg" title="선택하기" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')" class="btnImg">
+		</td>
 	</tr>
 	<tr>
 		<td><%=list.get(i).getName() %></td>
 	</tr>
 	<tr>
-		<td>
-			<button onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')">결정!</button>
-			<button onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')">보류하고 다음메뉴보기</button>
-			<button onclick="hateThis('<%=list.get(i).getCode()%>')">이건 싫음</button>
+		<td colspan="3">
+			<img alt="keepImage" src="resources/images/keeping.jpg" title="보류하고 다음메뉴보기" onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')" class="btnImg" >
 		</td>
 	</tr>
 </table>
@@ -190,5 +226,10 @@
 <hr/>
 
 <button onclick="location.href='us_usermain.do'">뒤로</button>
+</div>
+<p>listSize=<%=list.size()%> / </p>
+<p>Keep리스트: <span id="keepList"></span></p>
+<p>KeepSeqs: <span id="keepSeqs"></span></p>
+<p>Hate리스트: <span id="hateList"></span></p>
 </body>
 </html>

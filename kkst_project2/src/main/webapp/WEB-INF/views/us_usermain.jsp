@@ -24,6 +24,21 @@ window.onload=function(){
     
  }
 </script>
+<style type="text/css">
+	#all{
+		padding-top:10%;
+		width: 600px;
+		margin : 0 auto;
+	}
+	img:hover{
+		cursor: pointer;
+		opacity: 0.5;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+</style>
 </head>
 <% LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");
 if(ldto==null){
@@ -33,23 +48,40 @@ if(ldto==null){
 	String isS=(String)request.getAttribute("hasTaste");
 %>
 <body>
+<div id="all">
 <a href="ac_logout.do">Logout</a>
-<a href="us_olympic.do">푸드올림픽</a>
+<table>
+<col width="202px"><col width="202px">
 <%
 	if(isS.equals("yes")){
 		%>
-			<a href="us_recommend_menu.do?start=1&end=20">메뉴추천</a>
+	<tr>
+		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_show_taste.do'"></td>
+		<td><img alt="메뉴추천" src="resources/images/main_menu.jpg" title="메뉴추천" onclick="location.href='us_recommend_menu.do?start=1&end=20'"></td>
+	</tr>
+	<tr>
+		<td><img alt="푸드올림픽" src="resources/images/main_food.jpg" title="푸드올림픽" onclick="location.href='us_olympic.do'"></td>
+		<td><img alt="내입맛통계" src="resources/images/main_graph.jpg" title="내입맛통계" onclick="location.href='us_my_stats.do'"></td>
+	</tr>
+	<tr>
+		<td><span>임시공간</span>
 			<a href="us_show_taste.do">내입맛보기</a>
 			<a href="us_regist_moreTaste.do">추가입맛설정</a>
-			<a href="us_bubble.do">내입맛메뉴버블왜안나와</a>
-			<a href="us_my_stats.do">내입맛통계</a>
+			<a href="us_bubble.do">버블</a>
+		</td>
+	</tr>
 		<%
 	}else{
 		%>
-		<a href="us_regist_taste_watcha.do">초기입맛등록</a>
+	<tr>
+		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_show_taste.do'"></td>
+		<td><img alt="초기입맛등록" src="resources/images/main_menu.jpg" title="초기입맛등록" onclick="location.href='us_regist_taste_watcha.do'"></td>
+	</tr>
 		<%
 	}
 %>
+</table>
+</div>
 </body>
 </html>
 

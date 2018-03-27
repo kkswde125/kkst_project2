@@ -94,6 +94,12 @@
 	}
 </script>
 <style type="text/css">
+#all{
+		padding-top:0px;
+		width: 1200px;
+		margin : 0 auto;
+		
+}
 input[type=checkbox] { display:none; }
 input[type=checkbox] + label {display: inline-block;cursor: pointer;line-height: 22px;padding-left: 22px;background: url('resources/upload/starw.png') left/22px no-repeat;}
 input[type=checkbox]:checked + label { background-image: url('resources/upload/stars.png');}
@@ -147,6 +153,9 @@ td{text-align: center;}
 #reviewTable td{
 	max-width: 1000px;
 }
+#reviewTable{
+	margin: 0 auto;
+}
 .deletes{
 	color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;
 }
@@ -163,20 +172,71 @@ td{text-align: center;}
 	font-family: gulim, 굴림, Helvetica;
 	font-size: 9pt;
 }
+#resNameLabel{
+	font-size: 16px;
+    text-align: center;
+    width: 80px;
+    height: 25px;
+    background-color: #dddddd;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#resName{
+	font-size: 25px;
+    font-weight: bold;
+    padding: 30px;
+    vertical-align: middle;
+}
+#resNameTd{
+	 vertical-align: middle;
+}
+#gobacks:hover{
+	cursor: pointer;
+	opacity: 0.8;
+}
+#t1{
+	margin: 0 auto;
+}
+#t2{
+	margin: 0 auto;
+}
+#t3{
+	margin: 0 auto;
+}
+#t4{
+	margin: 0 auto;
+}
+#menulists{
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
-<table border="1">
-<tr><td><%if(resPhoto==null){%><span>--등록된 식당사진이 없습니다---</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 200px; height: 200px;"><%}%></td></tr>
-<tr><th><%=dto.getName() %>(<%=avgStar.equals("0.0")?"평점:평가없음":"평점: "+starIcon+"("+avgStar+")"%>)</th></tr>
+<div id="all">
+<table id="t1">
+<tr><td><img alt="뒤로가기이미지" src="resources/images/goback.png" onclick="goBack()" id="gobacks" title="뒤로가기"></td>
+	<td><img alt="상세보기이미지" src="resources/images/detail.png"></td>
+	<td id="resNameTd"><span id="resNameLabel">식당명</span><span id="resName"><%=dto.getName() %>(<%=avgStar.equals("0.0")?"평점:평가없음":"평점: "+starIcon+"("+avgStar+")"%>)</span></td>
+</tr>
+</table>
+<hr/>
+<table id="t2">
+<tr><td colspan="3">식당사진</td></tr>
+<tr><td colspan="3"><%if(resPhoto==null){%><span>--등록된 식당사진이 없습니다---</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 200px; height: 200px;"><%}%></td></tr>
+</table>
+<table id="menulists" border="1">
 <%if(menuList.size()==0){%>
+<tr><td>메뉴 사진</td></tr>
 <tr><td>---등록된 메뉴사진이 없습니다---</td></tr><%
 }else{%><tr><th colspan="<%=menuList.size()%>">메뉴 사진</th></tr><tr><%
 for(int i = 0; i < menuList.size(); i++){
 %><td><img alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" style="width: 100px; height: 100px;"><br/><%=menuList.get(i).getName()%></td><%}%></tr><%
 }%>
 </table>
-<table border="1">
+<hr/>
+<table id="t3" border="1">
 <caption>식당정보</caption>
 <col width="100px"><col width="200px"><col width="100px"><col width="200px">
 <tr><th>카테고리</th><td><%=dto.getCate() %></td><th>전화번호</th><td><%=dto.getCall() %></td></tr>
@@ -185,6 +245,7 @@ for(int i = 0; i < menuList.size(); i++){
 <tr><th>주차여부</th><td><%=dto.getParking().equals("Y")?"가능":(dto.getParking().equals("U")?"정보없음":"불가") %></td><th>영업상태</th><td><%=dto.getOpen().equals("Y")?"영업중":"휴업중" %></td></tr>
 <tr><th>점주코멘트</th><td colspan="3"><%=dto.getComment() %></td></tr>
 </table>
+<hr/>
 <table border="1" id="reviewTable">
 <col width="150px;" ><col width="100px;"><col width="1000px;"><col width="200px;">
 <%
@@ -269,7 +330,7 @@ for(int i = 0; i < menuList.size(); i++){
 </table>
 <form action="us_write_review.do" method="post" onsubmit="return chk()">
 <input type="hidden" name="id" value="<%=ldto.getSeq()%>"/><input type="hidden" name="res_Seq" value="<%=dto.getSeq()%>"/>
-<table border="1">
+<table  id="t4" border="1">
 <col width="500px"><col width="200px"><col width="100px">
 <tr><th>리뷰내용</th><th>평점</th><th>*</th></tr>
 <tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다." style="width: 480px;"/></td>
@@ -283,6 +344,6 @@ for(int i = 0; i < menuList.size(); i++){
 	<td><button type="submit" >리뷰등록</button></td></tr>
 </table>
 </form>
-<button onclick="goBack()" >돌아가기</button>
+</div>
 </body>
 </html>

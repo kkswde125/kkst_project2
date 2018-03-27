@@ -20,6 +20,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>식당지도</title>
 <style type="text/css">
+#all{
+		padding-top: 1%;
+		width: 1200px;
+		margin : 0 auto;
+		text-align: center;
+}
+#headerz{
+	font-size: 17px;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-align: center;
+}
 .h3z:hover{
 	color: blue;
 	text-decoration: underline;
@@ -57,7 +69,9 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=dxAelTQKShNPGfu0KuVB&submodules=geocoder"></script>
 </head>
 <body>
-    <div id="map" style="width:100%;height:800px;"></div>
+	<div id="all">
+	<p id="headerz">식당을 선택하시면 상세 정보 보기로 넘어갑니다</p>
+    <div id="map" style="width:1200px; height:800px;"></div>
 	<script>
 	
 		
@@ -304,5 +318,6 @@
       <button onclick="go1000()">1000m</button>
       <button onclick="go10000()">10km</button>
       <button onclick="go100000()">100km</button>
+</div>
 </body>
 </html>
