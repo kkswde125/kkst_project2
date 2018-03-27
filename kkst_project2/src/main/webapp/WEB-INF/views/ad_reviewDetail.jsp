@@ -16,21 +16,9 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-
-
-
-
-
 	
 	function allChk(bool, i){
 			$(".chks"+i).prop("checked", bool);
@@ -49,12 +37,21 @@
 		overflow: auto;
 	}
 	#shopName{
-		font : bold 20pt "나눔스퀘어 BOLD";
+		font : normal 20pt "배달의민족 도현";
 		padding : 3px;
 	}
 	#all{
 		width: 1300px;
+		padding-top : 5%;
 		margin : 0 auto;
+	}
+	
+	.ui.button{
+		font : bold 10pt "나눔스퀘어라운드 BOLD";
+	}
+	
+	#allTab{
+		margin-top: 20px;
 	}
 	
 </style>
@@ -68,21 +65,33 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 %>
 </head>
 <body>
-<div id="line">
 <div id="all">
+
+<button class="ui labeled icon button" onclick="location.href='ad_allRevAreaChoice.do'">
+  <i class="left arrow icon"></i>
+  돌아가기
+</button>
+
+
 <% for(int i = 0; i < resList.size() ; i++){ 
 /* 	if() */
 %>
 <form action="ad_reviewDel.do" method="POST">
-<table>
-<tr><td>
+<table id="allTab">
+<tr>
+<td id="shopName" style="color : gray;">&nbsp;&nbsp;&nbsp;	<%=resList.get(i).getName() %></td>
+<td style="text-align: center;">
+
+<div class="ui checkbox">
+  <input type="checkbox" onclick="allChk(this.checked, <%=i%>)">
+  <label></label>
+</div>
+
+</td>
+</tr><tr>
+<td>
 	<div class="scroll">	<!-- Scroll을 넣기위한 Block -->
 	<table>	<!-- 지역 식당 별 구분 테이블 -->
-		<thead>
-			<tr><td colspan="<%=ReviewList.size()%>" id="shopName"><%=resList.get(i).getName() %>
-				<div class="ui checkbox"><input type="checkbox" onclick="allChk(this.checked, <%=i%>)"/></div>
-			</td></tr>
-		</thead>
 		<tbody>
 		<tr>
 		<% for(int j = 0; j < ReviewList.size() ; j++){ 
@@ -90,10 +99,13 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 					ReviewList.get(j).getDelflag().equals("N")){
 		%>
 		<td>				<!-- 리뷰 별 구분 테이블 들어가는 TD -->
-			<table class="table table-bordered">	<!-- 리뷰 별 구분 테이블 -->
+			<table class="ui striped grey table">	<!-- 리뷰 별 구분 테이블 -->
 				<tr>
 					<td>
-						<div class="ui checkbox"><input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/></div>
+						<div class="ui checkbox">
+						  <input type="checkbox" value="<%=ReviewList.get(j).getSeq()%>" name="chk" class="chks<%=i%>"/>
+						  <label></label>
+						</div>
 					</td>
 					<td>평점 : <%=ReviewList.get(j).getStar() %></td>
 					<td>
@@ -102,7 +114,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 				</tr>
 				<tr>
 					<td colspan="3">
-						<textarea rows="10" cols="60"><%=ReviewList.get(j).getContent() %></textarea>
+						<textarea rows="10" cols="60" class="ui input" readonly="readonly"><%=ReviewList.get(j).getContent() %></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -123,20 +135,22 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 	</table>					<!-- 지역 식당 별 구분 테이블 -->
 </div>							<!-- Scroll을 넣기위한 Block -->
 </td>
-<td><input type="submit" class="ui button" value="삭제" style="height: 350px;"/></td>
+<td>
+<button class="ui icon button" style="height: 290px; width: 50px;">
+  <i class="large trash alternate outline icon"></i>
+</button>
+</td>
 </tr>
 </table>
 
-<br/>
-<br/>
 </form>
 <%
 	}
 %>
-<input type="button" value="돌아가기" onclick="location.href='ad_allRevAreaChoice.do'"/>
+
+
+  
 </div>
-</div>
-<hr/>
-<jsp:include page="footer.jsp"/>
+<br/><br/>
 </body>
 </html>

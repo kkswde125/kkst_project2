@@ -7,8 +7,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	*{
+		margin : 0;
+		padding : 0;
+	}
+	
+	#all{
+		width: 1200px;
+		margin : 0 auto;
+		
+	}
+	#page{
+		margin : 0 auto;
+		padding : 0 !important;
+	}
+	#pageTab{
+		width: 450px;
+		margin : 0 auto;
+		text-align: center;
+	}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -35,9 +62,10 @@
 </head>
 <body>
 
+<div id="all">
 <h1>식당 등록 관리</h1>
 <form action="ad_restList_Del.do" method="POST">
-<table border = "1" id="table">
+<table border = "1" id="table" class="ui celled table">
 	<tr>
 		<td>
 			<input type="checkbox" name="chkAll" onclick="allChk(this.checked)"/>
@@ -48,7 +76,7 @@
 		<td>주소지</td>
 		<td>영업시간</td>
 		<td>휴식시간</td>
-		<td colspan="2">좌표입력란</td>
+		<td colspan="3">좌표입력란</td>
 	</tr>
 	
 	<c:choose>
@@ -73,24 +101,36 @@
 		<td>${dto.start }~${dto.end }</td>
 		<td>${dto.rest_start }~${dto.rest_end }</td>
 		<td>
-			<input type="text" value="X 좌표" name="x">
+		<div class="ui input">
+			<input type="text" placeholder="X 좌표" name="x">
+		</div>
 		</td>
 		<td>
-			<input type="text" value="Y 좌표" name="y">
+		<div class="ui input">
+			<input type="text" placeholder="Y 좌표" name="y">
+		</div>
 		</td>
 		<td>
-			<input type="button" value="검토완료" onclick="shopChk(${dto.seq})"/>
+			<input type="button" class="ui button" value="검토완료" onclick="shopChk(${dto.seq})"/>
 		</td>
 	</tr>
 	
 	</c:forEach>
 	</c:otherwise>
 	</c:choose>
-<tr><td colspan = "9">
-<table id="page" border="1">
+<tr>
+<td colspan="10" style="text-align: right;">
+		<input type="submit" value="삭제" class="ui button"/>
+		<input type="button" value="돌아가기" onclick="location.href='ad_admin.do'" class="ui button"/>
+	</td>
+</tr>
+</table>
+<div id="pageTab">
+<table id="page">
 <tr>
 	<td>
-		<% 
+<div class="ui right floated pagination menu">
+<% 
 		int count = (Integer)request.getAttribute("count");
 		int start = (Integer)request.getAttribute("start");
 		int end = (Integer)request.getAttribute("end");
@@ -100,33 +140,33 @@
 		
 		if(start!=1){
 		%>
-		<a href="ad_restList.do?snum=<%=start*10-19 %>&cnum=<%=start*10-10 %>">이전</a>
-		
-		<%
+        <a href="ad_restList.do?snum=<%=start*10-19 %>&cnum=<%=start*10-10 %>" class="icon item">
+          <i class="left chevron icon"></i>
+          </a>
+        <%
 		}
 		for(int i=start-1; i < end; i++){
 		%>
-	<a href='ad_restList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>'>
+	<a href='ad_restList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>' class="item">
 	<%=i+1 %>
 	 </a>
-<%
+	 
+        <%
 	}
 		if(end!=count){
 			%>
-		<a href="ad_restList.do?snum=<%=start+100 %>&cnum=<%=end+99 %>">다음</a>
+		<a href="ad_restList.do?snum=<%=start+100 %>&cnum=<%=end+99 %>" class="icon item">
+		<i class="right chevron icon"></i>
+		</a>
 			<%
 		}
 %>
+      </div>
 	</td>
 </tr>
 </table>
-</td>
-<td>
-		<input type="submit" value="삭제"/>
-		<input type="button" value="돌아가기" onclick="location.href='ad_admin.do'"/>
-	</td>
-</tr>
-</table>
+</div>
 </form>
+</div>
 </body>
 </html>

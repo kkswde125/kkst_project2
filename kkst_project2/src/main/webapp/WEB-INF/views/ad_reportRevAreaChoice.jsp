@@ -14,10 +14,22 @@
 		margin : 0;
 		padding : 0;
 	}
-	.ui{
-		width: 200px;
+
+	.ui.animated.fade.button{
+		width: 180px;
 		height: 50px;
+		padding : 0;
 		margin : 3px !important;
+		display : table-cell;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.ui.button{
+		width: 180px;
+		height: 50px;
+	}
+	.visible.content{
+	margin-left : 15px;
 	}
 	#box{
 		width: 1100px;
@@ -37,6 +49,11 @@
 		width : 450px;
 		margin: 0 auto;
 	}
+	#tabDiv{
+	width : 950px;
+		margin : 0 auto;
+	}
+
 </style>
 <%
 	@SuppressWarnings("unchecked")
@@ -67,15 +84,21 @@
 <div id="top">
 <img src="img/Logo.jpg" onclick="location.href='ad_admin.do'"/>
 </div>
+<div id="tabDiv">
 <table>
 <tr>
 		<%
 			for (int i = 0; i < lists.size(); i++) {
 		%>
 		<td>
-		<input type="button" class="ui button"
-			value="<%=lists.get(i).getSi()%> <%=lists.get(i).getGu()%>" onclick="movePage('<%=lists.get(i).getGu()%>')">
-			</td>
+<!-- 		<input type="button" class="ui button" -->
+<%-- 			value="<%=lists.get(i).getSi()%> <%=lists.get(i).getGu()%>" onclick="movePage('<%=lists.get(i).getGu()%>')"> --%>
+
+			<div class="ui animated fade button" tabindex="0" onclick="movePage('<%=lists.get(i).getGu()%>')">
+			<div class="visible content"><%=lists.get(i).getSi()%> <%=lists.get(i).getGu()%></div>
+			<div class="hidden content">바로가기</div>
+		</div>
+		</td>
 		<%
 			if ((i + 1) % 5 == 0) {
 		%>
@@ -90,10 +113,9 @@
 	<td><input type="button" class="ui button" value="돌아가기" onclick="location.href='ad_reviewChoice.do'"/></td>
 </tr>
 </table>
-
 </div>
 </div>
-<input type="button" value="돌아가기" class="ui button" onclick="location.href='ad_reviewChoice.do'"/>
+</div>
 <hr/>
 <jsp:include page="footer.jsp"/>
 </body>
