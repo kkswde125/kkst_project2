@@ -32,7 +32,7 @@
 <table>
 
 	<tr>
-	<td colspan="2"><img style="text-align:center;" src="img/Logo.jpg"></td>
+	<td colspan="2"><img style="text-align:center;" onclick="location.href='index.jsp'" src="img/Logo.jpg"></td>
 	</tr>
 	
 	<tr>

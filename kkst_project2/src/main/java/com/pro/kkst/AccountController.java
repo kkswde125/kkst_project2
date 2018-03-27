@@ -254,10 +254,13 @@ public class AccountController {
 	
 	//회원가입 점주
 	@RequestMapping(value = "/ac_onwerRegist_after.do",method = RequestMethod.POST)
-	public String onwerRegist_after(Model model, String id, String pw, String name,String phone, String email) {
+	public String onwerRegist_after(Model model, String id, String pw, String name,String phone1,String phone2,String phone3, String email) {
 		logger.info("ac_onwerRegist_after");
 		
+		String phone=phone1+phone2+phone3;
+		
 		Map<String, String>map = new HashMap<String,String>();
+		
 		
 		map.put("id", id);
 		map.put("pw", pw);
