@@ -25,7 +25,7 @@ List<MenuzDto> lists1 = (List<MenuzDto>)request.getAttribute("lists1");
 
 <h1><%=lists1.get(0).getName() %></h1>
 
-<button onclick="location.href='us_user.do'" >메인으로</button>
+<button onclick="location.href='us_usermain.do'" >메인으로</button>
 
 <button onclick="choiceThis('<%=lists1.get(0).getCode().substring(0, 1) %>','<%=lists1.get(0).getSeq() %>','<%=lists1.get(0).getName() %>')" >해당 메뉴의 식당을 추천</button>
 </body>

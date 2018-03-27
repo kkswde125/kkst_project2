@@ -153,7 +153,6 @@ public class UserService implements I_UserService {
 		map.put("start", start);
 		map.put("end", end);
 		list=userDao.selectRecommendMenuList(map);
-//		System.out.println("list에 storedNames담기:"+list.get(0).getChange()+" / 앞서실행한 리스트도 유지되는지?:"+list.get(0).getName());
 		return list;
 	}
 
@@ -175,6 +174,7 @@ public class UserService implements I_UserService {
 		int count=0;
 		int listCount=0;
 		Map<String, String> map = new HashMap<>();
+		
 		listCount=userDao.selectGetAllMenuCount(map);
 		int[] counts= {-1,-1,-1,-1,-1,-1,-1,-1,-1};
 		boolean chk = true;
@@ -196,6 +196,7 @@ public class UserService implements I_UserService {
 				}
 			}
 			map.put("count", count+"");
+			
 			dto=userDao.selectWatchaMoreMoreBox(map);
 			if (j!=9) {
 				counts[j]=count;
@@ -223,12 +224,12 @@ public class UserService implements I_UserService {
 
 	@Transactional
 	@Override
-	public boolean customizeTaste(int user_seq, String mName, String[] codes) {
+	public boolean customizeTaste(int user_seq, String mSeq, String[] codes) {
 		int count=0;
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("user_seq", user_seq+"");
-		map.put("mName", mName);
+		map.put("mSeq", mSeq);
 		count=userDao.updateCustomizeTastePlus(map);
 		
 		for (int i = 0; i < codes.length; i++) {
@@ -245,11 +246,11 @@ public class UserService implements I_UserService {
 	}
 	
 	@Override
-	public boolean customizeTaste(int user_seq, String mName) {
+	public boolean customizeTaste(int user_seq, String mSeq) {
 		int count=0;
 		Map<String, String> map = new HashMap<>();
 		map.put("user_seq", user_seq+"");
-		map.put("mName", mName);
+		map.put("mSeq", mSeq);
 		count=userDao.updateCustomizeTastePlus(map);
 		return count>0?true:false;
 	}
@@ -259,20 +260,13 @@ public class UserService implements I_UserService {
 	public boolean fileUploads(MultipartHttpServletRequest request) {
 		boolean isS=false;
 		Map<String, String> map =new HashMap<>();
-		System.out.println("1..1");
 		List<MultipartFile> multiFile=request.getFiles("uploadFile");
-		System.out.println("1..2");
-		System.out.println("1");
-		System.out.println(multiFile.size());
 		
 		for (int i = 0; i < multiFile.size(); i++) {
-			System.out.println("2");
 			String originName=multiFile.get(i).getOriginalFilename();
 			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
 			String storedName=createUUid+originName.substring(originName.lastIndexOf("."));
-			System.out.println("3");
 			File f=new File("C:/Users/hk_EDU/git/kkst_project2/kkst_project2/src/main/webapp/resources/upload/"+storedName);
-			System.out.println("4");
 			
 			map.put("originName", originName);
 			map.put("storedName", storedName);

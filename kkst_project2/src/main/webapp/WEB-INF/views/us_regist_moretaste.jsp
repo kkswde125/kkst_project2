@@ -22,7 +22,6 @@
 	}
 	@SuppressWarnings("unchecked")
 	List<WatchaDto> list= (List<WatchaDto>)request.getAttribute("list");
-	
 %>
 <body>
 <form action="us_getstars.do" method="post">

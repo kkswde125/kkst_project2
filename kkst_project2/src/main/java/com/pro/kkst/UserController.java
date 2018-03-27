@@ -113,7 +113,7 @@ public class UserController {
 				
 			}
 			seqs[i]= num;
-			System.out.print(i+":"+num+"/ ");
+//			System.out.print(i+":"+num+"/ ");
 		}
 		Map<String,int[]>map =new HashMap<String,int[]>();
 		map.put("Rseq", seqs);
@@ -183,18 +183,12 @@ public class UserController {
 	@RequestMapping(value = "us_regist_taste_watcha.do")
 	public String us_Regist_Taste(Model model, HttpSession session) {
 		logger.info("us_regist_taste_watcha");
-		System.out.println("모가널이냐1");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
-		System.out.println("모가널이냐2");
 		if (ldto==null) {
-			System.out.println("모가널이냐3");
 			return "ac_login";
 		}else {
-			System.out.println("모가널이냐4");
 			List<WatchaDto> list = userServ.watchaBox();
-			System.out.println("모가널이냐5");
 			model.addAttribute("list", list);
-			System.out.println("모가널이냐6");
 			return "us_regist_taste";
 		}
 	}
@@ -290,9 +284,9 @@ public class UserController {
 		}else {
 			boolean isS=false;
 			if (hateRs==null) {
-				isS = userServ.customizeTaste(ldto.getSeq(), mName);
+				isS = userServ.customizeTaste(ldto.getSeq(), seq);
 			}else {
-				isS = userServ.customizeTaste(ldto.getSeq(), mName, hateRs);
+				isS = userServ.customizeTaste(ldto.getSeq(), seq, hateRs);
 			}
 			
 			model.addAttribute("cate", cate);
@@ -343,7 +337,7 @@ public class UserController {
 		logger.info("파일업로드실행");
 		
 		for (int i = 0; i < request.getFiles("uploadFile").size(); i++) {
-			System.out.println(request.getFiles("uploadFile").get(i).getOriginalFilename());
+//			System.out.println(request.getFiles("uploadFile").get(i).getOriginalFilename());
 		}
 		
 		boolean isS=userServ.fileUploads(request);
@@ -559,12 +553,12 @@ public class UserController {
 				starsAryList.add(stars);
 			}
 				
-			for (int i = 0; i < attrsAryList.size(); i++) {
-				for (int j = 0; j < attrsAryList.get(i).length; j++) {
-					System.out.print(attrsAryList.get(i)[j]+",");
-				}
-				System.out.println();
-			}
+//			for (int i = 0; i < attrsAryList.size(); i++) {
+//				for (int j = 0; j < attrsAryList.get(i).length; j++) {
+//					System.out.print(attrsAryList.get(i)[j]+",");
+//				}
+//				System.out.println();
+//			}
 	//		String[] cate = {"한","중","일"};
 	//		String[] jujaeryo = {"밀","육류","해산물"};
 	//		String[] jori = {"튀김","구이","탕"};
