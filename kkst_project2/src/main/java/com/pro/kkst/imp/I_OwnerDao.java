@@ -27,4 +27,12 @@ public interface I_OwnerDao {
 	
 	public boolean updateResInfo(Map<String,String> map);
 	public String SearchMenuSeq(Map<String, String>map);
+	
+
+	public boolean delRes(String seq);
+	public boolean delOnwer(String seq);
+	public boolean Menudel(String seq);
+	public boolean Photodel(String seq);
+	public boolean Reviewdel(String seq);
+	
 }

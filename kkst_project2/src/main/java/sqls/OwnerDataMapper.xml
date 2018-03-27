@@ -86,4 +86,28 @@ SELECT SEQ,NAME,CODE,RES_SEQ,PRICE FROM MENULIST WHERE RES_SEQ=#{res_seq} ORDER 
 <!--  -->
 
 
+<!-- 회원탈퇴 DELETE 문 -->
+
+<delete id="delRes" parameterType="String">
+	DELETE FROM RESLIST WHERE SEQ=#{seq}
+</delete>
+
+<delete id="delOwner" parameterType="String">
+	DELETE FROM ADMIN_OWNER WHERE RES_SEQ=#{seq}
+</delete>
+
+<delete id="MenuDel" parameterType="String">
+	DELETE FROM MENULIST WHERE RES_SEQ=#{seq}
+</delete>
+
+<delete id="PhotoDel" parameterType="String">
+	DELETE FROM PHOTO WHERE RES_SEQ=#{seq}
+</delete>
+
+<delete id="ReviewDel" parameterType="String">
+	DELETE FROM REVIEW WHERE RES_SEQ=#{seq}
+</delete>
+
+
+<!--  -->
 </mapper>

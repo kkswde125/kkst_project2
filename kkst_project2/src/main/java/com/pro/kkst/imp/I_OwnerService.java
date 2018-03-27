@@ -31,5 +31,6 @@ public interface I_OwnerService {
 	public boolean updateMenu(MultipartHttpServletRequest request,String[] menu_name_d,String[] cateCode_d,String[] cookCode_d,String[] spicyCode_d,String[] tempCode_d,
 			String[] price_d,Model model,String res_seq,String cate,String menu_seq[],String [] Photo_seq,String[] fileOname,String[] fileSname);
 	
-	
+	public boolean delOnwer(String seq);
+	public boolean delOnwer2(String seq);
 }

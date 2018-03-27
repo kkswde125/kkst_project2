@@ -37,4 +37,7 @@ public interface I_AccountService {
 	
 	public ResDto chkRes(int seq);
 	public int IdChk_Onwer(String id);
+	
+	
+	
 }

@@ -136,6 +136,40 @@ public class OwnerController {
 		
 	}
 	
+	
+	
+	//오너 탈퇴 페이지
+	@RequestMapping(value = "ow_ownerDelpage.do")
+	public String ow_ownerDelpage(Locale locale, Model model) {
+	 return"OwnerDelpage";
+	}
+	
+	
+	
+	//오너 탈퇴_after
+	@RequestMapping(value = "ow_ownerDel.do")
+	public String ow_ownerDel(Locale locale, Model model,String res_seq) {
+		
+		boolean isS=false;
+		
+		
+		
+			isS=ownerServ.delOnwer(res_seq);
+			System.out.println(isS);
+			
+		
+		
+		if(isS=true) {
+			return "ac_ownerlogin";
+		}else {
+			return "ow_ownerDelpage.do";
+		}
+		
+	}
+	
+	
+	
+	
 	//내 가게 관리 페이지
 	@RequestMapping(value = "myRes.do")
 	public String myRes(Locale locale, Model model) {
@@ -224,6 +258,8 @@ public class OwnerController {
 	 return"ow_ResMoreInsertPage";
 	}
 	
+	
+
 	
 	
 	

@@ -147,4 +147,5 @@ public class AccountDao implements I_AccountDao {
 		return sqlSessoin.selectOne(namespace+"idChk_owner",id);
 	}
 
+
 }

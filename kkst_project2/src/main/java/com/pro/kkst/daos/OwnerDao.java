@@ -106,4 +106,35 @@ public class OwnerDao implements I_OwnerDao {
 		return count>0?true:false;	
 	}
 	
+	
+//--------------------------------------------------------------------
+	@Override
+	public boolean delRes(String seq) {
+		
+		int count = sqlSessoin.delete(namespace+"delRes",seq);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean delOnwer(String seq) {
+		int count = sqlSessoin.delete(namespace+"delOwner",seq);
+		return count>0?true:false;
+	}
+	@Override
+	public boolean Menudel(String seq) {
+		int count = sqlSessoin.delete(namespace+"MenuDel",seq);
+		return count>0?true:false;
+	}
+	@Override
+	public boolean Photodel(String seq) {
+		int count = sqlSessoin.delete(namespace+"PhotoDel",seq);
+		return count>0?true:false;
+	}
+	@Override
+	public boolean Reviewdel(String seq) {
+		int count = sqlSessoin.delete(namespace+"ReviewDel",seq);
+		return count>0?true:false;
+	}
+	
+	
 }

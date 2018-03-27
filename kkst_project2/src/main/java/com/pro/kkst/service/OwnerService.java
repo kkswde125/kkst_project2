@@ -388,6 +388,32 @@ public class OwnerService implements I_OwnerService {
 		return isS;
 	}
 
+	@Transactional
+	@Override
+	public boolean delOnwer(String seq) {
+		
+		boolean isS=false;
+		isS=ownerDao.delOnwer(seq);
+		isS=ownerDao.Photodel(seq);	
+		isS=ownerDao.Menudel(seq);
+		isS=ownerDao.Reviewdel(seq);
+		isS=ownerDao.delRes(seq);
+			
+
+		
+		return isS;
+	}
+
+	@Transactional
+	@Override
+	public boolean delOnwer2(String seq) {
+		
+		boolean isS=false;
+	
+		
+		return isS;
+	}
+
 
 
 }

@@ -45,6 +45,7 @@ window.onload=function(){
 	}else if(chk.equals("No")){
 		%>
 		 <h1>아직 식당을 등록하지 않았군요!아래버튼을 눌러 등록해주세요!</h1>
+			<a href="InfoView.do">내정보보기</a>
 		 <button onclick="location.href='ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>'">식당 등록</button>
 		 <button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
 		<%

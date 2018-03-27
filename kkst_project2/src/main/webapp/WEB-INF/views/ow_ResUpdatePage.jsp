@@ -147,6 +147,7 @@ for(int j=0; j<mDto.size(); j++){
 			dataType:"json",
 			success : function() {
 				alert("메뉴삭제 성공");
+				location.reload();
 			},
 			error:function(){
 				alert("실패");

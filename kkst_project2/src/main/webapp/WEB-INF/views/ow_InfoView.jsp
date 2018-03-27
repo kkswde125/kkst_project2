@@ -50,6 +50,7 @@
 		<td colspan="2">
 			<input class="btn btn-default" type="button" value="수정하기" onclick="location.href='ownerMyInfopage.do'" />
 			<input class="btn btn-default" type="button" value="이전" onclick="location.href='ow_owner.do'"/>
+			<input class="btn btn-default" type="button" value="탈퇴하기" onclick="location.href='ow_ownerDelpage.do'"/>
 		</td>
 	</tr>
 </table>

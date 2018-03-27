@@ -42,4 +42,5 @@ public interface I_AccountDao {
 	public ResDto chkRes(int seq);
 	public int IdChk_Onwer(String id);
 	
+	
 }
