@@ -8,6 +8,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ID/PW찾기</title>
+
+<style type="text/css">
+
+	hr{
+		height: 50%;
+		width: 0px;
+	}
+
+</style>
+
 </head>
 <body>
 
