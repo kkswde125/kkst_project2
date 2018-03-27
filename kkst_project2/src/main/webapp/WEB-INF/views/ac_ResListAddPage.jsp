@@ -101,7 +101,9 @@
 <td>
 
 <div style="width: 400px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
+<div class="ui input" style="padding-bottom: 20px;">
+<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" class="ui basic button"/>
+</div>
 <img id="output" style=" width: 400px; height: 300px;" class=" medium ui image" src="img/image.png" />
 </div>
 
@@ -183,7 +185,9 @@
 <tr>
 <td>
 <div>
-<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" />
+<div class="ui input"  style="padding-bottom: 20px;">
+<input type="file" accept="image/*" required="required" name="uploadFile" id="upload" onchange="loadfile(event)" class="ui basic button" />
+</div>
 <img id="outputs" style=" width: 700px; height: 500px;" class=" medium ui image" src="img/image.png"/>
 </div>
 </td>
