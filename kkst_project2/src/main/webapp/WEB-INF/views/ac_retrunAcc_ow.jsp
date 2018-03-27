@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ID/PW찾기</title>
+<title>ID/PW찾기_점주</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -25,6 +25,10 @@ function action2() {
 	
 
 <style type="text/css">
+
+	img{
+		cursor: pointer;
+	}
 
 	*{
 		margin : 0;

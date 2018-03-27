@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
-<title>regist.jsp</title>
+<title>유저 회원가입</title>
 <style type="text/css">
 	#all{
 		padding-top:1%;

@@ -38,7 +38,7 @@
 		}
 	}
 </script>
-<title>login.jsp</title>
+<title>유저 로그인</title>
 <style type="text/css">
 
 	img{

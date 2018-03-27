@@ -40,7 +40,7 @@ crossorigin="anonymous"></script>
 		}
 	}
 </script>
-<title>login.jsp</title>
+<title>점주 로그인</title>
 <style type="text/css">
 
 	img{
