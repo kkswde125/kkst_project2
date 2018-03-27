@@ -56,19 +56,19 @@
 <div class="ui animated button" tabindex="0" onclick="location.href='ad_memberList.do?snum=1&cnum=10'">
   <div class="visible content">회원관리</div>
   <div class="hidden content">
-    <i class="right arrow icon"></i>
+    <i class="big users icon"></i>
   </div>
 </div>
 <div class="ui animated button" tabindex="0" onclick="location.href='ad_reviewChoice.do'">
   <div class="visible content">리뷰관리</div>
   <div class="hidden content">
-    <i class="right arrow icon"></i>
+    <i class="big list alternate outline icon"></i>
   </div>
 </div>
 <div class="ui animated button" tabindex="0" onclick="location.href='ad_restList.do?snum=1&cnum=10'">
   <div class="visible content">식당등록검토</div>
   <div class="hidden content">
-    <i class="right arrow icon"></i>
+    <i class="big calendar check outline icon"></i>
   </div>
 </div>
 </div>

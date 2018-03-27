@@ -65,7 +65,7 @@
 <div id="all">
 <h1>식당 등록 관리</h1>
 <form action="ad_restList_Del.do" method="POST">
-<table border = "1" id="table" class="ui celled table">
+<table border = "1" id="table" class="ui celled table" style="text-align: center;">
 	<tr>
 		<td>
 			<input type="checkbox" name="chkAll" onclick="allChk(this.checked)"/>

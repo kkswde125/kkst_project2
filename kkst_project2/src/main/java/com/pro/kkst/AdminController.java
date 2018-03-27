@@ -264,6 +264,8 @@ public class AdminController {
 		List<ResDto> lists = adminServ.restList(snum, cnum);
 		int count = adminServ.RestPaging();
 		
+		System.out.println("Controller :"+lists.toString());
+		
 		model.addAttribute("lists", lists);
 		model.addAttribute("count", count);
 		model.addAttribute("start", start);
