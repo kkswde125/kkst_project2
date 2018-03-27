@@ -105,7 +105,7 @@ crossorigin="anonymous"></script>
     <i class="reply icon"></i>
   </div>
 </div>
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디나 패스워드를 잊어버리셨다면? <a href="ac_retrunAccPage.do">HERE</a>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디나 패스워드를 잊어버리셨다면? <a href="ac_retrunAccPage_ow.do">HERE</a>
 </td>
 </tr>
 

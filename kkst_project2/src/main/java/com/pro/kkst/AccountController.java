@@ -356,19 +356,20 @@ public class AccountController {
 			model.addAttribute("msg",str);
 			
 			
-			return "ac_login.do";
+			return "ac_login";
 	}
 	
 	
 	//비밀번호 찾기 유저
 	@RequestMapping(value = "/ac_pwRetrun.do",method = RequestMethod.POST)
 	public String pwRetrun(Locale locale, Model model,String id_pw,String name_pw,String email_pw) {
-		
+
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id_pw);
 		map.put("name", name_pw);
 		map.put("email", email_pw);
 		List<LoginDto>lists=accountServ.pw_return(map);
+		System.out.println(lists.toString());
 		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 		
 		
@@ -381,9 +382,8 @@ public class AccountController {
 			}
 			
 			model.addAttribute("msg",str);
-			
 		
-		return "ac_login.do";
+		return "ac_login";
 	}
 	
 	
