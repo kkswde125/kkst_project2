@@ -120,6 +120,9 @@
 		FROM ADMIN_OWNER WHERE EMAIL = #{email} AND SEQ = ${seq}
 	</select>
 
-
+	<select id="restList_detail" parameterType="int" resultType="menuDto">
+		SELECT M.SEQ, NAME, CODE, RES_SEQ, PRICE FROM MENULIST M, RESLIST R
+		WHERE M.RES_SEQ = R.SEQ
+	</select>
 
 </mapper>

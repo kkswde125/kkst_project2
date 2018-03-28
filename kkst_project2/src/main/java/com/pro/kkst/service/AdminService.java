@@ -11,6 +11,7 @@ import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
+import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AdminDao;
 import com.pro.kkst.imp.I_AdminService;
 
@@ -92,6 +93,11 @@ public class AdminService implements I_AdminService {
 	@Override
 	public List<ResDto> areaResList(String area){
 		return adminDao.areaResList(area);
+	}
+
+	@Override
+	public List<menuDto> restList_detail(int seq) {
+		return adminDao.restList_detail(seq);
 	}
 	
 

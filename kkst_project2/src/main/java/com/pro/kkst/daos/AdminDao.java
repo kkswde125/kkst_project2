@@ -15,6 +15,7 @@ import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
+import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AdminDao;
 
 @Repository
@@ -158,6 +159,11 @@ public class AdminDao implements I_AdminDao {
 		map.put("seq", Integer.parseInt(seq));
 		Admin_OnwerDto dto = sqlSession.selectOne(namespace+"sendEmail", map);
 		return dto;
+	}
+
+	@Override
+	public List<menuDto> restList_detail(int seq) {
+		return sqlSession.selectList(namespace+"restList_detail", seq);
 	}
 	
 	
