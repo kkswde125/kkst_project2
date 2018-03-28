@@ -72,6 +72,9 @@ for(int j=0; j<mDto.size(); j++){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>카탈리스트 점주식당 수정 페이지 입니다.</title>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
@@ -86,7 +89,6 @@ for(int j=0; j<mDto.size(); j++){
 		});
 	}
 
-		<%int count=1;%>
 	
 		var countT=1;
 		var countM=1;
@@ -95,7 +97,7 @@ for(int j=0; j<mDto.size(); j++){
 		
 		
 		var countdefault=1;
-		var newMenuCount="<%=count%>";
+	
 		
 		var count=$("#line2").find("img").size();
 		
@@ -157,37 +159,89 @@ for(int j=0; j<mDto.size(); j++){
 
 	}
 	
+	$(function(){
+		$("form").submit(function(){
+			var bool=true;
+			$("#line2").find("input[name]").each(function(){
+				if($(this).val()==""){
+					alert("새로 추가한 메뉴는 빈 공간 없이 입력해주세요");
+					$(this).focus();
+					bool=false;
+					return false;
+				}
+			});
+
+			return bool;
+		})
+	})	
+
+	
+		function action() {
+		$("form:first").submit();
+		}
+	
+	 function remove(){
+		 
+		 var ddd= $("input[name=uploadFile]").find("table").attr("id");
+		 
+		 alert(ddd);
+	 }
+	
 	
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 </script>
+
+<style type="text/css">
+
+	*{
+		margin : 0;
+		padding : 0;
+	}
+	
+	input[type=text]{
+		width: 500px;
+	}
+	
+	#all{
+		width: 70%;
+		margin : 0 auto;
+	}
+	
+</style>
 </head>
 
 <body>
 <!-- 복제할 메뉴 폼 -->
 
-<table id="menuAdd"  style="display: none;"  >
+<table id="menuAdd"  style="display: none;"  class="ui celled table"  >
 <tr>
 <td>
-<div style="width: 350px; height: 350px; padding: 40px;">
-<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" />
-<img id="newMenu" style="width: 350px; height: 350px;">
+<div class="ui input" style="padding-bottom: 20px;">
+<div style="width: 567px; height: 400px; padding: 40px;">
+<input type="file" accept="image/*" required="required"  name="uploadFile" id="upload" onchange="loadfile2(event)" class="ui basic button" />
+<img id="newMenu" style="width: 510px; height: 300px;" class=" medium ui image" src="img/image.png">
+</div>
 </div>
 
 </td>
 <td>
 
 
-<table border="1" >
+<table border="1" class="ui celled table" style="width: 620px; text-align: center;" >
 	<tr>
 		<th>메뉴이름</th>
-		<td colspan="2"><input type="text" name="menu_name" required="required"/></td>
+		<td colspan="2">
+		<div class="ui input">
+		<input type="text" name="menu_name" required="required"/>
+		</div>
+		</td>
 	</tr>
 	<tr>
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode" >
+		<select name="cateCode"  class="ui dropdown" >
 		<c:forEach items="${lists2}" var="dto">
 			<option label="${dto.attr}" value="${dto.code}"/>
 		</c:forEach>
@@ -198,7 +252,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>조리방식</td>
 		<td>
-		<select name="cookCode">
+		<select name="cookCode" class="ui dropdown">
 		<c:forEach items="${lists3}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" />
 		</c:forEach>
@@ -208,7 +262,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>매움정도</td>
 		<td>
-		<select name="spicyCode">
+		<select name="spicyCode" class="ui dropdown">
 		<c:forEach items="${lists4}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" />
 		</c:forEach>
@@ -218,7 +272,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode" >
+		<select name="tempCode" class="ui dropdown" >
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" />
 		</c:forEach>
@@ -226,7 +280,16 @@ for(int j=0; j<mDto.size(); j++){
 		</td>
 	</tr>
 	<tr>
-	<td>가격</td><td colspan="2"><input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" /></td>
+	<td>가격</td><td colspan="2">
+	<div class="ui input">
+	<input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" />
+	</div>
+	</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" value="삭제" onclick="remove()" />
+		</td>
 	</tr>
 </table>
 </td>
@@ -236,33 +299,44 @@ for(int j=0; j<mDto.size(); j++){
 
 <%----------/////////////////////////////////////////////////////////////////////////////  --%>
 
+<div id="all">
 
 <form action="ResUpdate.do" method="post" id="newMenu" enctype="multipart/form-data">
 <input type="hidden" name="res_seq" value="${rdto.seq}"/>
-<table>
+<table class="shopDiv">
 <!-- 사진 올라갈곳 -->
 <tr>
 <td>
-<div style="width: 350px; height: 350px; padding: 40px;">
+<div class="ui input"  style="padding-bottom: 20px;">
+<div style="width: 620px; height: 350px; padding: 40px;">
 <input type="hidden" name="Photo_seq" value="<%=pDto.get(0).getSeq() %>" />
 <input type="hidden" name="fileOname" value="<%=pDto.get(0).getOrigin()%>" />
 <input type="hidden" name="fileSname" value="<%=pDto.get(0).getChange()%>" />
 <input type="file" accept="image/*"  name="uploadFile_d" id="upload" onchange="loadfile(event)"/>
-<img id="outputs" style=" width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
+<img id="outputs"  class=" medium ui image" style=" width: 700px; height: 400px;" src="resources/Resimg/<%=pDto.get(0).getChange()%>">
+</div>
 </div>
 </td>
 <!-- 입력 부분 -->
 <td>
-<table border="1">
+<table border="1" class="ui celled table" style="width: 710px; text-align: center;">
+	<tr>
+		<td colspan="2" style="text-align: center;"><h1>식당 수정 하기</h1></td>
+	</tr>
+
 <tr>
 	<th>식당명</th>
-	<td><input type="text" name="name" required="required" value="${rdto.name}" /></td>
+	<td>
+	<div class="ui input">
+	<input type="text" name="name" required="required" value="${rdto.name}" />
+	</div>
+	</td>
 </tr>
 <tr>
 	<th>업종</th>
 	<td>
 	
-	<select name="cate">
+	<select name="cate" class="ui dropdown">
 		<option label="한식" value="한식"${rdto.cate=="한식"?"selected":""}>
 		<option label="중식" value="중식"${rdto.cate=="중식"?"selected":""}>
 		<option label="일식" value="일식"${rdto.cate=="일식"?"selected":""}>
@@ -279,30 +353,34 @@ for(int j=0; j<mDto.size(); j++){
 </tr>
 <tr>
 	<th>주소</th>
-	<td><input type="text" name="addr" required="required" value="${rdto.addr}" /></td>
+	<td>
+	<div class="ui input">
+	<input type="text" name="addr" required="required" value="${rdto.addr}" />
+	</div>
+	</td>
 </tr>
 
 	<tr>
 		<th>영업시간 </th>
 		<td>
 		<!-- 영업시간 -->
-			<select name="S_hour">
+			<select name="S_hour" class="ui dropdown">
 				<c:forEach begin="0" end="23" var="i">
 				<option label="${i}" value="${i}" ${i eq sHour? 'selected':''} >
 				</c:forEach>
 			</select> : 
-			<select name="S_min">
+			<select name="S_min" class="ui dropdown" >
 				<c:forEach begin="0" end="59" var="i">
 				<option label="${i}" value="${i}"${i eq sMin?'selected':''}>
 				</c:forEach>
 			</select>
 			~
-			<select name="E_hour">
+			<select name="E_hour" class="ui dropdown">
 				<c:forEach begin="0" end="23" var="i">
 				<option label="${i}" value="${i}" ${i eq eHour? 'selected':''}>
 				</c:forEach>
 			</select> : 
-			<select name="E_min">
+			<select name="E_min" class="ui dropdown">
 				<c:forEach begin="0" end="59" var="i">
 				<option label="${i}" value="${i}"${i eq eMin? 'selected':'' }>
 				</c:forEach>
@@ -313,24 +391,24 @@ for(int j=0; j<mDto.size(); j++){
 		<th>휴식시간</th>
 		<td>
 				<!-- 휴식시간 -->	
-			<select name="Rs_hour">
+			<select name="Rs_hour" class="ui dropdown">
 				<c:forEach begin="0" end="23" var="i">
 				<option label="${i}" value="${i}" ${i eq RsHour? 'selected':'' }>
 				</c:forEach>
 			</select> : 
-			<select name="Rs_min">
+			<select name="Rs_min" class="ui dropdown">
 				<c:forEach begin="0" end="59" var="i">
 				<option label="${i}" value="${i}" ${i eq RsMin? 'selected':'' }>
 				</c:forEach>
 			</select>
 			~
-			<select name="Re_hour">
+			<select name="Re_hour" class="ui dropdown">
 				<c:forEach begin="0" end="23" var="i">
 				<option label="${i}" value="${i}" ${i eq ReHour? 'selected':'' } >
 				</c:forEach>
 			</select> : 
-			<select name="Re_min">
-				<c:forEach begin="0" end="59" var="i">
+			<select name="Re_min" class="ui dropdown">
+				<c:forEach begin="0" end="59" var="i" >
 				<option label="${i}" value="${i}" ${i eq ReMin? 'selected':'' }>
 				</c:forEach>
 			</select>
@@ -339,14 +417,16 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<th>전화번호</th>
 	<td>
+	<div class="ui input">
 	<input type="text" value="${rdto.call}" name="call" required="required" class="reset"  />
+	</div>
 	</td>
 	</tr>
 
 	<tr>
 		<th>주차가능여부</th>
 		<td>
-			<select name="parking">
+			<select name="parking" class="ui dropdown">
 				<option label="가능" value="Y" ${rdto.parking eq "Y" ? 'selected':''}>
 				<option label="불가능" value="N" ${rdto.parking eq "N" ? 'selected':''}>
 			</select>
@@ -356,10 +436,25 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<th>식당 설명</th>
 		<td>
-		<textarea rows="10" cols="60" name="comment" required="required">${rdto.comment}</textarea>
+		<textarea rows="10" cols="80" name="comment" required="required">${rdto.comment}</textarea>
 		</td>
 	</tr>
 	
+		<tr>
+		<td colspan="8" style="text-align: right;">
+			
+			<div class="ui animated button" onclick="AddMenu()" tabindex="0" style="width: 300px;">
+  			<div class="visible content">메뉴 추가</div>
+  			<div class="hidden content"> 하단에 메뉴 등록창이 추가됩니다.</div>
+			</div>
+			
+			
+			<div class="ui animated button" onclick="action()" tabindex="0" style="width: 300px;">
+  			<div class="visible content">식당 등록 완료!</div>
+  			<div class="hidden content">메인 페이지로 이동 합니다</div>
+			</div>
+		</td>
+	</tr>
 	
 </table>
 </td>
@@ -371,31 +466,37 @@ for(int j=0; j<mDto.size(); j++){
 <% for(int i=0; i< mDto.size(); i++){
 	%>
 <c:set var="i" value="<%=i%>" />
-<table id="menuAdd<%="Default"+i%>">
+<table id="menuAdd<%="Default"+i%>" class="ui celled table" >
 <tr>
 <td>
 
-<div style="width: 350px; height: 350px; padding: 40px;">
+<div style="width: 630px; height: 350px;">
+<div class="ui input" style="padding-bottom: 20px;">
 <input type="file" accept="image/*"   name="uploadFile_A" id="upload" onchange="loadfile3(event,'<%=i%>')" />
 <input type="hidden" name="menu_seq" value="<%=mDto.get(i).getSeq()%>" />
 <input type="hidden" name="fileOname" value="<%=pDto.get(i+1).getOrigin()%>" />
 <input type="hidden" name="fileSname" value="<%=pDto.get(i+1).getChange()%>" />
-<img id="outputs<%=i%>" style="width: 350px; height: 350px;" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
+</div>
+<img id="outputs<%=i%>" style="width: 600px; height: 300px;"  class=" medium ui image" src="resources/Resimg/<%=pDto.get(i+1).getChange()%>" >
 </div>
 
 </td>
 <td>
 
-<table border="1" >
+<table border="1"  class="ui celled table" style="width: 620px; text-align: center;" >
 	<tr>
 		<th>메뉴이름</th>
-		<td colspan="2"><input type="text" name="menu_name_d" required="required" value="<%=mDto.get(i).getName()%>" /></td>
+		<td colspan="2">
+		<div class="ui input">
+		<input type="text" name="menu_name_d" required="required" value="<%=mDto.get(i).getName()%>" />
+		</div>
+		</td>
 	</tr>
 	<tr>
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode_d" >
+		<select name="cateCode_d" class="ui dropdown" >
 		<c:forEach items="${lists2}" var="dto" >
 			<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cateCode[i]? 'selected':''} />
 		</c:forEach>
@@ -406,7 +507,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>조리방식</td>
 		<td>
-		<select name="cookCode_d">
+		<select name="cookCode_d" class="ui dropdown">
 		<c:forEach items="${lists3}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cookCode[i]? 'selected':''} />
 		</c:forEach>
@@ -416,7 +517,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>매움정도</td>
 		<td>
-		<select name="spicyCode_d">
+		<select name="spicyCode_d" class="ui dropdown">
 		<c:forEach items="${lists4}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq spicyCode[i]? 'selected':''} />
 		</c:forEach>
@@ -426,7 +527,7 @@ for(int j=0; j<mDto.size(); j++){
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode_d" >
+		<select name="tempCode_d" class="ui dropdown" >
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq tempCode[i]? 'selected':''} />
 		</c:forEach>
@@ -434,10 +535,16 @@ for(int j=0; j<mDto.size(); j++){
 		</td>
 	</tr>
 	<tr>
-	<td>가격</td><td colspan="2"><input type="text" name="price_d" value="<%=mDto.get(i).getPrice()%>" required="required" class="price1"  /></td>
+	<td>가격</td><td colspan="2">
+	<div class="ui input">
+	<input type="text" name="price_d" value="<%=mDto.get(i).getPrice()%>" required="required" class="price1"  />
+	</div>
+	</td>
 	</tr>
 </table>
-	<input type="button" value="삭제" onclick="delectMenu('<%=mDto.get(i).getSeq()%>')" />
+	<div style="text-align: right;">
+	<input  class="ui button" type="button" value="삭제" onclick="delectMenu('<%=mDto.get(i).getSeq()%>')" />
+	</div>
 </td>
 </tr>
 </table>
@@ -448,9 +555,10 @@ for(int j=0; j<mDto.size(); j++){
 <!-- 메뉴 입력 끝 -->
 
 <hr id="line2"/>
-<input type="submit" value="식당 등록 완료!">
-<input type="button" value="메뉴추가" onclick="AddMenu()" />
+
+
 </form>
+</div>
 
 
 

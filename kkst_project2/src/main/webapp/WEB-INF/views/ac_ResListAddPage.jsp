@@ -86,6 +86,22 @@
 		}
 		
 	}
+	
+	$(function(){
+		$("form").submit(function(){
+			var bool=true;
+			$("form input[name]").each(function(){
+				if($(this).val()==""){
+					alert("빈 공간 없이 입력해주세요");
+					$(this).focus();
+					bool=false;
+					return false;
+				}
+			});
+		
+			return bool;
+		})
+	})	
 
 	
 	

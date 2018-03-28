@@ -21,6 +21,38 @@ function action2() {
 	$("form:last").submit();
 	}
 	
+$(function(){
+	$("form:first").submit(function(){
+		var bool=true;
+		$("form:first input[name]").each(function(){
+			if($(this).val()==""){
+				alert("빈 공간 없이 입력해주세요");
+				$(this).focus();
+				bool=false;
+				return false;
+			}
+		});
+	
+		return bool;
+	})
+})
+
+$(function(){
+	$("form:last").submit(function(){
+		var bool=true;
+		$("form:last input[name]").each(function(){
+			if($(this).val()==""){
+				alert("빈 공간 없이 입력해주세요");
+				$(this).focus();
+				bool=false;
+				return false;
+			}
+		});
+	
+		return bool;
+	})
+})		
+
 </script>
 	
 
