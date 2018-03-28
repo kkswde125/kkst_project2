@@ -12,8 +12,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
     
 
 window.onload=function(){
@@ -35,19 +39,63 @@ window.onload=function(){
 <%
 	if(chk.equals("Yes")){
 		%>	
-<a href="#">소비자 선호도 통계조회</a>
-<a href="devMenu.do?seq=<%=AoDto.getRes_seq()%>">개발 메뉴 추천</a>
-<a href="#">지역별 최다 선호 음식 출력</a>
-<a href="myRes.do?">내 가게 관리</a>
-<a href="InfoView.do">내정보보기</a>
-<button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
+
+<div class="ui animated button" tabindex="0" onclick="location.href='InfoView.do'">
+  <div class="visible content">내정보 보기</div>
+  <div class="hidden content">
+<i class="big address book outline icon"style="margin-top : -10px;"></i>		
+  </div>
+</div>		
+
+<div class="ui animated button" tabindex="0" onclick="location.href='myRes.do'">
+  <div class="visible content">내 가게 관리</div>
+  <div class="hidden content">
+<i class="big warehouse icon"  style="margin-top : -10px;"></i>
+  </div>
+</div>	
+
+<div class="ui animated button" tabindex="0" onclick="location.href='devMenu.do?seq=<%=AoDto.getRes_seq()%>'">
+  <div class="visible content">개발 메뉴 추천</div>
+  <div class="hidden content">
+<i class="big clipboard list icon"  style="margin-top : -10px;"></i>
+  </div>
+</div>	
+
+<div class="ui animated button" tabindex="0" onclick="location.href='ac_ownerlogout.do'">
+ <div class="visible content">로그아웃</div>
+  <div class="hidden content">
+<i class="big power off icon" style="margin-top : -10px;"></i>
+  </div>
+</div>
+
 		<%
 	}else if(chk.equals("No")){
 		%>
 		 <h1>아직 식당을 등록하지 않았군요!아래버튼을 눌러 등록해주세요!</h1>
-			<a href="InfoView.do">내정보보기</a>
-		 <button onclick="location.href='ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>'">식당 등록</button>
-		 <button onclick="location.href='ac_ownerlogout.do'" >로그아웃</button>
+		 
+		 <div class="ui animated button" tabindex="0" onclick="location.href='ac_ResListAddPage.do?res_seq=<%=AoDto.getRes_seq()%>'">
+ 			<div class="visible content">식당 등록</div>
+  			<div class="hidden content">
+		 	<i class=" big cart plus icon"  style="margin-top : -10px;"></i>
+    		</div>
+		</div>
+		 
+
+		 <div class="ui animated button" tabindex="0" onclick="location.href='InfoView.do'">
+  			<div class="visible content">내정보 보기</div>
+  			<div class="hidden content">
+			<i class="big address book outline icon"style="margin-top : -10px;"></i>		
+  			</div>
+		</div>		
+			
+		<div class="ui animated button" tabindex="0" onclick="location.href='ac_ownerlogout.do'">
+ 			<div class="visible content">로그아웃</div>
+  			<div class="hidden content">
+			<i class="big power off icon" style="margin-top : -10px;"></i>
+  			</div>
+		</div>
+		 
+		 
 		<%
 	}
 
