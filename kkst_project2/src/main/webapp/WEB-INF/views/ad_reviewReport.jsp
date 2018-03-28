@@ -20,6 +20,22 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	
+	$(function(){
+	    $("form").submit(function(){
+	       var bool=true;
+	       $(this).find("input[name==chk]").each(function(){
+	          if($(this).checked==null){
+	             alert("삭제할 리뷰를 선택 해 주세요!");
+	             $(this).focus();
+	             bool=false;
+	             return false;
+	          }
+	       });
+	
+	       return bool;
+	    })
+	 })   
+	
 	function allChk(bool, i){
 			$(".chks"+i).prop("checked", bool);
 	}

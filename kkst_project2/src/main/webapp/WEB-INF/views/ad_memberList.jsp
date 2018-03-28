@@ -17,19 +17,27 @@
 	}
 
 	#box{
-		width: 1200px;
+		width: 1000px;
 		height : 300px;
 		margin : 0 auto;
 		padding-top: 5%;
+		
+	}#allTab{
+		width: 1000px;
 	}
 	p{
 		font : bold 30pt "나눔스퀘어라운드 BOLD";
 	}
-	
-	#paging{
+	#pageTab{
+		width: 450px;
+		margin : 0 auto;
 		text-align: center;
+		padding : 0;
 	}
-	
+	#page{
+		text-align: center;
+		margin : 0 auto;
+	}
 	
 </style>
 </head>
@@ -64,7 +72,7 @@
 <form action="ad_memDel.do" method="post" name="isForm">
 <div id="box">
 <p>가입 회원 목록</p>
-<table border = "1" class="ui celled table">
+<table border = "1" class="ui celled table" id="allTab">
 	<thead>
 		<tr>
 			<th>
@@ -121,39 +129,52 @@
 		</c:otherwise>
 	</c:choose>
 	</tbody>
-	<tfoot>
+	<tfoot style="text-align: center;">
 		<tr class="btnPaging">
 			<td colspan="2">
 				<input type="button" value="돌아가기" class="ui button" onclick="location.href='admin.do'"/>
 			</td>
 			<td colspan="5" id = "paging">
-			<% 
+			<div id="pageTab">
+				<table id="page">
+				<tr>
+				<td>
+			<div class="ui right floated pagination menu">
+		<% 
 			int count = (Integer)request.getAttribute("count");
 			int start = (Integer)request.getAttribute("start");
 			int end = (Integer)request.getAttribute("end");
 			if(end>count){
 				end = count;
 			}
-			
-			if(start!=1){
-			%>
-				<a href="ad_memberList.do?snum=<%=start*10-19 %>&cnum=<%=start*10-10 %>">이전</a>
-			<%
-			}
-			
-			for(int i = start-1; i <end ; i++){
-			%>
-				<a href="ad_memberList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>">
+		
+		if(start!=1){
+		%>
+       	 	<a href="ad_memberList.do?snum=<%=start*10-19 %>&cnum=<%=start*10-10 %>" class="icon item">
+          		<i class="left chevron icon"></i>
+          	</a>
+        <%
+		}
+		for(int i=start-1; i < end; i++){
+		%>
+			<a href='ad_memberList.do?snum=<%=i<1?"1":i+"1"%>&cnum=<%=i<1?"10":(i+1)+"0"%>' class="item">
 				<%=i+1 %>
-				</a>
-				<%
-			}
-			if(end!=count){
-				%>
-			<a href="ad_memberList.do?snum=<%=start+100 %>&cnum=<%=end+99 %>">다음</a>
-				<%
-			}
-				%>
+	 		</a>
+	 
+        <%
+	}
+		if(end!=count){
+			%>
+			<a href="ad_memberList.do?snum=<%=start+100 %>&cnum=<%=end+99 %>" class="icon item">
+				<i class="right chevron icon"></i>
+			</a>
+			<%
+		}
+%>
+      </div>	
+      </td>
+      </tr>
+      </table></div>
 			</td>
 			<td><input type="submit" value="강제탈퇴" class="ui button"><input type="button" class="ui button" value="활동복구" onclick="memDelCancle()"></td>
 			
@@ -164,7 +185,5 @@
 </form>
 </div>
 </div>
-<hr/>
-<%@include file="footer.jsp" %>
 </body>
 </html>
