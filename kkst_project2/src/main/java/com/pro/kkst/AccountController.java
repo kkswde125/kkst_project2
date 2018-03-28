@@ -152,7 +152,7 @@ public class AccountController {
 					msg="점주 로그인";
 					session.setAttribute("Chk", "No");
 					model.addAttribute("msg",msg);
-					session.setAttribute("rDto", rDto);;
+					session.setAttribute("rDto", rDto);
 					return "ow_owner";
 				}else {
 					msg="점주 로그인";
@@ -254,7 +254,7 @@ public class AccountController {
 	
 	//회원가입 점주
 	@RequestMapping(value = "/ac_onwerRegist_after.do",method = RequestMethod.POST)
-	public String onwerRegist_after(Model model, String id, String pw, String name,String phone1,String phone2,String phone3, String email) {
+	public String onwerRegist_after(Model model, String id, String pw, String name,String phone1,String phone2,String phone3, String email,String point) {
 		logger.info("ac_onwerRegist_after");
 		
 		String phone=phone1+phone2+phone3;
@@ -279,7 +279,7 @@ public class AccountController {
 				Admin_OnwerDto AoDto=accountServ.getOnwerLogin(map2);
 				System.out.println(AoDto);
 				model.addAttribute("res_seq",AoDto.getRes_seq());
-				
+				model.addAttribute("point",point);
 				return "redirect:ac_ResListAddPage.do";
 	
 			}else {
@@ -445,7 +445,7 @@ public class AccountController {
 	
 	//식당 등록 페이지 이동
 	@RequestMapping(value = "/ac_ResListAddPage.do")
-	public String ResListAddPage(Locale locale, Model model,String res_seq) {
+	public String ResListAddPage(Locale locale, Model model,String res_seq,String point) {
 		
 		List<AttrsDto> lists2=accountServ.ATTRS2();
 		List<AttrsDto> lists3=accountServ.ATTRS3();
@@ -458,6 +458,9 @@ public class AccountController {
 		model.addAttribute("lists4", lists4);
 		model.addAttribute("lists5", lists5);
 		model.addAttribute("res_seq",res_seq);
+		model.addAttribute("point",point);
+			
+		System.out.println(point);
 		
 		return "ac_ResListAddPage";
 	}

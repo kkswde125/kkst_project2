@@ -4,6 +4,7 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8");%>
 <% String res_seq = request.getParameter("res_seq"); %>
+<% String point = request.getParameter("point"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -332,18 +333,40 @@
 	</tr>
 	
 	<tr>
-		<td colspan="8" style="text-align: right;">
+		<td colspan="8" style="text-align: center;">
+		
+			<%
+				if(point.equals("Onwer")){
+					%>
+			<div class="ui animated button" onclick="location.href='ow_owner.do'" tabindex="0" style="width: 75px;">
+  			<div class="visible content">이전</div>
+  			<div class="hidden content"> <i class="arrow left icon"></i></div>
+			</div>
+		
+					<%
+				}else if(point.equals("Regist")){
+					%>
+			<div class="ui animated button" onclick="location.href='ow_loginhome.do'" tabindex="0" style="width: 120px;">
+  			<div class="visible content">나중에 등록</div>
+  			<div class="hidden content"> <i class="arrow left icon"></i></div>
+			</div>
+					
+					<%
+				}
 			
-			<div class="ui animated button" onclick="AddMenu()" tabindex="0" style="width: 300px;">
+			%>
+			<div class="ui animated button" onclick="AddMenu()" tabindex="0" style="width: 250px;">
   			<div class="visible content">메뉴 추가</div>
   			<div class="hidden content"> 하단에 메뉴 등록창이 추가됩니다.</div>
 			</div>
 			
 			
-			<div class="ui animated button" onclick="action()" tabindex="0" style="width: 300px;">
+			<div class="ui animated button" onclick="action()" tabindex="0" style="width: 250px;">
   			<div class="visible content">식당 등록 완료!</div>
   			<div class="hidden content">로그인 페이지로 이동합니다.</div>
 			</div>
+		
+			
 		</td>
 	</tr>
 	

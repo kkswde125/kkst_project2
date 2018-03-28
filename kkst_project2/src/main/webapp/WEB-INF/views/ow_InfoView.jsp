@@ -10,20 +10,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수정 페이지</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
 <script type="text/javascript">
 </script>
+<style type="text/css">
+
+	*{
+		text-align: center;
+	}
+
+	img{
+		cursor: pointer;
+	}
+
+	input {
+		width: 300px;
+	}		 	
+	
+	#all{
+		padding-top:7%;
+		width: 600px;
+		margin : 0 auto;
+	}
+</style>
 </head>
 <body>
+
+<div id="all">
 <input type="hidden" value="<%=AoDto.getSeq()%>" name="seq" />
-<table border="1" class="table table-striped">
+<table border="1" class="ui celled table">
+<tr>
+	<td colspan="3"><img style="text-align:center; width: 500px;" onclick="location.href='index.jsp'" src="img/Logo.jpg"></td>
+</tr>
 	<tr>
 		<th>아이디</th>
 		<td>
-			<div class="form-group">
-			<input class="form-control" value="<%=AoDto.getId()%>"  type="text" name="id" readonly="readonly"/>
+			<div class="ui input">
+			<input value="<%=AoDto.getId()%>"  type="text" name="id" readonly="readonly"/>
 			</div>
 			<br/>
 		</td>
@@ -32,28 +57,41 @@
 	
 	<tr>
 		<th>이름</th>
-		<td><input class="form-control" value="<%=AoDto.getName()%>"  type="text" name="name" readonly="readonly"/></td>
+		<td>
+		<div class="ui input">
+		<input value="<%=AoDto.getName()%>"  type="text" name="name" readonly="readonly"/>
+		</div>
+		</td>
 	</tr>
 	
 	<tr>
 		<th>휴대폰 번호</th>
-		<td><input class="form-control" value="<%=AoDto.getPhone()%>" type="text" name="phone"  readonly="readonly"/></td>
+		<td>
+		<div class="ui input">
+		<input  value="<%=AoDto.getPhone()%>" type="text" name="phone"  readonly="readonly"/>
+		</div>
+		</td>
 	</tr>
 	
 	<tr>
 		<th>이메일</th>
-		<td><input class="form-control" value="<%=AoDto.getEmail()%>" type="email" name="email"  readonly="readonly"/></td>
+		<td>
+		<div class="ui input">
+		<input value="<%=AoDto.getEmail()%>" type="email" name="email"  readonly="readonly"/>
+		</div>
+		</td>
 	</tr>
 	
 
 	<tr>
 		<td colspan="2">
-			<input class="btn btn-default" type="button" value="수정하기" onclick="location.href='ownerMyInfopage.do'" />
-			<input class="btn btn-default" type="button" value="이전" onclick="location.href='ow_owner.do'"/>
-			<input class="btn btn-default" type="button" value="탈퇴하기" onclick="location.href='ow_ownerDelpage.do'"/>
+			<input class="ui button" style="width: 100px;" type="button" value="이전" onclick="location.href='ow_owner.do'"/>
+			<input class="ui button" style="width: 100px;" type="button" value="수정하기" onclick="location.href='ownerMyInfopage.do'" />
+			<input class="ui button" style="width: 100px;" type="button" value="탈퇴하기" onclick="location.href='ow_ownerDelpage.do'"/>
 		</td>
 	</tr>
 </table>
+</div>
 
 </body>
 </html>

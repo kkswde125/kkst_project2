@@ -104,6 +104,7 @@ td{
 <img style="text-align:center; width: 600px;" onclick="location.href='index.jsp'" src="img/Logo.jpg">
 <h2>점주 회원가입</h2>
 <form action="ac_onwerRegist_after.do" method="post" >
+<input type="hidden" value="Regist" name="point" />
 <div id="tabDiv">
 <table border="1" class="ui grey table" style="width: 500px;">
 	<tr>

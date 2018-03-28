@@ -441,15 +441,19 @@ for(int j=0; j<mDto.size(); j++){
 	</tr>
 	
 		<tr>
-		<td colspan="8" style="text-align: right;">
+		<td colspan="8" style="text-align: center;">
+			<div class="ui animated button" onclick="location.href='myRes.do'" tabindex="0" style="width: 75px;">
+  			<div class="visible content">이전</div>
+  			<div class="hidden content"> <i class="arrow left icon"></i></div>
+			</div>
 			
-			<div class="ui animated button" onclick="AddMenu()" tabindex="0" style="width: 300px;">
+			<div class="ui animated button" onclick="AddMenu()" tabindex="0" style="width: 250px;">
   			<div class="visible content">메뉴 추가</div>
   			<div class="hidden content"> 하단에 메뉴 등록창이 추가됩니다.</div>
 			</div>
 			
 			
-			<div class="ui animated button" onclick="action()" tabindex="0" style="width: 300px;">
+			<div class="ui animated button" onclick="action()" tabindex="0" style="width: 250px;">
   			<div class="visible content">식당 등록 완료!</div>
   			<div class="hidden content">메인 페이지로 이동 합니다</div>
 			</div>

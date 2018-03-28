@@ -188,10 +188,7 @@ public class OwnerController {
 		List<menuDto> mDto = ownerServ.ResMenuList(res_seq);
 		
 		model.addAttribute("pDto", pDto);
-		System.out.println(pDto);
-		System.out.println(mDto);
 		model.addAttribute("mDto", mDto);
-		
 		model.addAttribute("lists2", lists2);
 		model.addAttribute("lists3", lists3);
 		model.addAttribute("lists4", lists4);
@@ -252,10 +249,27 @@ public class OwnerController {
 	
 	
 	
-	//내 식당 추가 페이지
-	@RequestMapping(value = "ResMoreInsertPage.do")
-	public String ResMoreInsertPage(Locale locale, Model model) {
-	 return"ow_ResMoreInsertPage";
+	//내 식당 상세보기 페이지
+	@RequestMapping(value = "ResInfoPage.do")
+	public String ResMoreInsertPage(Locale locale, Model model,String res_seq) {
+		List<PhotoDto> pDto = ownerServ.ResPhotoList(res_seq);
+		List<menuDto> mDto = ownerServ.ResMenuList(res_seq);
+		
+		List<AttrsDto> lists2=accountServ.ATTRS2();
+		List<AttrsDto> lists3=accountServ.ATTRS3();
+		List<AttrsDto> lists4=accountServ.ATTRS4();
+		List<AttrsDto> lists5=accountServ.ATTRS5();
+		
+		model.addAttribute("pDto", pDto);
+		model.addAttribute("mDto", mDto);
+		
+		model.addAttribute("lists2", lists2);
+		model.addAttribute("lists3", lists3);
+		model.addAttribute("lists4", lists4);
+		model.addAttribute("lists5", lists5);
+		
+		
+		return"ow_ResInfo";
 	}
 	
 	
