@@ -43,8 +43,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>us_res_detail</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+	var ii = 1;	
+	var maxSize = <%=menuList.size()%>;
+	var resPhoto = '<%=resPhoto%>';
+	var first = null;
+	var second = null;
+	var third = null;
+	
 	$(function() {
+		if (maxSize==0 && resPhoto==null) {
+			$('#prev').css('display','none');
+			$('#next').css('display','none');
+			$('#southKorea').css('top','400px');
+		}else if (resPhoto==null && maxSize!=0) {
+			$('#southKorea').css('top','800px');
+		}
+		if (maxSize==1) {
+			ii=0;
+			$('#firstz').css('display','none');
+			$('#thirdz').css('display','none');
+			$('#prev').css('display','none');
+			$('#next').css('display','none');
+		}
+		
+		if (maxSize==2) {
+			ii=0;
+			$('#firstz').css('display','none');
+		}
+		
+		first = $('.menulistTD img').eq(ii-1<0?maxSize:ii-1);
+		second = $('.menulistTD img').eq(ii);
+		third = $('.menulistTD img').eq(ii+1>maxSize?0:ii+1);
+		
+		first.clone().appendTo('#firstz');
+		second.clone().appendTo('#secondz');
+		third.clone().appendTo('#thirdz');
+		
 		$('input[name=star]').click(function() {
 			if ($(this).prop('checked')) {$(this).prevAll('input[name=star]').prop('checked',$(this).prop('checked'));}else{
 				$(this).nextAll('input[name=star]').prop('checked',$(this).prop('checked'));
@@ -92,13 +130,46 @@
 			for (var i = 0; i < reports.length; i++) {if (user_id==reports[i]) {alert('이미 신고한 리뷰입니다.');return;}}
 			location.href="us_addReport.do?id="+user_id+"&review_seq="+review_seq+"&report=1";}
 	}
+	function nextList() {
+		if (ii+1>maxSize-1) {
+			ii=0;
+		}else{
+			ii++;
+		}
+		first = $('.menulistTD img').eq(ii-1<0?maxSize-1:ii-1);
+		second = $('.menulistTD img').eq(ii);
+		third = $('.menulistTD img').eq(ii+1>maxSize-1?0:ii+1);
+		$('#firstz').empty();
+		$('#secondz').empty();
+		$('#thirdz').empty();
+		first.clone().appendTo('#firstz');
+		second.clone().appendTo('#secondz');
+		third.clone().appendTo('#thirdz');
+	}
+	
+	function prevList() {
+		if (ii-1<0) {
+			ii=maxSize-1;
+		}else{
+			ii--;
+		}
+		first = $('.menulistTD img').eq(ii-1<0?maxSize-1:ii-1);
+		second = $('.menulistTD img').eq(ii);
+		third = $('.menulistTD img').eq(ii+1>maxSize-1?0:ii+1);
+		$('#firstz').empty();
+		$('#secondz').empty();
+		$('#thirdz').empty();
+		first.clone().appendTo('#firstz');
+		second.clone().appendTo('#secondz');
+		third.clone().appendTo('#thirdz');
+	}
 </script>
 <style type="text/css">
 #all{
 		padding-top:0px;
-		width: 1200px;
+		width: 1400px;
 		margin : 0 auto;
-		
+		position: relative;
 }
 input[type=checkbox] { display:none; }
 input[type=checkbox] + label {display: inline-block;cursor: pointer;line-height: 22px;padding-left: 22px;background: url('resources/upload/starw.png') left/22px no-repeat;}
@@ -192,6 +263,11 @@ td{text-align: center;}
 #resNameTd{
 	 vertical-align: middle;
 }
+#gobacks{
+	position: absolute;
+	top: 10px;
+	left: 0px;
+}
 #gobacks:hover{
 	cursor: pointer;
 	opacity: 0.8;
@@ -205,11 +281,99 @@ td{text-align: center;}
 #t3{
 	margin: 0 auto;
 }
+#t3 th{
+	padding: 10px;
+}
+#t3 td{
+	text-align: left;
+	padding: 10px;
+}
 #t4{
 	margin: 0 auto;
 }
 #menulists{
 	margin: 0 auto;
+}
+.menulistTD{
+	display: none;
+}
+#menuz{
+	padding-top:0px;
+	width: 1200px;
+	margin : 0 auto;
+	position: relative;
+}
+
+#firstz{
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+	top: 100px;
+	left: 0px;
+	
+}
+#secondz{
+	display: inline-block;
+	position: absolute;
+	z-index: 2;
+	top: 50px;
+	left: 300px;
+}
+#thirdz{
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+	top: 100px;
+	left: 600px;
+}
+#secondz>img{
+	width: 600px;
+	height: 400px;
+}
+#prev{
+	display: inline-block;
+	position: absolute;
+	top: 200px;
+	left: -100px;
+}
+#next{
+	display: inline-block;
+	position: absolute;
+	top: 200px;
+	left: 1100px;
+}
+#prev:hover {
+	cursor: pointer;
+	opacity: 0.5;
+}
+#next:hover {
+	cursor: pointer;
+	opacity: 0.5;
+}
+#southKorea{
+	position: absolute;
+	top: 1300px;
+}
+#rp{
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+}
+#mps{
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+}
+hr{
+	width: 700px;
+}
+.titlezz{
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+}
+th{
+	text-align: center;
 }
 </style>
 </head>
@@ -223,35 +387,45 @@ td{text-align: center;}
 </table>
 <hr/>
 <table id="t2">
-<tr><td colspan="3">식당사진</td></tr>
-<tr><td colspan="3"><%if(resPhoto==null){%><span>--등록된 식당사진이 없습니다---</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 200px; height: 200px;"><%}%></td></tr>
+<tr><td colspan="3" id="rp">RESTAURANT PICTURE</td></tr>
+<tr><td colspan="3"><%if(resPhoto==null){%><span style="display: inline-block; ">※등록된 식당사진이 없습니다※</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 700px; height: 500px;"><%}%></td></tr>
 </table>
-<table id="menulists" border="1">
+<br/><br/>
+<table id="menulists">
+<tr><td id="mps">MENU PICTURES</td></tr>
 <%if(menuList.size()==0){%>
-<tr><td>메뉴 사진</td></tr>
-<tr><td>---등록된 메뉴사진이 없습니다---</td></tr><%
-}else{%><tr><th colspan="<%=menuList.size()%>">메뉴 사진</th></tr><tr><%
+<tr><td>※등록된 메뉴사진이 없습니다※</td></tr><%
+}else{%><tr><%
 for(int i = 0; i < menuList.size(); i++){
-%><td><img alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" style="width: 100px; height: 100px;"><br/><%=menuList.get(i).getName()%></td><%}%></tr><%
-}%>
-</table>
+%><td class="menulistTD"><img alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" title="<%=menuList.get(i).getName()%>"  style="width: 100%; height: 100%;"></td><%}%></tr>
+<%}%></table>
+<div id="menuz">
+<img alt="prevIcon" src="resources/images/prev.png" onclick="prevList()" id="prev" style="width: 100px; height: 100px;">
+<div id="firstz" style="width: 500px; height: 300px;"></div>
+<div id="secondz" style="width: 600px; height: 400px;"></div>
+<div id="thirdz" style="width: 500px; height: 300px;"></div>
+<img alt="nextIcon" src="resources/images/next.png" onclick="nextList()" id="next" style="width: 100px; height: 100px;">
+</div>
+<div id="southKorea">
 <hr/>
-<table id="t3" border="1">
-<caption>식당정보</caption>
+<p class="titlezz">INFORMATION</p>
+<table id="t3">
 <col width="100px"><col width="200px"><col width="100px"><col width="200px">
-<tr><th>카테고리</th><td><%=dto.getCate() %></td><th>전화번호</th><td><%=dto.getCall() %></td></tr>
-<tr><th>주소</th>	<td colspan="3"><%=dto.getAddr() %></td></tr>
+<tr><th>업종</th><td><%=dto.getCate() %></td><th>전화번호</th><td><%=dto.getCall() %></td></tr>
 <tr><th>영업시간</th><td><%=dto.getStart() %> ~ <%=dto.getEnd() %></td><th>휴식시간</th><td><%=dto.getRest_start() %> ~ <%=dto.getRest_end() %></td></tr>
 <tr><th>주차여부</th><td><%=dto.getParking().equals("Y")?"가능":(dto.getParking().equals("U")?"정보없음":"불가") %></td><th>영업상태</th><td><%=dto.getOpen().equals("Y")?"영업중":"휴업중" %></td></tr>
-<tr><th>점주코멘트</th><td colspan="3"><%=dto.getComment() %></td></tr>
+<tr><th>주소</th>	<td colspan="3"><%=dto.getAddr() %></td></tr>
+<tr><th>코멘트</th><td colspan="3"><%=dto.getComment() %></td></tr>
 </table>
 <hr/>
-<table border="1" id="reviewTable">
+<p class="titlezz">REVIEW</p>
+<table id="reviewTable" class="table table-striped">
 <col width="150px;" ><col width="100px;"><col width="1000px;"><col width="200px;">
 <%
 	if(list.size()==0){
 		%>
-			<tr><td colspan="4">---등록된 리뷰가 없습니다---</td></tr>
+			<tr><th>작성자</th><th>식당평점</th><th>리뷰</th><th>등록일시</th></tr>
+			<tr><td colspan="4">※등록된 리뷰가 없습니다※</td></tr>
 		<%		
 	}else{
 		%>
@@ -328,9 +502,11 @@ for(int i = 0; i < menuList.size(); i++){
 			}else{for(int j = 0; j < Math.ceil((double)count/10); j++){%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(j*10+1)%>&end=<%=j*10+10%>" style="font-size: 20px;"><%=j+1%></a><span>&nbsp;</span><%}}%>
 		</td></tr><%}%>
 </table>
+<hr/>
 <form action="us_write_review.do" method="post" onsubmit="return chk()">
 <input type="hidden" name="id" value="<%=ldto.getSeq()%>"/><input type="hidden" name="res_Seq" value="<%=dto.getSeq()%>"/>
-<table  id="t4" border="1">
+<p class="titlezz">WRITE</p>
+<table  id="t4" class="table table-striped">
 <col width="500px"><col width="200px"><col width="100px">
 <tr><th>리뷰내용</th><th>평점</th><th>*</th></tr>
 <tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다." style="width: 480px;"/></td>
@@ -344,6 +520,8 @@ for(int i = 0; i < menuList.size(); i++){
 	<td><button type="submit" >리뷰등록</button></td></tr>
 </table>
 </form>
+<p>&nbsp;<br/>&nbsp;<br/>&nbsp;&nbsp;<br/>&nbsp;<br/>&nbsp;</p>
+</div>
 </div>
 </body>
 </html>

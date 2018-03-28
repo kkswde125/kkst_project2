@@ -1,11 +1,8 @@
 <%@page import="com.pro.kkst.dtos.ResDto"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<%response.setContentType("text/html; charset=utf-8"); %>
-<% 
-	@SuppressWarnings("unchecked")
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("utf-8"); %><%response.setContentType("text/html; charset=utf-8"); %>
+<%  @SuppressWarnings("unchecked")
 	List<ResDto> lists =(List<ResDto>)request.getAttribute("lists");
 	@SuppressWarnings("unchecked")
 	List<ResDto> lists2 =(List<ResDto>)request.getAttribute("lists2");
@@ -39,7 +36,6 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-
 	//------------------- 원 반경 설정---------------------------------------------------------
 	var cSize=1000;
 	
@@ -63,8 +59,6 @@
 		cSize=100000;
 	}
 	//------------------------------------------------------------------------------------
-	
-	
 </script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=dxAelTQKShNPGfu0KuVB&submodules=geocoder"></script>
 </head>
@@ -73,13 +67,9 @@
 	<p id="headerz">식당을 선택하시면 상세 정보 보기로 넘어갑니다</p>
     <div id="map" style="width:1200px; height:800px;"></div>
 	<script>
-	
-		
-		
 	function goDetail(name,cate) {
 		location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>"+"&start=1&end=10";
 	}
-	  
 	  //------------------- 멥 생성---------------------------------------------------------  
 	    var map = new naver.maps.Map('map');
 	  //------------------------------------------------------------------------------------
@@ -95,7 +85,6 @@
 		      <%
 		      	for(int i=0; i< lists2.size(); i++){
 		      %>
-		      
 			      		var pp<%=i%>_2 = new naver.maps.LatLng(<%=lists2.get(i).getX()%>,<%=lists2.get(i).getY()%>);	      
 			      		name2.push("<%=lists2.get(i).getName()%>");
 						
@@ -107,10 +96,7 @@
 				        	    },
 				        	    animation: naver.maps.Animation.BOUNCE
 					    });
-
 // 					    marker.set('seq', i);
-
-
 					    naver.maps.Event.addListener(marker, 'click', function() {
 					        if (marker.getAnimation() !== null) {
 					            marker.setAnimation(null);
@@ -118,14 +104,11 @@
 					            marker.setAnimation(naver.maps.Animation.BOUNCE);
 					        }
 					    });
-
 					    markers2.push(marker);
-					    marker = null;
-				
+// 					    marker = null;
 		        <%
 		      	}
 		      %>
-
 		      //----------마커배열과 식당명배열이 순서대로 정렬되있으니, 이 순서대로 인포윈도우를 생성하고 매칭하는 for문--------------------------------------------------------------------------
 				 for (var j = 0; j < name2.length; j++) {
 						var infoWindow = new naver.maps.InfoWindow({
@@ -156,8 +139,6 @@
 				}
 		});
 	  //------------------------------------------------------------------------------------
-	      
-	    
 	  //--------------------우클릭 메서드----------------------------------------------------------------
 	   naver.maps.Event.addListener(map, 'rightclick', function(e) {
 		 //-----------------InfoWindow 객체 생성-------------------------------------------------------------------
@@ -179,10 +160,8 @@
 	        };
 	      //-----------------우클릭한 지점에 마커생성하고, 아이콘 객체 연결-------------------------------------------------------------------
 			var markerz = new naver.maps.Marker(markerOptions);
-	        
 	      //----------------우클릭한 지점에 마커를 생성했고, 그 마커에 인포윈도우 연결--------------------------------------------------------------------
 // 	        info.open(map,markerz);
-	      
 		//----------------e.coord를 x,y의 좌표로 변환하는 과정--------------------------------------------------------------------
 			str=e.coord.toString();
 			var strAry= str.split(':');
@@ -191,7 +170,6 @@
 		  //--------------우클릭 지점의 좌표로 새로운 멥 중앙점을 생성 및 설정----------------------------------------------------------------------
 		    var newCenter = new naver.maps.LatLng(strX,strY);
 		    map.setCenter(newCenter);
-		      
 		  //--------------새로운 중앙점을 기준으로 원 생성----------------------------------------------------------------------
 		    var circlez = new naver.maps.Circle({
 	      	    map: map,
@@ -200,7 +178,6 @@
 	      	    fillColor: 'crimson',
 	      	    fillOpacity: 0.2
 	      	});
-		      
 		  //--------------원의 최소 최대 x,y좌표를 구함----------------------------------------------------------------------
 	        var miniXz = circlez.getBounds().minX();
 	        var miniYz = circlez.getBounds().minY();
@@ -208,7 +185,6 @@
 	        var maxiYz = circlez.getBounds().maxY();
 	        var miniz = new naver.maps.Point(miniXz,miniYz);
 	        var maxiz = new naver.maps.Point(maxiXz,maxiYz);
-	      	  
 	      //--------------원의 최대,최소 x,y좌표를 통해 4각형의 Bounds객체 생성(cboudsz)----------------------------------------------------------------------
 	        var cboundsz= new naver.maps.PointBounds(miniz,maxiz);
 	        

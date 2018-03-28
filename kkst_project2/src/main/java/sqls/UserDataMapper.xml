@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pro.user">
 
-<select id="ResList" parameterType="String" resultType="ResDto">
-SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST WHERE CATE = (SELECT ATTR FROM ATTRS WHERE TYPE='1카테고리' AND CODE =#{cate})
-</select>
+	<select id="ResList" parameterType="String" resultType="ResDto">
+		SELECT SEQ,NAME,CATE,ADDR,"CALL","START","END",REST_START,REST_END,PARKING,"OPEN",CHK,"COMMENT",X,Y FROM RESLIST
+		WHERE CATE = (SELECT ATTR FROM ATTRS WHERE TYPE='1카테고리' AND CODE =#{cate}) AND (CHK = 'Y' OR CHK = 'DEF')
+	</select>
 
 	<select id="foodchosse" parameterType="Map" resultType="MenuzDto">
 		SELECT SEQ, NAME, CODE, "CHANGE", RN FROM (SELECT T1.SEQ, T1.NAME, T1.CODE, T2."CHANGE", ROW_NUMBER() OVER(ORDER BY T1.SEQ) AS RN FROM MENULIST T1, PHOTO T2 WHERE T1.SEQ = T2.MENU_SEQ) WHERE RN IN
@@ -192,7 +193,7 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 	</select>
 	
 	<select id="getResMenuPhoto" parameterType="Map" resultType="MenuzDto">
-		SELECT SUBSTR(ORIGIN,1,LENGTH(ORIGIN)-4) AS NAME, "CHANGE" FROM PHOTO WHERE RES_SEQ = #{res_Seq} AND MENU_SEQ IS NOT NULL		
+		SELECT T2.NAME, T1."CHANGE" FROM PHOTO T1, MENULIST T2 WHERE T1.RES_SEQ = #{res_Seq} AND T1.MENU_SEQ IS NOT NULL AND T1.MENU_SEQ=T2.SEQ
 	</select>
 	
 	<select id="getResReviewCount" parameterType="Map" resultType="int">
