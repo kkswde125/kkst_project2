@@ -19,11 +19,13 @@
 	*{
 		margin : 0;
 		padding : 0;
+		font : normal 11pt "나눔스퀘어라운드";
 	}
 	
 	#all{
 		width: 1400px;
 		margin : 0 auto;
+		padding-top: 50px;
 		
 	}
 	#page{
@@ -63,7 +65,7 @@
 <body>
 
 <div id="all">
-<h1>식당 등록 관리</h1>
+<h1>식당 등록 관리</h1><br/>
 <form action="ad_restList_Del.do" method="POST">
 <table border = "1" id="table" class="ui celled table" style="text-align: center;">
 	<tr>

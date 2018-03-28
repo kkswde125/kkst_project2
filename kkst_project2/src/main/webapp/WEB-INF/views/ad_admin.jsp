@@ -18,11 +18,19 @@
 		height: 150px;
 		padding-top: 60px !important;
 	}
+	#logout{
+		 width: 465px; 
+		 height: 70px; 
+		 padding-top : 5% !important;
+		 margin-top: 8px;
+	}
+	
 	#all{
 		width : 500px;
 		height: 170px;
 		margin : 0 auto;
 		padding-top : 10%;
+
 	}
 	img{
 		width: 450px;
@@ -69,6 +77,13 @@
   <div class="visible content">식당등록검토</div>
   <div class="hidden content">
     <i class="big calendar check outline icon"></i>
+  </div>
+</div>
+<br/>
+<div class="ui animated button" id="logout" tabindex="0" onclick="location.href='index.jsp'">
+  <div class="visible content">로그아웃</div>
+  <div class="hidden content">
+    <i class="big power off icon" style="margin-top : -10px;"></i>
   </div>
 </div>
 </div>
