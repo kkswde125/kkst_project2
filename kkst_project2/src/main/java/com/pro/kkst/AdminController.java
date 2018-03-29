@@ -17,6 +17,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.imp.I_AdminService;
@@ -135,7 +136,8 @@ public class AdminController {
 			}
 		}
 		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, seqs);
-		System.out.println(reviewList.toString());
+		System.out.println(resList.size());
+		System.out.println(reviewList.size());
 		if(reviewList.size()==0) {
 			return "redirect:ad_allRevAreaChoice.do?msg=no";
 		}else {
@@ -228,6 +230,8 @@ public class AdminController {
 			}else {
 				request.setAttribute("reportList", reportList);
 				request.setAttribute("areaList", lists);
+				System.out.println(reportList.toString());
+				System.out.println(lists.toString());
 				return "ad_reviewReport";
 			}
 		
@@ -313,5 +317,15 @@ public class AdminController {
 		return "redirect:ad_restList.do?snum=1&cnum=10";
 	}
 
-
+	@RequestMapping(value = "ad_restList_detail.do", method = RequestMethod.GET)
+	public String ad_restList_detail(Locale locale, Model model, HttpServletRequest request, int res_seq) {
+		
+		List<ResInfoDto> lists = adminServ.restList_detail(res_seq);
+		
+		model.addAttribute("list", lists);
+		
+		return "ad_restList_detail";
+		
+	}
+	
 }

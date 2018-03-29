@@ -6,6 +6,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.dtos.menuDto;
@@ -27,5 +28,5 @@ public interface I_AdminService {
 	public Admin_OnwerDto send_Email(String email, String seq);
 	public List<AddrDto> addressList();
 	public List<ResDto> areaResList(String area);
-	public List<menuDto> restList_detail(int seq);
+	public List<ResInfoDto> restList_detail(int res_seq);
 }

@@ -13,6 +13,7 @@ import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
 import com.pro.kkst.dtos.ReviewDto;
 import com.pro.kkst.dtos.menuDto;
@@ -162,8 +163,8 @@ public class AdminDao implements I_AdminDao {
 	}
 
 	@Override
-	public List<menuDto> restList_detail(int seq) {
-		return sqlSession.selectList(namespace+"restList_detail", seq);
+	public List<ResInfoDto> restList_detail(int res_seq) {
+		return sqlSession.selectList(namespace+"restList_detail", res_seq);
 	}
 	
 	

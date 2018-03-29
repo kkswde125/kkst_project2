@@ -91,7 +91,15 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 
 
 <% for(int i = 0; i < resList.size() ; i++){ 
-/* 	if() */
+	
+	boolean isS = false;
+	for(int j = 0; j < reportList.size() ; j++){
+	if(resList.get(i).getSeq()==reportList.get(j).getRes_seq()){
+		isS = true;
+	}
+		}
+	
+	if(isS){
 %>
 <form action="ad_reviewDel.do" method="POST">
 <table id="allTab">
@@ -162,6 +170,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 
 </form>
 <%
+	}
 	}
 %>
 

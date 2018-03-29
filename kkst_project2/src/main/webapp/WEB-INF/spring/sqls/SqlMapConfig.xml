@@ -18,6 +18,7 @@
 		<typeAlias type="com.pro.kkst.dtos.AddrDto" alias="AddrDto"/>
 		<typeAlias type="com.pro.kkst.dtos.PhotoDto" alias="PhotoDto"/>
 		<typeAlias type="com.pro.kkst.dtos.Res_ReviewDto" alias="Res_ReviewDto"/>
+		<typeAlias type="com.pro.kkst.dtos.ResInfoDto" alias="ResInfoDto"/>
 	</typeAliases>
 
 	<mappers>

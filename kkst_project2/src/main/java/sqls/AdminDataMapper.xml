@@ -35,7 +35,8 @@
 		WHERE REVIEW.RES_SEQ = RESLIST.SEQ
 		GROUP BY (RESLIST.SEQ, NAME, ADDR)
 		) R
-		WHERE ADDR LIKE '%'||#{area}||'%'
+		WHERE REVIEW.RES_SEQ = R.SEQ
+		AND ADDR LIKE '%'||#{area}||'%'
 		AND R.SEQ IN
 		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
 			#{seq}
@@ -58,6 +59,7 @@
 		<foreach collection="seqs" item="seq" open="(" close=")" separator="," >
 			#{seq}
 		</foreach>
+		AND DELFLAG = 'N'
 	</select>
 	
 	<select id="areaResList" parameterType="String" resultType="ResDto">
@@ -120,9 +122,14 @@
 		FROM ADMIN_OWNER WHERE EMAIL = #{email} AND SEQ = ${seq}
 	</select>
 
-	<select id="restList_detail" parameterType="int" resultType="menuDto">
-		SELECT M.SEQ, NAME, CODE, RES_SEQ, PRICE FROM MENULIST M, RESLIST R
-		WHERE M.RES_SEQ = R.SEQ
+	<select id="restList_detail" parameterType="int" resultType="ResInfoDto">
+	SELECT T1.NAME, T1.SEQ MENU_SEQ, T1.PRICE, T2.SEQ PHOTO_SEQ, T2.ORIGIN, T2."CHANGE",
+	(SELECT ATTR FROM ATTRS WHERE ATTRS.CODE = SUBSTR(T1.CODE, 1, 1) AND T1.RES_SEQ = #{res_seq} AND ATTRS.TYPE = '1카테고리') CATE,
+	(SELECT ATTR FROM ATTRS WHERE ATTRS.CODE = SUBSTR(T1.CODE, 2, 1) AND T1.RES_SEQ = #{res_seq} AND ATTRS.TYPE = '2주재료') BASE,
+	(SELECT ATTR FROM ATTRS WHERE ATTRS.CODE = SUBSTR(T1.CODE, 3, 1) AND T1.RES_SEQ = #{res_seq} AND ATTRS.TYPE = '3조리방식') COOK,
+	(SELECT ATTR FROM ATTRS WHERE ATTRS.CODE = SUBSTR(T1.CODE, 4, 1) AND T1.RES_SEQ = #{res_seq} AND ATTRS.TYPE = '4매움정도') SPICY,
+	(SELECT ATTR FROM ATTRS WHERE ATTRS.CODE = SUBSTR(T1.CODE, 5, 1) AND T1.RES_SEQ = #{res_seq} AND ATTRS.TYPE = '5온도') TEMP
+	FROM MENULIST T1, PHOTO T2 WHERE T1.RES_SEQ = #{res_seq} AND T2.MENU_SEQ = T1.SEQ
 	</select>
 
 </mapper>

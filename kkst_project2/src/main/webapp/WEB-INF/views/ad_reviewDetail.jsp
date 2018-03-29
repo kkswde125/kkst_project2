@@ -74,8 +74,9 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 
 
 <% for(int i = 0; i < resList.size() ; i++){ 
-/* 	if() */
+
 %>
+
 <form action="ad_reviewDel.do" method="POST">
 <table id="allTab">
 <tr>
@@ -129,7 +130,6 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 		} 
 		
 		%>
-		<td></td>
 		</tr>				
 		</tbody>
 	</table>					<!-- 지역 식당 별 구분 테이블 -->
@@ -142,6 +142,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("resList");
 </td>
 </tr>
 </table>
+
 
 </form>
 <%

@@ -113,6 +113,7 @@
 		</div>
 		</td>
 		<td>
+			<input type="button" class="ui button" value="상세보기" onclick="location.href='ad_restList_detail.do?res_seq=${dto.seq}'" />
 			<input type="button" class="ui button" value="검토완료" onclick="shopChk(${dto.seq})"/>
 		</td>
 	</tr>
