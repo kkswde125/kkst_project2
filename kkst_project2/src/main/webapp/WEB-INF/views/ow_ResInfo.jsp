@@ -198,7 +198,7 @@ for(int j=0; j < mDto.size(); j++){
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode_d" class="ui dropdown">
+		<select name="cateCode_d">
 		<c:forEach items="${lists2}" var="dto" >
 			<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cateCode[i]? 'selected':''} />
 		</c:forEach>
@@ -229,7 +229,7 @@ for(int j=0; j < mDto.size(); j++){
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode_d" class="ui dropdown">
+		<select name="tempCode_d">
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq tempCode[i]? 'selected':''} />
 		</c:forEach>
