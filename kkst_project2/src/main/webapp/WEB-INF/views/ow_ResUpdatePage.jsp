@@ -286,11 +286,6 @@ for(int j=0; j<mDto.size(); j++){
 	</div>
 	</td>
 	</tr>
-	<tr>
-		<td>
-			<input type="button" value="삭제" onclick="remove()" />
-		</td>
-	</tr>
 </table>
 </td>
 </tr>
