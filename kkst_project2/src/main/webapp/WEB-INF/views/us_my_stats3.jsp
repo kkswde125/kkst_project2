@@ -1,48 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<%response.setContentType("text/html; charset=utf-8"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%><%request.setCharacterEncoding("utf-8"); %><%response.setContentType("text/html; charset=utf-8"); %>
 <!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf-8">
 <style>
-
 .node {
   cursor: pointer;
 }
-
 .node:hover {
   stroke: #000;
   stroke-width: 1.5px;
 }
-
 .node--leaf {
-  fill: white;
+  fill: #C4D0CC;
 }
-
 .label {
-  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-anchor: middle;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
-
 .label,
 .node--root,
 .node--leaf {
   pointer-events: none;
 }
-
+#graphz{
+padding-top:1%;
+width: 1000px;
+height: 1000px;
+margin : 0 auto;
+text-align: center;
+}
+svg{
+border-radius: 500px;
+}
 </style>
-<svg width="960" height="960"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
+</head>
+<body>
+<div id="graphz">
+<svg width="960" height="960"></svg>
+</div>
+<script type="text/javascript">
 
 var svg = d3.select("svg"),
     margin = 20,
     diameter = +svg.attr("width"),
     g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
+// var color = d3.scaleLinear()
+//     .domain([-1, 5])
+//     .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+//     .interpolate(d3.interpolateHcl);
+
 var color = d3.scaleLinear()
-    .domain([-1, 5])
-    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+    .domain([-1, 0,1])
+    .range(["#0F2F24","#2D4D42", "#718878"])
     .interpolate(d3.interpolateHcl);
 
 var pack = d3.pack()
@@ -83,6 +96,7 @@ d3.json("resources/json/test2.json", function(error, root) {
 
   zoomTo([root.x, root.y, root.r * 2 + margin]);
 
+  
   function zoom(d) {
     var focus0 = focus; focus = d;
 
@@ -106,5 +120,7 @@ d3.json("resources/json/test2.json", function(error, root) {
     circle.attr("r", function(d) { return d.r * k; });
   }
 });
-
 </script>
+<button onclick="location.href='us_my_stats4.do'">v4</button>
+</body>
+</html>

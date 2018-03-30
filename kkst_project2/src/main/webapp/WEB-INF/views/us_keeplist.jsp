@@ -112,73 +112,76 @@
 	}
 </script>
 <style type="text/css">
-	#all{
-		padding-top:0px;
-		width: 1200px;
-		margin : 0 auto;
-		position: relative;
-	}
-	table{
-		display: none;
-	}
-	img{
-		width: 500px;
-		height: 300px;
-	}
-	img:hover{
-		cursor: pointer;
-		opacity: 0.9;
-	}
-	#firstz{
-		display: inline-block;
-		position: absolute;
-		z-index: 1;
-		top: 350px;
-		left: 100px;
-		
-	}
-	#secondz{
-		display: inline-block;
-		position: absolute;
-		z-index: 2;
-		top: 300px;
-		left: 400px;
-	}
-	#thirdz{
-		display: inline-block;
-		position: absolute;
-		z-index: 1;
-		top: 350px;
-		left: 700px;
-	}
-	#secondz>img{
-		width: 600px;
-		height: 400px;
-	}
-	#prev{
-		display: inline-block;
-		position: absolute;
-		top: 400px;
-		left: 0px;
-	}
+#all{
+	padding-top:0px;
+	width: 1200px;
+	margin : 0 auto;
+	position: relative;
+}
+table{
+	display: none;
+}
+img{
+	width: 500px;
+	height: 300px;
+}
+img:hover{
+	cursor: pointer;
+	opacity: 0.9;
+}
+#firstz{
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+	top: 350px;
+	left: 100px;
 	
-	#next{
-		display: inline-block;
-		position: absolute;
-		top: 400px;
-		left: 1200px;
-	}
-	#prev:hover {
-		cursor: pointer;
-		opacity: 0.5;
-	}
-	#next:hover {
-		cursor: pointer;
-		opacity: 0.5;
-	}
-	#hateListsP{
-		display: none;
-	}
+}
+#secondz{
+	display: inline-block;
+	position: absolute;
+	z-index: 2;
+	top: 300px;
+	left: 400px;
+}
+#thirdz{
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+	top: 350px;
+	left: 700px;
+}
+#secondz>img{
+	width: 600px;
+	height: 400px;
+}
+#prev{
+	display: inline-block;
+	position: absolute;
+	top: 400px;
+	left: 0px;
+}
+
+#next{
+	display: inline-block;
+	position: absolute;
+	top: 400px;
+	left: 1200px;
+}
+#prev:hover {
+	cursor: pointer;
+	opacity: 0.5;
+}
+#next:hover {
+	cursor: pointer;
+	opacity: 0.5;
+}
+#hateListsP{
+	display: none;
+}
+.imgs{
+	border-radius: 50px;
+}
 </style>
 </head>
 <body>
@@ -188,7 +191,7 @@
 %>
 <table>
 	<tr>
-		<td><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" title="<%=list.get(i).getName()%>" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')"></td>
+		<td><img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" title="<%=list.get(i).getName()%>" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')"></td>
 	</tr>
 </table>
 	<%

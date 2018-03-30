@@ -87,6 +87,9 @@ border-collapse: collapse;
     font-weight: bold;
     text-align: center;
 }
+.imgs{
+	border-radius: 100px;
+}
 </style>
 </head>
 <% LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");if(ldto==null){pageContext.forward("ac_login.do");}
@@ -105,7 +108,7 @@ border-collapse: collapse;
 			<table class="tablezz">
 			<tr>
 				<td>
-					<img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;">			
+					<img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;">			
 				</td>
 				<td rowspan="1">
 					<img alt="1점이미지" src="resources/images/1.jpg">

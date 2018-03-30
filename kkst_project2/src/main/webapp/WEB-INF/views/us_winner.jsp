@@ -25,6 +25,9 @@ height: 600px;
 margin : 0 auto;
 text-align: center;
 }
+.imgs{
+border-radius: 50px;
+}
 </style>
 <title>최종 결과!</title>
 <% 
@@ -35,7 +38,7 @@ List<MenuzDto> lists1 = (List<MenuzDto>)request.getAttribute("lists1");
 <body>
 <div id="all">
 <h1>FOOD OLYMPIC WINNER!</h1>
-<img alt="<%=lists1.get(0).getName()%>" src="resources/upload/<%=lists1.get(0).getChange()%>" style="width: 700px; height: 500px;">
+<img class="imgs" alt="<%=lists1.get(0).getName()%>" src="resources/upload/<%=lists1.get(0).getChange()%>" style="width: 700px; height: 500px;">
 
 <h1><%=lists1.get(0).getName() %></h1>
 

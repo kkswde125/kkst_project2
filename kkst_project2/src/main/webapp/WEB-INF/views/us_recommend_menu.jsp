@@ -221,6 +221,9 @@ text-align: center;
     font-weight: bold;
     text-align: center;
 }
+.imgs{
+	border-radius: 100px;
+}
 </style>
 </head>
 <body>
@@ -239,7 +242,7 @@ text-align: center;
 		<td rowspan="2">
 		<img alt="hateImage" src="resources/images/hate.jpg" title="먹기싫음" onclick="hateThis('<%=list.get(i).getCode()%>')" class="btnImg" >
 		</td>
-		<td><img alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;"></td>
+		<td><img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;"></td>
 		<td rowspan="2">
 		<img alt="choiceImage" src="resources/images/choice.jpg" title="선택하기" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')" class="btnImg">
 		</td>

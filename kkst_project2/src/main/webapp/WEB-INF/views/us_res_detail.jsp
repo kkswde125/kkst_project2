@@ -203,6 +203,9 @@ th{text-align: center;}
     font-weight: bold;
     text-align: center;
 }
+.imgs{
+	border-radius: 50px;
+}
 </style>
 </head>
 <body>
@@ -216,7 +219,7 @@ th{text-align: center;}
 <hr/>
 <table id="t2">
 <tr><td colspan="3" id="rp">RESTAURANT PICTURE</td></tr>
-<tr><td colspan="3"><%if(resPhoto==null){%><span style="display: inline-block; ">※등록된 식당사진이 없습니다※</span><%}else{%><img alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 700px; height: 500px;"><%}%></td></tr>
+<tr><td colspan="3"><%if(resPhoto==null){%><span style="display: inline-block; ">※등록된 식당사진이 없습니다※</span><%}else{%><img class="imgs" alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 700px; height: 500px;"><%}%></td></tr>
 </table>
 <br/><br/>
 <table id="menulists">
@@ -225,7 +228,7 @@ th{text-align: center;}
 <tr><td>※등록된 메뉴사진이 없습니다※</td></tr><%
 }else{%><tr><%
 for(int i = 0; i < menuList.size(); i++){
-%><td class="menulistTD"><img alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" title="<%=menuList.get(i).getName()%>"  style="width: 100%; height: 100%;"></td><%}%></tr>
+%><td class="menulistTD"><img class="imgs" alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" title="<%=menuList.get(i).getName()%>"  style="width: 100%; height: 100%;"></td><%}%></tr>
 <%}%></table>
 <div id="menuz">
 <img alt="prevIcon" src="resources/images/prev.png" onclick="prevList()" id="prev" style="width: 100px; height: 100px;">

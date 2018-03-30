@@ -139,6 +139,7 @@ svg.selectAll("circle")
     	 })
     	 .attr("opacity","0.05");
     	 
+	 
 var text = d3.select("svg").selectAll("text")
 .data(datas)
 .enter()
@@ -166,8 +167,7 @@ svg.selectAll('image')
 .attr("x","300")
 .attr("y","350")
 .attr("width","128")
-.attr("height","128");
-
+.attr("height","128")
 
 force.on("tick", function(e) {
   var q = d3.geom.quadtree(nodes),

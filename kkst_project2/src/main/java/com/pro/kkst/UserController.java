@@ -721,4 +721,21 @@ public class UserController {
 			}
 		}
 	}
+	@Transactional
+	@RequestMapping(value = "us_my_stats4.do")
+	public String us_My_Stats4(Model model, HttpSession session) {
+		logger.info("us_my_stats4");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			String[] getTypes = userServ.getTypes();
+			List<AttrsDto> list = userServ.getMyTasteStarStats(String.valueOf(ldto.getSeq()));
+			
+			model.addAttribute("list", list);
+			model.addAttribute("types", getTypes);
+			return "us_my_stats4";
+		}
+	}
 }
+

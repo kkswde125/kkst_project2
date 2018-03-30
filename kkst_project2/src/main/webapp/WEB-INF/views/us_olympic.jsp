@@ -79,6 +79,9 @@ text-align: center;
 .tdzz:hover{
 cursor: pointer;opacity: 0.8;
 }
+.imgs{
+border-radius: 25px;
+}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
@@ -155,7 +158,7 @@ cursor: pointer;opacity: 0.8;
                <tr>
                   <td onclick="clickings(<%=i%>,<%=lists.get(i).getSeq()%>)" class="tdzz">
 					 <div id="choice<%=i%>">
-                        <img alt="<%=lists.get(i).getName()%>" src="resources/upload/<%=lists.get(i).getChange()%>" style="width: 500px; height: 300px;">
+                        <img class="imgs" alt="<%=lists.get(i).getName()%>" src="resources/upload/<%=lists.get(i).getChange()%>" style="width: 500px; height: 300px;">
                      </div>
                   </td>
                </tr>
