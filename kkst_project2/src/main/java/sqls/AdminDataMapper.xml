@@ -132,4 +132,8 @@
 	FROM MENULIST T1, PHOTO T2 WHERE T1.RES_SEQ = #{res_seq} AND T2.MENU_SEQ = T1.SEQ
 	</select>
 
+	<select id="restPhoto" parameterType="int" resultType="PhotoDto">
+		SELECT SEQ, ORIGIN, CHANGE, RES_SEQ, MENU_SEQ FROM PHOTO WHERE RES_SEQ = #{res_seq} AND MENU_SEQ IS NULL
+	</select>
+
 </mapper>

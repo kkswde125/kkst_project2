@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
@@ -165,6 +166,11 @@ public class AdminDao implements I_AdminDao {
 	@Override
 	public List<ResInfoDto> restList_detail(int res_seq) {
 		return sqlSession.selectList(namespace+"restList_detail", res_seq);
+	}
+
+	@Override
+	public PhotoDto restPhoto(int res_seq) {
+		return sqlSession.selectOne(namespace+"restPhoto", res_seq);
 	}
 	
 	

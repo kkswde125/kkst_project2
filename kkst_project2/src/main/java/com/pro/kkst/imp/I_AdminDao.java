@@ -5,6 +5,7 @@ import java.util.List;
 import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
@@ -30,4 +31,5 @@ public interface I_AdminDao {
 	public List<AddrDto> addressList();
 	public List<ResDto> areaResList(String area);
 	public List<ResInfoDto> restList_detail(int res_seq);
+	public PhotoDto restPhoto(int res_seq);
 }

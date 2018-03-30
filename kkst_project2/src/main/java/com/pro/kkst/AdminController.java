@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.pro.kkst.dtos.AddrDto;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResInfoDto;
 import com.pro.kkst.dtos.Res_ReviewDto;
@@ -321,8 +322,25 @@ public class AdminController {
 	public String ad_restList_detail(Locale locale, Model model, HttpServletRequest request, int res_seq) {
 		
 		List<ResInfoDto> lists = adminServ.restList_detail(res_seq);
-		
+		PhotoDto photo = adminServ.restPhoto(res_seq);
+		System.out.println(lists.toString());
+		System.out.println(photo.toString());
 		model.addAttribute("list", lists);
+		model.addAttribute("photo", photo);
+		
+		return "ad_restList_detail";
+		
+	}
+	
+	@RequestMapping(value = "ad_restList_detail_photo.do", method = RequestMethod.GET)
+	public String ad_restList_detail_photo(Locale locale, Model model, HttpServletRequest request, int res_seq) {
+		
+		List<ResInfoDto> lists = adminServ.restList_detail(res_seq);
+		PhotoDto photo = adminServ.restPhoto(res_seq);
+		System.out.println(lists.toString());
+		System.out.println(photo.toString());
+		model.addAttribute("list", lists);
+		model.addAttribute("photo", photo);
 		
 		return "ad_restList_detail";
 		
