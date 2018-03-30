@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.AttrsDto;
+import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.TasteDto;
 import com.pro.kkst.dtos.ResDto;
@@ -58,4 +59,7 @@ public interface I_UserService {
 	public String[] getTypes();
 	public List<AttrsDto> getMyTasteStarStats(String user_seq);
 	public List<MenuzDto> bubbleMenuList(int user_seq);
+	public LoginDto getMyInfo(String seq);
+	public boolean updateMyInfo(String seq, String pw, String nickName, String email);
+	public boolean deleteAccount(String seq);
 }

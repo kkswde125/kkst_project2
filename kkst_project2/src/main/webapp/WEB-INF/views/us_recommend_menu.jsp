@@ -81,9 +81,9 @@
 			hateMenuCodes=qwer.split("_");
 		}
 		
-		$('#keepList').text(keepMenuNames.toString());
-		$('#keepSeqs').text(keepMenuSeqs.toString());
-		$('#hateList').text(hateMenuCodes.toString());
+// 		$('#keepList').text(keepMenuNames.toString());
+// 		$('#keepSeqs').text(keepMenuSeqs.toString());
+// 		$('#hateList').text(hateMenuCodes.toString());
 	});
 	
 	function goMore(start, end) {
@@ -125,9 +125,9 @@
 		if (menuIndex==20) {
 			moreRcmd();
 		}
-		$('#keepList').text(keepMenuNames.toString());
-		$('#keepSeqs').text(keepMenuSeqs.toString());
-		$('#hateList').text(hateMenuCodes.toString());
+// 		$('#keepList').text(keepMenuNames.toString());
+// 		$('#keepSeqs').text(keepMenuSeqs.toString());
+// 		$('#hateList').text(hateMenuCodes.toString());
 // 		alert(keepMenuNames.toString());
 		
 	}
@@ -144,16 +144,27 @@
 		if (menuIndex==20) {
 			moreRcmd();
 		}
-		$('#keepList').text(keepMenuNames.toString());
-		$('#keepSeqs').text(keepMenuSeqs.toString());
-		$('#hateList').text(hateMenuCodes.toString());
+// 		$('#keepList').text(keepMenuNames.toString());
+// 		$('#keepSeqs').text(keepMenuSeqs.toString());
+// 		$('#hateList').text(hateMenuCodes.toString());
 // 		alert(hateMenuCodes.toString());
 	}
 	
-	
+	window.onload = function(){
+  		var t =performance.timing;
+		  setTimeout(function(){
+		    console.log(t.loadEventStart - t.responseEnd);
+		  }, 0);
+		  
+		  setTimeout(() => {
+			$('#loadingImg').css('display','none');
+			$('#all').css('display','block');
+		}, t.loadEventStart - t.responseEnd+500);
+		}
 </script>
 <style type="text/css">
 #all{
+		display:none;
 		padding-top:0px;
 		width: 1000px;
 		margin : 0 auto;
@@ -182,6 +193,34 @@ table{
 	cursor: pointer;
 	opacity: 0.7;
 }
+.namez{
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+}
+#keepListBtn{
+padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
+cursor: pointer;color: blue;margin: 1px;width: 100px;
+margin : 0 auto;
+text-align: center;
+}
+#usermainBtn{
+padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
+cursor: pointer;color: blue;margin: 1px;width: 100px;
+margin : 0 auto;
+text-align: center;
+}
+#loadingImg{
+	padding-top: 1%;
+		width: 800px;
+		margin : 0 auto;
+		text-align: center;
+}
+#loadingText{
+	font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -195,7 +234,7 @@ table{
 		
 	
 %>
-<table id="tables<%=i%>" border="1">
+<table id="tables<%=i%>">
 	<tr>
 		<td rowspan="2">
 		<img alt="hateImage" src="resources/images/hate.jpg" title="먹기싫음" onclick="hateThis('<%=list.get(i).getCode()%>')" class="btnImg" >
@@ -206,7 +245,7 @@ table{
 		</td>
 	</tr>
 	<tr>
-		<td><%=list.get(i).getName() %></td>
+		<td><span class="namez"><%=list.get(i).getName() %></span></td>
 	</tr>
 	<tr>
 		<td colspan="3">
@@ -220,16 +259,18 @@ table{
 <button id="more" onclick="goMore('<%=start%>','<%=end%>')">더 추천받기</button>
 <p id="theLast">모든 메뉴를 추천받으셨습니다. Keep리스트를 보시거나 메인페이지로 이동하세요.</p>
 <hr/>
-<button onclick="goKeepList()">KeepList보기</button>
-<button onclick="location.href='us_usermain.do'">유저메인으로</button>
-<hr/>
-<hr/>
-
-<button onclick="location.href='us_usermain.do'">뒤로</button>
+<div style="text-align: center;">
+<button onclick="goKeepList()" id="keepListBtn">KeepList보기</button>
+<button onclick="location.href='us_usermain.do'" id="usermainBtn">유저메인으로</button>
 </div>
-<p>listSize=<%=list.size()%> / </p>
-<p>Keep리스트: <span id="keepList"></span></p>
-<p>KeepSeqs: <span id="keepSeqs"></span></p>
-<p>Hate리스트: <span id="hateList"></span></p>
+</div>
+<%-- <p>listSize=<%=list.size()%> / </p> --%>
+<!-- <p>Keep리스트: <span id="keepList"></span></p> -->
+<!-- <p>KeepSeqs: <span id="keepSeqs"></span></p> -->
+<!-- <p>Hate리스트: <span id="hateList"></span></p> -->
+<div id="loadingImg">
+<img alt="로딩이미지" src="resources/images/recommending.gif"><br/>
+<p id="loadingText">좀 더 맛있어 할만한 음식 찾는 중 . . .</p>
+</div>
 </body>
 </html>

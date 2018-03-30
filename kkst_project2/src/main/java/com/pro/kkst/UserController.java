@@ -32,6 +32,7 @@ import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.imp.I_UserService;
+import com.pro.kkst.utils.Us_Utils;
 
 @Controller
 public class UserController {
@@ -194,13 +195,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "us_getstars.do")
-	public String us_GetStars(Model model, HttpSession session, String[] stars, String[] codes) {
+	public String us_GetStars(Model model, HttpSession session, String[] codes, String stars0, String stars1, String stars2, 
+			String stars3, String stars4, String stars5, String stars6, String stars7, String stars8, String stars9) {
 		logger.info("us_getstars");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
 			return "ac_login";
 		}else {
-		
+			Us_Utils util = new Us_Utils();
+			String[] stars =util.makingStars(stars0, stars1, stars2, stars3, stars4, stars5, stars6, stars7, stars8, stars9);
 			boolean isS=false;
 			for (int i = 0; i < stars.length; i++) {
 				isS=userServ.setStars(Integer.parseInt(stars[i]), ldto.getSeq(), codes[i]);
@@ -647,6 +650,75 @@ public class UserController {
 			}
 			model.addAttribute("theLastIndex", theLastIndex);
 			return "us_bubble";
+		}
+	}
+	
+	@RequestMapping(value = "us_before_olympic.do")
+	public String us_Before_Olympic(Model model, HttpSession session) {
+		logger.info("us_before_olympic");
+		return "us_before_olympic";
+	}
+	
+	@RequestMapping(value = "us_myinfoView.do")
+	public String us_MyInfoView(Model model, HttpSession session) {
+		logger.info("us_myinfoView");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			LoginDto dto=userServ.getMyInfo(String.valueOf(ldto.getSeq()));
+			model.addAttribute("dto", dto);
+			return "us_myinfoView";
+		}
+	}
+	
+	@RequestMapping(value = "us_modifyMyinfo.do")
+	public String us_modifyMyinfo(Model model, HttpSession session) {
+		logger.info("us_modifyMyinfo");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			LoginDto dto=userServ.getMyInfo(String.valueOf(ldto.getSeq()));
+			model.addAttribute("dto", dto);
+			return "us_modifyMyinfo";
+		}
+	}
+	
+	@RequestMapping(value = "us_modifyMyinfo_after.do")
+	public String us_modifyMyinfo_After(Model model, HttpSession session, String seq, String pw_chk, String nickName, String email) {
+		logger.info("us_modifyMyinfo_after");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			boolean isS = userServ.updateMyInfo(seq, pw_chk, nickName, email);
+			if (isS) {
+				logger.info("us_modifyMyinfo_after:성공");
+				return "redirect:us_myinfoView.do";
+			}else {
+				logger.info("us_modifyMyinfo_after:실패");
+				return "redirect:us_modifyMyinfo.do";
+			}
+		}
+	}
+	
+	
+	@RequestMapping(value = "us_deleteAccount.do")
+	public String us_DeleteAccount(Model model, HttpSession session, String seq, String pw_chk, String nickName, String email) {
+		logger.info("us_deleteAccount");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+			boolean isS = userServ.deleteAccount(String.valueOf(ldto.getSeq()));
+			if (isS) {
+				logger.info("us_deleteAccount:성공");
+				return "ac_login";
+			}else {
+				logger.info("us_deleteAccount:실패");
+				return "redirect:us_myinfoView.do";
+			}
 		}
 	}
 }

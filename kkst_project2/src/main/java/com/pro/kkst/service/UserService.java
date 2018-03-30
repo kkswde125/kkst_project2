@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pro.kkst.dtos.AttrsDto;
+import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResReviewDto;
@@ -436,5 +437,29 @@ public class UserService implements I_UserService {
 		map.put("user_seq", ""+user_seq);
 		list=userDao.bubbleMenuList(map);
 		return list;
+	}
+
+	@Override
+	public LoginDto getMyInfo(String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		return userDao.getMyInfo(map);
+	}
+
+	@Override
+	public boolean updateMyInfo(String seq, String pw, String nickName, String email) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("pw", pw);
+		map.put("nickName", nickName);
+		map.put("email", email);
+		return userDao.updateMyInfo(map);
+	}
+
+	@Override
+	public boolean deleteAccount(String seq) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		return userDao.deleteAccount(map);
 	}
 }

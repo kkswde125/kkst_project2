@@ -16,29 +16,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>식당지도</title>
-<style type="text/css">
-#all{
-		padding-top: 1%;
-		width: 1200px;
-		margin : 0 auto;
-		text-align: center;
-}
-#headerz{
-	font-size: 17px;
-    font-weight: bold;
-    line-height: 1.5em;
-    text-align: center;
-}
-.h3z:hover{
-	color: blue;
-	text-decoration: underline;
-}
-</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	//------------------- 원 반경 설정---------------------------------------------------------
 	var cSize=1000;
-	
+
 	function go100() {
 		cSize=100;
 	}
@@ -60,6 +45,51 @@
 	}
 	//------------------------------------------------------------------------------------
 </script>
+<style type="text/css">
+#all{
+		display: none;
+		padding-top: 1%;
+		width: 1200px;
+		margin : 0 auto;
+		text-align: center;
+}
+#headerz{
+	font-size: 17px;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-align: center;
+}
+.h3z:hover{
+	color: blue;
+	text-decoration: underline;
+}
+.btn{
+	margin: 1px;
+}
+#loadingImg{
+	padding-top: 1%;
+		width: 800px;
+		margin : 0 auto;
+		text-align: center;
+}
+#loadingText{
+	font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+#loadingImg2{
+	padding-top: 1%;
+		width: 800px;
+		margin : 0 auto;
+		text-align: center;
+		display: none;
+}
+#loadingText2{
+	font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+</style>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=dxAelTQKShNPGfu0KuVB&submodules=geocoder"></script>
 </head>
 <body>
@@ -68,7 +98,11 @@
     <div id="map" style="width:1200px; height:800px;"></div>
 	<script>
 	function goDetail(name,cate) {
-		location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>"+"&start=1&end=10";
+		$('#loadingImg2').css('display','block');
+		$('#all').css('display','none');
+		setTimeout(function() {
+			location.href="us_res_detail.do?name="+name+"&cate="+cate+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>"+"&start=1&end=10";	
+		}, 3000);
 	}
 	  //------------------- 멥 생성---------------------------------------------------------  
 	    var map = new naver.maps.Map('map');
@@ -288,12 +322,33 @@
 					naver.maps.Event.addListener(markers[i],'click',getClickHandler(i));
 				}
 	      });
+	      
+	  	window.onload = function(){
+	  		var t =performance.timing;
+			  setTimeout(function(){
+			    console.log(t.loadEventStart - t.responseEnd);
+			  }, 0);
+			  
+			  setTimeout(() => {
+				$('#loadingImg').css('display','none');
+				$('#all').css('display','block');
+			}, t.loadEventStart - t.responseEnd+1000);
+			}
 	</script>
-	  <button onclick="go100()">100m</button>
-      <button onclick="go500()">500m</button>
-      <button onclick="go1000()">1000m</button>
-      <button onclick="go10000()">10km</button>
-      <button onclick="go100000()">100km</button>
+		<span>원 반경 조절:</span>
+	  <button class="btn btn-default" onclick="go100()">100m</button>
+      <button class="btn btn-default" onclick="go500()">500m</button>
+      <button class="btn btn-default" onclick="go1000()">1000m</button>
+      <button class="btn btn-default" onclick="go10000()">10km</button>
+      <button class="btn btn-default" onclick="go100000()">100km</button>
+</div>
+<div id="loadingImg">
+<img alt="로딩이미지" src="resources/images/giphy.gif"><br/>
+<p id="loadingText">좋아요! 이제 식당을 찾아볼게요. . .</p>
+</div>
+<div id="loadingImg2">
+<img alt="로딩이미지" src="resources/images/giphy.gif"><br/>
+<p id="loadingText2">식당의 상세 정보 페이지로 이동합니다. . .</p>
 </div>
 </body>
 </html>

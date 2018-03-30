@@ -30,9 +30,9 @@
 	</select>
 	
 	<select id="watchaBox" parameterType="Map" resultType="WatchaDto">
-		SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,RN
+		SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,RN,"CHANGE"
 		FROM (
-			SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN
+			SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN,"CHANGE"
 			FROM (	SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ, T1.PRICE, T2."CHANGE"
 					FROM 
 					(SELECT SEQ, NAME, CODE, RES_SEQ, PRICE FROM MENULIST WHERE SUBSTR(CODE,1,1)=#{codez}) T1,
@@ -307,4 +307,16 @@ SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ D
 		WHERE X1.CODE=X2.CODEZ AND X1.SEQ = X3.MENU_SEQ
 ) WHERE RN BETWEEN 1 AND 20 ORDER BY CODE ASC, RN ASC
 	</select>
+	
+	<select id="getMyInfo" parameterType="Map" resultType="LoginDto">
+		SELECT SEQ, ID, PW, NAME, NICKNAME, REGDATE, DELFLAG, SEX, BIRTH, EMAIL FROM USERS WHERE SEQ = #{seq}
+	</select>
+	
+	<update id="updateMyInfo" parameterType="Map">
+		UPDATE USERS SET PW=#{pw}, NICKNAME=#{nickName}, EMAIL=#{email} WHERE SEQ=#{seq}
+	</update>
+	
+	<update id="deleteAccount" parameterType="Map">
+		UPDATE USERS SET DELFLAG = 'Y' WHERE SEQ = #{seq}
+	</update>
 </mapper>

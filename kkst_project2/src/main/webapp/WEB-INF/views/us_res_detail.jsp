@@ -29,13 +29,8 @@
 	String avgStar = (String)request.getAttribute("avgStar");
 	int avgStarCount = (int)Math.floor(Double.parseDouble(avgStar));
 	String starIcon = "";
-	for(int i = 0; i < avgStarCount; i++){
-		starIcon += "★";
-	}
-	for(int i = 0; i < 5-avgStarCount; i++){
-		starIcon += "☆";
-	}
-	
+	for(int i = 0; i < avgStarCount; i++){starIcon += "★";}
+	for(int i = 0; i < 5-avgStarCount; i++){starIcon += "☆";}
 	%>
 <!DOCTYPE html>
 <html>
@@ -50,39 +45,44 @@
 	var ii = 1;	
 	var maxSize = <%=menuList.size()%>;
 	var resPhoto = '<%=resPhoto%>';
-	var first = null;
-	var second = null;
-	var third = null;
-	
+	var first = null;var second = null;var third = null;
 	$(function() {
-		if (maxSize==0 && resPhoto==null) {
-			$('#prev').css('display','none');
-			$('#next').css('display','none');
+		var submit = false;
+		$('form').submit(function(e) {
+			$('#loadingImg2').css('display','block');
+			$('#all').css('display','none');
+			var count=0;
+			var star=0;
+			setTimeout(function(e) {
+				$('input[name=star]').each(function() {if ($(this).prop('checked')) {star++;}else{count++;}});
+				if (count==5) {alert("리뷰등록을 위해선 반드시 별점을 주셔야 합니다."); $('#loadingImg2').css('display','none'); $('#all').css('display','block'); return false;}
+				if ($('input[name=content]').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
+				submit = true;
+				$('form').submit();
+			}, 3000);
+			if(!submit){
+				e.preventDefault();
+			}
+		});
+		if (resPhoto=='null' && maxSize==0) {
+			$('#prev').css('display','none');$('#next').css('display','none');
 			$('#southKorea').css('top','400px');
-		}else if (resPhoto==null && maxSize!=0) {
+		}else if (resPhoto=='null' && maxSize!=0) {
+			$('#southKorea').css('top','800px');
+		}else if (resPhoto!='null' && maxSize==0) {
 			$('#southKorea').css('top','800px');
 		}
 		if (maxSize==1) {
 			ii=0;
-			$('#firstz').css('display','none');
-			$('#thirdz').css('display','none');
-			$('#prev').css('display','none');
-			$('#next').css('display','none');
+			$('#firstz').css('display','none');$('#thirdz').css('display','none');
+			$('#prev').css('display','none');$('#next').css('display','none');
 		}
-		
 		if (maxSize==2) {
 			ii=0;
 			$('#firstz').css('display','none');
 		}
-		
-		first = $('.menulistTD img').eq(ii-1<0?maxSize:ii-1);
-		second = $('.menulistTD img').eq(ii);
-		third = $('.menulistTD img').eq(ii+1>maxSize?0:ii+1);
-		
-		first.clone().appendTo('#firstz');
-		second.clone().appendTo('#secondz');
-		third.clone().appendTo('#thirdz');
-		
+		first = $('.menulistTD img').eq(ii-1<0?maxSize:ii-1);second = $('.menulistTD img').eq(ii);third = $('.menulistTD img').eq(ii+1>maxSize?0:ii+1);
+		first.clone().appendTo('#firstz');second.clone().appendTo('#secondz');third.clone().appendTo('#thirdz');
 		$('input[name=star]').click(function() {
 			if ($(this).prop('checked')) {$(this).prevAll('input[name=star]').prop('checked',$(this).prop('checked'));}else{
 				$(this).nextAll('input[name=star]').prop('checked',$(this).prop('checked'));
@@ -104,14 +104,8 @@
 			$(this).next().toggle();
 		});
 	});
-	function chk() {
-		var count=0;var star=0;
-		$('input[name=star]').each(function() {if ($(this).prop('checked')) {star++;}else{count++;}});
-		if (count==5) {alert("리뷰등록을 위해선 반드시 별점을 주셔야 합니다.");return false;}
-		if ($('input[name=content]').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
-		
-	}
-	function goBack() {location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
+	function goBack() {
+		location.href="us_reslist.do?cate="+"<%=cate%>"+"&mName="+"<%=mName%>"+"&seq="+"<%=seq%>";
 	}
 	function addLikey(user_id, likey, review_seq) {
 		if (likey=='0') {location.href="us_addLikey.do?id="+user_id+"&review_seq="+review_seq+"&likey=0";
@@ -131,249 +125,83 @@
 			location.href="us_addReport.do?id="+user_id+"&review_seq="+review_seq+"&report=1";}
 	}
 	function nextList() {
-		if (ii+1>maxSize-1) {
-			ii=0;
-		}else{
-			ii++;
-		}
+		if (ii+1>maxSize-1) {ii=0;}else{ii++;}
 		first = $('.menulistTD img').eq(ii-1<0?maxSize-1:ii-1);
 		second = $('.menulistTD img').eq(ii);
 		third = $('.menulistTD img').eq(ii+1>maxSize-1?0:ii+1);
-		$('#firstz').empty();
-		$('#secondz').empty();
-		$('#thirdz').empty();
-		first.clone().appendTo('#firstz');
-		second.clone().appendTo('#secondz');
-		third.clone().appendTo('#thirdz');
+		$('#firstz').empty();$('#secondz').empty();$('#thirdz').empty();
+		first.clone().appendTo('#firstz');second.clone().appendTo('#secondz');third.clone().appendTo('#thirdz');
 	}
-	
 	function prevList() {
-		if (ii-1<0) {
-			ii=maxSize-1;
-		}else{
-			ii--;
-		}
+		if (ii-1<0) {ii=maxSize-1;}else{ii--;}
 		first = $('.menulistTD img').eq(ii-1<0?maxSize-1:ii-1);
 		second = $('.menulistTD img').eq(ii);
 		third = $('.menulistTD img').eq(ii+1>maxSize-1?0:ii+1);
-		$('#firstz').empty();
-		$('#secondz').empty();
-		$('#thirdz').empty();
-		first.clone().appendTo('#firstz');
-		second.clone().appendTo('#secondz');
-		third.clone().appendTo('#thirdz');
+		$('#firstz').empty();$('#secondz').empty();$('#thirdz').empty();
+		first.clone().appendTo('#firstz');second.clone().appendTo('#secondz');third.clone().appendTo('#thirdz');
 	}
 </script>
 <style type="text/css">
-#all{
-		padding-top:0px;
-		width: 1400px;
-		margin : 0 auto;
-		position: relative;
-}
+#all{padding-top:0px;width: 1400px;margin : 0 auto;position: relative;}
 input[type=checkbox] { display:none; }
-input[type=checkbox] + label {display: inline-block;cursor: pointer;line-height: 22px;padding-left: 22px;background: url('resources/upload/starw.png') left/22px no-repeat;}
+input[type=checkbox] + label {display: inline-block; cursor: pointer; line-height: 22px; padding-left: 22px; background: url('resources/upload/starw.png') left/22px no-repeat;}
 input[type=checkbox]:checked + label { background-image: url('resources/upload/stars.png');}
 .replyIcon:hover{cursor: pointer;}
 .modifyIcon:hover{cursor: pointer;}
 .deleteIcon:hover{cursor: pointer;}
 table{border-collapse: collapse;}
 td{text-align: center;}
-.likeyBtn{
-    padding: 1px 4px;
-    height: 18px;
-    line-height: 15px;
-    vertical-align: top;
-    border: 1px solid #9f9f9f;
-    font-size: 11px;
-    background-color: #fff;
-    letter-spacing: -1px;
-    font-family: dotum,sans-serif;
-    cursor: pointer;
-    color: #e94a23;
-    float: right;
+.likeyBtn{padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 11px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
+    		cursor: pointer;color: #e94a23;float: right;margin: 1px;}
+.dislikeyBtn{padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 11px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
+    		cursor: pointer;color: #007acf;float: right;margin: 1px;}
+.reportBtn{padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 11px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
+    		cursor: pointer;color: black;float: right;margin: 1px;}
+#reviewTable td{max-width: 1000px;}
+#reviewTable{margin: 0 auto;}
+.deletes{color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;}
+.reports{color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;}
+.contents{font-family: gulim, 굴림, Helvetica;font-size: 10pt;line-height: 150%;word-wrap: break-word;}
+.showBlind{font-family: gulim, 굴림, Helvetica;font-size: 9pt;}
+#resNameLabel{font-size: 16px;text-align: center;width: 80px;height: 25px;background-color: #dddddd;padding-bottom: 2px;padding-top: 2px;padding-left: 20px;padding-right: 20px;}
+#resName{font-size: 25px;font-weight: bold;padding: 30px;vertical-align: middle;}
+#resNameTd{vertical-align: middle;}
+#gobacks{position: absolute;top: 10px;left: 0px;}
+#gobacks:hover{cursor: pointer;opacity: 0.8;}
+#t1{margin: 0 auto;}
+#t2{margin: 0 auto;}
+#t3{margin: 0 auto;}
+#t3 th{padding: 10px;}
+#t3 td{text-align: left;padding: 10px;}
+#t4{margin: 0 auto;}
+#menulists{margin: 0 auto;}
+.menulistTD{display: none;}
+#menuz{padding-top:0px;width: 1200px;margin : 0 auto;position: relative;}
+#firstz{display: inline-block;position: absolute;z-index: -2;top: 100px;left: 0px;}
+#secondz{display: inline-block;position: absolute;z-index: -1;top: 50px;left: 300px;}
+#thirdz{display: inline-block;position: absolute;z-index: -2;top: 100px;left: 600px;}
+#secondz>img{width: 600px;height: 400px;}
+#prev{display: inline-block;position: absolute;top: 200px;left: -100px;}
+#next{display: inline-block;position: absolute;top: 200px;left: 1100px;}
+#prev:hover {cursor: pointer;opacity: 0.5;}
+#next:hover {cursor: pointer;opacity: 0.5;}
+#southKorea{position: absolute;top: 1300px;}
+#rp{font-weight: bold;font-size: 32px;text-align: center;}
+#mps{font-weight: bold;font-size: 32px;text-align: center;}
+hr{width: 700px;}
+.titlezz{font-weight: bold;font-size: 32px;text-align: center;}
+th{text-align: center;}
+#loadingImg2{
+	padding-top: 1%;
+		width: 800px;
+		margin : 0 auto;
+		text-align: center;
+		display: none;
 }
-.dislikeyBtn{
-    padding: 1px 4px;
-    height: 18px;
-    line-height: 15px;
-    vertical-align: top;
-    border: 1px solid #9f9f9f;
-    font-size: 11px;
-    background-color: #fff;
-    letter-spacing: -1px;
-    font-family: dotum,sans-serif;
-    cursor: pointer;
-    color: #007acf;
-    float: right;
-}
-.reportBtn{
-    padding: 1px 4px;
-    height: 18px;
-    line-height: 15px;
-    vertical-align: top;
-    border: 1px solid #9f9f9f;
-    font-size: 11px;
-    background-color: #fff;
-    letter-spacing: -1px;
-    font-family: dotum,sans-serif;
-    cursor: pointer;
-    color: black;
-    float: right;
-}
-#reviewTable td{
-	max-width: 1000px;
-}
-#reviewTable{
-	margin: 0 auto;
-}
-.deletes{
-	color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;
-}
-.reports{
-	color: gray; font-family: gulim, 굴림, Helvetica; font-size: 9pt;
-}
-.contents{
-	font-family: gulim, 굴림, Helvetica;
-	font-size: 9pt;
-	line-height: 150%;
-	word-wrap: break-word;
-}
-.showBlind{
-	font-family: gulim, 굴림, Helvetica;
-	font-size: 9pt;
-}
-#resNameLabel{
-	font-size: 16px;
-    text-align: center;
-    width: 80px;
-    height: 25px;
-    background-color: #dddddd;
-    padding-bottom: 2px;
-    padding-top: 2px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-#resName{
-	font-size: 25px;
+#loadingText2{
+	font-size: 20px;
     font-weight: bold;
-    padding: 30px;
-    vertical-align: middle;
-}
-#resNameTd{
-	 vertical-align: middle;
-}
-#gobacks{
-	position: absolute;
-	top: 10px;
-	left: 0px;
-}
-#gobacks:hover{
-	cursor: pointer;
-	opacity: 0.8;
-}
-#t1{
-	margin: 0 auto;
-}
-#t2{
-	margin: 0 auto;
-}
-#t3{
-	margin: 0 auto;
-}
-#t3 th{
-	padding: 10px;
-}
-#t3 td{
-	text-align: left;
-	padding: 10px;
-}
-#t4{
-	margin: 0 auto;
-}
-#menulists{
-	margin: 0 auto;
-}
-.menulistTD{
-	display: none;
-}
-#menuz{
-	padding-top:0px;
-	width: 1200px;
-	margin : 0 auto;
-	position: relative;
-}
-
-#firstz{
-	display: inline-block;
-	position: absolute;
-	z-index: 1;
-	top: 100px;
-	left: 0px;
-	
-}
-#secondz{
-	display: inline-block;
-	position: absolute;
-	z-index: 2;
-	top: 50px;
-	left: 300px;
-}
-#thirdz{
-	display: inline-block;
-	position: absolute;
-	z-index: 1;
-	top: 100px;
-	left: 600px;
-}
-#secondz>img{
-	width: 600px;
-	height: 400px;
-}
-#prev{
-	display: inline-block;
-	position: absolute;
-	top: 200px;
-	left: -100px;
-}
-#next{
-	display: inline-block;
-	position: absolute;
-	top: 200px;
-	left: 1100px;
-}
-#prev:hover {
-	cursor: pointer;
-	opacity: 0.5;
-}
-#next:hover {
-	cursor: pointer;
-	opacity: 0.5;
-}
-#southKorea{
-	position: absolute;
-	top: 1300px;
-}
-#rp{
-	font-weight: bold;
-    font-size: 32px;
     text-align: center;
-}
-#mps{
-	font-weight: bold;
-    font-size: 32px;
-    text-align: center;
-}
-hr{
-	width: 700px;
-}
-.titlezz{
-	font-weight: bold;
-    font-size: 32px;
-    text-align: center;
-}
-th{
-	text-align: center;
 }
 </style>
 </head>
@@ -442,9 +270,9 @@ for(int i = 0; i < menuList.size(); i++){
 				}else if(Integer.parseInt(list2.get(i).getReport_Count())>=10){%>
 					<span>
 						<span class="reports">※다량의 신고로 블라인드된 글입니다※</span>
-						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list2.get(i).getContent() %></span></span></span><%
+						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list2.get(i).getContent() %>&nbsp;  </span></span></span><%
 				}else{%>
-					<span><span class="contents"><%=list2.get(i).getContent() %></span></span>
+					<span><span class="contents"><%=list2.get(i).getContent() %>&nbsp;  </span></span>
 					<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list2.get(i).getReport()==null?0:(list2.get(i).getReport()) %>', '<%=list2.get(i).getSeq() %>')" value="신고 <%=list2.get(i).getReport_Count() %>">
 					<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list2.get(i).getDislikey()==null?0:(list2.get(i).getDislikey()) %>', '<%=list2.get(i).getSeq() %>')" value="비공감 <%=list2.get(i).getDislikey_Count() %>">
 					<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list2.get(i).getLikey()==null?0:(list2.get(i).getLikey()) %>', '<%=list2.get(i).getSeq() %>')" value="공감 <%=list2.get(i).getLikey_Count()%>">
@@ -461,9 +289,9 @@ for(int i = 0; i < menuList.size(); i++){
 				}else if(Integer.parseInt(list.get(i).getReport_Count())>=10){%>
 					<span>
 						<span class="reports">※다량의 신고로 블라인드된 글입니다※</span>
-						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list.get(i).getContent() %></span></span></span><%
+						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list.get(i).getContent() %>&nbsp;  </span></span></span><%
 				}else{%>
-					<span class="contents"><%=list.get(i).getContent() %></span>
+					<span class="contents"><%=list.get(i).getContent() %>&nbsp;  </span>
 					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 1000px;">
 							<form action="us_reply.do" method="post" style="display: inline-block;">
 								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
@@ -482,14 +310,14 @@ for(int i = 0; i < menuList.size(); i++){
 					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 300px;">
 							<form action="us_delete.do" method="post" style="display: inline-block;">
 								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-								<span>※삭제하시겠습니까?※</span>
+								<span style="display: inline-block; background-color: white;">※삭제하시겠습니까?※</span>
 								<button type="submit">예</button>
 							</form></div></div>
 					<img alt="삭제하기아이콘" title="삭제" src="resources/upload/delete.png" class="deleteIcon"/>
 					<%}%>
 				<%}%>
 				<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고 <%=list.get(i).getReport_Count() %>">
-				<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감 <%=list.get(i).getDislikey_Count() %>">
+				<input class="dislikeyBtn" type="button" onclick="addDislikey('<%=ldto.getId()%>','<%=list.get(i).getDislikey()==null?0:(list.get(i).getDislikey()) %>', '<%=list.get(i).getSeq() %>')" value="비공감 <%=list.get(i).getDislikey_Count() %>"> 
 				<input class="likeyBtn" type="button" onclick="addLikey('<%=ldto.getId()%>','<%=list.get(i).getLikey()==null?0:(list.get(i).getLikey()) %>', '<%=list.get(i).getSeq() %>')" value="공감 <%=list.get(i).getLikey_Count()%>">
 				</td>
 				<td><%=sdf.format(list.get(i).getRegDate()) %></td>
@@ -503,7 +331,7 @@ for(int i = 0; i < menuList.size(); i++){
 		</td></tr><%}%>
 </table>
 <hr/>
-<form action="us_write_review.do" method="post" onsubmit="return chk()">
+<form action="us_write_review.do" method="post">
 <input type="hidden" name="id" value="<%=ldto.getSeq()%>"/><input type="hidden" name="res_Seq" value="<%=dto.getSeq()%>"/>
 <p class="titlezz">WRITE</p>
 <table  id="t4" class="table table-striped">
@@ -522,6 +350,10 @@ for(int i = 0; i < menuList.size(); i++){
 </form>
 <p>&nbsp;<br/>&nbsp;<br/>&nbsp;&nbsp;<br/>&nbsp;<br/>&nbsp;</p>
 </div>
+</div>
+<div id="loadingImg2">
+<img alt="로딩이미지2" src="resources/images/review.gif"><br/>
+<p id="loadingText2">소중한 리뷰 작성 감사합니다!<br/>입력하신 별점은 해당 식당의 평점에 반영됩니다.</p>
 </div>
 </body>
 </html>

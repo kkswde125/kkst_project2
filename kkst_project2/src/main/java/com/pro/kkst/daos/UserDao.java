@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pro.kkst.dtos.AttrsDto;
+import com.pro.kkst.dtos.LoginDto;
 import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.ResDto;
 import com.pro.kkst.dtos.ResReviewDto;
@@ -247,6 +248,21 @@ public class UserDao implements I_UserDao {
 	@Override
 	public List<MenuzDto> bubbleMenuList(Map<String, String> map) {
 		return sqlSessoin.selectList(namespace+"bubbleMenuList", map);
+	}
+
+	@Override
+	public LoginDto getMyInfo(Map<String, String> map) {
+		return sqlSessoin.selectOne(namespace+"getMyInfo", map);
+	}
+
+	@Override
+	public boolean updateMyInfo(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"updateMyInfo", map)>0?true:false;
+	}
+
+	@Override
+	public boolean deleteAccount(Map<String, String> map) {
+		return sqlSessoin.update(namespace+"deleteAccount", map)>0?true:false;
 	}
 
 

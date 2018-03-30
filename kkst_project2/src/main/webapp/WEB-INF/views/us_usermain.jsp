@@ -56,11 +56,11 @@ if(ldto==null){
 	if(isS.equals("yes")){
 		%>
 	<tr>
-		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_show_taste.do'"></td>
+		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_myinfoView.do'"></td>
 		<td><img alt="메뉴추천" src="resources/images/main_menu.jpg" title="메뉴추천" onclick="location.href='us_recommend_menu.do?start=1&end=20'"></td>
 	</tr>
 	<tr>
-		<td><img alt="푸드올림픽" src="resources/images/main_food.jpg" title="푸드올림픽" onclick="location.href='us_olympic.do'"></td>
+		<td><img alt="푸드올림픽" src="resources/images/main_food.jpg" title="푸드올림픽" onclick="location.href='us_before_olympic.do'"></td>
 		<td><img alt="내입맛통계" src="resources/images/main_graph.jpg" title="내입맛통계" onclick="location.href='us_my_stats.do'"></td>
 	</tr>
 	<tr>
@@ -74,7 +74,7 @@ if(ldto==null){
 	}else{
 		%>
 	<tr>
-		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_show_taste.do'"></td>
+		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_myinfoView.do'"></td>
 		<td><img alt="초기입맛등록" src="resources/images/main_menu.jpg" title="초기입맛등록" onclick="location.href='us_regist_taste_watcha.do'"></td>
 	</tr>
 		<%
