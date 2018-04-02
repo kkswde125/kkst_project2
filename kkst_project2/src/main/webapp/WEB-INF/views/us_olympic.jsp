@@ -158,7 +158,7 @@ border-radius: 25px;
                <tr>
                   <td onclick="clickings(<%=i%>,<%=lists.get(i).getSeq()%>)" class="tdzz">
 					 <div id="choice<%=i%>">
-                        <img class="imgs" alt="<%=lists.get(i).getName()%>" src="resources/upload/<%=lists.get(i).getChange()%>" style="width: 500px; height: 300px;">
+                        <img class="imgs" alt="<%=lists.get(i).getName()%>" src="resources/Resimg/<%=lists.get(i).getChange()%>" style="width: 500px; height: 300px;">
                      </div>
                   </td>
                </tr>

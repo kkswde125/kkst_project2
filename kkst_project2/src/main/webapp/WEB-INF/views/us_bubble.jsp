@@ -163,7 +163,7 @@ svg.selectAll('image')
 .data(dataz)
 .enter()
 .append('svg:image')
-.attr("xlink:href", function(d){return "http://localhost:8090/kkst/resources/upload/"+d;})
+.attr("xlink:href", function(d){return "http://localhost:8090/kkst/resources/Resimg/"+d;})
 .attr("x","300")
 .attr("y","350")
 .attr("width","128")
@@ -229,8 +229,8 @@ function collide(node) {
 </head>
 <body>
 <h1>bubblebubble</h1>
-<!-- <p style="background-image: url(resources/upload/70b93912984249e98268e8899cea2e69.jpg); width: 200px; height: 200px; background-size: cover;">d</p> -->
-<!-- <img alt="ok" src="resources/upload/70b93912984249e98268e8899cea2e69.jpg" style="width: 200px; height: 200px; background-size: cover; position: absolute;"> -->
+<!-- <p style="background-image: url(resources/Resimg/70b93912984249e98268e8899cea2e69.jpg); width: 200px; height: 200px; background-size: cover;">d</p> -->
+<!-- <img alt="ok" src="resources/Resimg/70b93912984249e98268e8899cea2e69.jpg" style="width: 200px; height: 200px; background-size: cover; position: absolute;"> -->
 <div id="graphd3">
 </div>
 </body>

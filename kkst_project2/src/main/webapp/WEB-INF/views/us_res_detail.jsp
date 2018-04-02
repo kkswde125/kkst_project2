@@ -144,8 +144,8 @@
 <style type="text/css">
 #all{padding-top:0px;width: 1400px;margin : 0 auto;position: relative;}
 input[type=checkbox] { display:none; }
-input[type=checkbox] + label {display: inline-block; cursor: pointer; line-height: 22px; padding-left: 22px; background: url('resources/upload/starw.png') left/22px no-repeat;}
-input[type=checkbox]:checked + label { background-image: url('resources/upload/stars.png');}
+input[type=checkbox] + label {display: inline-block; cursor: pointer; line-height: 22px; padding-left: 22px; background: url('resources/Resimg/starw.png') left/22px no-repeat;}
+input[type=checkbox]:checked + label { background-image: url('resources/Resimg/stars.png');}
 .replyIcon:hover{cursor: pointer;}
 .modifyIcon:hover{cursor: pointer;}
 .deleteIcon:hover{cursor: pointer;}
@@ -219,7 +219,7 @@ th{text-align: center;}
 <hr/>
 <table id="t2">
 <tr><td colspan="3" id="rp">RESTAURANT PICTURE</td></tr>
-<tr><td colspan="3"><%if(resPhoto==null){%><span style="display: inline-block; ">※등록된 식당사진이 없습니다※</span><%}else{%><img class="imgs" alt="<%=dto.getName() %>" src="resources/upload/<%=resPhoto%>" style="width: 700px; height: 500px;"><%}%></td></tr>
+<tr><td colspan="3"><%if(resPhoto==null){%><span style="display: inline-block; ">※등록된 식당사진이 없습니다※</span><%}else{%><img class="imgs" alt="<%=dto.getName() %>" src="resources/Resimg/<%=resPhoto%>" style="width: 700px; height: 500px;"><%}%></td></tr>
 </table>
 <br/><br/>
 <table id="menulists">
@@ -228,7 +228,7 @@ th{text-align: center;}
 <tr><td>※등록된 메뉴사진이 없습니다※</td></tr><%
 }else{%><tr><%
 for(int i = 0; i < menuList.size(); i++){
-%><td class="menulistTD"><img class="imgs" alt="<%=menuList.get(i).getName()%>" src="resources/upload/<%=menuList.get(i).getChange()%>" title="<%=menuList.get(i).getName()%>"  style="width: 100%; height: 100%;"></td><%}%></tr>
+%><td class="menulistTD"><img class="imgs" alt="<%=menuList.get(i).getName()%>" src="resources/Resimg/<%=menuList.get(i).getChange()%>" title="<%=menuList.get(i).getName()%>"  style="width: 100%; height: 100%;"></td><%}%></tr>
 <%}%></table>
 <div id="menuz">
 <img alt="prevIcon" src="resources/images/prev.png" onclick="prevList()" id="prev" style="width: 100px; height: 100px;">
@@ -301,7 +301,7 @@ for(int i = 0; i < menuList.size(); i++){
 								<input type="text" name="content" maxlength="100" placeholder="답글을 입력해주세요" required="required" />
 								<button type="submit">확인</button>
 							</form></div></div>
-					<img alt="답글쓰기아이콘" title="답글쓰기" src="resources/upload/reply.png" class="replyIcon"/>
+					<img alt="답글쓰기아이콘" title="답글쓰기" src="resources/Resimg/reply.png" class="replyIcon"/>
 					<%if(ldto.getNickName().equals(list.get(i).getId())){%>
 					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 1000px;">
 							<form action="us_modify.do" method="post" style="display: inline-block;">
@@ -309,14 +309,14 @@ for(int i = 0; i < menuList.size(); i++){
 								<input type="text" name="content" maxlength="100" placeholder="수정할 내용을 입력해주세요" required="required" />
 								<button type="submit">수정완료</button>
 							</form></div></div>
-					<img alt="수정하기아이콘" title="수정" src="resources/upload/modify.png" class="modifyIcon"/>
+					<img alt="수정하기아이콘" title="수정" src="resources/Resimg/modify.png" class="modifyIcon"/>
 					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 300px;">
 							<form action="us_delete.do" method="post" style="display: inline-block;">
 								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
 								<span style="display: inline-block; background-color: white;">※삭제하시겠습니까?※</span>
 								<button type="submit">예</button>
 							</form></div></div>
-					<img alt="삭제하기아이콘" title="삭제" src="resources/upload/delete.png" class="deleteIcon"/>
+					<img alt="삭제하기아이콘" title="삭제" src="resources/Resimg/delete.png" class="deleteIcon"/>
 					<%}%>
 				<%}%>
 				<input class="reportBtn" type="button" onclick="addReport('<%=ldto.getId()%>', '<%=list.get(i).getReport()==null?0:(list.get(i).getReport()) %>', '<%=list.get(i).getSeq() %>')" value="신고 <%=list.get(i).getReport_Count() %>">

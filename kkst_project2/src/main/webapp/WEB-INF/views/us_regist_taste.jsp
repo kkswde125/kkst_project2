@@ -108,7 +108,7 @@ border-collapse: collapse;
 			<table class="tablezz">
 			<tr>
 				<td>
-					<img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;">			
+					<img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/Resimg/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;">			
 				</td>
 				<td rowspan="1">
 					<img alt="1점이미지" src="resources/images/1.jpg">

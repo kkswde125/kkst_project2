@@ -191,7 +191,7 @@ img:hover{
 %>
 <table>
 	<tr>
-		<td><img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/upload/<%=list.get(i).getChange()%>" title="<%=list.get(i).getName()%>" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')"></td>
+		<td><img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/Resimg/<%=list.get(i).getChange()%>" title="<%=list.get(i).getName()%>" onclick="choiceThis('<%=(list.get(i).getCode()).substring(0, 1)%>','<%=list.get(i).getSeq()%>','<%=list.get(i).getName()%>')"></td>
 	</tr>
 </table>
 	<%
