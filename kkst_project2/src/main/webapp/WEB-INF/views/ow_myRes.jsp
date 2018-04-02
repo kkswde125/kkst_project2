@@ -53,7 +53,7 @@
 </div>	
 
 
-<div class="ui animated button" tabindex="0" onclick="location.href=#">
+<div class="ui animated button" tabindex="0" onclick="location.href='ow_Res_Review.do?seq=<%=rDto.getSeq()%>&name=<%=rDto.getName()%>&start=1&end=10'">
   <div class="visible content">내 식당 리뷰보기</div>
   <div class="hidden content">
 <i  class="big thumbs up outline icon" style="margin-top : -10px;"></i>		

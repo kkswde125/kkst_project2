@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +25,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.pro.kkst.dtos.Admin_OnwerDto;
 import com.pro.kkst.dtos.AttrJoinDto;
 import com.pro.kkst.dtos.AttrsDto;
+import com.pro.kkst.dtos.LoginDto;
+import com.pro.kkst.dtos.MenuzDto;
 import com.pro.kkst.dtos.PhotoDto;
 import com.pro.kkst.dtos.ResDto;
+import com.pro.kkst.dtos.ResReviewDto;
 import com.pro.kkst.dtos.menuDto;
 import com.pro.kkst.imp.I_AccountService;
 import com.pro.kkst.imp.I_OwnerService;
+import com.pro.kkst.imp.I_UserService;
 import com.pro.kkst.utils.ac_Utils;
 
 /**
@@ -45,6 +50,9 @@ public class OwnerController {
 	
 	@Autowired
 	private I_AccountService accountServ;
+	
+	@Autowired
+	private I_UserService userServ;
 	
 	ac_Utils ac_util = new ac_Utils();
 	
@@ -274,6 +282,43 @@ public class OwnerController {
 	
 	
 	
+	//리뷰
+	
+	@Transactional
+	@RequestMapping(value = "ow_Res_Review.do")
+	public String us_Res_Detail(Model model, HttpSession session, String name, String cate, String mName, String seq, String start, String end) {
+		logger.info("ow_res_detail");
+				
+			ResDto dto = userServ.getResDetail(name);
+			model.addAttribute("dto", dto);
+			String res_Seq = String.valueOf(dto.getSeq());
+			double avgStar = userServ.getAvgStar(res_Seq);
+			model.addAttribute("avgStar", String.valueOf(avgStar));
+			
+			if (start==null||end==null||res_Seq==null) {
+				start= (String)session.getAttribute("start");
+				end= (String)session.getAttribute("end");
+				res_Seq= (String)session.getAttribute("res_Seq");
+			}else {
+				session.setAttribute("start", start);
+				session.setAttribute("end", end);
+				session.setAttribute("res_Seq", res_Seq);
+			}
+			
+			String count = String.valueOf(userServ.selectGetResReviewCount(res_Seq));
+			model.addAttribute("count", count);
+			
+			String resPhoto =userServ.getResPhoto(res_Seq);
+			model.addAttribute("resPhoto", resPhoto);
+			List<MenuzDto> menuList = userServ.getResMenuPhoto(res_Seq);
+			model.addAttribute("menuList", menuList);
+			List<ResReviewDto> list = userServ.selectGetResReview(res_Seq, start, end);
+			model.addAttribute("list", list);
+			List<ResReviewDto> list2 = userServ.getResBestLikeyReview(res_Seq);
+			model.addAttribute("list2", list2);
+			return "ow_myResReview";
+	}
+
 	
 	
 
