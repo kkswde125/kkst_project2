@@ -299,14 +299,14 @@ for(int i = 0; i < menuList.size(); i++){
 								<input type="text" name="content" maxlength="100" placeholder="수정할 내용을 입력해주세요" required="required" />
 								<button type="submit">수정완료</button>
 							</form></div></div>
-					<img alt="수정하기아이콘" title="수정" src="resources/upload/modify.png" class="modifyIcon"/>
+					<img alt="수정하기아이콘" title="수정" src="resources/Resimg/modify.png" class="modifyIcon"/>
 					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 300px;">
 							<form action="us_delete.do" method="post" style="display: inline-block;">
 								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
 								<span style="display: inline-block; background-color: white;">※삭제하시겠습니까?※</span>
 								<button type="submit">예</button>
 							</form></div></div>
-					<img alt="삭제하기아이콘" title="삭제" src="resources/upload/delete.png" class="deleteIcon"/>
+					<img alt="삭제하기아이콘" title="삭제" src="resources/Resimg/delete.png" class="deleteIcon"/>
 <%-- 					<%}%> --%>
 				<%}%>
 				<input class="reportBtn" type="button" onclick="" value="신고 <%=list.get(i).getReport_Count() %>">
