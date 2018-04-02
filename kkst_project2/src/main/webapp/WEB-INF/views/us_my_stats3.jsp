@@ -3,6 +3,11 @@
 <html>
 <head>
 <meta charset="utf-8">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(function() {
+});
+</script>
 <style>
 .node {
   cursor: pointer;
@@ -78,7 +83,7 @@ d3.json("resources/json/test2.json", function(error, root) {
     .enter().append("circle")
       .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
       .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
+      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); alert('d');});
 
   var text = g.selectAll("text")
     .data(nodes)
@@ -120,6 +125,9 @@ d3.json("resources/json/test2.json", function(error, root) {
     circle.attr("r", function(d) { return d.r * k; });
   }
 });
+
+
+
 </script>
 <button onclick="location.href='us_my_stats4.do'">v4</button>
 </body>

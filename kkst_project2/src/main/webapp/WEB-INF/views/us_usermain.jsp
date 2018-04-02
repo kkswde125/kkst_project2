@@ -19,8 +19,9 @@ window.onload=function(){
 <style type="text/css">
 #all{
 	padding-top:10%;
-	width: 600px;
+	width: 400px;
 	margin : 0 auto;
+	text-align: center;
 }
 img:hover{
 	cursor: pointer;
@@ -54,8 +55,6 @@ String isS=(String)request.getAttribute("hasTaste");
 	<tr>
 		<td><span>임시공간</span>
 			<a href="ac_logout.do">Logout</a><br/>
-			<a href="us_show_taste.do">내입맛보기</a><br/>
-			<a href="us_regist_moreTaste.do">추가입맛설정</a><br/>
 			<a href="us_bubble.do">버블</a>
 		</td>
 	</tr>
