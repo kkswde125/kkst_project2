@@ -212,6 +212,8 @@ public class OwnerController {
 			
 			model.addAttribute("pDto", pDto);
 			model.addAttribute("mDto", mDto);
+			
+			System.out.println(mDto);
 			model.addAttribute("lists2", lists2);
 			model.addAttribute("lists3", lists3);
 			model.addAttribute("lists4", lists4);

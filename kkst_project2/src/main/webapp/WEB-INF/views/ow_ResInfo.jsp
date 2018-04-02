@@ -31,6 +31,8 @@ for(int j=0; j < mDto.size(); j++){
 
 %>
 
+
+
 <c:set var="cateCode" value="<%=cateCode%>"/>
 <c:set var="cookCode" value="<%=cookCode%>"/>
 <c:set var="spicyCode" value="<%=spicyCode%>"/>
@@ -174,6 +176,8 @@ for(int j=0; j < mDto.size(); j++){
 <hr id="line"/>
 <% for(int i=0; i< mDto.size(); i++){
 	%>
+	
+<c:set var="i" value="<%=i%>" />
 <table id="menuAdd" class="ui celled table" >
 <tr>
 <td>
@@ -198,7 +202,7 @@ for(int j=0; j < mDto.size(); j++){
 		<td rowspan="4">메뉴특성</td>
 		<td>주재료</td> 
 		<td>
-		<select name="cateCode_d">
+		<select name="cateCode_d"  class="ui dropdown" disabled="disabled">
 		<c:forEach items="${lists2}" var="dto" >
 			<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cateCode[i]? 'selected':''} />
 		</c:forEach>
@@ -209,7 +213,7 @@ for(int j=0; j < mDto.size(); j++){
 	<tr>
 		<td>조리방식</td>
 		<td>
-		<select name="cookCode_d" class="ui dropdown">
+		<select name="cookCode_d" class="ui dropdown" disabled="disabled">
 		<c:forEach items="${lists3}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq cookCode[i]? 'selected':''} />
 		</c:forEach>
@@ -219,7 +223,7 @@ for(int j=0; j < mDto.size(); j++){
 	<tr>
 		<td>매움정도</td>
 		<td>
-		<select name="spicyCode_d" class="ui dropdown">
+		<select name="spicyCode_d" class="ui dropdown" disabled="disabled">
 		<c:forEach items="${lists4}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq spicyCode[i]? 'selected':''} />
 		</c:forEach>
@@ -229,7 +233,7 @@ for(int j=0; j < mDto.size(); j++){
 	<tr>
 		<td>온도</td>
 		<td>
-		<select name="tempCode_d">
+		<select name="tempCode_d" class="ui dropdown" disabled="disabled">
 		<c:forEach items="${lists5}" var="dto">
 		<option label="${dto.attr}" value="${dto.code}" ${dto.code eq tempCode[i]? 'selected':''} />
 		</c:forEach>

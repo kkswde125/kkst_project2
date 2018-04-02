@@ -87,6 +87,8 @@ for(int j=0; j<mDto.size(); j++){
 		$("body").on("click",".price1",function() {
 			$(this).attr("value", "");
 		});
+		
+		
 	}
 
 	
@@ -105,8 +107,19 @@ for(int j=0; j<mDto.size(); j++){
 		
 		var copy = $("#menuAdd").clone().attr("id", "menuAdd"+countT++).css("display", "block");
 				$("#line2").append(copy);
+				
+		var position = $("#offset").offset();		
 		
 		
+// 		alert(position.top);
+		
+//  		$("menuAdd"+countT++).stop().animate({
+			
+// 			"scrollTop": position.top+"px"
+			
+//  		},500);
+
+
 	}
 	
 	function loadfile(event) {
@@ -187,6 +200,8 @@ for(int j=0; j<mDto.size(); j++){
 		 alert(ddd);
 	 }
 	
+	 
+	 
 	
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
 // 	<label for="upload" style="display: block; background: gray; width: 80px;height: 25px;">파일선택</label>
@@ -413,7 +428,7 @@ for(int j=0; j<mDto.size(); j++){
 		<th>전화번호</th>
 	<td>
 	<div class="ui input">
-	<input type="text" value="${rdto.call}" name="call" required="required" class="reset"  />
+	<input type="text" value="${rdto.call}" name="call"  required="required" class="reset"  />
 	</div>
 	</td>
 	</tr>
@@ -555,6 +570,9 @@ for(int j=0; j<mDto.size(); j++){
 
 <hr id="line2"/>
 
+
+
+<div id="offset" style="height: 300px;">555</div>
 
 </form>
 </div>
