@@ -18,18 +18,16 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
 	
 	$(function(){
-		for (var i = 0; i < <%=list.size()%>; i++) {
-			$("#imgBlock"+i).hide();
-		}
-		
-	})
+		$(".imgTr").hide();
+	});
 	
-	function open(i){
-		$("#imgBlock"+i).slideToggle();
-		
+	function openImg(num){
+		$("#img"+num).slideDown();
+		$(".imgTr").not("#img"+num).slideUp();
 	}
 	
 </script>
@@ -47,10 +45,18 @@
 	
 	img{
 		width: 600px;
+		height: 400px;
+		display: block;
+		
+	}
+	#resImg{
+		width: 700px;
+		height: 500px;
+		display: block;
 	}
 	
 	#menu{
-		width: 550px;
+		width: 650px;
 		text-align: center;
 		margin : 0 auto;
 	}
@@ -58,7 +64,12 @@
 	th{
 		text-align: center;
 		vertical-align: middle;
-		font : bold 15pt "나눔스퀘어라운드 BOLD";
+		font : bold 13pt "나눔스퀘어라운드 BOLD";
+	}
+	
+	.title{
+		font : bold 25pt "나눔스퀘어 EXTRABOLD";
+		padding : 15px;
 	}
 </style>
 </head>
@@ -67,17 +78,19 @@
 <div id="all">
 <table class="ui table">
 <tr>
-	<th>식당 대표 사진</th>
+	<th class="title">식당 대표 사진</th>
 	
 </tr>
 	<tr>
 		<td>
-			<img src="resources/Resimg/<%=photo.getChange() %>">
+			<img src="resources/Resimg/<%=photo.getChange() %>" id="resImg">
 		</td>
 	</tr>
 	<tr>
-	<th>등록된 메뉴</th>
-	</tr><tr>
+	<th class="title">등록된 메뉴</th>
+	</tr><tr><td style="text-align: center;">메뉴 이름을 클릭<img src="resources/images/mouse.png" style="width: 25px; height: 25px; display: inline-block; margin-top:-10px;">하세요!</td></tr>
+	
+	<tr>
 		<td>
 			<table id="menu">
 				<tr>
@@ -90,8 +103,8 @@
 				</tr>
 				<%for(int i = 0; i < list.size() ; i++){ %>
 				<tr>
-					<td onclick="open(<%=i%>)">
-						<%=list.get(i).getName() %>
+					<td>
+						<a onclick="openImg(<%=i%>)"><%=list.get(i).getName()%></a>
 					</td>
 					<td>
 						<%=list.get(i).getBase() %>
@@ -109,13 +122,20 @@
 						<%=list.get(i).getPrice() %>
 					</td>
 				</tr>
-				<tr id="imgBlock<%=i %>">
+				<tr>
 					<td colspan ="6">
-						<img src="resources/upload/<%=list.get(i).getChange() %>">
+						<img src="resources/Resimg/<%=list.get(i).getChange() %>" class="imgTr" id="img<%=i%>">
 					</td>
 				</tr>
 				<%} %>
 			</table>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align: right;">
+		<div class="ui button" onclick="location.href='ad_restList.do?snum=1&cnum=10'">
+			돌아가기
+		</div>
 		</td>
 	</tr>
 </table>
