@@ -40,7 +40,7 @@ public class Us_Utils {
 			nbsp+= "&nbsp;&nbsp;&nbsp;&nbsp;";
 		}
 		
-		this.arrowNbsp = (depthInt>0?nbsp+"<img src='resources/upload/arrow.png' alt='답글'>&nbsp;":"");
+		this.arrowNbsp = (depthInt>0?nbsp+"<img src='resources/Resimg/arrow.png' alt='답글'>&nbsp;":"");
 	}
 	
 	public String[] makingStars(String stars0, String stars1, String stars2, 

@@ -48,7 +48,7 @@
 	var first = null;var second = null;var third = null;
 	$(function() {
 		var submit = false;
-		$('form').submit(function(e) {
+		$('#formz').submit(function(e) {
 			$('#loadingImg2').css('display','block');
 			$('#all').css('display','none');
 			var count=0;
@@ -58,7 +58,7 @@
 				if (count==5) {alert("리뷰등록을 위해선 반드시 별점을 주셔야 합니다."); $('#loadingImg2').css('display','none'); $('#all').css('display','block'); return false;}
 				if ($('input[name=content]').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
 				submit = true;
-				$('form').submit();
+				$('#formz').submit();
 			}, 3000);
 			if(!submit){
 				e.preventDefault();
@@ -334,7 +334,7 @@ for(int i = 0; i < menuList.size(); i++){
 		</td></tr><%}%>
 </table>
 <hr/>
-<form action="us_write_review.do" method="post">
+<form action="us_write_review.do" method="post" id="formz">
 <input type="hidden" name="id" value="<%=ldto.getSeq()%>"/><input type="hidden" name="res_Seq" value="<%=dto.getSeq()%>"/>
 <p class="titlezz">WRITE</p>
 <table  id="t4" class="table table-striped">
