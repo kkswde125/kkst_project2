@@ -182,7 +182,7 @@
 	<tr>
 	<td>가격</td><td colspan="2">
 	<div class="ui input">
-	<input type="text" name="price" value="숫자만 입력해주세요" required="required" class="price1" style="text-align: center;" />
+	<input type="text" name="price"  placeholder="숫자만 입력해주세요" required="required" class="price1" style="text-align: center;" />
 	</div>
 	</td>
 	</tr>
@@ -227,7 +227,7 @@
 	<th>업종</th>
 	<td>
 	
-	<select name="cate" class="ui dropdown">
+	<select name="cate" class="ui dropdown" >
 		<option label="한식" value="한식">
 		<option label="중식" value="중식">
 		<option label="일식" value="일식">
@@ -309,7 +309,7 @@
 		<th>전화번호</th>
 	<td>
 	<div class="ui input">
-	<input type="text" value="- 를 포함하여 입력해주세요" name="call" required="required" class="reset" style="text-align: center;"  />
+	<input type="text"  placeholder="- 를 포함하여 입력해주세요" name="call" required="required" class="reset" style="text-align: center;"  />
 	</div>
 	</td>
 	</tr>

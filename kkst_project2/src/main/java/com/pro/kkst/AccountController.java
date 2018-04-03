@@ -342,14 +342,15 @@ public class AccountController {
 			map.put("name", name_id);
 			map.put("email", email_id);
 			List<LoginDto>lists=accountServ.id_return(map);
-			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
 			
 			String str ="";
 			
+			
 			if(lists.size()!=0) {
+			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
 			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
-			if(lists.size()==0) {
+			if(lists.size()==0||lists==null) {
 			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
@@ -370,14 +371,14 @@ public class AccountController {
 		map.put("email", email_pw);
 		List<LoginDto>lists=accountServ.pw_return(map);
 		System.out.println(lists.toString());
-		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 		
 		
 		String str = "";
 		if(lists.size()!=0) {
+			utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 			 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
-			if(lists.size()==0) {
+			if(lists.size()==0||lists==null) {
 			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
@@ -394,14 +395,14 @@ public class AccountController {
 			map.put("name", name_id);
 			map.put("email", email_id);
 			List<Admin_OnwerDto>lists=accountServ.id_return_ow(map);
-			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
 			
 			String str ="";
 			
 			if(lists.size()!=0) {
+			utils.mail_acccount(lists.get(0).getId(),null,lists.get(0).getName(),lists.get(0).getEmail());
 			 str="아이디를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 			}
-			if(lists.size()==0) {
+			if(lists.size()==0||lists==null) {
 			 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 			}
 			
@@ -421,14 +422,14 @@ public class AccountController {
 		map.put("name", name_pw);
 		map.put("email", email_pw);
 		List<Admin_OnwerDto>lists=accountServ.pw_return_ow(map);
-		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 		
 		String str ="";
 		
 		if(lists.size()!=0) {
+		utils.mail_acccount(null,lists.get(0).getPw(),lists.get(0).getName(),lists.get(0).getEmail());
 		 str="비밀번호를 메일로 보내었습니다. 로그인페이지로 이동합니다";
 		}
-		if(lists.size()==0) {
+		if(lists==null||lists.size()==0) {
 		 str="존재하지 않는 회원입니다. 로그인페이지로 이동합니다";
 		}
 		
