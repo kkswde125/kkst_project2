@@ -33,7 +33,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>us_res_detail</title>
+<title>점주 리뷰 보기페이지</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -292,26 +292,14 @@ for(int i = 0; i < menuList.size(); i++){
 						<span class="showBlind">[내용보기]</span><span class="blindContent"><span class="contents"><%=list.get(i).getContent() %>&nbsp;  </span></span></span><%
 				}else{%>
 					<span class="contents"><%=list.get(i).getContent() %>&nbsp;  </span>
-<%-- 						<%if(ldto.getNickName().equals(list.get(i).getId())){%> --%>
-					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 1000px;">
-							<form action="us_modify.do" method="post" style="display: inline-block;">
-								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-								<input type="text" name="content" maxlength="100" placeholder="수정할 내용을 입력해주세요" required="required" />
-								<button type="submit">수정완료</button>
-							</form></div></div>
-					<img alt="수정하기아이콘" title="수정" src="resources/Resimg/modify.png" class="modifyIcon"/>
-					<div style="display: inline-block; position: relative;" class="formDiv"><div style="position: absolute; top:-50px; left:50px; display: inline-block; width: 300px;">
-							<form action="us_delete.do" method="post" style="display: inline-block;">
-								<input type="hidden" name="seq" value="<%=list.get(i).getSeq() %>" />
-								<span style="display: inline-block; background-color: white;">※삭제하시겠습니까?※</span>
-								<button type="submit">예</button>
-							</form></div></div>
-					<img alt="삭제하기아이콘" title="삭제" src="resources/Resimg/delete.png" class="deleteIcon"/>
-<%-- 					<%}%> --%>
+					<input class="reportBtn" type="button"  value="신고 <%=list.get(i).getReport_Count() %>">
+					<input class="dislikeyBtn" type="button"  value="비공감 <%=list.get(i).getDislikey_Count() %>">
+					<input class="likeyBtn" type="button" value="공감 <%=list.get(i).getLikey_Count()%>">	
+							
+							
+							
 				<%}%>
-				<input class="reportBtn" type="button" onclick="" value="신고 <%=list.get(i).getReport_Count() %>">
-				<input class="dislikeyBtn" type="button" onclick="" value="비공감 <%=list.get(i).getDislikey_Count() %>"> 
-				<input class="likeyBtn" type="button" onclick="" value="공감 <%=list.get(i).getLikey_Count()%>">
+
 				</td>
 				<td><%=sdf.format(list.get(i).getRegDate()) %></td>
 			</tr><%}%>

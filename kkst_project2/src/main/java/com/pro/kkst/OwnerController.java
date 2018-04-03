@@ -75,6 +75,16 @@ public class OwnerController {
 		 System.out.println(ResultCode);
 		 
 		 List<menuDto> mDto=ownerServ.menuSearch(ResultCode);
+		 List<AttrJoinDto> tast1=ownerServ.TastStar1();
+		 List<AttrJoinDto> tast2=ownerServ.TastStar2();
+		 List<AttrJoinDto> tast3=ownerServ.TastStar3();
+		 List<AttrJoinDto> tast4=ownerServ.TastStar4();
+		 List<AttrJoinDto> tast5=ownerServ.TastStar5();
+		  model.addAttribute("tast1",tast1);
+		  model.addAttribute("tast2",tast2);
+		  model.addAttribute("tast3",tast3);
+		  model.addAttribute("tast4",tast4);
+		  model.addAttribute("tast5",tast5);
 		 
 		 System.out.println(mDto);
 		 
@@ -92,9 +102,9 @@ public class OwnerController {
 			  model.addAttribute("Attr3", menuAttr3);
 			  model.addAttribute("Attr4", menuAttr4);
 			  model.addAttribute("mDto",mDto);
-			return "ow_devMenu";
+			  return "ow_devMenu";
 		}
-		 
+		
 		 
 	}
 	

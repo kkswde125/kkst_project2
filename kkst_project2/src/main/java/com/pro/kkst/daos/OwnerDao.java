@@ -135,6 +135,26 @@ public class OwnerDao implements I_OwnerDao {
 		int count = sqlSessoin.delete(namespace+"ReviewDel",seq);
 		return count>0?true:false;
 	}
+	@Override
+	public List<AttrJoinDto> TastStar1() {
+		return sqlSessoin.selectList(namespace+"TastStar1");
+	}
+	@Override
+	public List<AttrJoinDto> TastStar2() {
+		return sqlSessoin.selectList(namespace+"TastStar2");
+	}
+	@Override
+	public List<AttrJoinDto> TastStar3() {
+		return sqlSessoin.selectList(namespace+"TastStar3");
+	}
+	@Override
+	public List<AttrJoinDto> TastStar4() {
+		return sqlSessoin.selectList(namespace+"TastStar4");
+	}
+	@Override
+	public List<AttrJoinDto> TastStar5() {
+		return sqlSessoin.selectList(namespace+"TastStar5");
+	}
 	
 	
 }

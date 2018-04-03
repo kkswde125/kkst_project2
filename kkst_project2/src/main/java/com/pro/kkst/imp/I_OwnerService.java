@@ -33,4 +33,11 @@ public interface I_OwnerService {
 	
 	public boolean delOnwer(String seq);
 	public boolean delOnwer2(String seq);
+	
+	public List<AttrJoinDto> TastStar1();
+	public List<AttrJoinDto> TastStar2();
+	public List<AttrJoinDto> TastStar3();
+	public List<AttrJoinDto> TastStar4();
+	public List<AttrJoinDto> TastStar5();
+	
 }

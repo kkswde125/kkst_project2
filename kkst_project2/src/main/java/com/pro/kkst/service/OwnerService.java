@@ -414,6 +414,31 @@ public class OwnerService implements I_OwnerService {
 		return isS;
 	}
 
+	@Override
+	public List<AttrJoinDto> TastStar1() {
+		return ownerDao.TastStar1();
+	}
+
+	@Override
+	public List<AttrJoinDto> TastStar2() {
+		return ownerDao.TastStar2();
+	}
+
+	@Override
+	public List<AttrJoinDto> TastStar3() {
+		return ownerDao.TastStar3();
+	}
+
+	@Override
+	public List<AttrJoinDto> TastStar4() {
+		return ownerDao.TastStar4();
+	}
+
+	@Override
+	public List<AttrJoinDto> TastStar5() {
+		return ownerDao.TastStar5();
+	}
+
 
 
 }
