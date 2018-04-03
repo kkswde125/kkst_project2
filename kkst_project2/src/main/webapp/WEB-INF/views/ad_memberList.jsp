@@ -43,6 +43,14 @@
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
+	$(function(){
+		var msg = '<%=(String)request.getAttribute("msg")%>';
+		if(msg!='null'){
+			alert(msg);
+		}
+		});
+
 	function allChk(bool){
 		$("input[name=chk]").prop("checked", bool);
 	}

@@ -33,7 +33,7 @@ public class AdminController {
 	Ad_Utils utils = new Ad_Utils();
 	
 	@RequestMapping(value = "ad_memberList.do", method = RequestMethod.GET)
-	public String memberList(Model model, String snum, String cnum, HttpSession session) {
+	public String memberList(Model model, String snum, String cnum, HttpSession session, String msg) {
 		
 		if(snum==null) {
 		       snum=(String)session.getAttribute("snum");
@@ -60,10 +60,25 @@ public class AdminController {
 			int count = adminServ.MemPaging();
 			List<LoginDto> lists = adminServ.memberList(snum, cnum);
 			
+			
+			
 			model.addAttribute("lists", lists);
 			model.addAttribute("count", count);
 			model.addAttribute("start", start);
 	    	model.addAttribute("end", end);
+	    	if(msg!=null) {
+			if(msg.equals("delno")) {
+				msg = "탈퇴시킬 회원을 선택 후 클릭하세요.";
+				model.addAttribute("msg", msg);
+			}
+			else if(msg.equals("canno")) {
+				msg = "복구시킬 회원을 선택 후 클릭하세요.";
+				model.addAttribute("msg", msg);
+			}else{
+				System.out.println("null");
+				msg = null;
+			}
+	    	}
 	    	
 		return "ad_memberList";
 	}
@@ -72,13 +87,18 @@ public class AdminController {
 	public String memDel(Locale locale, HttpServletRequest request) {
 		String[] seqs = request.getParameterValues("chk");
 		
-		boolean isS = adminServ.memberDel(seqs);
-		
-		if(isS) {
-			return "redirect:ad_memberList.do";
+		if(seqs==null) {
+			return "redirect:ad_memberList.do?msg=delno";
 		}else {
+		
+			boolean isS = adminServ.memberDel(seqs);
 			
-			return "ad_memberList.do";
+			if(isS) {
+				return "redirect:ad_memberList.do";
+			}else {
+				
+				return "redirect:ad_memberList.do";
+			}
 		}
 		
 	}
@@ -86,6 +106,10 @@ public class AdminController {
 	@RequestMapping(value = "ad_memDelCancle.do", method = RequestMethod.POST)
 	public String ad_memDelCancle(Locale locale, HttpServletRequest request) {
 		String[] seqs = request.getParameterValues("chk");
+
+		if(seqs==null) {
+			return "redirect:ad_memberList.do?msg=canno";
+		}else {
 		
 		boolean isS = adminServ.memberDelCancle(seqs);
 		
@@ -94,6 +118,7 @@ public class AdminController {
 		}else {
 			
 			return "redirect:ad_memberList.do";
+		}
 		}
 		
 	}
@@ -119,7 +144,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "ad_reviewDetail.do", method = RequestMethod.GET)
-	public String reviewAll(Locale locale, HttpServletRequest request, String area, String msg,Model model) {
+	public String reviewAll(Locale locale, HttpServletRequest request, String area, String msg,Model model, String msg_del) {
 		if(area!=null) {
 			request.getSession().setAttribute("area", area);
 		}else {
@@ -137,8 +162,9 @@ public class AdminController {
 			}
 		}
 		List<Res_ReviewDto> reviewList = adminServ.reviewAll(area, seqs);
-		System.out.println(resList.size());
-		System.out.println(reviewList.size());
+		if(msg_del!=null) {
+			request.setAttribute("msg", "선택된 리뷰가 없습니다.");
+		}
 		if(reviewList.size()==0) {
 			return "redirect:ad_allRevAreaChoice.do?msg=no";
 		}else {
@@ -155,7 +181,7 @@ public class AdminController {
 		request.setAttribute("addrList", addrList);
 		if(msg!=null) {
 			msg = "해당 지역에 신고된 식당 리뷰가 존재하지 않습니다.";
-			request.setAttribute("msg", msg);
+			request.setAttribute("msg_del", msg);
 		}
 		return "ad_reportRevAreaChoice";
 		
@@ -166,18 +192,22 @@ public class AdminController {
 	public String ad_reviewDel(Locale locale, HttpServletRequest request) {
 		String area = (String)request.getSession().getAttribute("area");
 		String[] seqs = request.getParameterValues("chk");
+		
+		if(seqs==null) {
+			return "redirect:ad_reviewDetail.do?msg_del=no";
+		}else {
+		
 		for (int i = 0; i < seqs.length; i++) {
 			System.out.println(seqs[i]);
 		}
 		boolean isS = adminServ.reviewDel(seqs);
 		if(isS) {
-			System.out.println("리뷰 삭제 성공");
 			request.setAttribute("area", area);
 			return "redirect:ad_reviewDetail.do";
 		}else {
-			System.out.println("리뷰 삭제 실패");
 			request.setAttribute("area", area);	
 			return "redirect:ad_reviewDetail.do";
+		}
 		}
 		
 	}
@@ -186,6 +216,11 @@ public class AdminController {
 	public String ad_reviewDel_report(Locale locale, HttpServletRequest request) {
 		String area = (String)request.getSession().getAttribute("area");
 		String[] seqs = request.getParameterValues("chk");
+		
+		if(seqs==null) {
+			return "redirect:ad_reviewReport.do?msg=no";
+		}else {
+		
 		for (int i = 0; i < seqs.length; i++) {
 			System.out.println(seqs[i]);
 		}
@@ -199,11 +234,12 @@ public class AdminController {
 			request.setAttribute("area", area);	
 			return "redirect:ad_reviewReport.do";
 		}
+		}
 		
 	}
 	
 	@RequestMapping(value = "ad_reviewReport.do", method = RequestMethod.GET)
-	public String reportRevAreaChoice(Locale locale, HttpServletRequest request, String area) {
+	public String reportRevAreaChoice(Locale locale, HttpServletRequest request, String area, String msg) {
 		
 		if(area!=null) {
 			request.getSession().setAttribute("area", area);
@@ -226,6 +262,11 @@ public class AdminController {
 			
 		}
 			List<Res_ReviewDto> reportList = adminServ.reviewReport(area, seqs);
+			
+			if(msg!=null) {
+				request.setAttribute("msg", "선택된 리뷰가 없습니다.");
+			}
+			
 			if(reportList.size()==0||reportList==null) {
 				return "redirect:ad_reportRevAreaChoice.do?msg=no";
 			}else {

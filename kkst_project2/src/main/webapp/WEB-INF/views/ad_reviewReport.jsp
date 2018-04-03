@@ -21,6 +21,12 @@
 <script type="text/javascript">
 	
 	$(function(){
+		
+		  var msg = '<%=(String)request.getAttribute("msg")%>';
+			if(msg!='null'){
+				alert(msg);
+			}
+		
 	    $("form").submit(function(){
 	       var bool=true;
 	       $(this).find("input[name==chk]").each(function(){
@@ -33,7 +39,9 @@
 	       });
 	
 	       return bool;
-	    })
+	    });
+	    
+	  
 	 })   
 	
 	function allChk(bool, i){
@@ -101,7 +109,7 @@ List<ResDto> resList = (List<ResDto>)request.getAttribute("areaList");
 	
 	if(isS){
 %>
-<form action="ad_reviewDel.do" method="POST">
+<form action="ad_reviewDel_report.do" method="POST">
 <table id="allTab">
 <tr>
 <td id="shopName" style="color : gray;">&nbsp;&nbsp;&nbsp;	<%=resList.get(i).getName() %></td>
