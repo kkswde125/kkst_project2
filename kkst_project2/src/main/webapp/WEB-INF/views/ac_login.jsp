@@ -41,6 +41,12 @@
 <title>유저 로그인</title>
 <style type="text/css">
 
+	*{
+		margin: 0;
+		padding: 0;
+		
+	}
+
 	img{
 		cursor: pointer;
 	}
@@ -50,8 +56,8 @@
 	}		 	
 	
 	#all{
-		padding-top:10%;
 		width: 600px;
+		padding-top:10%;
 		margin : 0 auto;
 	}
 		 	

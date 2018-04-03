@@ -22,15 +22,17 @@
 
    #all{
       width : 600px;
-      height: 170px;
       margin : 0 auto;
-      padding-right: 20px;
-      padding-top : 5%;
+      padding-top : 10%;
    }
    
    button{
    		height:100px;
-   		width: 300px;
+   		width: 250px;
+   }
+   
+   img{
+   	width: 500px;
    }
 
 </style>
@@ -59,7 +61,7 @@
 	</tr>
 	<tr></tr>
 	<tr>
-	<td colspan="2"><button class="ui gray basic button" style="height:50px; width: 604px;" onclick="location.href='ac_beforeRegist.do'"> Join-Us </button></td>
+	<td colspan="2"><button class="ui gray basic button" style="height:50px; width:506px;" onclick="location.href='ac_beforeRegist.do'"> Join-Us </button></td>
 	</tr>
 	
 	</table>
