@@ -8,6 +8,10 @@ List<MenuzDto> lists = (List<MenuzDto>)request.getAttribute("lists");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 *{
@@ -64,15 +68,11 @@ font-weight: bold;
 }
 #restartBtn{
 display: block;
-padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 11px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
-cursor: pointer;color: #e94a23;margin: 1px;width: 100px;
 margin : 0 auto;
 text-align: center;
 }
 #nextBtn{
 display: block;
-padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 11px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
-cursor: pointer;color: blue;margin: 1px;width: 100px;
 margin : 0 auto;
 text-align: center;
 }
@@ -83,7 +83,6 @@ cursor: pointer;opacity: 0.8;
 border-radius: 25px;
 }
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
    function load() {
       for (var i = 2; i < 32; i++) {
@@ -178,8 +177,8 @@ border-radius: 25px;
 </div>
 <br/>
 <form action="us_nextOlympic.do" id="fo" style="display: none;">
-<input id="nextBtn" type="submit" value="<%=lists.size()==2?"결승":(lists.size()/2==2?"준결승":lists.size()/2+"강")%>으로 가기" /><br/>
+<input id="nextBtn" type="submit" value="<%=lists.size()==2?"결승":(lists.size()/2==2?"준결승":lists.size()/2+"강")%>으로 가기" class="btn btn-primary"/><br/>
 </form>
-<input type="button" value="다시하기" onclick="restart()" id="restartBtn">
+<input type="button" value="다시하기" onclick="restart()" id="restartBtn" class="btn btn-warning">
 </body>
 </html>

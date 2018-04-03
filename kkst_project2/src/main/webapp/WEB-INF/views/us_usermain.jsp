@@ -8,6 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>usermain.jsp</title>
 <script type="text/javascript">
 window.onload=function(){
@@ -31,6 +35,10 @@ img{
 	width: 200px;
 	height: 200px;
 }
+#btnz{
+display: inline-block;
+margin: 10px auto;
+}
 </style>
 </head>
 <% LoginDto ldto =(LoginDto)request.getSession().getAttribute("ldto");
@@ -53,15 +61,19 @@ String isS=(String)request.getAttribute("hasTaste");
 		<td><img alt="내입맛통계" src="resources/images/main_graph.jpg" title="내입맛통계" onclick="location.href='us_my_stats4.do'"></td>
 	</tr>
 	<tr>
-		<td><span>임시공간</span>
-			<a href="ac_logout.do">Logout</a><br/>
-			<a href="us_bubble.do">버블</a>
+		<td colspan="2">
+			<span id="btnz"><button class="btn btn-default" onclick="location.href='ac_logout.do'">로그아웃</button></span>
 		</td>
 	</tr>
 <%}else{%>
 	<tr>
 		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_myinfoView.do'"></td>
 		<td><img alt="초기입맛등록" src="resources/images/main_menu.jpg" title="초기입맛등록" onclick="location.href='us_regist_taste_watcha.do'"></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<span id="btnz"><button class="btn btn-default" onclick="location.href='ac_logout.do'">로그아웃</button></span>
+		</td>
 	</tr>
 <%}%>
 </table>

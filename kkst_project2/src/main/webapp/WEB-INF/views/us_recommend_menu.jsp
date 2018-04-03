@@ -58,6 +58,9 @@
 %>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>recommend_menu.jsp</title>
 <script type="text/javascript">
@@ -224,6 +227,13 @@ text-align: center;
 .imgs{
 	border-radius: 100px;
 }
+#more{
+display: inline-block;
+margin-top: 50px;
+margin-bottom: 100px;
+margin-left: 45%;
+margin-right: 45%;
+}
 </style>
 </head>
 <body>
@@ -259,7 +269,7 @@ text-align: center;
 	<%
 	}
 	%>
-<button id="more" onclick="goMore('<%=start%>','<%=end%>')">더 추천받기</button>
+<button id="more" onclick="goMore('<%=start%>','<%=end%>')" class="btn btn-primary">더 추천받기</button>
 <p id="theLast">모든 메뉴를 추천받으셨습니다. Keep리스트를 보시거나 메인페이지로 이동하세요.</p>
 <hr/>
 <div style="text-align: center;">

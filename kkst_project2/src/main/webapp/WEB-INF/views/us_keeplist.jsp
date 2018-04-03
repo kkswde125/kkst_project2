@@ -30,6 +30,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	var hateMenuCodes = [];
 	
@@ -117,6 +120,7 @@
 	width: 1200px;
 	margin : 0 auto;
 	position: relative;
+	text-align: center;
 }
 table{
 	display: none;
@@ -182,6 +186,9 @@ img:hover{
 .imgs{
 	border-radius: 50px;
 }
+#textz{
+	margin-left: 15%;
+}
 </style>
 </head>
 <body>
@@ -198,6 +205,11 @@ img:hover{
 	}
 	%>
 <div id="all">
+<div id="textz">
+<h1 style="display: inline-block;">KeepList</h1><br/>
+<p style="display: inline-block;">※선택을 보류하신 메뉴리스트입니다. 원하시는 메뉴의 사진을 클릭하세요. </p><br/>
+<button class="btn btn-default" onclick="location.href='us_usermain.do'">메인으로</button>
+</div>
 <img alt="prevIcon" src="resources/images/prev.png" onclick="prevList()" id="prev" style="width: 100px; height: 100px;">
 <div id="firstz"></div>
 <div id="secondz"></div>

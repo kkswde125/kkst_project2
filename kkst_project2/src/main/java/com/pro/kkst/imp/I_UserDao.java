@@ -35,13 +35,10 @@ public interface I_UserDao {
 	public ResDto selectResDetail(Map<String, String> map);
 	public int updateCustomizeTastePlus(Map<String, String> map);
 	public int updateCustomizeTasteMinus(Map<String, String> map);
-	
 	public boolean fileupload(Map<String, String> map);
-	
 	public List<ResDto> ResList2(String seq);
 	public String getResPhoto(Map<String, String> map);
 	public List<MenuzDto> getResMenuPhoto(Map<String, String> map);
-	
 	public int getResReviewCount(Map<String, String> map);
 	public List<ResReviewDto> selectGetResReview(Map<String, String> map);
 	public int beforeInsertResReview(Map<String, String> map); 
@@ -52,13 +49,10 @@ public interface I_UserDao {
 	public boolean delMyReview(Map<String, String> map);
 	public boolean addLikey0(Map<String, String> map);
 	public boolean addLikey(Map<String, String> map);
-	
 	public boolean addDislikey0(Map<String, String> map);
 	public boolean addDislikey(Map<String, String> map);
-	
 	public boolean addReport0(Map<String, String> map);
 	public boolean addReport(Map<String, String> map);
-	
 	public List<ResReviewDto> getResBestLikeyReview(Map<String, String> map);
 	public double getAvgStar(Map<String, String> map);
 	public String[] getTypes();
