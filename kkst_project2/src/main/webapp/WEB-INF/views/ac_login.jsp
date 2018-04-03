@@ -21,9 +21,9 @@
 
 	window.onload=function(){
 		
-		if(<%=msg!=null%>){
-			alert('<%=msg%>');
-		}
+<%-- 		if(<%=msg!=null%>){ --%>
+<%-- 			alert('<%=msg%>'); --%>
+// 		}
 		
 	}
 

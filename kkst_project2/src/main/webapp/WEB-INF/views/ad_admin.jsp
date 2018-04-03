@@ -43,9 +43,9 @@
 	<%String msg=(String)request.getAttribute("msg"); %>
 	window.onload=function(){
 	    
-	    if(<%=msg!=null%>){
-	       alert('<%=msg%>');
-	    }
+<%-- 	    if(<%=msg!=null%>){ --%>
+<%-- 	       alert('<%=msg%>'); --%>
+// 	    }
 	    
 	 }
 
