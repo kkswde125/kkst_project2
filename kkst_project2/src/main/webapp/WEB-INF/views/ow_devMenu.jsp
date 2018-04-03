@@ -134,8 +134,7 @@
 	}
 </script>
 <style type="text/css">
-#all{
-padding-top:2%;
+.all{
 width: 800px;
 margin : 0 auto;
 text-align: center;
@@ -171,13 +170,15 @@ opacity: 0.3;
 </style>
 </head>
 <body>
-<div id="all">
+
+<div class="all">
 <img style="cursor: pointer;" src="img/Logo.jpg" onclick="location.href='ow_owner.do'">
 <% 
 if(mDto==null){
 	%>
 
 <h1><%=msg%></h1>
+<br><br>
 <table border="1" style="text-align: center; width: 800px; height: 300px;" class="ui celled table">
 	<caption> 점주님의 식당은<strong><%=rDto.getCate()%></strong>입니다.</caption>
 	<tr>
@@ -223,7 +224,7 @@ if(mDto==null){
 	<p>${mDto.name}</p>	
 	</c:forEach>
 	</div>
-	
+	<br><br>
 	<table border="1" style="text-align: center; width: 800px; height: 300px;" class="ui celled table">
 	<caption> 점주님의 식당은 <strong> <%=rDto.getCate()%></strong> 입니다.</caption>
 	<tr>
@@ -256,15 +257,18 @@ if(mDto==null){
 	</tr>
 
 </table>
-<input type="button" value="이전"  onclick="location.href='ow_owner.do'" class="ui button" />
+
 
 	<%
 }
 %>
+</div>
 
 
+
+<div class="all">
 <img id="prev" alt="이전버튼이미지" src="resources/images/prev.png" onclick="prev()">
-<div id="graphz">
+<div id="graphz" style="margin-right: 2%;">
 <div class="graphs" id="t1"><h1 style="text-align: center;">업종에 따른 <br/>전체유저 입맛 평점</h1></div>
 <div class="graphs" id="t2"><h1 style="text-align: center;">주재료에 따른 <br/>전체유저 입맛 평점</h1></div>
 <div class="graphs" id="t3"><h1 style="text-align: center;">조리방식에 따른 <br/>전체유저 입맛 평점</h1></div>
@@ -272,6 +276,7 @@ if(mDto==null){
 <div class="graphs" id="t5"><h1 style="text-align: center;">온도에 따른 <br/>전체유저 입맛 평점</h1></div>
 </div>
 <img id="next" alt="다음버튼이미지" src="resources/images/next.png" onclick="next()"><br/>
+<input type="button" value="이전"  onclick="location.href='ow_owner.do'" class="ui button" />
 </div>
 <script>
 

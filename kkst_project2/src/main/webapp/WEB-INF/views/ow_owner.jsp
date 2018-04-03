@@ -45,7 +45,7 @@ window.onload=function(){
 		height: 150px;
 		padding-top: 60px !important;
 	}
-	.logout{
+	#logout{
 		 width: 465px; 
 		 height: 70px; 
 		 padding-top : 5% !important;
@@ -93,7 +93,7 @@ window.onload=function(){
 <i class="big clipboard list icon"  style="margin-top : -10px;"></i>
   </div>
 </div>
-
+<br><br>
 <div class="ui animated button" tabindex="0" style="width: 467px;"  class="logout" onclick="location.href='ac_ownerlogout.do'">
  <div class="visible content">로그아웃</div>
   <div class="hidden content">
@@ -133,7 +133,7 @@ window.onload=function(){
 		</div>		
 		 
 
-		<div class="ui animated button" tabindex="0" style="width: 467px;" class="logout" onclick="location.href='ac_ownerlogout.do'">
+		<div class="ui animated button" tabindex="0" style="width: 467px;" onclick="location.href='ac_ownerlogout.do'">
  			<div class="visible content">로그아웃</div>
   			<div class="hidden content">
 			<i class="big power off icon" style="margin-top : -10px;"></i>

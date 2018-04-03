@@ -52,13 +52,26 @@
   </div>
 </div>	
 
-
+<%
+	if(rDto.getChk().equals("Y")){
+		%>
 <div class="ui animated button" tabindex="0" onclick="location.href='ow_Res_Review.do?seq=<%=rDto.getSeq()%>&name=<%=rDto.getName()%>&start=1&end=10'">
   <div class="visible content">내 식당 리뷰보기</div>
   <div class="hidden content">
 <i  class="big thumbs up outline icon" style="margin-top : -10px;"></i>		
   </div>
 </div>	
+		<%
+		
+	}else if(rDto.getChk().equals("N")){
+		%>
+<div class="ui animated button" tabindex="0" onclick="">
+  <div class="visible content">내 식당 리뷰보기</div>
+  <div class="hidden content"> 현재 다시 검토중인 식당입니다.</div>
+</div>	
+		<%
+	}
+%>
 
 <div class="ui animated button" tabindex="0" onclick="location.href='ResUpdatePage.do?res_seq=<%=rDto.getSeq()%>'">
   <div class="visible content">내 식당 정보 수정</div>
@@ -66,7 +79,7 @@
   <i class="big edit outline icon"style="margin-top : -10px;"></i>
   </div>
 </div>	
-
+<br><br>
 <div class="ui animated button" tabindex="0" style="width: 467px;"  class="logout" onclick="location.href='ow_owner.do'">
  <div class="visible content">메인 페이지로</div>
   <div class="hidden content">
