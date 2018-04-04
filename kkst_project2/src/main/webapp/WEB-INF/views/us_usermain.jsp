@@ -68,7 +68,7 @@ String isS=(String)request.getAttribute("hasTaste");
 <%}else{%>
 	<tr>
 		<td><img alt="내정보" src="resources/images/main_mypage.jpg" title="내정보" onclick="location.href='us_myinfoView.do'"></td>
-		<td><img alt="초기입맛등록" src="resources/images/main_menu.jpg" title="초기입맛등록" onclick="location.href='us_regist_taste_watcha.do'"></td>
+		<td><img alt="초기입맛등록" src="resources/images/firstRegist.jpg" title="초기입맛등록" onclick="location.href='us_regist_taste_watcha.do'"></td>
 	</tr>
 	<tr>
 		<td colspan="2">

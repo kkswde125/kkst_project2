@@ -262,7 +262,7 @@ margin-right: 45%;
 	</tr>
 	<tr>
 		<td colspan="3">
-			<img alt="keepImage" src="resources/images/keeping.jpg" title="보류하고 다음메뉴보기" onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')" class="btnImg" >
+			<img alt="keepImage" src="resources/images/keep.jpg" title="보류하고 다음메뉴보기" onclick="keepThis('<%=list.get(i).getName()%>','<%=list.get(i).getSeq()%>')" class="btnImg" >
 		</td>
 	</tr>
 </table>
