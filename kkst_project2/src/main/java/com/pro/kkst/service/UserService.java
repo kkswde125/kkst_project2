@@ -267,7 +267,7 @@ public class UserService implements I_UserService {
 			String originName=multiFile.get(i).getOriginalFilename();
 			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
 			String storedName=createUUid+originName.substring(originName.lastIndexOf("."));
-			File f=new File("C:/Users/hk_EDU/git/kkst_project2/kkst_project2/src/main/webapp/resources/upload/"+storedName);
+			File f=new File("C:/Users/hk_EDU/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storedName);
 			
 			map.put("originName", originName);
 			map.put("storedName", storedName);
