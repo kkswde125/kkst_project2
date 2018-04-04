@@ -56,7 +56,7 @@
 			setTimeout(function(e) {
 				$('input[name=star]').each(function() {if ($(this).prop('checked')) {star++;}else{count++;}});
 				if (count==5) {alert("리뷰등록을 위해선 반드시 별점을 주셔야 합니다."); $('#loadingImg2').css('display','none'); $('#all').css('display','block'); return false;}
-				if ($('input[name=content]').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
+				if ($('#revieww').val()=="") {var thestar = '★';for (var i = 1; i < star; i++) {thestar = thestar + '★';}$('input[name=content]').val(thestar);}
 				submit = true;
 				$('#formz').submit();
 			}, 3000);
@@ -340,7 +340,7 @@ for(int i = 0; i < menuList.size(); i++){
 <table  id="t4" class="table table-striped">
 <col width="500px"><col width="200px"><col width="100px">
 <tr><th>리뷰내용</th><th>평점</th><th> </th></tr>
-<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다."  class="form-control"/></td>
+<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다." class="form-control" id="revieww" /></td>
 	<td>
 	<input id="box1" class="star" type="checkbox" name="star" value="1" /><label for="box1">&nbsp; </label>
 	<input id="box2" class="star" type="checkbox" name="star" value="2" /><label for="box2">&nbsp; </label>
