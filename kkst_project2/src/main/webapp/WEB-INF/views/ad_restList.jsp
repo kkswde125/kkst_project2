@@ -39,35 +39,84 @@
 	}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=uh5uA4zVHzDpiIetHn1d&submodules=geocoder"></script>
 <script type="text/javascript">
+
+function allChk(bool){
+	$("input[name=chk]").prop("checked", bool);
+}
 	$(function(){
-		var msg = '<%request.getParameter("msg");%>';
-		if (msg!='') {
-		alert(msg);
+		var msg_del = '<%=(String)request.getAttribute("msg_del")%>';
+		
+		if (msg_del=='null') {
+			return false;
+		}else{
+			alert(msg_del);
 		}
 		
-	});
+		
+		 
+	     });
+		
+
 
 	function allChk(bool){
 		$("input[name=chk]").prop("checked", bool);
 	}
 	
 	function shopChk(seq){
+		
+		var form = document.forms[0];
+		
 		var parent = $("input[value="+seq+"]").parent("td").parent("tr");
 		var x = parent.find("input[name=x]").val();
 		var y = parent.find("input[name=y]").val();
-		location.href="ad_restList_Chk.do?x="+x+"&y="+y+"&seq="+seq;
+		
+		if(x==""||y==""){
+			alert("좌표 값을 반드시 입력 해 주세요.");
+		}else if(isNaN(x)||isNaN(y)){
+			alert("숫자만 입력하세요");
+		}else{
+			$(form).attr("action", "ad_restList_Chk.do");
+			form.submit();
+		}
+		
 	}
 	
+	 
+     
+   
 	
 </script>
 </head>
 <body>
 
+<!-- <script type="text/javascript">
+
+var myaddress = "서울특별시 강서구 방화2동 536-14";
+
+naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+    if (status !== naver.maps.Service.Status.OK) {
+        return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+    }
+    var result = response.result;
+
+    var input1 = document.getElementsByName("x")[0];
+    var input2 = document.getElementsByName("y")[0];
+    
+    input1.setAttribute("value", result.items[0].point.x);
+    input2.setAttribute("value",result.items[0].point.y);
+    
+    });
+
+</script> -->
+
 <div id="all">
 <h1>식당 등록 관리</h1><br/>
 <form action="ad_restList_Del.do" method="POST">
 <table border = "1" id="table" class="ui celled table" style="text-align: center;">
+
+
 	<tr>
 		<td>
 			<input type="checkbox" name="chkAll" onclick="allChk(this.checked)"/>
@@ -95,11 +144,12 @@
 	<tr>
 		<td>
 			<input type="checkbox" name="chk" value="${dto.seq }"/>
+			<input type="hidden" name="seq" value="${dto.seq }"/>
 		</td>
 		<td>${dto.name }</td>
 		<td>${dto.cate }</td>
 		<td>${dto.call }</td>
-		<td>${dto.addr }</td>
+		<td id="address">${dto.addr }</td>
 		<td>${dto.start }~${dto.end }</td>
 		<td>${dto.rest_start }~${dto.rest_end }</td>
 		<td>

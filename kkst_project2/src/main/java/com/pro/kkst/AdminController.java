@@ -282,7 +282,7 @@ public class AdminController {
 
 	
 	@RequestMapping(value = "ad_restList.do", method = RequestMethod.GET)
-	public String ad_reslist(Model model, String snum, String cnum, HttpSession session) {
+	public String ad_reslist(HttpServletRequest request,Model model, String snum, String cnum, HttpSession session, String msg) {
 	    
 		
 	    if(snum==null) {
@@ -310,18 +310,20 @@ public class AdminController {
 		List<ResDto> lists = adminServ.restList(snum, cnum);
 		int count = adminServ.RestPaging();
 		
-		System.out.println("Controller :"+lists.toString());
+		if(msg!=null) {
+			System.out.println("if문 들어옴");
+			request.setAttribute("msg_del", "삭제할 식당을 선택 해 주세요.");
+		}
 		
 		model.addAttribute("lists", lists);
 		model.addAttribute("count", count);
 		model.addAttribute("start", start);
     	model.addAttribute("end", end);
-		
-		
+    	
 		return "ad_restList";
 	}
 	
-	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ad_restList_Chk.do", method = RequestMethod.POST)
 	public String ad_restList_Chk(Locale locale, Model model, HttpServletRequest request) {
 		System.out.println("Controller 입장");
 		
@@ -343,11 +345,15 @@ public class AdminController {
 	public String ad_restList_Del(Locale locale, Model model, HttpServletRequest request) {
 		
 		String[] seqs = request.getParameterValues("chk");
+		if(seqs==null) {
+			return "redirect:ad_restList.do?snum=1&cnum=10&msg=no";
+		}else {
 		boolean isS = adminServ.restDel(seqs);
 		if(isS) {
 			return "redirect:ad_restList.do?snum=1&cnum=10";			
 		}else {
 			return "redirect:ad_restList.do?snum=1&cnum=10";
+		}
 		}
 	}
 	
