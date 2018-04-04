@@ -143,7 +143,7 @@ public class UserController {
 		seqs[0]=Integer.parseInt(seq);
 		Map<String,int[]>map =new HashMap<String,int[]>();
 		map.put("Rseq", seqs);
-		List<MenuzDto> lists = userServ.food(map);
+		List<MenuzDto> lists = userServ.realFood(map);
 		model.addAttribute("lists1", lists);
 		return "us_winner";
 	}

@@ -339,8 +339,8 @@ for(int i = 0; i < menuList.size(); i++){
 <p class="titlezz">WRITE</p>
 <table  id="t4" class="table table-striped">
 <col width="500px"><col width="200px"><col width="100px">
-<tr><th>리뷰내용</th><th>평점</th><th>*</th></tr>
-<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다." style="width: 480px;"/></td>
+<tr><th>리뷰내용</th><th>평점</th><th> </th></tr>
+<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다."  class="form-control"/></td>
 	<td>
 	<input id="box1" class="star" type="checkbox" name="star" value="1" /><label for="box1">&nbsp; </label>
 	<input id="box2" class="star" type="checkbox" name="star" value="2" /><label for="box2">&nbsp; </label>
@@ -348,9 +348,10 @@ for(int i = 0; i < menuList.size(); i++){
 	<input id="box4" class="star" type="checkbox" name="star" value="4" /><label for="box4">&nbsp; </label>
 	<input id="box5" class="star" type="checkbox" name="star" value="5" /><label for="box5">&nbsp;</label>
 	</td>
-	<td><button type="submit" >리뷰등록</button></td></tr>
+	<td><button type="submit" class="btn btn-default">리뷰등록</button></td></tr>
 </table>
 </form>
+<button onclick="location.href='us_usermain.do'" class="btn btn-default">메인으로</button>
 <p>&nbsp;<br/>&nbsp;<br/>&nbsp;&nbsp;<br/>&nbsp;<br/>&nbsp;</p>
 </div>
 </div>

@@ -169,7 +169,7 @@
 #all{
 		display:none;
 		padding-top:0px;
-		width: 1000px;
+		width: 942px;
 		margin : 0 auto;
 	}
 #loading01{
@@ -201,18 +201,18 @@ table{
     font-size: 32px;
     text-align: center;
 }
-#keepListBtn{
-padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
-cursor: pointer;color: blue;margin: 1px;width: 100px;
-margin : 0 auto;
-text-align: center;
-}
-#usermainBtn{
-padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif;
-cursor: pointer;color: blue;margin: 1px;width: 100px;
-margin : 0 auto;
-text-align: center;
-}
+/* #keepListBtn{ */
+/* padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif; */
+/* cursor: pointer;color: blue;margin: 1px;width: 100px; */
+/* margin : 0 auto; */
+/* text-align: center; */
+/* } */
+/* #usermainBtn{ */
+/* padding: 1px 4px;height: 18px;line-height: 15px;vertical-align: top;border: 1px solid #9f9f9f;font-size: 12px;background-color: #fff;letter-spacing: -1px;font-family: dotum,sans-serif; */
+/* cursor: pointer;color: blue;margin: 1px;width: 100px; */
+/* margin : 0 auto; */
+/* text-align: center; */
+/* } */
 #loadingImg{
 	padding-top: 1%;
 		width: 800px;
@@ -273,8 +273,8 @@ margin-right: 45%;
 <p id="theLast">모든 메뉴를 추천받으셨습니다. Keep리스트를 보시거나 메인페이지로 이동하세요.</p>
 <hr/>
 <div style="text-align: center;">
-<button onclick="goKeepList()" id="keepListBtn">KeepList보기</button>
-<button onclick="location.href='us_usermain.do'" id="usermainBtn">유저메인으로</button>
+<button onclick="goKeepList()"  class="btn btn-primary">KeepList보기</button>
+<button onclick="location.href='us_usermain.do'"  class="btn btn-default">유저메인으로</button>
 </div>
 </div>
 <%-- <p>listSize=<%=list.size()%> / </p> --%>

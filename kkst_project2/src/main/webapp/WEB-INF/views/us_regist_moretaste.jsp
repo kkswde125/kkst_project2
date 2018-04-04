@@ -14,17 +14,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$('input[name=stars0]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars1]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars2]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars3]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars4]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars5]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars6]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars7]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars8]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars9]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
-		$('input[name=stars10]').each(function() {$(this).one('change', function() {$(this).parents('table').css('border','2px solid blue');});});
+		$('input[name=stars0]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars1]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars2]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars3]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars4]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars5]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars6]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars7]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars8]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars9]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
+		$('input[name=stars10]').each(function() {$(this).one('change', function() {$(this).parents('table').css('background-color','#eeeeee');});});
 		var submit = false;
 		$('form').submit(function(e) {
 			$('#loadingImg').css('display','block');
@@ -66,13 +66,13 @@
 <style type="text/css">
 #all{
 padding-top:3%;
-width: 1210px;
+width: 1010px;
 margin : 0 auto;
 text-align: center;
 }
 .tablezz{
-width: 1200px;
-height: 600px;
+width: 1000px;
+height: 350px;
 border-collapse: collapse;
 }
 #loadingImg{
@@ -88,7 +88,7 @@ border-collapse: collapse;
     text-align: center;
 }
 .imgs{
-	border-radius: 100px;
+	border-radius: 50px;
 }
 </style>
 </head>
@@ -108,30 +108,30 @@ border-collapse: collapse;
 			<table class="tablezz">
 			<tr>
 				<td>
-					<img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/Resimg/<%=list.get(i).getChange()%>" style="width: 500px; height: 500px;">			
+					<img class="imgs" alt="<%=list.get(i).getName()%>" src="resources/Resimg/<%=list.get(i).getChange()%>" style="width: 300px; height: 300px;">			
 				</td>
 				<td rowspan="1">
-					<img alt="1점이미지" src="resources/images/1.jpg">
+					<img alt="1점이미지" src="resources/images/1.jpg" style="border-radius: 15px; width: 104px; height: 80px;">
 					<br/>
 					<input type="radio" name="stars<%=i%>" value="10">
 				</td>
 				<td rowspan="1">
-					<img alt="2점이미지" src="resources/images/2.jpg">
+					<img alt="2점이미지" src="resources/images/2.jpg" style="border-radius: 15px; width: 104px; height: 80px;">
 					<br/>
 					<input type="radio" name="stars<%=i%>" value="25">
 				</td>
 				<td rowspan="1">
-					<img alt="3점이미지" src="resources/images/3.jpg">
+					<img alt="3점이미지" src="resources/images/3.jpg" style="border-radius: 15px; width: 104px; height: 80px;">
 					<br/>
 					<input type="radio" name="stars<%=i%>" value="50">
 				</td>
 				<td rowspan="1">
-					<img alt="4점이미지" src="resources/images/4.jpg">
+					<img alt="4점이미지" src="resources/images/4.jpg" style="border-radius: 15px; width: 104px; height: 80px;">
 					<br/>
 					<input type="radio" name="stars<%=i%>" value="75">
 				</td>
 				<td rowspan="1">
-					<img alt="5점이미지" src="resources/images/5.jpg">
+					<img alt="5점이미지" src="resources/images/5.jpg" style="border-radius: 15px; width: 104px; height: 80px;">
 					<br/>
 					<input type="radio" name="stars<%=i%>" value="90">
 				</td>

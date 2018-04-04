@@ -341,6 +341,8 @@
       <button class="btn btn-default" onclick="go1000()">1000m</button>
       <button class="btn btn-default" onclick="go10000()">10km</button>
       <button class="btn btn-default" onclick="go100000()">100km</button>
+      <br/>
+      <button onclick="location.href='us_usermain.do'" class="btn btn-default">메인으로</button>
 </div>
 <div id="loadingImg">
 <img alt="로딩이미지" src="resources/images/giphy.gif"><br/>

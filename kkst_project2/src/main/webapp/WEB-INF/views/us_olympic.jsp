@@ -137,6 +137,7 @@ border-radius: 25px;
 //          arrays(seq);
       } 
 	}
+   
 </script>
 </head>
 <body onload="load()">
@@ -177,7 +178,7 @@ border-radius: 25px;
 </div>
 <br/>
 <form action="us_nextOlympic.do" id="fo" style="display: none;">
-<input id="nextBtn" type="submit" value="<%=lists.size()==2?"결승":(lists.size()/2==2?"준결승":lists.size()/2+"강")%>으로 가기" class="btn btn-primary"/><br/>
+<input id="nextBtn" type="submit" value="<%=lists.size()==4?"결승":lists.size()/2+"강"%>으로 가기" class="btn btn-primary"/><br/>
 </form>
 <input type="button" value="다시하기" onclick="restart()" id="restartBtn" class="btn btn-warning">
 </body>
