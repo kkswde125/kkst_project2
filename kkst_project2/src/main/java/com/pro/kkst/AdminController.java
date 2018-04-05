@@ -74,7 +74,21 @@ public class AdminController {
 			else if(msg.equals("canno")) {
 				msg = "복구시킬 회원을 선택 후 클릭하세요.";
 				model.addAttribute("msg", msg);
-			}else{
+			}else if(msg.equals("del")) {
+				msg= "해당회원의 탈퇴가  완료 되었습니다.";
+				model.addAttribute("msg", msg);
+			}else if(msg.equals("delerr")) {
+				msg="탈퇴 실패";
+				model.addAttribute("msg", msg);
+			}else if(msg.equals("can")) {
+				msg="해당회원의 복구가 완료 되었습니다.";
+				model.addAttribute("msg", msg);
+			}else if(msg.equals("canerr")) {
+				msg="복구 실패";
+				model.addAttribute("msg", msg);
+			}
+			
+			else{
 				System.out.println("null");
 				msg = null;
 			}
@@ -87,6 +101,7 @@ public class AdminController {
 	public String memDel(Locale locale, HttpServletRequest request) {
 		String[] seqs = request.getParameterValues("chk");
 		
+		
 		if(seqs==null) {
 			return "redirect:ad_memberList.do?msg=delno";
 		}else {
@@ -94,10 +109,10 @@ public class AdminController {
 			boolean isS = adminServ.memberDel(seqs);
 			
 			if(isS) {
-				return "redirect:ad_memberList.do";
+				return "redirect:ad_memberList.do?msg=del";
 			}else {
 				
-				return "redirect:ad_memberList.do";
+				return "redirect:ad_memberList.do?msg=delerr";
 			}
 		}
 		
@@ -114,10 +129,10 @@ public class AdminController {
 		boolean isS = adminServ.memberDelCancle(seqs);
 		
 		if(isS) {
-			return "redirect:ad_memberList.do";
+			return "redirect:ad_memberList.do?msg=can";
 		}else {
 			
-			return "redirect:ad_memberList.do";
+			return "redirect:ad_memberList.do?msg=canerr";
 		}
 		}
 		
