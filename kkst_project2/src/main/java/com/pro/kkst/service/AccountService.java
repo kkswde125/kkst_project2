@@ -168,10 +168,8 @@ public class AccountService implements I_AccountService {
 		if (isS==true) {
 			Map<String,String> menumap = new HashMap<String,String>();
 			
-//		boolean checkz2 = false;
 			
 			Map<String,String> Searchmap = new HashMap<String,String>();
-//			List<menuDto> menulists = null;
 			String [] menulists=new String[menu_name.length];
 			
 			//메뉴를 등록 -> 등록한걸 select 
