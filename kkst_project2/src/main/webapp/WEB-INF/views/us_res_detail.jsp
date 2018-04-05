@@ -340,7 +340,7 @@ for(int i = 0; i < menuList.size(); i++){
 <table  id="t4" class="table table-striped">
 <col width="500px"><col width="200px"><col width="100px">
 <tr><th>리뷰내용</th><th>평점</th><th> </th></tr>
-<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 내용으로 입력됩니다." class="form-control" id="revieww" /></td>
+<tr><td><input type="text" name="content" maxlength="100" placeholder="별점만 등록시 별점이 리뷰내용으로 입력됩니다. 리뷰는 한 식당에 1회만 가능합니다.(답글 제외)" class="form-control" id="revieww" /></td>
 	<td>
 	<input id="box1" class="star" type="checkbox" name="star" value="1" /><label for="box1">&nbsp; </label>
 	<input id="box2" class="star" type="checkbox" name="star" value="2" /><label for="box2">&nbsp; </label>
