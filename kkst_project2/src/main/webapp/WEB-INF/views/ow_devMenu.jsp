@@ -160,6 +160,10 @@ width: 500px;
 cursor: pointer;
 opacity: 0.3;
 }
+#infoM:hover {
+cursor: pointer;
+opacity: 0.3;
+}
 
 
 @keyframes mysecond{0% { opacity: 0.1;}100% { opacity: 1;}}
@@ -173,6 +177,7 @@ opacity: 0.3;
 
 <div class="all">
 <img style="cursor: pointer;" src="img/Logo.jpg" onclick="location.href='ow_owner.do'">
+
 <% 
 if(mDto==null){
 	%>
@@ -217,7 +222,7 @@ if(mDto==null){
 }else if(mDto.size()>0){
 	%>
 	
-	<h2><%=mDto.size()%>개의 추천 메뉴</h2>
+	<h2><%=mDto.size()%>개의 추천 메뉴<a href="#" id="infoM" title="사용자들이 선택한 가장 인기있는 속성을 조합하여 개발 추천 메뉴를 출력합니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h2>
 	
 	<div>
 	<c:forEach items="${mDto}" var="mDto">
@@ -269,11 +274,11 @@ if(mDto==null){
 <div class="all">
 <img id="prev" alt="이전버튼이미지" src="resources/images/prev.png" onclick="prev()">
 <div id="graphz" style="margin-right: 2%;">
-<div class="graphs" id="t1"><h1 style="text-align: center;">업종에 따른 <br/>전체유저 입맛 평점</h1></div>
-<div class="graphs" id="t2"><h1 style="text-align: center;">주재료에 따른 <br/>전체유저 입맛 평점</h1></div>
-<div class="graphs" id="t3"><h1 style="text-align: center;">조리방식에 따른 <br/>전체유저 입맛 평점</h1></div>
-<div class="graphs" id="t4"><h1 style="text-align: center;">매움정도에 따른 <br/>전체유저 입맛 평점</h1></div>
-<div class="graphs" id="t5"><h1 style="text-align: center;">온도에 따른 <br/>전체유저 입맛 평점</h1></div>
+<div class="graphs" id="t1"><h1 style="text-align: center;">업종에 따른 <br/>전체유저 입맛 평점<a href="#" id="infoM" title="업종에 따른 사용자들이 선호하는 순위입니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h1></div>
+<div class="graphs" id="t2"><h1 style="text-align: center;">주재료에 따른 <br/>전체유저 입맛 평점<a href="#" id="infoM" title="주재료에 따른 사용자들이 선호하는 순위입니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h1></div>
+<div class="graphs" id="t3"><h1 style="text-align: center;">조리방식에 따른 <br/>전체유저 입맛 평점<a href="#" id="infoM" title="조리방식에 따른 사용자들이 선호하는 순위입니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h1></div>
+<div class="graphs" id="t4"><h1 style="text-align: center;">매움정도에 따른 <br/>전체유저 입맛 평점<a href="#" id="infoM" title="매움 정도에 따른 사용자들이 선호하는 순위입니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h1></div>
+<div class="graphs" id="t5"><h1 style="text-align: center;">온도에 따른 <br/>전체유저 입맛 평점<a href="#" id="infoM" title="온도에 따른 사용자들이 선호하는 순위입니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></h1></div>
 </div>
 <img id="next" alt="다음버튼이미지" src="resources/images/next.png" onclick="next()"><br/>
 <input type="button" value="이전"  onclick="location.href='ow_owner.do'" class="ui button" />
