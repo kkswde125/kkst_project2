@@ -178,7 +178,7 @@ var options5 = {'legend':{names: attrs5},'dataset': {title: 'Web accessibility s
 		'chartDiv': 't5','chartType': 'radar','chartSize': { width: 500, height: 300 }};
 	Nwagon.chart(options5);
 </script>
-<button onclick="location.href='us_my_stats.do'">v1</button>
+<!-- <button onclick="location.href='us_my_stats.do'">v1</button> -->
 <div id="hiddens" style="display: none;"></div>
 </body>
 </html>

@@ -213,7 +213,10 @@ public class UserController {
 			}
 			if (isS) {
 				if (userServ.hasZero(ldto.getSeq())) {
-					return "redirect:us_getmorestars.do";
+					model.addAttribute("msg", "충분한 데이터가 수집되지 않았습니다. 한 번 더 부탁드립니다.(최대 3회)"); 
+					model.addAttribute("url", "us_getmorestars.do"); 
+//					return "redirect:us_getmorestars.do";
+					return "us_alert";
 				}else {
 					return "redirect:us_usermain.do";
 				}

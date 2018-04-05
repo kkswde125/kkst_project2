@@ -83,7 +83,7 @@ d3.json("resources/json/test2.json", function(error, root) {
     .enter().append("circle")
       .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
       .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); alert('d');});
+      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation();});
 
   var text = g.selectAll("text")
     .data(nodes)

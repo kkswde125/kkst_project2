@@ -335,14 +335,14 @@
 			}, t.loadEventStart - t.responseEnd+1000);
 			}
 	</script>
-		<span>원 반경 조절:</span>
-	  <button class="btn btn-default" onclick="go100()">100m</button>
-      <button class="btn btn-default" onclick="go500()">500m</button>
-      <button class="btn btn-default" onclick="go1000()">1000m</button>
-      <button class="btn btn-default" onclick="go10000()">10km</button>
-      <button class="btn btn-default" onclick="go100000()">100km</button>
+		<span style="font-weight: bold;">원 반경 조절:</span>
+	  <button class="btn btn-primary" onclick="go100()" style="width: 70px;">100m</button>
+      <button class="btn btn-success" onclick="go500()" style="width: 70px;">500m</button>
+      <button class="btn btn-info" onclick="go1000()" style="width: 70px;">1000m</button>
+      <button class="btn btn-warning" onclick="go10000()" style="width: 70px;">10km</button>
+      <button class="btn btn-danger" onclick="go100000()" style="width: 70px;">100km</button>
       <br/>
-      <button onclick="location.href='us_usermain.do'" class="btn btn-default">메인으로</button>
+      <button onclick="location.href='us_usermain.do'" class="btn btn-default" style="float: left;">메인으로</button>
 </div>
 <div id="loadingImg">
 <img alt="로딩이미지" src="resources/images/giphy.gif"><br/>
