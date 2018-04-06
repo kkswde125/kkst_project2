@@ -82,6 +82,10 @@ cursor: pointer;opacity: 0.8;
 .imgs{
 border-radius: 25px;
 }
+#infoM:hover {
+cursor: pointer;
+opacity: 0.3;
+}
 </style>
 <script type="text/javascript">
    function load() {
@@ -143,7 +147,9 @@ border-radius: 25px;
 <body onload="load()">
 <div id="all">
 <h1>FOOD OLYMPIC</h1>
-<p><%=lists.size()==2?"결승":lists.size()+"강"%></p>
+<p><%=lists.size()==2?"결승":lists.size()+"강"%>
+<a href="#" id="infoM" title="다시하기 클릭시: 출전하는 음식리스트는 변경되지 않으며, 현재 라운드에서만 다시 시작됩니다.
+예시) 16강에서 다시하기를 클릭하면 16강 첫 대전으로 돌아감."><img alt="정보창이미지" src="resources/images/infoM.png" style="width: 24px; height: 24px;"></a></p>
 <div id="form">
 <span id="vs">VS</span>
 <table>

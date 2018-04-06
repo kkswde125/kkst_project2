@@ -247,7 +247,8 @@ opacity: 0.3;
 <span id="mainH1">이 음식은 어때요?</span>
 <a href="#" id="infoM" title="우측아이콘:결정하기(식당지도페이지로 이동하며 입맛평점에 반영됩니다.)
 좌측아이콘:제외하기(다음 음식사진으로 넘어가며 입맛평점에 반영됩니다.)
-하단아이콘:보류하기(KeepList보기 버튼클릭시 이동하는 페이지에서 해당 메뉴를 다시 확인할 수 있으며 입맛평점에는 반영되지 않습니다.)"><img alt="정보창이미지" src="resources/images/infoM.png"></a>
+하단아이콘:보류하기(KeepList에 해당 음식을 저장하고 다음 음식사진으로 넘어가며 입맛평점에는 반영되지 않습니다.)
+※KeepList보기 버튼클릭시 보류했던 메뉴를 다시 확인할 수 있습니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a>
 <br/>
 </p>
 <%

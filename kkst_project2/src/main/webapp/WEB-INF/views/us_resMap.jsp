@@ -89,12 +89,21 @@
     font-weight: bold;
     text-align: center;
 }
+#infoM:hover {
+cursor: pointer;
+opacity: 0.3;
+}
 </style>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=dxAelTQKShNPGfu0KuVB&submodules=geocoder"></script>
 </head>
 <body>
 	<div id="all">
-	<p id="headerz">식당을 선택하시면 상세 정보 보기로 넘어갑니다</p>
+	<p id="headerz">식당을 선택하시면 상세 정보 보기로 넘어갑니다.
+<a href="#" id="infoM" title="빨간색 마커: 선택하신 메뉴를 판매하는 식당입니다.
+우클릭시: 우클릭한 지점을 중심으로 반경 100M의 원이 생성되며, 그 원 안에 선택하신 메뉴와 동일한 업종의 식당들이 파란색 마커로 표시됩니다.
+좌클릭시: 생성하신 모든 원과 파란색 마커를 초기화하여 지도에서 보이지 않도록 합니다.
+마커클릭시: 식당명이 표시되는 정보창이 마커위에 생성되며, 식당명 클릭시 식당상세정보보기 페이지로 이동합니다.
+※현재 페이지 하단의 원 크기조절 버튼으로 원의 크기를 조절하실 수 있습니다."><img alt="정보창이미지" src="resources/images/infoM.png"></a></p>
     <div id="map" style="width:1200px; height:800px;"></div>
 	<script>
 	function goDetail(name,cate) {

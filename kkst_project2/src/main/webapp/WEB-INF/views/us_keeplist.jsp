@@ -189,6 +189,10 @@ img:hover{
 #textz{
 	margin-left: 15%;
 }
+#infoM:hover {
+cursor: pointer;
+opacity: 0.3;
+}
 </style>
 </head>
 <body>
@@ -206,7 +210,9 @@ img:hover{
 	%>
 <div id="all">
 <div id="textz">
-<h1 style="display: inline-block;">KeepList</h1><br/>
+<h1 style="display: inline-block;">KeepList</h1>
+<a href="#" id="infoM" title="음식 사진 클릭시: 입맛평점에 반영되며 식당지도페이지로 이동합니다."><img alt="정보창이미지" src="resources/images/infoM.png" style="width: 24px; height: 24px;"></a>
+<br/>
 <p style="display: inline-block;">※선택을 보류하신 메뉴리스트입니다. 원하시는 메뉴의 사진을 클릭하세요. </p><br/>
 <button class="btn btn-default" onclick="location.href='us_usermain.do'">메인으로</button>
 </div>
