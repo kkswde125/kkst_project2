@@ -22,9 +22,9 @@
 
 window.onload=function(){
 	
-<%--     if(<%=msg!=null%>){ --%>
-<%--         alert('<%=msg%>'); --%>
-// 	}
+    if(<%=msg!=null%>){
+        alert('<%=msg%>');
+	}
     
     if(<%=rDto.getChk().equals("N")%>){
     	$("a").attr("hidden","hidden");
@@ -131,7 +131,7 @@ window.onload=function(){
 			 식당을<br>등록해<br>주세요!	
   			</div>
 		</div>		
-		 
+		 <br><br>
 
 		<div class="ui animated button" tabindex="0" style="width: 467px;" onclick="location.href='ac_ownerlogout.do'">
  			<div class="visible content">로그아웃</div>

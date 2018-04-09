@@ -82,7 +82,7 @@
 		
 		if(countMenu==0){
 			alert("하나이상의 메뉴를 등록하세요!");
-			location.href="ac_ResListAddPage.do?res_seq="+seq;
+			location.href="ac_ResListAddPage.do?res_seq="+seq+"&point="+point;
 			return false;
 		}
 		
@@ -196,6 +196,7 @@
 <div id="all">
 
 <form action="ac_ResListAdd.do" method="post" id="newMenu" enctype="multipart/form-data" onsubmit="return chekMenu('<%=res_seq%>')">
+<input type="hidden" name="point" value="<%=point%>"/>
 <input type="hidden" name="res_seq" value="<%=res_seq%>" />
 <table id="shopDiv">
 <!-- 사진 올라갈곳 -->
