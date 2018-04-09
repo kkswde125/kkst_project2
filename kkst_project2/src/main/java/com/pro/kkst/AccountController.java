@@ -467,15 +467,27 @@ public class AccountController {
 	}
 	
 	
+	
 	//식당 등록
 	@RequestMapping(value = "/ac_ResListAdd.do")
-	public String ResListAdd(Model model,MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
-			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
-			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
-			String[] price,String comment) {
-		
-//		String upload,String[] menuUpload
+	public String ResListAdd(Model model,
 			
+			MultipartHttpServletRequest request,
+			
+			
+			
+			
+			String res_seq,String name,String cate,String addr,String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
+			String call,String parking,String comment,
+			
+			
+			
+			
+			String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,String[] price) {
+		
+
+		
+		
 		 boolean isS=accountServ.addAllRes(request,res_seq, name, cate, addr, S_hour, S_min, E_hour, E_min, 
 					Rs_hour, Rs_min, Re_hour, Re_min, call, parking, menu_name, cateCode, cookCode, 
 					spicyCode, tempCode, price, comment);
@@ -497,6 +509,9 @@ public class AccountController {
 		 }
 		 
 	}
+	
+	
+	
 	
 	
 }

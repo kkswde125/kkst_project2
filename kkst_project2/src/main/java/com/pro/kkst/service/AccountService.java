@@ -123,6 +123,8 @@ public class AccountService implements I_AccountService {
 	}
 
 	
+	
+	// 식당 등록 affter
 	@Transactional
 	@Override
 	public boolean addAllRes(MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
@@ -132,7 +134,7 @@ public class AccountService implements I_AccountService {
 		
 		boolean isS=false;
 		
-		
+		// Selected된 시간의 값을 00:00의 형태로 조합해줌
 		String Sdate = utils.isTwo(S_hour)+":"+utils.isTwo(S_min);
 		String Edate = utils.isTwo(E_hour)+":"+utils.isTwo(E_min);
 		String RsDate = utils.isTwo(Rs_hour)+":"+utils.isTwo(Rs_min);
@@ -185,7 +187,6 @@ public class AccountService implements I_AccountService {
 				Searchmap.put("name", menu_name[i]);
 				Searchmap.put("res_seq", res_seq);
 				
-//				menulists=accountDao.searchMenuSeq(Searchmap);
 				menulists[i]=accountDao.searchMenuSeq(Searchmap);
 			}
 				
@@ -250,20 +251,6 @@ public class AccountService implements I_AccountService {
 		
 		return isS;
 	}
-//
-//	@Override
-//	public boolean addMenu(Map<String, String> map) {
-//		return accountDao.addMenu(map);
-//	}
-//	@Override
-//	public boolean addPhoto(Map<String, String> map) {
-//		return accountDao.addPhoto(map);
-//	}
-//	
-//	@Override
-//	public List<menuDto> searchMenuSeq(Map<String, String>map) {
-//		return accountDao.searchMenuSeq(map);
-//	}
 
 	@Override
 	public ResDto chkRes(int seq) {

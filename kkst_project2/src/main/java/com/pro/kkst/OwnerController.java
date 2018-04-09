@@ -193,6 +193,8 @@ public class OwnerController {
 	public String myRes(Locale locale, Model model) {
 	 return"ow_myRes";
 	}
+	
+	
 	//내 식당 수정 페이지
 	@RequestMapping(value = "ResUpdatePage.do")
 	public String ResUpdatePage(Locale locale, Model model,String res_seq) {
