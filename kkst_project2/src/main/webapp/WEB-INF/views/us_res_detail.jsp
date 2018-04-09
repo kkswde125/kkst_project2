@@ -325,13 +325,36 @@ for(int i = 0; i < menuList.size(); i++){
 				</td>
 				<td><%=sdf.format(list.get(i).getRegDate()) %></td>
 			</tr><%}%>
-		<tr><td colspan="4" style="text-align: center"><%if(count>100){int starts = Integer.parseInt(start); int ends = Integer.parseInt(end);
-			if(ends<101){}else{%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(starts/100-1)*100+1%>&end=<%=(starts/100-1)*100+10%>">prev</a><%}
-			for(int j = (starts/100)*10; j < Math.ceil((double)count/10); j++){
-				if(j>=(starts/100)*10+10){break;}%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=10*j+1%>&end=<%=10*j+10%>" style="font-size: 20px;"><%=(j+1)%></a><span>&nbsp;</span><%}
-			if(((starts/100+1)*100)>=(count)){}else{%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(starts/100+1)*100+1%>&end=<%=(starts/100+1)*100+10%>">next</a><%}	
-			}else{for(int j = 0; j < Math.ceil((double)count/10); j++){%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(j*10+1)%>&end=<%=j*10+10%>" style="font-size: 20px;"><%=j+1%></a><span>&nbsp;</span><%}}%>
-		</td></tr><%}%>
+		<tr>
+			<td colspan="4" style="text-align: center">
+				<%if(count>100){
+					int starts = Integer.parseInt(start); 
+					int ends = Integer.parseInt(end);
+					if(ends<101){
+						
+					}else{
+						%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(starts/100-1)*100+1%>&end=<%=(starts/100-1)*100+10%>">prev</a><%
+					}
+					
+					for(int j = (starts/100)*10; j < Math.ceil((double)count/10); j++){
+						if(j>=(starts/100)*10+10){
+							break;
+						}
+						%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=10*j+1%>&end=<%=10*j+10%>" style="font-size: 20px;"><%=(j+1)%></a><span>&nbsp;</span><%
+					}
+					if(((starts/100+1)*100)>=(count)){
+						
+					}else{
+						%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(starts/100+1)*100+1%>&end=<%=(starts/100+1)*100+10%>">next</a><%
+					}	
+				}else{
+					for(int j = 0; j < Math.ceil((double)count/10); j++){
+						%><a href="us_res_detail.do?res_Seq=<%=dto.getSeq()%>&start=<%=(j*10+1)%>&end=<%=j*10+10%>" style="font-size: 20px;"><%=j+1%></a><span>&nbsp;</span><%
+					}
+				}%>
+			</td>
+		</tr>
+	<%}%>
 </table>
 <hr/>
 <form action="us_write_review.do" method="post" id="formz">

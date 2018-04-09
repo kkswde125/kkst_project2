@@ -303,15 +303,16 @@ opacity: 0.3;
 	      
 	  	window.onload = function(){
 	  		var t =performance.timing;
-			  setTimeout(function(){
-			    console.log(t.loadEventStart - t.responseEnd);
-			  }, 0);
 			  
 			  setTimeout(function(){
 				$('#loadingImg').css('display','none');
 				$('#all').css('display','block');
 			}, t.loadEventStart - t.responseEnd+1000);
-			}
+			  
+			  setTimeout(function(){
+			    console.log(t.loadEventStart - t.responseEnd);
+			  }, 0);
+		}
 	</script>
 		<span style="font-weight: bold;">원 반경 조절:</span>
 	  <button class="btn btn-primary" onclick="go100()" style="width: 70px;">100m</button>
