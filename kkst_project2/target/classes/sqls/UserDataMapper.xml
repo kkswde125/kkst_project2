@@ -32,13 +32,18 @@
 	<select id="watchaBox" parameterType="Map" resultType="WatchaDto">
 		SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,RN,"CHANGE"
 		FROM (
-			SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN,"CHANGE"
-			FROM (	SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ, T1.PRICE, T2."CHANGE"
-					FROM 
-					(SELECT SEQ, NAME, CODE, RES_SEQ, PRICE FROM MENULIST WHERE SUBSTR(CODE,1,1)=#{codez}) T1,
-					PHOTO T2
-					WHERE T1.SEQ = T2.MENU_SEQ)
-			)
+				SELECT SEQ,NAME,CODE,RES_SEQ,PRICE,ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN,"CHANGE"
+				FROM (	
+						SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ, T1.PRICE, T2."CHANGE"
+						FROM (
+								SELECT SEQ, NAME, CODE, RES_SEQ, PRICE 
+								FROM MENULIST 
+								WHERE SUBSTR(CODE,1,1)=#{codez}
+							 ) T1,
+							 PHOTO T2
+							 WHERE T1.SEQ = T2.MENU_SEQ
+					 )
+			 )
 		WHERE RN = #{count}
 	</select>
 	
@@ -81,16 +86,15 @@
 	<select id="getZeroMenu" parameterType="Map" resultType="WatchaDto">
 		SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ, T1.PRICE, T2."CHANGE" 
 		FROM
-		 (SELECT SEQ, NAME, CODE, RES_SEQ, PRICE, ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN FROM MENULIST WHERE SUBSTR(CODE,
-		<foreach index="0" item="types" collection="types">#{types}</foreach>
-		,1)=
-		<foreach index="0" item="codez" collection="codez">#{codez}</foreach>
-		) T1,
-		PHOTO T2
-		WHERE RN=
-		<foreach index="0" item="count" collection="count">#{count}</foreach>
-		 AND T1.SEQ NOT IN
-		<foreach separator="," close=")" open="(" item="seq" collection="seqs">TO_NUMBER(#{seq})</foreach>
+			 (
+			 	SELECT SEQ, NAME, CODE, RES_SEQ, PRICE, ROW_NUMBER() OVER(ORDER BY SEQ ASC) AS RN 
+			 	FROM MENULIST 
+			 	WHERE SUBSTR(CODE, <foreach index="0" item="types" collection="types">#{types}</foreach> ,1)
+			 	= <foreach index="0" item="codez" collection="codez">#{codez}</foreach>
+			 ) T1,
+			 PHOTO T2
+		WHERE RN= <foreach index="0" item="count" collection="count">#{count}</foreach> 
+		AND T1.SEQ NOT IN <foreach separator="," close=")" open="(" item="seq" collection="seqs">TO_NUMBER(#{seq})</foreach>
 		AND T1.SEQ = T2.MENU_SEQ
 	</select>
 	
@@ -104,39 +108,36 @@
 	
 	<select id="recommendMenuList" parameterType="Map" resultType="MenuzDto">
 		SELECT SEQ, CODE, NAME, STARZ, "CHANGE"
-		FROM
-			(	SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ DESC) AS RN, X3."CHANGE"
-				FROM 
-					(   SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ FROM MENULIST T1 WHERE T1.RES_SEQ IS NULL
-						UNION
-						SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ FROM MENULIST T1, RESLIST T2 WHERE T1.RES_SEQ=T2.SEQ AND T2.CHK != 'N'
+		FROM (SELECT X1.SEQ, X1.CODE, X1.NAME, X2.STARZ, ROW_NUMBER() OVER(ORDER BY X2.STARZ DESC) AS RN, X3."CHANGE"
+			   FROM (SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ FROM MENULIST T1 WHERE T1.RES_SEQ IS NULL
+					 UNION
+					 SELECT T1.SEQ, T1.NAME, T1.CODE, T1.RES_SEQ FROM MENULIST T1, RESLIST T2 WHERE T1.RES_SEQ=T2.SEQ AND T2.CHK != 'N'
 					) X1,
-					(	SELECT Z1.CODE||Z2.CODE||Z3.CODE||Z4.CODE||Z5.CODE AS CODEZ, (Z1.STARS*1.2+Z2.STARS*1.6+Z3.STARS*1.4+Z4.STARS*1.0+Z5.STARS*0.3)/5.5 AS STARZ
-						FROM
-							(	SELECT CODE, T1.ATTR, STARS 
-								FROM	(	SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='1카테고리' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2
-								WHERE T1.ATTR=T2.ATTR
-							) Z1,
-							(	SELECT CODE, T1.ATTR, STARS 
-								FROM (	SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='2주재료' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
-								WHERE T1.ATTR=T2.ATTR
-							) Z2,
-							(	SELECT CODE, T1.ATTR, STARS 
-								FROM (	SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='3조리방식' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
-								WHERE T1.ATTR=T2.ATTR
-							) Z3,
-							(	SELECT CODE, T1.ATTR, STARS 
-								FROM (	SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='4매움정도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
-								WHERE T1.ATTR=T2.ATTR
-							) Z4,
-							(	SELECT CODE, T1.ATTR, STARS 
-								FROM (	SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='5온도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
-								WHERE T1.ATTR=T2.ATTR
-							) Z5
-						ORDER BY STARZ DESC
+					(SELECT Z1.CODE||Z2.CODE||Z3.CODE||Z4.CODE||Z5.CODE AS CODEZ, (Z1.STARS*1.2+Z2.STARS*1.6+Z3.STARS*1.4+Z4.STARS*1.0+Z5.STARS*0.3)/5.5 AS STARZ
+					 FROM (SELECT CODE, T1.ATTR, STARS 
+						   FROM	(SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='1카테고리' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2
+						   WHERE T1.ATTR=T2.ATTR
+						  ) Z1,
+						  (SELECT CODE, T1.ATTR, STARS 
+						   FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='2주재료' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
+						   WHERE T1.ATTR=T2.ATTR
+						  ) Z2,
+						  (SELECT CODE, T1.ATTR, STARS 
+						   FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='3조리방식' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
+						   WHERE T1.ATTR=T2.ATTR
+						  ) Z3,
+						  (SELECT CODE, T1.ATTR, STARS 
+						   FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='4매움정도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
+						   WHERE T1.ATTR=T2.ATTR
+						  ) Z4,
+						  (SELECT CODE, T1.ATTR, STARS 
+						   FROM (SELECT ATTR, TYPE, ROUND(STAR/COUNTS,2) AS STARS FROM TASTE WHERE TYPE='5온도' AND USER_SEQ = #{user_seq} ORDER BY 2, 3 DESC) T1, ATTRS T2 
+						   WHERE T1.ATTR=T2.ATTR
+						  ) Z5
+					 ORDER BY STARZ DESC
 					) X2,
 					PHOTO X3
-					WHERE X1.CODE=X2.CODEZ AND X1.SEQ = X3.MENU_SEQ
+			   WHERE X1.CODE=X2.CODEZ AND X1.SEQ = X3.MENU_SEQ
 			) 
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>

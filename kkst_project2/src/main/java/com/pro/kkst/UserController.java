@@ -196,14 +196,14 @@ public class UserController {
 	
 	@RequestMapping(value = "us_getstars.do")
 	public String us_GetStars(Model model, HttpSession session, String[] codes, String stars0, String stars1, String stars2, 
-			String stars3, String stars4, String stars5, String stars6, String stars7, String stars8, String stars9) {
+			String stars3, String stars4, String stars5, String stars6, String stars7, String stars8, String stars9, String stars10) {
 		logger.info("us_getstars");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
 			return "ac_login";
 		}else {
 			Us_Utils util = new Us_Utils();
-			String[] stars =util.makingStars(stars0, stars1, stars2, stars3, stars4, stars5, stars6, stars7, stars8, stars9);
+			String[] stars =util.makingStars(stars0, stars1, stars2, stars3, stars4, stars5, stars6, stars7, stars8, stars9, stars10);
 			boolean isS=false;
 			for (int i = 0; i < stars.length; i++) {
 				isS=userServ.setStars(Integer.parseInt(stars[i]), ldto.getSeq(), codes[i]);
@@ -213,7 +213,7 @@ public class UserController {
 			}
 			if (isS) {
 				if (userServ.hasZero(ldto.getSeq())) {
-					model.addAttribute("msg", "충분한 데이터가 수집되지 않았습니다. 한 번 더 부탁드립니다.(최대 3회)"); 
+					model.addAttribute("msg", "충분한 데이터가 수집되지 않았습니다. 한 번 더 부탁드립니다."); 
 					model.addAttribute("url", "us_getmorestars.do"); 
 //					return "redirect:us_getmorestars.do";
 					return "us_alert";

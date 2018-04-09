@@ -44,9 +44,8 @@ public class Us_Utils {
 	}
 	
 	public String[] makingStars(String stars0, String stars1, String stars2, 
-			String stars3, String stars4, String stars5, String stars6, String stars7, String stars8, String stars9) {
+			String stars3, String stars4, String stars5, String stars6, String stars7, String stars8, String stars9, String stars10) {
 		String[] stars = null;
-		int count =0;
 		if (stars0==null) {
 			return null;
 		}else if(stars1==null){
@@ -67,10 +66,12 @@ public class Us_Utils {
 			stars= new String[8];
 		}else if(stars9==null){
 			stars= new String[9];
-		}else {
+		}else if(stars10==null){
 			stars= new String[10];
+		}else {
+			stars= new String[11];
 		}
-		String[] ready = {stars0,stars1,stars2,stars3,stars4,stars5,stars6,stars7,stars8,stars9};
+		String[] ready = {stars0,stars1,stars2,stars3,stars4,stars5,stars6,stars7,stars8,stars9,stars10};
 		for (int i = 0; i < stars.length; i++) {
 			stars[i]=ready[i];
 		}

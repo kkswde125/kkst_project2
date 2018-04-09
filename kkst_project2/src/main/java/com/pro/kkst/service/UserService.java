@@ -150,7 +150,7 @@ public class UserService implements I_UserService {
 	public List<MenuzDto> recommendMenuList(int user_seq, String start, String end) {
 		List<MenuzDto> list=new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
-		map.put("user_seq", ""+user_seq);
+		map.put("user_seq", String.valueOf(user_seq));
 		map.put("start", start);
 		map.put("end", end);
 		list=userDao.selectRecommendMenuList(map);

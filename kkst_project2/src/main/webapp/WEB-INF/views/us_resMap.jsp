@@ -181,18 +181,12 @@ opacity: 0.3;
 					naver.maps.Event.addListener(markers2[i],'click',getClickHandler2(i));
 				}
 		});
-	  //------------------------------------------------------------------------------------
+	  //------------------------------------------------------
+	  
 	  //--------------------우클릭 메서드----------------------------------------------------------------
 	   naver.maps.Event.addListener(map, 'rightclick', function(e) {
-		 //-----------------InfoWindow 객체 생성-------------------------------------------------------------------
-// 	   		var info = new naver.maps.InfoWindow({	
-// 	        	  content:'<div style="width:150px;text-align:center;padding:10px; display:none;">현위치</div>'
-// 				});
-	   	//------------------마커&아이콘 객체 생성------------------------------------------------------------------
-// 	          var markerz = new naver.maps.Marker({
-// 	              position: e.coord,
-// 	              map: map
-// 	          });
+		   
+	      //-----------------우클릭한 지점에 마커생성하고, 아이콘 객체 연결-------------------------------------------------------------------
 	        var markerOptions = {
 	        	    position: e.coord,
 	        	    map: map,
@@ -201,10 +195,7 @@ opacity: 0.3;
 	        	    },
 	        	    animation: naver.maps.Animation.DROP
 	        };
-	      //-----------------우클릭한 지점에 마커생성하고, 아이콘 객체 연결-------------------------------------------------------------------
 			var markerz = new naver.maps.Marker(markerOptions);
-	      //----------------우클릭한 지점에 마커를 생성했고, 그 마커에 인포윈도우 연결--------------------------------------------------------------------
-// 	        info.open(map,markerz);
 		//----------------e.coord를 x,y의 좌표로 변환하는 과정--------------------------------------------------------------------
 			str=e.coord.toString();
 			var strAry= str.split(':');
@@ -230,33 +221,18 @@ opacity: 0.3;
 	        var maxiz = new naver.maps.Point(maxiXz,maxiYz);
 	      //--------------원의 최대,최소 x,y좌표를 통해 4각형의 Bounds객체 생성(cboudsz)----------------------------------------------------------------------
 	        var cboundsz= new naver.maps.PointBounds(miniz,maxiz);
-	        
-	      //--------------생성된 Bounds객체 시각화(실제론 안할 것)----------------------------------------------------------------------
-// 	        var rectangle2 = new naver.maps.Rectangle({
-// 	      	  map:map,
-// 	      	  bounds: cboundsz
-// 	        });
-	       
 	      //--------------Bounds객체 범위 안에 식당DB가 있는지(hasPoint()메서드) 비교하기위한 사전작업(필요사항: 마커, 인포윈도우, 상호명)----------------------------------------------------------------------
 	        var name1=[]; //상호명
 			var markers=[]; // 마커 배열
 			var infoWindows=[]; //정보창
-
 			//-----------전국의 특정 카테고리 식당과 Bounds객체를 모두 비교-------------------------------------------------------------------------
-	      <%
-	      	for(int i=0; i< lists.size(); i++){
-	      %>
-	      
+	      <%for(int i=0; i< lists.size(); i++){%>
 	   		 //------------pp0,pp1,pp2...등으로 DB식당을 모두 ppi객체로 만들기------------------------------------------------------------------------	      
 	      		var pp<%=i%> = new naver.maps.LatLng(<%=lists.get(i).getX()%>,<%=lists.get(i).getY()%>);	      
-	      
 	      	//-------------만든 객체들을 Bounds안에 있는지 비교-----------------------------------------------------------------------
 				if(cboundsz.hasPoint(pp<%=i%>)){
-		
 					//---------안에 있다면 식당명을 배열에 담는다.---------------------------------------------------------------------------
 					name1.push("<%=lists.get(i).getName()%>");
-					
-				
 					//----------안에 있다면 그 식당위치에 마커를 생성--------------------------------------------------------------------------
 					var marker = new naver.maps.Marker({
 		    			position: pp<%=i%>,
@@ -277,14 +253,7 @@ opacity: 0.3;
 					
 					//----------그 마커를 배열에 담는다--------------------------------------------------------------------------
 					markers.push(marker);
-					//----
-					
-					
-					//----
-					
-				
 				}//hasPoint if문	      
-			
 	        <%
 	      	}//hasPoint for문
 	      %>
@@ -338,7 +307,7 @@ opacity: 0.3;
 			    console.log(t.loadEventStart - t.responseEnd);
 			  }, 0);
 			  
-			  setTimeout(() => {
+			  setTimeout(function(){
 				$('#loadingImg').css('display','none');
 				$('#all').css('display','block');
 			}, t.loadEventStart - t.responseEnd+1000);
