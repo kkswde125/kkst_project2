@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,12 +123,13 @@ public class AccountService implements I_AccountService {
 
 	
 	
-	// 식당 등록 affter
+	// 식당 등록 after
 	@Transactional
 	@Override
-	public boolean addAllRes(MultipartHttpServletRequest request,String res_seq,String name,String cate,String addr,
-			String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
-			String call,String parking,String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
+	public boolean addAllRes(MultipartHttpServletRequest request,
+			String res_seq,String name,String cate,String addr,String S_hour,String S_min,String E_hour,String E_min,String Rs_hour,String Rs_min,String Re_hour,String Re_min,
+			String call,String parking,
+			String[] menu_name,String[] cateCode,String[] cookCode,String[] spicyCode,String[] tempCode,
 			String[] price,String comment) {
 		
 		boolean isS=false;
@@ -140,17 +140,18 @@ public class AccountService implements I_AccountService {
 		String RsDate = utils.isTwo(Rs_hour)+":"+utils.isTwo(Rs_min);
 		String ReDate = utils.isTwo(Re_hour)+":"+utils.isTwo(Re_min);
 		
+		
+		// Menu의 갯수 만큼 배열 선언
 		String code[]=new String[menu_name.length];
 
+		// 등록된 메뉴에 대한 속성들을 받아 하나씩 조합해줌 
 		for (int i = 0; i < menu_name.length; i++) {
-			code[i]=utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);
-			System.out.println(i+":"+code[i]);
-			
+			code[i]=utils.Resultcode(cate, cateCode[i], cookCode[i], spicyCode[i], tempCode[i]);			
 		}
 		
 		
+		//식당 Update 부분	
 		Map<String, String> resmap = new HashMap<String,String>();
-		//식당 추가 부분	
 		resmap.put("name",name);
 		resmap.put("cate", cate);
 		resmap.put("addr", addr);
@@ -163,92 +164,83 @@ public class AccountService implements I_AccountService {
 		resmap.put("comment",comment);
 		resmap.put("seq", res_seq);	
 		
-		System.out.println(resmap);
-		
 		isS=accountDao.addRes(resmap);
-		
-		if (isS==true) {
+	
+		//식당 등록에 성공 하였을 때 메뉴에 대한 insert와 파일에 대한 insert를 실행 
+		if (isS) {
+			
 			Map<String,String> menumap = new HashMap<String,String>();
-			
-			
 			Map<String,String> Searchmap = new HashMap<String,String>();
+			
+			//등록 후 등록한 메뉴에 대해서 seq를 Select하여 담아주기 위한 배열 선언
 			String [] menulists=new String[menu_name.length];
 			
 			//메뉴를 등록 -> 등록한걸 select 
 			for (int i = 0; i < menu_name.length; i++) {
-				
 				//메뉴 추가부분
 				menumap.put("name", menu_name[i]);
 				menumap.put("code", code[i]);
 				menumap.put("res_seq", res_seq);
 				menumap.put("price", price[i]);
+				
 				isS=accountDao.addMenu(menumap);
-		
+				
+				
+				//추가한 메뉴의 seq를 select 하는 부분
 				Searchmap.put("name", menu_name[i]);
 				Searchmap.put("res_seq", res_seq);
 				
+				//위에 선언한 배열에 담아준다.
 				menulists[i]=accountDao.searchMenuSeq(Searchmap);
 			}
-				
-				
-				
-				
+			
+			 //Multipart로 넘어온 File 객체를 List로 받아줌
 			 List<MultipartFile> multifile=request.getFiles("uploadFile");
 				
-			 	System.out.println(multifile.size());
-			 
 				String originName = "";
 				String createUUid ="";
 				String storeName ="";
 				
-				
-				
 				for (int j = 0; j < multifile.size(); j++) {
-				
-					
+					//원본파일의 이름을 담아줌
 					originName=multifile.get(j).getOriginalFilename();
-					System.out.println(originName);
+					
+					//파일 이름의 중복을 방지하기 위해 UUID를 생성하여 담아줌
 					createUUid=UUID.randomUUID().toString().replaceAll("-", "");
-					System.out.println(originName.lastIndexOf("."));
+					
+					//UUID + 확장자 -> UUID.jpg
 					storeName=createUUid+originName.substring(originName.lastIndexOf("."));
+					
+					//업로드 경로 설정
 					File f = new File("C:/Users/Owner/git/kkst_project2/kkst_project2/src/main/webapp/resources/Resimg/"+storeName);
 					
 					try {
-						
+						//파일 업로드
 						multifile.get(j).transferTo(f);
 						
+						
+						//file 정보를 DB에 담아줌 (식당 메인 이미지)
 						Map<String, String> filemap = new HashMap<String,String>();
 						
 						filemap.put("origin", originName);
 						filemap.put("change", storeName);
 						filemap.put("res_seq", res_seq);
-						
-					
 						if(originName.equals(multifile.get(0).getOriginalFilename())) {
 							accountDao.addPhoto2(filemap);
+						
+						//메뉴에 대한 이미지일때 
 						}else {
-								System.out.println("menulist ="+menulists.length);
-								
 								filemap.put("menu_seq",menulists[j-1]);
 								accountDao.addPhoto(filemap);
-								System.out.println("실행");
 						}
 					
-						
-						System.out.println(filemap);
-						
-						
-						
 					} catch (IllegalStateException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
-
 		}
-		
-		
 		return isS;
 	}
 

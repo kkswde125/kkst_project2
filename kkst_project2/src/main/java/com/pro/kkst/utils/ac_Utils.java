@@ -22,6 +22,8 @@ import com.pro.kkst.imp.I_AccountService;
 public class ac_Utils {
 	
 	
+	
+	// 시간이 한자리로 들어왔을때 0 -> 00으ㅜ
 	public String isTwo(String date) {
 		
 		if(date.length()==1) {
