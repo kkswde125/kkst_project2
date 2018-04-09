@@ -706,15 +706,25 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = "us_delPage.do")
+	public String us_DelPage(Model model, HttpSession session) {
+		logger.info("us_delPage");
+		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+		if (ldto==null) {
+			return "ac_login";
+		}else {
+				return "us_delPage";
+		}
+	}
 	
 	@RequestMapping(value = "us_deleteAccount.do")
-	public String us_DeleteAccount(Model model, HttpSession session, String seq, String pw_chk, String nickName, String email) {
+	public String us_DeleteAccount(Model model, HttpSession session, String seq) {
 		logger.info("us_deleteAccount");
 		LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 		if (ldto==null) {
 			return "ac_login";
 		}else {
-			boolean isS = userServ.deleteAccount(String.valueOf(ldto.getSeq()));
+			boolean isS = userServ.deleteAccount(seq);
 			if (isS) {
 				logger.info("us_deleteAccount:성공");
 				return "ac_login";

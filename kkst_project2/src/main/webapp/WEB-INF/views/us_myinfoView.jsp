@@ -113,7 +113,7 @@ SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy일 MM월 dd일");%>
 		<td colspan="2">
 			<input class="ui button" style="width: 100px;" type="button" value="이전" onclick="location.href='us_usermain.do'"/>
 			<input class="ui button" style="width: 100px;" type="button" value="수정하기" onclick="location.href='us_modifyMyinfo.do'" />
-			<input class="ui button" style="width: 100px;" type="button" value="탈퇴하기" onclick="location.href='us_deleteAccount.do'"/>
+			<input class="ui button" style="width: 100px;" type="button" value="탈퇴하기" onclick="location.href='us_delPage.do'"/>
 		</td>
 	</tr>
 </table>
